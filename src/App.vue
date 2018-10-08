@@ -13,8 +13,7 @@ export default {
 
 <style>
   body{
-    background-image: url("../static/image/bg.png");
-    background-size: cover;
+    background-color: #20142C;
   }
 
 </style>

@@ -1,8 +1,8 @@
 <template>
-  <div id="index" class="container-fluid">
+  <div id="index" class="container bg">
     <div class="row ">
     <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-      <div id=""></div>
+      <div id="mycharts" class="chart"></div>
     </div>
     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 font">
       <div id="mychart" class="chart" ></div>
@@ -175,6 +175,63 @@
           .catch(function (error) {
             console.log(error)
           });
+        var mycharts = this.$echarts.init(document.getElementById('mycharts'));
+        var options = {
+          title: {
+            text: '状态统计',
+            subtext: 'x轴单位为百分比',
+            textStyle:{
+              color:'white'
+            }
+          },
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'shadow'
+            }
+          },
+
+          grid: {
+            left: '3%',
+            right: '4%',
+
+            containLabel: true
+          },
+          xAxis: [{
+            type: 'value',
+            boundaryGap: [0, 0.01],
+            lineStyle:{
+              color:'white'
+            },
+            "axisLine": {
+              lineStyle: {
+                color: 'white'
+              }
+            },
+          },
+
+          ],
+          yAxis: {
+            type: 'category',
+            data: ['存储空间','cpu利用率','内存容量','可用资源'],
+            lineStyle:{
+              color:'white'
+            },
+            "axisLine": {
+              lineStyle: {
+                color: 'white'
+              }
+            },
+          },
+          series: [
+            {
+              name: '百分比',
+              type: 'bar',
+              data: [18, 23, 29, 50]
+            }
+          ]
+        };
+        mycharts.setOption(options);
       },
       methods:{
 
@@ -213,5 +270,10 @@
   .out{
     margin: 3em 0 2em 0;
     color: white;
+  }
+  .bg{
+    background-image: url("../../static/image/grid.png") ;
+    background-size: contain;
+    background-repeat: no-repeat;
   }
 </style>
