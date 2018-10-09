@@ -14,16 +14,16 @@
       </div>
     <div class="col-lg-11 collapse navbar-collapse" id="navbar-menu">
       <div class="col-lg-1 col-lg-offset-3 col-md-1 col-md-offset-1 col-sm-1 col-xs-12 right-border">
-        <router-link to=""><p class="font">首页</p></router-link>
+        <router-link to="/"><p class="font">首页</p></router-link>
       </div>
       <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12 right-border">
-      <router-link to=""><p class="font">资源监控</p></router-link>
+      <router-link :to="{name:'Resources'}"><p class="font">资源监控</p></router-link>
       </div>
       <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12 right-border">
-        <router-link to=""><p class="font">资源调配</p></router-link>
+        <router-link :to="{name:'Allocation'}"><p class="font">资源调配</p></router-link>
       </div>
       <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12 right-border">
-        <router-link to=""><p class="font">风险控制</p></router-link>
+        <router-link :to="{name:'Management'}"><p class="font">风险控制</p></router-link>
       </div>
       <div class="col-lg-1 col-lg-offset-2 col-md-1 col-md-offset-0 col-sm-2 col-xs-12 dropdown">
       <a class="dropdown-toggle glyphicon glyphicon-user white" data-toggle="dropdown" style="cursor: pointer"><span class="jl">admin</span></a>

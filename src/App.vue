@@ -1,19 +1,20 @@
 <template>
   <div id="app" class="container">
     <router-view/>
-    <router-view name="bottom"></router-view>
+    <keep-alive>
+      <router-view name="bottom"></router-view>
+    </keep-alive>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'App'
-}
+  export default {
+    name: 'App'
+  }
 </script>
 
 <style>
   body{
-    background-color: #20142C;
+    background-color: #2E2245;
   }
-
 </style>
