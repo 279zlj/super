@@ -1,7 +1,9 @@
 <template>
   <div id="app" class="container">
     <router-view/>
-    <router-view name="bottom"></router-view>
+    <keep-alive>
+      <router-view name="bottom"></router-view>
+    </keep-alive>
   </div>
 </template>
 
@@ -13,8 +15,7 @@ export default {
 
 <style>
   body{
-    background-image: url("../static/image/bg.png");
-    background-size: cover;
+    background-color: #2E2245;
   }
 
 </style>
