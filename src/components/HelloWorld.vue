@@ -13,17 +13,25 @@
         </a>
       </div>
     <div class="col-lg-11 collapse navbar-collapse" id="navbar-menu">
-      <div class="col-lg-1 col-lg-offset-3 col-md-1 col-md-offset-1 col-sm-1 col-xs-12 right-border">
-        <router-link to="/"><p class="font">首页</p></router-link>
+      <div class="col-lg-1 col-lg-offset-3 col-md-1 col-md-offset-1 col-sm-1 col-xs-12" :class="{active:one}" >
+        <div class="r-border">
+          <router-link to="/"><p class="font" @click="clione()">首页</p></router-link>
+        </div>
       </div>
-      <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12 right-border">
-      <router-link :to="{name:'Resources'}"><p class="font">资源监控</p></router-link>
+      <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12" :class="{active:two}">
+        <div class="r-border">
+          <router-link :to="{name:'Resources'}"><p class="font" @click="clitwo()">资源监控</p></router-link>
+        </div>
       </div>
-      <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12 right-border">
-        <router-link :to="{name:'Allocation'}"><p class="font">资源调配</p></router-link>
+      <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12" :class="{active:three}">
+        <div class="r-border">
+          <router-link :to="{name:'Allocation'}"><p class="font" @click="clithree()">资源调配</p></router-link>
+        </div>
       </div>
-      <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12 right-border">
-        <router-link :to="{name:'Management'}"><p class="font">风险控制</p></router-link>
+      <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12" :class="{active:four}">
+        <div class="r-border">
+          <router-link :to="{name:'Management'}"><p class="font" @click="clifour()">风险控制</p></router-link>
+        </div>
       </div>
       <div class="col-lg-1 col-lg-offset-2 col-md-1 col-md-offset-0 col-sm-2 col-xs-12 dropdown">
       <a class="dropdown-toggle glyphicon glyphicon-user white" data-toggle="dropdown" style="cursor: pointer"><span class="jl">admin</span></a>
@@ -49,7 +57,36 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: ''
+      one:true,
+      two:false,
+      three:false,
+      four:false,
+    }
+  },
+  methods:{
+    clione:function () {
+      this.one=true,
+      this.two=false,
+      this.three=false,
+      this.four=false
+    },
+    clitwo:function () {
+      this.one=false,
+      this.two=true,
+      this.three=false,
+      this.four=false
+    },
+    clithree:function () {
+      this.one=false,
+      this.two=false,
+      this.three=true,
+      this.four=false
+    },
+    clifour:function () {
+      this.one=false,
+      this.two=false,
+      this.three=false,
+      this.four=true
     }
   }
 }
@@ -79,11 +116,11 @@ export default {
     color: white;
 
   }
-  .right-border{
-    border-right: 1px solid #675E7B;
-    margin-top: 1.3%;
-    vertical-align: middle;
-    height: 2em;
+
+  .r-border{
+    padding-top: 1em;
+    line-height: 2.2em;
+    text-align: center;
   }
   p{
     color: white;
@@ -109,7 +146,8 @@ export default {
 
   }
   .active{
-    border-right: 1px solid #181123;
+    background-color: #3F3456;
+
   }
   @media screen and (max-width: 425px) {
     .imgg{
@@ -126,9 +164,7 @@ export default {
       padding: 1rem .5rem .8rem .5rem;
       width: 100%;
     }
-    .right-border{
-      margin-top: 1.6%;
-    }
+
   }
   @media screen and (min-width: 769px) and (max-width: 1024px) {
     .imgg{
@@ -139,10 +175,6 @@ export default {
   }
   .nav-title{
     font-family: 'Abril Fatface', cursive;
-  }
-
-  .cative{
-    font-family:'Comfortaa', cursive;
   }
 
 </style>

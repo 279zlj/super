@@ -1,12 +1,14 @@
 <template>
   <div id="Management" class="container">
-    <h1>Management</h1>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+    import VTable from "vue-easytable/libs/v-table/src/table";
     export default {
-        name: "Management"
+        name: "Management",
+      components: {VTable}
     }
 </script>
 

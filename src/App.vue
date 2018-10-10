@@ -1,15 +1,21 @@
 <template>
   <div id="app" class="container">
-    <router-view/>
+    <keep-alive>
+     <router-view/>
+    </keep-alive>
     <keep-alive>
       <router-view name="bottom"></router-view>
+    </keep-alive>
+    <keep-alive>
+    <router-view name="right"></router-view>
     </keep-alive>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'App'
+    name: 'App',
+
   }
 </script>
 
@@ -17,4 +23,5 @@
   body{
     background-color: #2E2245;
   }
+
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div id="Allocation" class="container">
-    <h1>Allocation</h1>
+  <div id="Allocation" class="row container-fluid">
+    <router-view></router-view>
   </div>
 </template>
 
