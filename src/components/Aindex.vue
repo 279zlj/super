@@ -13,7 +13,7 @@
                @on-custom-comp="customCompFunc"
                :paging-index="(pageIndex-1)*pageSize" class="t"></v-table>
       <div class="mt20 mb20 bold n"></div>
-      <v-pagination @page-change="pageChange" @page-size-change="pageSizeChange" :total="50" :page-size="pageSize" :layout="['total', 'prev', 'pager', 'next', 'sizer', 'jumper']"></v-pagination>
+      <v-pagination style="margin-bottom: 2em" @page-change="pageChange" @page-size-change="pageSizeChange" :total="50" :page-size="pageSize" :layout="['total', 'prev', 'pager', 'next', 'sizer', 'jumper']"></v-pagination>
     </div>
   </div>
 </template>
@@ -157,9 +157,6 @@
 
   }
 
-  .v-table-header-row{
-    background-color: #302647 !important;
-  }
   .t{
     border-radius: 2px;
     background-color: #2E2245 !important;
