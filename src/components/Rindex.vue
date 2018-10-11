@@ -53,6 +53,11 @@
             series: [{
               type: 'liquidFill',
               radius: '80%',
+              itemStyle:{
+                normal:{
+                  color:'#04b8da'
+                }
+              },
               data: [0.5],
               label: {
                 normal: {
@@ -78,11 +83,22 @@
 
             calculable : true,
             series : [
+
               {
                 name:'节点状况',
                 type:'pie',
                 radius : '80%',
                 roseType : 'radius',
+                itemStyle:{
+                  normal:{
+                    color:function (params) {
+                      var colorlist=[
+                        '#2a9ae1','#ffc523','#ff5b23'
+                      ];
+                      return colorlist[params.dataIndex]
+                    }
+                  }
+                },
                 label: {
                   normal: {
                     show: false
@@ -132,6 +148,7 @@
               radius : '80%',
               type: 'pictorialBar',
               symbolRepeat: true,
+              color:'#ffc523',
               symbolSize: ['400%', '100%'],
               data: [{
                 value: 3,
@@ -141,6 +158,7 @@
               name: 'rbdtwo',
 
               barGap:'30%',
+              color:'#ffc523',
               type: 'pictorialBar',
               symbolRepeat: true,
               symbolSize: ['400%', '100%'],
@@ -168,12 +186,12 @@
   .bg{
     margin-top: 5em;
     background-color: #2F224A;
-    height: 38em;
+    height: 43em;
     width: 100%;
     margin-bottom: 2em;
   }
   .grid{
-    width: 100%;height:40%;
+    width: 100%;height:38%;
     margin-top: 1em;
   }
   .h{

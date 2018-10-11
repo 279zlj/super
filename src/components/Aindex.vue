@@ -13,23 +13,25 @@
                @on-custom-comp="customCompFunc"
                :paging-index="(pageIndex-1)*pageSize" class="t"></v-table>
       <div class="mt20 mb20 bold n"></div>
-      <v-pagination style="margin-bottom: 2em" @page-change="pageChange" @page-size-change="pageSizeChange" :total="50" :page-size="pageSize" :layout="['total', 'prev', 'pager', 'next', 'sizer', 'jumper']"></v-pagination>
+      <v-pagination style="margin-bottom: 2em" @page-change="pageChange" @page-size-change="pageSizeChange" :total="total" :page-size="pageSize" :layout="['total', 'prev', 'pager', 'next', 'sizer', 'jumper']"></v-pagination>
     </div>
   </div>
 </template>
 
 <script>
     import VTable from "vue-easytable/libs/v-table/src/table";
-    import tableDate from '../../src/mock/tableData';
+    // import tableDate from '../../src/mock/tableData';
     import Vue from 'vue'
     export default {
         name: "Aindex",
       components: {VTable},
-      tableDate,
+      // tableDate,
       data(){
           return{
             pageIndex:1,
             pageSize:10,
+            total:0,
+            table:[],
             tableConfig: {
               multipleSort: false,
               tableData: [],
@@ -53,8 +55,23 @@
           }
       },
       methods:{
-        getTableData(){
-          this.tableConfig.tableData = tableDate.slice((this.pageIndex-1)*this.pageSize,(this.pageIndex)*this.pageSize)
+        start:function(){
+          var _this=this
+          this.$axios.get('http://localhost:3000/api/tableDate').then(function (res) {
+            _this.table=res.data
+            _this.total=res.data.length
+            console.log(_this.table,'ok')
+            _this.tableConfig.tableData = _this.table.slice((_this.pageIndex-1)*_this.pageSize,(_this.pageIndex)*_this.pageSize)
+            return _this.tableConfig.tableData
+            console.log('two')
+          }).catch(function (error) {
+            console.log(error)
+          })
+        },
+        getTableData:function(){
+          this.tableConfig.tableData = this.table.slice((this.pageIndex-1)*this.pageSize,(this.pageIndex)*this.pageSize)
+          return this.tableConfig.tableData
+          console.log('two')
         },
         pageChange(pageIndex){
           this.pageIndex = pageIndex;
@@ -99,10 +116,15 @@
             alert(`行号：${params.index} 姓名：${params.rowData['name']}`)
           }
 
-        }
+        },
+
       },
       created(){
+          this.start()
         this.getTableData();
+      },
+      mounted(){
+
       }
     }
     Vue.component('table-operation',{

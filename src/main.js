@@ -10,6 +10,11 @@ import echarts from 'echarts'
 import axios from 'axios'
 import 'vue-easytable/libs/themes-base/index.css'
 import {VTable,VPagination} from 'vue-easytable'
+import $ from 'jquery'
+import '@/assets/dist/bootstrap-table.min.css'
+import '@/assets/dist/bootstrap-table.min.js'
+import '@/assets/dist/locale/bootstrap-table-zh-CN.min.js'
+import '@/assets/dist/ga.js'
 require('./mock/mock')
 
 Vue.component(VTable.name, VTable)

@@ -9,6 +9,8 @@ import Rleft from '@/components/Rleft'
 import Rindex from '@/components/Rindex'
 import Aindex from '@/components/Aindex'
 import Aright from '@/components/Aright'
+import Mindex from '@/components/Mindex'
+import Mright from '@/components/Mright'
 Vue.use(Router)
 
 export default new Router({
@@ -55,7 +57,8 @@ export default new Router({
       menuShow:true,
       components: {
         default:HelloWorld,
-
+        bottom: Mindex,
+        right:Mright,
       }
     },
     {
@@ -81,6 +84,18 @@ export default new Router({
       name:'Aright',
       menuShow:true,
       component:Aright
+    },
+    {
+      path:'/Mindex',
+      name:'Mindex',
+      menuShow:true,
+      component:Mindex
+    },
+    {
+      path:'/Mright',
+      name:'Mright',
+      menuShow:true,
+      component:Mright
     }
   ]
 })
