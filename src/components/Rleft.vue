@@ -1,8 +1,8 @@
 <template>
   <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12" id="Rleft">
-    <div v-for="i in nav">
-      <div class="bg">
-        <router-link :to="{}"><p>{{i}}</p></router-link>
+    <div class="one" v-for="(i,index) in nav" :class="{'two':ind===index}" @click="changenav(index)">
+      <div>
+        <router-link :to="{name:i.href}" ><p >{{i.name}}</p></router-link>
       </div>
     </div>
   </div>
@@ -13,15 +13,21 @@
         name: "Rleft",
       data:function(){
           return{
-            nav:{
-              io:'io-agent',
-              tank:'tank',
-              block:'block',
-              FS:'FS',
-              object:'object',
-              para:'参数修改'
-            }
+            nav: [
+                {index: '0',name: 'io-agent',href:'Rosd'},
+              {index:'1',name:'tank',href:''},
+              {index:'2',name:'block',href:''},
+              {index:'3',name:'FS',href:''},
+              {index:'4',name:'object',href:''},
+              {index:'5',name:'参数修改',href:''}
+            ],
+            ind:''
           }
+      },
+      methods:{
+        changenav:function (index) {
+          this.ind=index
+        }
       }
     }
 </script>
@@ -41,9 +47,14 @@
   a{
     text-decoration: none;
   }
-  .bg{
+  .one{
     background-color: #4C3D61;
+    z-index: 100;
     box-shadow: 10px 10px 50px #181123;
     margin-top: .8em;
+  }
+  .two{
+    background-color: #C17F00 !important;
+    z-index: 999;
   }
 </style>

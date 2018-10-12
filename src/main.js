@@ -22,6 +22,16 @@ Vue.component(VPagination.name, VPagination)
 Vue.config.productionTip = false
 Vue.prototype.$echarts=echarts
 Vue.prototype.$axios = axios;
+Vue.prototype.detailFormatter=function(index,row){
+
+  var html=[];
+  $.each(row,function (key,value) {
+    html.push('<h3><b>'+key+':</b></h3><br>'+value);
+  });
+  return html.join('');
+
+}
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

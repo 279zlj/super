@@ -1,0 +1,212 @@
+<template>
+  <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" id="Rosd">
+  <div class="m row">
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a">
+      <table-operation :selec="sele"></table-operation>
+    </div>
+    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+      <v-table is-vertical-resize
+               :vertical-resize-offset='60'
+               is-horizontal-resize
+               style="width:100%"
+               :multiple-sort="false"
+               :title-rows="tableConfig.titleRows"
+               :columns="tableConfig.columns"
+               :table-data="tableConfig.tableData"
+               :select-all="selectALL"
+               :select-change="selectChange"
+               :select-group-change="selectGroupChange"
+               @sort-change="sortChange"
+               @on-custom-comp="customCompFunc"
+               :paging-index="(pageIndex-1)*pageSize" class="t table table-no-bordered"></v-table>
+      <div class="mt20 mb20 bold n"></div>
+      <v-pagination style="margin-bottom: 2em" @page-change="pageChange" @page-size-change="pageSizeChange" :total="total" :page-size="pageSize" :layout="['total', 'prev', 'pager', 'next', 'sizer', 'jumper']"></v-pagination>
+    </div>
+  </div>
+  </div>
+</template>
+
+<script>
+  import VTable from "vue-easytable/libs/v-table/src/table";
+  // import tableDate from '../../src/mock/tableData';
+  import Vue from 'vue'
+    export default {
+        name: "Rosd",
+      components: {VTable},
+      data(){
+        return{
+          pageIndex:1,
+          pageSize:10,
+          total:0,
+          table:[],
+          tableConfig: {
+            multipleSort: false,
+            tableData: [],
+            columns: [
+              {width: 60, titleAlign: 'center',columnAlign:'center',type: 'selection',isFrozen:true},
+              {
+                field: 'custome', title:'序号', width: 50, titleAlign: 'center', columnAlign: 'center',
+                formatter: function (rowData,rowIndex,pagingIndex,field) {
+                  return rowIndex < 3 ? '<span >' + (rowIndex + 1) + '</span>' : rowIndex + 1
+                }, isResize:true
+              },
+              {field: 'name', width: 100, title: '姓名', titleAlign: 'center', columnAlign: 'center', isFrozen: false},
+              {field: 'height', width: 100, title: '身高', titleAlign: 'center',columnAlign: 'center', isFrozen:false},
+              {field: 'gender', width: 90,title: '性别', titleAlign: 'center', columnAlign: 'center', isFrozen: false},
+              {field: 'address', width: 180,title: '住址', titleAlign: 'center', columnAlign: 'left',isResize:true},
+              {field: 'hobby', width: 180,  title: '爱好', titleAlign: 'center',columnAlign: 'center',isResize:true}
+
+            ],
+
+
+          },
+          sele:[],
+        }
+      },
+      methods:{
+        start:function(){
+          var _this=this
+          this.$axios.get('http://localhost:3000/api/tableDate').then(function (res) {
+            _this.table=res.data
+            _this.total=res.data.length
+            console.log(_this.table,'ok')
+            _this.tableConfig.tableData = _this.table.slice((_this.pageIndex-1)*_this.pageSize,(_this.pageIndex)*_this.pageSize)
+            return _this.tableConfig.tableData
+            console.log('two')
+          }).catch(function (error) {
+            console.log(error)
+          })
+        },
+        getTableData:function(){
+          this.tableConfig.tableData = this.table.slice((this.pageIndex-1)*this.pageSize,(this.pageIndex)*this.pageSize)
+          return this.tableConfig.tableData
+          console.log('two')
+        },
+        pageChange(pageIndex){
+          this.pageIndex = pageIndex;
+          this.getTableData();
+          console.log(pageIndex)
+        },
+        pageSizeChange(pageSize){
+
+          this.pageIndex = 1;
+          this.pageSize = pageSize;
+          this.getTableData();
+        },
+        sortChange(params){
+
+          if (params.height.length > 0){
+
+            this.tableConfig.tableData.sort(function (a, b) {
+
+              if (params.height === 'asc'){
+
+                return a.height - b.height;
+              }else if(params.height === 'desc'){
+
+                return b.height - a.height;
+              }else{
+
+                return 0;
+              }
+            });
+          }
+        },
+        customCompFunc:function(params){
+
+          console.log(params);
+
+          if (params.type === 'delete'){ // do delete operation
+
+            this.$delete(this.tableConfig.tableData,params.index);
+
+          }else if (params.type === 'edit'){ // do edit operation
+
+            alert(`行号：${params.index} 姓名：${params.rowData['name']}`)
+          }
+
+        },
+        selectALL(selection){
+          this.sele=selection
+          console.log('select-aLL',this.sele);
+        },
+
+        selectChange(selection,rowData){
+          this.sele=selection
+          console.log('select-change',this.sele);
+        },
+
+        selectGroupChange(selection){
+          this.sele=selection
+          console.log('select-group-change',this.sele);
+        },
+        edit:function (val) {
+          this.params=val
+        }
+      },
+      created(){
+        this.start()
+        this.getTableData();
+      },
+      mounted(){
+
+      }
+    }
+  Vue.component('table-operation',{
+    template:`<span>
+        <p><a href="" @click.stop.prevent="update(selec)"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="编辑"></span></a></p>
+        <p><a href="#" ><span class="glyphicon glyphicon-backward" style="color: white;font-size: 1.5em;margin-bottom: 1em" title="回滚"></span></a></p>
+        <p><a href="#" ><span class="glyphicon glyphicon-th-large" style="color: white;font-size: 1.5em;margin-bottom: 1em" title="克隆"></span></a></p>
+        <p><a href="" @click.stop.prevent="deleteRow(sele)"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></a></p>
+        </span>`,
+    props: {
+      selec: Array
+    },
+    methods:{
+      update(){
+
+        // 参数根据业务场景随意构造
+        let params = {type:'edit',selec:this.selec};
+        console.log(this.selec,params)
+        for (i in this.table){
+          console(i)
+        }
+
+        console.log('on-edit')
+      },
+
+      deleteRow(){
+
+        // 参数根据业务场景随意构造
+        let params = {type:'delete',selec:this.selec};
+        this.$emit('on-custom-comp',params);
+        console.log('on-delete')
+      }
+    }
+  })
+
+</script>
+
+<style scoped>
+  .a{
+    margin-top: 8em;
+  }
+  .m{
+    margin-top: 5em;
+
+  }
+  .n{
+    margin-top: 2em;
+  }
+  .v-table-body-class {
+    font-weight: normal;
+    background-color: #20192F;
+
+  }
+
+  .t{
+    border-radius: 2px;
+    background-color: #2E2245 !important;
+    color: white;
+  }
+</style>

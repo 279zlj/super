@@ -1,8 +1,8 @@
 <template>
   <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12" id="Mright">
-    <div class="one" v-for="i in nav">
-      <div class="bg">
-        <router-link :to="{}" class="two"><p >{{i}}</p></router-link>
+    <div class="one" v-for="(i,index) in nav" :class="{'two':ind===index}" @click="changenav(index)">
+      <div>
+        <router-link :to="{}" ><p >{{i}}</p></router-link>
       </div>
     </div>
   </div>
@@ -13,12 +13,21 @@
         name: "Mright",
       data:function(){
         return{
-          nav:{
-            solve:'解决方案',
-            warning:'警报',
-            pageck:'导入解决包',
-          }
+          nav:[
+            '解决方案',
+            '警报',
+            '导入解决包',
+          ],
+          ind:''
         }
+      },
+      mounted(){
+          this.changenav(0);
+      },
+      methods:{
+          changenav:function (index) {
+            this.ind=index
+          }
       }
     }
 </script>
@@ -39,14 +48,15 @@
   a{
     text-decoration: none;
   }
-  .bg{
-    /*background-color: #4C3D61;*/
+  .one{
+    background-color: #4C3D61;
     z-index: 100;
     box-shadow: 10px 10px 50px #181123;
     margin-top: .8em;
   }
-  .one:first-of-type{
+  .two{
   background-color: #C17F00 !important;
     z-index: 999;
   }
+
 </style>

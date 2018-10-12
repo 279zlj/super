@@ -1,188 +1,147 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" id="Aindex">
-    <div class="m">
-      <v-table is-vertical-resize
-               :vertical-resize-offset='60'
-               is-horizontal-resize
-               style="width:100%"
-               :multiple-sort="false"
-               :title-rows="tableConfig.titleRows"
-               :columns="tableConfig.columns"
-               :table-data="tableConfig.tableData"
-               @sort-change="sortChange"
-               @on-custom-comp="customCompFunc"
-               :paging-index="(pageIndex-1)*pageSize" class="t"></v-table>
-      <div class="mt20 mb20 bold n"></div>
-      <v-pagination style="margin-bottom: 2em" @page-change="pageChange" @page-size-change="pageSizeChange" :total="total" :page-size="pageSize" :layout="['total', 'prev', 'pager', 'next', 'sizer', 'jumper']"></v-pagination>
+    <div class="row">
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
+
+      <p @click="editlist()" id="edit" data-toggle="editmodal"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="编辑"></span></p>
+      <p><span class="glyphicon glyphicon-backward" style="color: white;font-size: 1.5em;margin-bottom: 1em" title="回滚"></span></p>
+      <p><span class="glyphicon glyphicon-th-large" style="color: white;font-size: 1.5em;margin-bottom: 1em" title="克隆"></span></p>
+      <p @click="deletelist()" id="deletelist"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
+
+    </div>
+      <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive">
+        <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-toggle="table"  data-classes="table-no-bordered" data-pagination="true" data-page-number="1" data-url="http://localhost:3000/api/tableDate" data-page-size="10" data-search="true" data-show-refresh="true">
+          <thead>
+          <tr>
+            <th data-field="state" data-checkbox="true" ></th>
+            <th data-field="snapid">快照ID</th>
+            <th data-field="snapname">快照名称</th>
+            <th data-field="content">描述</th>
+            <th data-field="date">创建日期</th>
+            <th data-field="size">大小</th>
+            <th data-field="status">状态</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal fade" id="editm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">修改快照信息</h4>
+          </div>
+          <div class="modal-body">
+            <p>快照名称：</p><input type="text" class="form-control" id="name"/>
+            <p>描述：</p><input type="text" class="form-control" id="content"/>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" @click="editsend()">确认修改</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
     </div>
   </div>
 </template>
 
 <script>
-    import VTable from "vue-easytable/libs/v-table/src/table";
-    // import tableDate from '../../src/mock/tableData';
-    import Vue from 'vue'
+
     export default {
-        name: "Aindex",
-      components: {VTable},
-      // tableDate,
+      name: "Aindex",
       data(){
-          return{
-            pageIndex:1,
-            pageSize:10,
-            total:0,
-            table:[],
-            tableConfig: {
-              multipleSort: false,
-              tableData: [],
-              columns: [
-                {
-                  field: 'custome', title:'序号', width: 50, titleAlign: 'center', columnAlign: 'center',
-                  formatter: function (rowData,rowIndex,pagingIndex,field) {
-                    return rowIndex < 3 ? '<span >' + (rowIndex + 1) + '</span>' : rowIndex + 1
-                  }, isFrozen: true,isResize:true
-                },
-                {field: 'name', width: 100, title: '姓名', titleAlign: 'center', columnAlign: 'center', isFrozen: false},
-                {field: 'height', width: 100, title: '身高', titleAlign: 'center',columnAlign: 'center', isFrozen:false},
-                {field: 'gender', width: 90,title: '性别', titleAlign: 'center', columnAlign: 'center', isFrozen: false},
-                {field: 'address', width: 180,title: '住址', titleAlign: 'center', columnAlign: 'left',isResize:true},
-                {field: 'hobby', width: 180,  title: '爱好', titleAlign: 'center',columnAlign: 'center',isResize:true},
-                {field: 'custome-adv', width: 180,title: '操作',titleAlign: 'center',columnAlign:'center',componentName:'table-operation',isResize:true}
-              ],
-
-
-            }
-          }
+        return {
+          edit: {}
+      }
       },
-      methods:{
-        start:function(){
-          var _this=this
-          this.$axios.get('http://localhost:3000/api/tableDate').then(function (res) {
-            _this.table=res.data
-            _this.total=res.data.length
-            console.log(_this.table,'ok')
-            _this.tableConfig.tableData = _this.table.slice((_this.pageIndex-1)*_this.pageSize,(_this.pageIndex)*_this.pageSize)
-            return _this.tableConfig.tableData
-            console.log('two')
-          }).catch(function (error) {
-            console.log(error)
-          })
-        },
-        getTableData:function(){
-          this.tableConfig.tableData = this.table.slice((this.pageIndex-1)*this.pageSize,(this.pageIndex)*this.pageSize)
-          return this.tableConfig.tableData
-          console.log('two')
-        },
-        pageChange(pageIndex){
-          this.pageIndex = pageIndex;
-          this.getTableData();
-          console.log(pageIndex)
-        },
-        pageSizeChange(pageSize){
-
-          this.pageIndex = 1;
-          this.pageSize = pageSize;
-          this.getTableData();
-        },
-        sortChange(params){
-
-          if (params.height.length > 0){
-
-            this.tableConfig.tableData.sort(function (a, b) {
-
-              if (params.height === 'asc'){
-
-                return a.height - b.height;
-              }else if(params.height === 'desc'){
-
-                return b.height - a.height;
-              }else{
-
-                return 0;
-              }
-            });
-          }
-        },
-        customCompFunc:function(params){
-
-          console.log(params);
-
-          if (params.type === 'delete'){ // do delete operation
-
-            this.$delete(this.tableConfig.tableData,params.index);
-
-          }else if (params.type === 'edit'){ // do edit operation
-
-            alert(`行号：${params.index} 姓名：${params.rowData['name']}`)
-          }
-
-        },
-
-      },
-      created(){
-          this.start()
-        this.getTableData();
-      },
+      // tableDate,
       mounted(){
+        this.strat()
+      },
+      methods: {
+        strat() {
+          $('#table_id').bootstrapTable({})
+        },
+        deletelist(){
+
+            var ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.snapid;
+            });
+            if (confirm('是否确认选择删除快照：'+ids)){
+            $('#table_id').bootstrapTable('remove', {
+              field: 'snapid',
+              values: ids
+            });
+            this.$axios.post('http://localhost:5000',ids).then(function (res) {
+              console.log('post ok')
+            }).catch(function (error) {
+              console.log(error)
+            })
+            }
+            else {return}
+        console.log('delete')
+        },
+        editlist() {
+          var ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+            return row.snapid;
+          });
+          if (ids.length != 1) {
+            alert('请选择其中一个设备进行修改')
+          }
+          else {
+            this.edit = ids;
+            $('#edit').click(function () {
+              $('#editm').modal("show")
+            })
+          }
+        }
 
       }
     }
-    Vue.component('table-operation',{
-      template:`<span>
-        <a href="" @click.stop.prevent="update(rowData,index)">编辑</a>&nbsp;
-        <a href="" @click.stop.prevent="deleteRow(rowData,index)">删除</a>
-        </span>`,
-      props:{
-        rowData:{
-          type:Object
-        },
-        field:{
-          type:String
-        },
-        index:{
-          type:Number
-        }
-      },
-      methods:{
-        update(){
-
-          // 参数根据业务场景随意构造
-          let params = {type:'edit',index:this.index,rowData:this.rowData};
-          this.$emit('on-custom-comp',params);
-        },
-
-        deleteRow(){
-
-          // 参数根据业务场景随意构造
-          let params = {type:'delete',index:this.index};
-          this.$emit('on-custom-comp',params);
-
-        }
-      }
-    })
 </script>
 
 <style scoped>
   #Aindex{
+    margin-top: 4em;
+
+    margin-bottom: 2em;
     color: white;
   }
-  .m{
-    margin-top: 5em;
-
+  input{
+    background-color: black !important;
   }
-  .n{
-    margin-top: 2em;
+  #editm{
+    color: black;
   }
-  .v-table-body-class {
-    font-weight: normal;
-   background-color: #20192F;
-
+  td{
+    word-break:keep-all;/* 不换行 */
+    white-space:nowrap;/* 不换行 */
+    overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+    text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用*/
+    -o-text-overflow:ellipsis;
+    -icab-text-overflow: ellipsis;
+    -khtml-text-overflow: ellipsis;
+    -moz-text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
   }
+  .a{
+    margin-top: 10em;
+  }
+  #table_id{
 
-  .t{
-    border-radius: 2px;
-    background-color: #2E2245 !important;
-    color: white;
+    border-radius: 5px;
+  }
+  thead{
+    font-size: 1.2em;
+    background-color: #3F3456;
+    border-radius: 5px;
+  }
+  td{
+    font-size: 1.1em;
   }
 
 </style>

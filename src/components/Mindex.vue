@@ -32,6 +32,7 @@
         this.datatable();
 
       },
+
       methods:{
           datatable(){
             $(document).ready( function () {
@@ -53,7 +54,8 @@
                   field:'content',
                   title:'具体解决方法'
                 }
-                ]
+                ],
+
               });
               console.log('ok')
             } );
@@ -61,10 +63,10 @@
         detailFormatter:function(index,row){
           var html=[];
           $.each(row,function (key,value) {
-            html.push('<h3><b>'+key+':</b></h3><br>'+value);
+            html.push('<h4><b>'+key+':</b></h4>'+value);
           });
           return html.join('');
-        }
+        },
       }
     }
 </script>

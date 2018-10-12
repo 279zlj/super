@@ -11,6 +11,7 @@ import Aindex from '@/components/Aindex'
 import Aright from '@/components/Aright'
 import Mindex from '@/components/Mindex'
 import Mright from '@/components/Mright'
+import Rosd from '@/components/Rosd'
 Vue.use(Router)
 
 export default new Router({
@@ -96,6 +97,16 @@ export default new Router({
       name:'Mright',
       menuShow:true,
       component:Mright
+    },
+    {
+      path:'/Rosd',
+      name:'Rosd',
+      menuShow:true,
+      components: {
+        default:HelloWorld,
+        bottom: Rosd,
+        right:Rleft,
+      }
     }
   ]
 })
