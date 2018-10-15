@@ -117,6 +117,10 @@
   #editm{
     color: black;
   }
+  #editm input{
+    background-color: white !important;
+    color: black !important;
+  }
   td{
     word-break:keep-all;/* 不换行 */
     white-space:nowrap;/* 不换行 */

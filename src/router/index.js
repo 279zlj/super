@@ -12,6 +12,9 @@ import Aright from '@/components/Aright'
 import Mindex from '@/components/Mindex'
 import Mright from '@/components/Mright'
 import Rosd from '@/components/Rosd'
+import Rpool from '@/components/Rpool'
+import Rblock from '@/components/Rblock'
+import Rpara from '@/components/Rpara'
 Vue.use(Router)
 
 export default new Router({
@@ -106,7 +109,38 @@ export default new Router({
         default:HelloWorld,
         bottom: Rosd,
         right:Rleft,
+      },
+    },
+    {
+      path:'/Rpool',
+      name:'Rpool',
+      menuShow:true,
+      components: {
+        default:HelloWorld,
+        bottom: Rpool,
+        right:Rleft,
+      }
+    },
+    {
+      path:'/Rblock',
+      name:'Rblock',
+      menuShow:true,
+      components: {
+        default:HelloWorld,
+        bottom: Rblock,
+        right:Rleft,
+      }
+    },
+    {
+      path:'/Rpara',
+      name:'Rpara',
+      menuShow:true,
+      components: {
+        default:HelloWorld,
+        bottom: Rpara,
+        right:Rleft,
       }
     }
+
   ]
 })

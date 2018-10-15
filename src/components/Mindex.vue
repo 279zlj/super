@@ -1,18 +1,36 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" id="Mindex" style="overflow-x:hidden">
-    <table class="table" id="table_id" data-toggle="table" data-detail-view="true" data-detail-formatter="detailFormatter" data-classes="table-no-bordered" data-pagination="true" data-page-number="1" data-url="http://localhost:3000/api/solve" data-page-size="10" data-search="true" data-show-refresh="true">
-      <colgroup>
-        <col style="width: 5%;"/>
-        <col style="width: 15%;"/>
-        <col style="width: 80%;"/>
-      </colgroup>
-      <thead>
-        <tr>
-          <th data-field="title">常见问题</th>
-          <th data-field="content">具体解决方法</th>
-        </tr>
-        </thead>
-      </table>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
+          <table class="table" id="table_id" data-toggle="table" data-classes="table-no-bordered" data-pagination="true" data-page-number="1" data-url="http://localhost:3000/api/solve" data-page-size="10" data-search="true" data-show-refresh="true">
+            <colgroup>
+              <col style="width: 5%;"/>
+              <col style="width: 15%;"/>
+              <col style="width: 80%;"/>
+            </colgroup>
+            <thead>
+              <tr>
+                <th data-field="title">常见问题</th>
+                <th data-field="content">具体解决方法</th>
+              </tr>
+              </thead>
+            </table>
+        </div>
+
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 two">
+        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive">
+          <h3>
+            {{detail}}
+          </h3>
+          <div>
+            {{detailc}}
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 </template>
 
@@ -22,11 +40,17 @@
         name: "Mindex",
       data(){
           return{
+            detail:[],
+            detailc:[]
           }
       },
       mounted(){
         this.datatable();
-        this.detailFormatter()
+        this.dlick()
+
+      },
+      updated(){
+        this.dlick()
       },
       activated(){
         this.datatable();
@@ -37,14 +61,7 @@
           datatable(){
             $(document).ready( function () {
               $('#table_id').bootstrapTable({
-                detailView:true,
-                detailFormatter:function(index,row){
-                  var html=[];
-                  $.each(row,function (key,value) {
-                    html.push('<h4><b>'+key+':</b></h4>'+value);
-                  });
-                  return html.join('');
-                },
+
                 url:'http://localhost:3000/api/solve',
                 methods:'get',
                 column:[{
@@ -60,13 +77,20 @@
               console.log('ok')
             } );
           },
-        detailFormatter:function(index,row){
-          var html=[];
-          $.each(row,function (key,value) {
-            html.push('<h4><b>'+key+':</b></h4>'+value);
-          });
-          return html.join('');
-        },
+        dlick(){
+          var _this=this
+          $("#table_id").bootstrapTable({
+
+            onClickRow: function (row) {
+              _this.$set(_this.detail,0,row.title)
+              _this.$set(_this.detailc,0,row.content)
+              console.log("click:" ,this.detail)
+
+            }
+
+          })
+        }
+
       }
     }
 </script>
@@ -75,9 +99,12 @@
 #Mindex{
   color: white;
   margin-top: 4em;
-  background-color: #3A2F50;
+
   margin-bottom: 2em;
 
+}
+.one{
+  background-color: #3A2F50;
 }
 #table_id{
   background-color: #3A2F50;
@@ -94,5 +121,9 @@ thead{
   }
   button[name='refresh']{
     background-color: green !important;
+  }
+  .two{
+    background-color: #3A2F50;
+    height: 44em;
   }
 </style>

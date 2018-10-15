@@ -15,11 +15,11 @@
           return{
             nav: [
                 {index: '0',name: 'io-agent',href:'Rosd'},
-              {index:'1',name:'tank',href:''},
-              {index:'2',name:'block',href:''},
+              {index:'1',name:'tank',href:'Rpool'},
+              {index:'2',name:'block',href:'Rblock'},
               {index:'3',name:'FS',href:''},
               {index:'4',name:'object',href:''},
-              {index:'5',name:'参数修改',href:''}
+              {index:'5',name:'参数修改',href:'Rpara'}
             ],
             ind:''
           }

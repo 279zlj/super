@@ -1,7 +1,9 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 container-fluid" id="Rosd">
+
   <div class="row all">
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" v-for="(i,index) in osdlist"  @click="change(index)">
+
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 san" v-for="(i,index) in osdlist"  @click="change(index)">
       <div class="row">
         <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 block " :class="{'chan':ind===index}">
           <div class="row up " :class="{'chan':ind===index}">
@@ -20,11 +22,13 @@
             <span v-for="i in imgage"><img :src="i"/></span>
           </div>
         </div>
-        <span><img src="../../static/image/one.png" class="img-responsive" style="width: 10%;margin: 0 auto"></img></span>
+        <span v-if="ind===index"><img src="../../static/image/san.png" class="img-responsive" style="width: 10%;margin: 0 auto"></img></span>
       </div>
     </div>
 
+
   </div>
+
     <div class="row bgdown">
       <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
@@ -144,6 +148,10 @@
             {osdid:'001',osdip:'127.0.0.1',usage:"32",unusage:'52',id:'piechart'},
             {osdid:'002',osdip:'127.0.0.2',usage:"42",unusage:'214',id:'piecharttwo'},
             {osdid:'003',osdip:'127.0.0.3',usage:"52",unusage:'145',id:'piechartthree'},
+            {osdid:'004',osdip:'127.0.0.2',usage:"72",unusage:'114',id:'piechartfour'},
+            {osdid:'005',osdip:'127.0.0.3',usage:"75",unusage:'74',id:'piechartfive'},
+            {osdid:'006',osdip:'127.0.0.2',usage:"15",unusage:'153',id:'piechartsix'},
+            {osdid:'007',osdip:'127.0.0.3',usage:"52",unusage:'145',id:'piechartsenven'},
           ],
           imgage:[
             '../../static/image/one.png',
@@ -160,7 +168,9 @@
             {name:'eth3',type:'01:c4:34:52',size:'28M',wwid:'1',used:'success',small:'1599',health:'ok'},
           ],
           bcontent:
-            {name:'eth3',mac:'01:c4:34:52',speed:'28M',pack:'1',status:'success',mtu:'1599'}
+            {name:'eth3',mac:'01:c4:34:52',speed:'28M',pack:'1',status:'success',mtu:'1599'},
+
+
 
         }
 
@@ -175,6 +185,7 @@
           // })
           console.log(this.ind,index)
         },
+
         piechart() {
           let i;
           for (i in this.osdlist) {
@@ -234,6 +245,7 @@
       mounted(){
         this.piechart()
         this.change(0)
+        this.house()
       },
       activated(){
         this.piechart()
@@ -294,6 +306,12 @@
   }
   .all{
     margin-top: 5em;
+    height: 16em;
+    overflow-y: hidden;
+  }
+  .san{
+    margin-bottom: 2em;
+
   }
   .up{
     border-bottom: 1px solid #452F64;
