@@ -2,7 +2,7 @@
   <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12" id="Aright">
     <div class="one" v-for="(i,index) in nav" :class="{'two':ind===index}" @click="changenav(index)">
       <div>
-        <router-link :to="{}" ><p >{{i}}</p></router-link>
+        <router-link :to="{name:i.href}" ><p >{{i.name}}</p></router-link>
       </div>
     </div>
   </div>
@@ -14,10 +14,10 @@
       data:function(){
         return{
           nav:[
-            '快照设置',
-           'FS设置',
-            'object设置',
-            '运维设置',
+            {index: '0',name: '快照设置',href: 'Aindex'},
+            {index: '1',name: 'FS设置',href:''},
+            {index: '2',name: 'object设置',href:''},
+            {index: '3',name: '运维设置',href:'Aoperation'},
           ],
           ind:''
         }

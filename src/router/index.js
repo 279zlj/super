@@ -15,6 +15,10 @@ import Rosd from '@/components/Rosd'
 import Rpool from '@/components/Rpool'
 import Rblock from '@/components/Rblock'
 import Rpara from '@/components/Rpara'
+import Aoperation from '@/components/Aoperation'
+import Mwarn from '@/components/Mwarn'
+import Msolve from '@/components/Msolve'
+
 Vue.use(Router)
 
 export default new Router({
@@ -81,7 +85,11 @@ export default new Router({
       path:'/Aindex',
       name:'Aindex',
       menuShow:true,
-      component:Aindex
+      components: {
+        default:HelloWorld,
+        bottom: Aindex,
+        right:Aright,
+      }
     },
     {
       path:'/Aright',
@@ -93,7 +101,31 @@ export default new Router({
       path:'/Mindex',
       name:'Mindex',
       menuShow:true,
-      component:Mindex
+      components: {
+        default:HelloWorld,
+        bottom: Mindex,
+        right:Mright,
+      }
+    },
+    {
+      path:'/Mwarn',
+      name:'Mwarn',
+      menuShow:true,
+      components: {
+        default:HelloWorld,
+        bottom: Mwarn,
+        right:Mright,
+      }
+    },
+    {
+      path:'/Msolve',
+      name:'Msolve',
+      menuShow:true,
+      components: {
+        default:HelloWorld,
+        bottom: Msolve,
+        right:Mright,
+      }
     },
     {
       path:'/Mright',
@@ -139,6 +171,16 @@ export default new Router({
         default:HelloWorld,
         bottom: Rpara,
         right:Rleft,
+      }
+    },
+    {
+      path:'/Aoperation',
+      name:'Aoperation',
+      menuShow:true,
+      components: {
+        default:HelloWorld,
+        bottom: Aoperation,
+        right:Aright,
       }
     }
 

@@ -28,7 +28,7 @@
                   <td>
                     <div class="row">
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >
-                        <input type="text" id="num" class="form-control" style="text-align: center">
+                        <input type="text" id="numone" class="form-control" style="text-align: center">
                       </div>
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >
                       <select class="form-control">
@@ -50,8 +50,8 @@
                 </tr>
               <tr>
                 <td colspan="2" class="last">
-                  <input type="button" class="btn btn-success" value="确认" id="sure" style="margin:.5em 2em "/>
-                  <input type="reset" class="btn btn-info" value="重置" id="reset" style="margin:.5em 2em"/>
+                  <input type="button" class="btn btn-success" value="确认" id="sureone" style="margin:.5em 2em "/>
+                  <input type="reset" class="btn btn-info" value="重置" id="resetone" style="margin:.5em 2em"/>
                 </td>
               </tr>
               </tbody>
@@ -76,9 +76,9 @@
               <td>数据重构QoS控制</td>
               <td>
                 <div class="form">
-                  <input type="radio" name="rd" value="bus"/>优先业务
-                  <input type="radio" name="rd" value="res"/>重构优先
-                  <input type="radio" name="rd" value="self"/>自定义
+                  <input type="radio" name="rd" value="bus"/><span>优先业务</span>
+                  <input type="radio" name="rd" value="res"/><span>重构优先</span>
+                  <input type="radio" name="rd" value="self"/><span>自定义</span>
                 </div>
               </td>
             </tr>
@@ -87,7 +87,7 @@
               <td>
                 <div class="row">
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >
-                    <input type="text" id="num" class="form-control" style="text-align: center">
+                    <input type="text" id="numtwo" class="form-control" style="text-align: center">
                   </div>
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >
                     <select class="form-control">
@@ -111,8 +111,8 @@
             </tr>
             <tr>
               <td colspan="2" class="last">
-                <input type="button" class="btn btn-success" value="确认" id="sure" style="margin:.5em 2em "/>
-                <input type="reset" class="btn btn-info" value="重置" id="reset" style="margin:.5em 2em"/>
+                <input type="button" class="btn btn-success" value="确认" id="suretwo" style="margin:.5em 2em "/>
+                <input type="reset" class="btn btn-info" value="重置" id="resettwo" style="margin:.5em 2em"/>
               </td>
             </tr>
             </tbody>
@@ -148,7 +148,7 @@
                 <td>
                   <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >
-                      <input type="text" id="num" class="form-control" style="text-align: center">
+                      <input type="text" id="numthree" class="form-control" style="text-align: center">
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >
                       <select class="form-control">
@@ -170,8 +170,8 @@
               </tr>
               <tr>
                 <td colspan="2" class="last">
-                  <input type="button" class="btn btn-success" value="确认" id="sure" style="margin:.5em 2em "/>
-                  <input type="reset" class="btn btn-info" value="重置" id="reset" style="margin:.5em 2em"/>
+                  <input type="button" class="btn btn-success" value="确认" id="surethree" style="margin:.5em 2em "/>
+                  <input type="reset" class="btn btn-info" value="重置" id="resetthree" style="margin:.5em 2em"/>
                 </td>
               </tr>
               </tbody>
@@ -215,5 +215,8 @@
   }
   .last{
     height: 4em;
+  }
+  span{
+    margin-right: 1em !important;
   }
 </style>

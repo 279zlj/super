@@ -93,10 +93,10 @@
           var ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
           });
-          if (ids.length != 1) {
+          if (ids.length !== 1) {
             alert('请选择其中一个设备进行修改')
           }
-          else {
+          else if(ids.length === 1){
             this.edit = ids;
             $('#edit').click(function () {
               $('#editm').modal("show")

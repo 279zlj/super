@@ -1,34 +1,156 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" id="Rindex">
-    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+    <div class="row ">
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
       <div class="row container-fluid">
-        <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12 bg" >
-          <div id="piechart" class="grid"></div>
-          <h4 class="h">io agent 容量使用占比</h4>
-          <div id="iocontent" class="content">fdjshfkjsdf<br>dsjgfsdhjf</div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-      <div class="row container-fluid">
-        <div class="col-lg-11 col-md-11 col-sm-12 col-sm-offset-0 col-xs-12 bg">
-          <div id="liquidFill" class="grid"></div>
-          <h4 class="h">tank 存储使用占比</h4>
-          <div id="tankcontent" class="content">sdfdsf</div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-      <div class="row container-fluid">
-        <div class="col-lg-11 col-md-11 col-sm-12 col-sm-offset-0 col-xs-12 bg">
-          <div id="pictorialBar" class="grid">
-            <!--<p id="small"></p>-->
+        <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12 bgone" >
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
+            <h4 class="h">io agent 容量使用占比</h4>
+            <div id="iocontent" class="content">
+              <p>name</p>
+              <p>已使用：</p>
+              <p>已用百分比：</p>
+            </div>
           </div>
-
-          <h4 class="ho"><span style="font-size: 2.2em">3</span>个块设备</h4>
-          <div id="rbdcontent" class="content">sdfdsfsf</div>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 container-fluid">
+            <div id="piechart" class="grid"></div>
+          </div>
         </div>
       </div>
+      </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+          <div class="row container-fluid">
+            <div class="col-lg-11 col-md-11 col-sm-12 col-sm-offset-0 col-xs-12 bgone">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
+                <h4 class="h">tank 存储使用占比</h4>
+                <div id="tankcontent" class="content">
+                  <p>name</p>
+                  <p>已使用：</p>
+                  <p>已用百分比</p>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div id="liquidFill" class="grid"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="row container-fluid">
+          <div class="col-lg-11 col-md-11 col-sm-12 col-sm-offset-0 col-xs-12 bgone">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
+              <h4 class="ho"><span style="font-size: 2.2em">3</span>个块设备</h4>
+              <div id="rbdcontent" class="content">
+                <p>总大小：</p>
+                <p>客户端连接数：</p>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <div id="pictorialBar" class="grid"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  bb">
+        <div class="row two container-fluid">
+        <div class="row container-fluid">
+          <h4>
+            节点CPU使用率/TOP3
+          </h4>
+          <div class="row">
+            <table class="table-condensed table-responsive table">
+              <tbody>
+              <tr v-for="i in cpu">
+                <td>{{i.ip}}</td>
+                <td>{{i.network}}</td>
+                <td>{{i.status}}</td>
+                <td>{{i.time}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+        <div class="row container-fluid">
+          <h4>
+            节点IOPS/TOP3
+          </h4>
+          <div class="row">
+            <table class="table-condensed table-responsive table">
+              <tbody>
+              <tr v-for="i in cpu">
+                <td>{{i.ip}}</td>
+                <td>{{i.network}}</td>
+                <td>{{i.status}}</td>
+                <td>{{i.time}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+        <div class="row container-fluid">
+          <h4>
+            节点MBPS/TOP3
+          </h4>
+          <div class="row">
+            <table class="table-condensed table-responsive table">
+              <tbody>
+              <tr v-for="i in cpu">
+                <td>{{i.ip}}</td>
+                <td>{{i.network}}</td>
+                <td>{{i.status}}</td>
+                <td>{{i.time}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+        </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="row container-fluid">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bbone">
+            <div class="warn">
+              <h4>警告事件</h4>
+              <table class="table-condensed table-responsive table">
+                <tbody>
+                  <tr v-for="p in warn">
+                    <td>{{p.ip}}</td>
+                    <td>{{p.network}}</td>
+                    <td>{{p.status}}</td>
+                    <td>{{p.time}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="row container-fluid">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bbone">
+            <div class="warn">
+              <h4>操作事件</h4>
+              <table class="table-condensed table-responsive table">
+                <tbody>
+                <tr v-for="m in log">
+                  <td>{{m.ip}}</td>
+                  <td>{{m.network}}</td>
+                  <td>{{m.status}}</td>
+                  <td>{{m.time}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -40,6 +162,25 @@
         name: "Rindex",
       echarts,
       liquidfill,
+      data(){
+          return{
+            cpu:[
+              {ip:'192.168.1.12',network:'net',status:'ok',time:'now'},
+              {ip:'192.168.1.15',network:'net',status:'ok',time:'now'},
+              {ip:'192.168.1.19',network:'net',status:'ok',time:'now'},
+            ],
+            warn:[
+              {ip:'192.168.1.12',network:'net',status:'ok',time:'now'},
+              {ip:'192.168.1.15',network:'net',status:'ok',time:'now'},
+              {ip:'192.168.1.19',network:'net',status:'ok',time:'now'},
+            ],
+            log:[
+              {ip:'192.168.1.12',network:'net',status:'ok',time:'now'},
+              {ip:'192.168.1.15',network:'net',status:'ok',time:'now'},
+              {ip:'192.168.1.19',network:'net',status:'ok',time:'now'},
+            ]
+          }
+      },
       mounted(){
         this.liquidFill();
         this.pie();
@@ -52,7 +193,7 @@
 
             series: [{
               type: 'liquidFill',
-              radius: '80%',
+              radius: '90%',
               itemStyle:{
                 normal:{
                   color:'#04b8da'
@@ -64,7 +205,7 @@
                   textStyle: {
                     color: 'red',
                     insideColor: 'yellow',
-                    fontSize: 30
+                    fontSize: 25
                   }
                 }
               }
@@ -87,7 +228,7 @@
               {
                 name:'节点状况',
                 type:'pie',
-                radius : '80%',
+                radius : '90%',
                 roseType : 'radius',
                 itemStyle:{
                   normal:{
@@ -145,29 +286,16 @@
             },
             series: [{
               name: 'rbd',
-              radius : '80%',
+              radius : '10%',
               type: 'pictorialBar',
               symbolRepeat: true,
               color:'#ffc523',
-              symbolSize: ['400%', '100%'],
+              symbolSize: ['400%', '200%'],
               data: [{
                 value: 3,
                 symbol: pathSymbols.reindeer
               }]
-            },{
-              name: 'rbdtwo',
-
-              barGap:'30%',
-              color:'#ffc523',
-              type: 'pictorialBar',
-              symbolRepeat: true,
-              symbolSize: ['400%', '100%'],
-
-              data: [{
-                value: 3,
-                symbol: pathSymbols.reindeer
-              }]
-            },
+            }
 
             ]
 
@@ -183,30 +311,74 @@
   #Rindex{
     color: white;
   }
+  .two{
+    margin: 2em 0 3em 0;
+
+  }
+  table{
+    margin-bottom: 3em;
+  }
   .bg{
-    margin-top: 5em;
-    background-color: #2F224A;
-    height: 43em;
+    border-radius: 5px;
+    background-color: #362655;
     width: 100%;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
+  }
+  .bb{
+    background-color: #362655;
+    border-radius: 5px;
+    margin-top: 1em;
+    height: 38em;
+  }
+  .bbone{
+    background-color: #362655;
+    border-radius: 5px;
+    margin-top: 1em;
+    height: 18.5em;
+  }
+  .bgone{
+    margin-top: 5em;
+    background-color: #362655;
+    width: 100%;
+    margin-bottom: 1em;
+
+    border-radius: 5px;
   }
   .grid{
-    width: 100%;height:38%;
-    margin-top: 1em;
+    width: 100%;height:10em;
+    margin: 1em 0 1em 2em;
   }
   .h{
     border-bottom:1px solid #534769;
     color: white;
     text-align: center;
-    line-height: 2em;
+    line-height: 2.5em;
+    font-size: 1.1em;
+    width: 10em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .ho{
     border-bottom:1px solid #534769;
     color: white;
-    text-align: center;
-    line-height: 1.6em;
+    width: 10em;
+    font-size: 1.1em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 2.5em;
   }
-  .content{
-    margin:1em 1.8em;
+  .warn{
+    margin-top: 2em;
+  }
+  .content p{
+    font-size: 1em;
+  }
+  h4{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 10em;
   }
 </style>

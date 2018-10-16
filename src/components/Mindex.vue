@@ -111,6 +111,9 @@
 
   border-radius: 5px;
 }
+tr{
+  cursor:pointer;
+}
 thead{
   font-size: 1.2em;
   background-color: #34284C;

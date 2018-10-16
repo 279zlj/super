@@ -2,44 +2,44 @@
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 container-fluid" id="Rosd">
 
   <div class="row all">
+  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 container">
+    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 container one">
+      <div class="row san" v-for="(i,index) in osdlist"  @click="change(index)">
+        <div class="row">
+          <div class="row block " :class="{'chan':ind===index}">
+            <div class="row up " :class="{'chan':ind===index}">
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 " :class="{'chan':ind===index}">
+                <div class="row font " :class="{'chan':ind===index}">
+                  <p>{{i.osdid}}</p>
+                  <p>{{i.osdip}}</p>
+                  <input type="button" class="btn btn-sm b" value="控制台"/>
+                </div>
 
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 san" v-for="(i,index) in osdlist"  @click="change(index)">
-      <div class="row">
-        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 block " :class="{'chan':ind===index}">
-          <div class="row up " :class="{'chan':ind===index}">
-            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 " :class="{'chan':ind===index}">
-              <div class="row font " :class="{'chan':ind===index}">
-                <p>{{i.osdid}}</p>
-                <p>{{i.osdip}}</p>
               </div>
-
+              <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 pie " :class="{'chan':ind===index}">
+                <div :id=i.id class="grid container-fluid " :class="{'chan':ind===index}"></div>
+              </div>
             </div>
-            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 pie " :class="{'chan':ind===index}">
-              <div :id=i.id class="grid container-fluid " :class="{'chan':ind===index}"></div>
+            <div class="row down " :class="{'chan':ind===index}">
+              <span v-for="i in imgage"><img :src="i"/></span>
             </div>
-          </div>
-          <div class="row down " :class="{'chan':ind===index}">
-            <span v-for="i in imgage"><img :src="i"/></span>
           </div>
         </div>
-        <span v-if="ind===index"><img src="../../static/image/san.png" class="img-responsive" style="width: 10%;margin: 0 auto"></img></span>
+        </div>
       </div>
-    </div>
-
-
   </div>
 
-    <div class="row bgdown">
+    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 bgdown">
       <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-          <div class="col-lg-11 col-lg-offset-1 bor container-fluid">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <div class=" bor container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">机器信息</span></p>
             <p class="ff">型号：<span>{{content[0].name}}</span></p>
             <p class="ff">状态：<span>{{content[0].status}}</span></p>
             <p class="ff">操作系统：<span>{{content[0].opsys}}</span></p>
           </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <div class="bora container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">CPU</span></p>
             <p class="ff">CPU：<span>{{content[0].cpu}}</span></p>
@@ -47,25 +47,29 @@
             <span class="ff">{{content[0].nc}}</span>
           </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-          <div class="col-lg-11 bor container-fluid">
+      </div>
+        <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <div class="col-lg-11 container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">数据盘</span></p>
             <span v-for="q in content[0].datap"><img src="../../static/image/three.png" class="img-responsive"></span>
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">缓存盘</span></p>
             <span v-for="w in content[0].cachep"><img src="../../static/image/three.png" class="img-responsive"></span>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-          <div class="col-lg-11 col-lg-offset-1 container-fluid">
+
+
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <div class=" container-fluid">
           <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">ISCSI服务网络/内部网络</span></p>
           <span class="ff">{{content[0].iscsi}}</span>
           <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">内部网络</span></p>
           <span class="ff">{{content[0].netw}}</span>
           </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+    </div>
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <div class="container-fluid borb">
           <table class="table table-condensed" >
             <tbody>
@@ -97,7 +101,8 @@
           </table>
           </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <div class="container-fluid borc">
           <table class="table table-condensed" >
             <tbody>
             <tr>
@@ -130,9 +135,11 @@
             </tr>
             </tbody>
           </table>
+          </div>
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -200,7 +207,7 @@
                 {
                   name: '使用率',
                   type: 'pie',
-                  radius: ['60%', '100%'],
+                  radius: ['50%', '80%'],
                   itemStyle: {
                     color: function (params) {
                       var colorlist = [
@@ -245,7 +252,6 @@
       mounted(){
         this.piechart()
         this.change(0)
-        this.house()
       },
       activated(){
         this.piechart()
@@ -262,6 +268,10 @@
   border-radius: .3em;
 
 }
+.one{
+  height: 55em;
+  overflow-y: scroll;
+}
 .chan{
   background-color: #194B91 !important;
 }
@@ -270,11 +280,10 @@
   line-height: 2em;
 }
 .bgdown{
-  background-color: #11387B;
-  margin-top: 3em;
+  background-color: #11387B !important;
   border-radius: .5em;
   margin-bottom: 2em;
-  width: 99.9%;
+
 }
 .bgdown div div{
   height:18em;
@@ -296,6 +305,11 @@
   border-bottom:1px solid #1b6d85;
 
 }
+  .borc{
+    border-top:1px solid #1b6d85;
+
+
+  }
   .bora{
     border-bottom:1px solid #1b6d85;
     border-left:1px solid #1b6d85;
@@ -303,14 +317,18 @@
   }
   .borb{
     border-right:1px solid #1b6d85;
+    border-top:1px solid #1b6d85;
   }
   .all{
     margin-top: 5em;
-    height: 16em;
-    overflow-y: hidden;
   }
   .san{
-    margin-bottom: 2em;
+    margin-bottom: 1em;
+    margin-left: 15px;
+
+    width: 85%;
+  }
+  .one div{
 
   }
   .up{
@@ -325,7 +343,7 @@
   .down img{
     margin-right: 1em;
   }
-  .all div div div{
+  .all div div div div div {
     background-color: #3D295A;
 
 
@@ -340,8 +358,12 @@
     height: 100%;
   }
   .font {
-    margin:2em 0em;
+    margin:1.5em 0em;
     line-height: 1em;
     font-size: 1.3em;
+  }
+  .b{
+    background-color: #6B6DAE;
+    color: white;
   }
 </style>

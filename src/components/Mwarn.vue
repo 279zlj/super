@@ -1,0 +1,50 @@
+<template>
+  <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" id="Mwarn" >
+    <div class="row a">
+      <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered"  data-url="http://localhost:3000/api/tableDate">
+        <thead>
+        <tr>
+          <th data-field="snapid">级别</th>
+          <th data-field="status">状态</th>
+          <th data-field="content">警报ID</th>
+          <th data-field="date">警报名称</th>
+          <th data-field="content">对象索引</th>
+          <th data-field="date">产生时间</th>
+          <th data-field="content">警报描述</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</template>
+
+<script>
+    export default {
+        name: "Mwarn",
+      methods:{
+          start(){
+            $('#table_id').bootstrapTable({
+
+            })
+          }
+      },
+      mounted(){
+          this.start()
+      }
+    }
+</script>
+
+<style scoped>
+  #Mwarn{
+    color: white;
+  }
+  .a{
+    margin-top: 3em;
+  }
+     thead{
+       background-color: #372B51;
+       color: white;
+     }
+</style>
