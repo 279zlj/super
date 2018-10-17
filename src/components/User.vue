@@ -16,10 +16,10 @@
             <thead>
             <tr>
               <th data-field="state" data-checkbox="true" ></th>
-              <th data-field="snapid">节点名称</th>
-              <th data-field="snapname">IP地址</th>
-              <th data-field="content">日志大小</th>
-              <th data-field="date">日志名称</th>
+              <th data-field="snapid">ID</th>
+              <th data-field="snapname">登录名</th>
+              <th data-field="content">角色</th>
+              <th data-field="date">登陆时间</th>
             </tr>
             </thead>
             <tbody>

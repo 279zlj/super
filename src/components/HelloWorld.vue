@@ -54,10 +54,28 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="bbmodal">版本更新</h4>
+            <h4 class="modal-title" id="bbmodal">版本升级</h4>
           </div>
           <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-6 col-lg-offset-4 col-md-6 col-sm-6 col-xs-6">
+                <input type="file" class="form-control" value="请选择上传的安装包"/>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <button class="btn btn-info">上传</button>
+              </div>
+            </div>
+            <div class="row container-fluid" style="margin-top: 1em">
 
+              <table class="table table-responsive">
+                <thead class="p"><th>当前版本：v11</th></thead>
+                <tbody>
+                  <tr>
+                    <td>1232143142</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -70,11 +88,30 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
             <h4 class="modal-title" id="lisensemodal">lisense管理</h4>
           </div>
           <div class="modal-body">
-
+            <table class="table table-responsive table-condensed">
+              <thead class="o">
+                <th>服务器节点</th>
+                <th>IP地址</th>
+                <th>许可证</th>
+                <th>剩余时间</th>
+                <th>授权容量</th>
+                <th>使用容量</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>6</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -124,7 +161,7 @@ export default {
     },
     outlog(){
       $('#out').click(function () {
-        alert('退出成功')
+        confirm('确定推出？')
       })
     }
   },
@@ -158,7 +195,18 @@ export default {
     color: white;
 
   }
+  thead{
+    background-color: #292431;
 
+  }
+  .p th{
+    line-height: 2.5em;
+
+  }
+  .o th{
+    text-align: center;
+    line-height: 2em;
+  }
   .r-border{
     padding-top: 1em;
     line-height: 2.2em;
@@ -176,6 +224,16 @@ export default {
     display: table-cell;
     vertical-align: middle;
 
+  }
+  table{
+    text-align:center;
+  }
+  .modal-content{
+    background-color:#3E324E ;
+    color: white;
+  }
+  .close{
+    color: white !important;
   }
   .bg{
     background-color: #0090ff;
