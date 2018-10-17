@@ -4,8 +4,8 @@
       <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered"  data-url="http://localhost:3000/api/tableDate">
         <thead>
         <tr>
-          <th data-field="snapid">级别</th>
-          <th data-field="status">状态</th>
+          <th data-field="snapid" >级别</th>
+          <th data-field="status" >状态</th>
           <th data-field="content">警报ID</th>
           <th data-field="date">警报名称</th>
           <th data-field="content">对象索引</th>
@@ -23,11 +23,15 @@
 <script>
     export default {
         name: "Mwarn",
+      data(){
+        return{}
+      },
       methods:{
           start(){
             $('#table_id').bootstrapTable({
 
             })
+
           }
       },
       mounted(){
@@ -47,4 +51,19 @@
        background-color: #372B51;
        color: white;
      }
+  .red{
+    color:#AD1501 ;
+  }
+  .or{
+    color: #EC4701;
+  }
+  .yellow{
+    color: #FF9500;
+  }
+  .successa{
+    color: #28CF21;
+  }
+  .fail{
+    color: #AD1501;
+  }
 </style>

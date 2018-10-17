@@ -2,12 +2,18 @@
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 container-fluid" id="Rpool">
     <div class="row">
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
-
+      <div id="y">
         <p @click="" id="kr" ><img src="../../static/image/data.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="扩容"/></p>
         <p @click="editlist()" id="edit" data-toggle="editmodal"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="编辑"></span></p>
         <p @click="" id="adduser" ><img src="../../static/image/user.png" class="img-responsive adduser" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="新增用户"/></p>
         <p @click="deletelist()" id="deletelist"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
-
+      </div>
+        <div style="width: 300px" id="h">
+          <div @click="" id="kr" style="float: left"><img src="../../static/image/data.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;" title="扩容"/></div>
+          <div @click="editlist()" id="edit" data-toggle="editmodal" style="float: left"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-right: 1.2em" title="编辑"></span></div>
+          <div @click="" id="adduser"  style="float: left"><img src="../../static/image/user.png" class="img-responsive adduser" style="width: 45%;font-size: 1.5em ;" title="新增用户"/></div>
+          <div @click="deletelist()" id="deletelist" style="float: left"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></div>
+        </div>
       </div>
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
         <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" data-url="http://localhost:3000/api/tableDate">
@@ -28,11 +34,16 @@
     </div>
     <div class="row">
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 b" >
-
+      <div id="y">
         <p @click="" id="get" ><img src="../../static/image/get.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="授权"/></p>
         <p @click="" id="nget" ><img src="../../static/image/nget.png" class="img-responsive adduser" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="取消授权"/></p>
         <p @click="deletel()" id="deletel"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
-
+      </div>
+        <div style="width: 300px" id="h">
+          <div @click="" id="get" style="float: left" ><img src="../../static/image/get.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="授权"/></div>
+          <div @click="" id="nget" style="float: left" ><img src="../../static/image/nget.png" class="img-responsive adduser" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="取消授权"/></div>
+          <div @click="deletel()" id="deletel" style="float: left"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></div>
+        </div>
       </div>
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive two">
         <table class="table table-responsive text-nowrap" id="table" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" data-url="http://localhost:3000/api/tableDate">
@@ -55,11 +66,11 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">修改快照信息</h4>
+            <h4 class="modal-title" id="myModalLabel">修改存储池信息</h4>
           </div>
           <div class="modal-body">
-            <p>快照名称：</p><input type="text" class="form-control" id="name"/>
-            <p>描述：</p><input type="text" class="form-control" id="content"/>
+            <p>存储池名称：</p><input type="text" class="form-control" id="name"/>
+            <p>存储策略：</p><input type="text" class="form-control" id="content"/>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -195,9 +206,33 @@
       width: 100% !important;
     }
   }
+  #y{
+    display: block;
+  }
+  #h{
+    display: none;
+  }
   @media screen and (max-width: 425px) {
-    .kr,.adduser{
-      width: 30em !important;
+    #kr{
+      width: 50px !important;
+    }
+    #adduser{
+      width: 50px !important;
+    }
+    #get,#nget{
+      width: 50px !important;
+    }
+    #y{
+      display: none;
+    }
+    #h{
+      display: block;
+    }
+    .a,.b{
+      margin-top: 4em;
+    }
+    .one{
+      margin-top: 2em;
     }
   }
 </style>

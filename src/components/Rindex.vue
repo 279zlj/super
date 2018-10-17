@@ -1,7 +1,7 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" id="Rindex">
     <div class="row ">
-      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
       <div class="row container-fluid">
         <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12 bgone" >
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
@@ -18,7 +18,7 @@
         </div>
       </div>
       </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
           <div class="row container-fluid">
             <div class="col-lg-11 col-md-11 col-sm-12 col-sm-offset-0 col-xs-12 bgone">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
@@ -35,7 +35,7 @@
             </div>
           </div>
         </div>
-      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <div class="row container-fluid">
           <div class="col-lg-11 col-md-11 col-sm-12 col-sm-offset-0 col-xs-12 bgone">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
@@ -56,7 +56,7 @@
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  bb">
         <div class="row two container-fluid">
-        <div class="row container-fluid">
+        <div class="row container-fluid" style="overflow-y: scroll;height: 10em;margin-bottom: 2em">
           <h4>
             节点CPU使用率/TOP3
           </h4>
@@ -66,7 +66,7 @@
               <tr v-for="i in cpu">
                 <td>{{i.ip}}</td>
                 <td>{{i.network}}</td>
-                <td>{{i.status}}</td>
+                <td :class="{'successa':i.status==='正常','fail':i.status==='不健康'}">{{i.status}}</td>
                 <td>{{i.time}}</td>
               </tr>
               </tbody>
@@ -74,17 +74,17 @@
 
           </div>
         </div>
-        <div class="row container-fluid">
+        <div class="row container-fluid" style="overflow-y: scroll;height: 10em;margin-bottom: 2em">
           <h4>
             节点IOPS/TOP3
           </h4>
           <div class="row">
             <table class="table-condensed table-responsive table">
               <tbody>
-              <tr v-for="i in cpu">
+              <tr v-for="i in ipos">
                 <td>{{i.ip}}</td>
                 <td>{{i.network}}</td>
-                <td>{{i.status}}</td>
+                <td :class="{'successa':i.status==='正常','fail':i.status==='不健康'}">{{i.status}}</td>
                 <td>{{i.time}}</td>
               </tr>
               </tbody>
@@ -92,17 +92,17 @@
 
           </div>
         </div>
-        <div class="row container-fluid">
+        <div class="row container-fluid" style="overflow-y: scroll;height: 10em;margin-bottom: 2em">
           <h4>
             节点MBPS/TOP3
           </h4>
           <div class="row">
             <table class="table-condensed table-responsive table">
               <tbody>
-              <tr v-for="i in cpu">
+              <tr v-for="i in mbps">
                 <td>{{i.ip}}</td>
                 <td>{{i.network}}</td>
-                <td>{{i.status}}</td>
+                <td :class="{'successa':i.status==='正常','fail':i.status==='不健康'}">{{i.status}}</td>
                 <td>{{i.time}}</td>
               </tr>
               </tbody>
@@ -116,15 +116,28 @@
 
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="row container-fluid">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bbone">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bbone" style="overflow-y: scroll;">
             <div class="warn">
-              <h4>警告事件</h4>
-              <table class="table-condensed table-responsive table">
+              <div class="row container-fluid">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="font-size: 18px">
+                  警告事件
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                  <p><span>{{jj}}</span><img src="../../static/image/jj.png" class="img-responsive" title="紧急"/></p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <span>{{zy}}<img src="../../static/image/zy.png" class="img-responsive" title="重要"/></span>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <span>{{cy}}<img src="../../static/image/cy.png" class="img-responsive" title="次要"></span>
+                </div>
+              </div>
+              <table class="table-responsive table table-condensed">
                 <tbody>
                   <tr v-for="p in warn">
                     <td>{{p.ip}}</td>
                     <td>{{p.network}}</td>
-                    <td>{{p.status}}</td>
+                    <td :class="{'red':p.status==='紧急','or':p.status==='重要','yellow':p.status==='次要'}">{{p.status}}</td>
                     <td>{{p.time}}</td>
                   </tr>
                 </tbody>
@@ -133,7 +146,7 @@
           </div>
         </div>
         <div class="row container-fluid">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bbone">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bbone" style="overflow-y: scroll;">
             <div class="warn">
               <h4>操作事件</h4>
               <table class="table-condensed table-responsive table">
@@ -141,7 +154,7 @@
                 <tr v-for="m in log">
                   <td>{{m.ip}}</td>
                   <td>{{m.network}}</td>
-                  <td>{{m.status}}</td>
+                  <td :class="{'successa':m.status==='成功','fail':m.status==='失败'}">{{m.status}}</td>
                   <td>{{m.time}}</td>
                 </tr>
                 </tbody>
@@ -165,26 +178,54 @@
       data(){
           return{
             cpu:[
-              {ip:'192.168.1.12',network:'net',status:'ok',time:'now'},
-              {ip:'192.168.1.15',network:'net',status:'ok',time:'now'},
-              {ip:'192.168.1.19',network:'net',status:'ok',time:'now'},
+              {ip:'192.168.1.12',network:'net',status:'正常',time:'now'},
+              {ip:'192.168.1.15',network:'net',status:'正常',time:'now'},
+              {ip:'192.168.1.19',network:'net',status:'正常',time:'now'},
+              {ip:'192.168.1.24',network:'net',status:'正常',time:'now'},
+              {ip:'192.168.1.35',network:'net',status:'正常',time:'now'},
+              {ip:'192.168.1.14',network:'net',status:'正常',time:'now'},
+              {ip:'192.168.1.63',network:'net',status:'正常',time:'now'},
+            ],
+            ipos:[
+              {ip:'192.168.1.12',network:'net',status:'正常',time:'now'},
+              {ip:'192.168.1.15',network:'net',status:'正常',time:'now'},
+              {ip:'192.168.1.19',network:'net',status:'正常',time:'now'},
+            ],
+            mbps:[
+              {ip:'192.168.1.12',network:'net',status:'正常',time:'now'},
+              {ip:'192.168.1.15',network:'net',status:'正常',time:'now'},
+              {ip:'192.168.1.19',network:'net',status:'正常',time:'now'},
             ],
             warn:[
-              {ip:'192.168.1.12',network:'net',status:'ok',time:'now'},
-              {ip:'192.168.1.15',network:'net',status:'ok',time:'now'},
-              {ip:'192.168.1.19',network:'net',status:'ok',time:'now'},
+              {ip:'192.168.1.12',network:'net',status:'紧急',time:'now'},
+              {ip:'192.168.1.15',network:'net',status:'重要',time:'now'},
+              {ip:'192.168.1.19',network:'net',status:'次要',time:'now'},
+              {ip:'192.168.1.24',network:'net',status:'重要',time:'now'},
+              {ip:'192.168.1.35',network:'net',status:'次要',time:'now'},
+              {ip:'192.168.1.14',network:'net',status:'重要',time:'now'},
+              {ip:'192.168.1.63',network:'net',status:'次要',time:'now'},
             ],
             log:[
-              {ip:'192.168.1.12',network:'net',status:'ok',time:'now'},
-              {ip:'192.168.1.15',network:'net',status:'ok',time:'now'},
-              {ip:'192.168.1.19',network:'net',status:'ok',time:'now'},
-            ]
+              {ip:'192.168.1.12',network:'net',status:'成功',time:'now'},
+              {ip:'192.168.1.15',network:'net',status:'失败',time:'now'},
+              {ip:'192.168.1.19',network:'net',status:'成功',time:'now'},
+            ],
+            jj:0,
+            zy:0,
+            cy:0
           }
       },
       mounted(){
         this.liquidFill();
         this.pie();
         this.pictorialBar();
+        this.count()
+      },
+      updated(){
+        this.liquidFill();
+        this.pie();
+        this.pictorialBar();
+
       },
       methods:{
         liquidFill:function (){
@@ -290,7 +331,7 @@
               type: 'pictorialBar',
               symbolRepeat: true,
               color:'#ffc523',
-              symbolSize: ['400%', '200%'],
+              symbolSize: ['500%', '200%'],
               data: [{
                 value: 3,
                 symbol: pathSymbols.reindeer
@@ -301,6 +342,23 @@
 
           };
           pictorial.setOption(optionss);
+        },
+
+        count(){
+          let i;
+          for(i in this.warn){
+              if(this.warn[i].status=='紧急'){
+                this.jj+=1;
+              }
+              if (this.warn[i].status=='重要'){
+                this.zy+=1;
+              }
+              if (this.warn[i].status=='次要'){
+                this.cy+=1;
+              }
+          }
+          return this.jj,this.zy,this.cy
+          console.log(this.jj,this.zy,this.cy)
         }
 
       }
@@ -316,7 +374,7 @@
 
   }
   table{
-    margin-bottom: 3em;
+    margin-bottom: 1em;
   }
   .bg{
     border-radius: 5px;
@@ -330,12 +388,28 @@
     margin-top: 1em;
     height: 38em;
   }
+  .red{
+    color:#AD1501 ;
+  }
+  .or{
+    color: #EC4701;
+  }
+  .yellow{
+    color: #FF9500;
+  }
+  .successa{
+    color: #28CF21;
+  }
+  .fail{
+    color: #AD1501;
+  }
   .bbone{
     background-color: #362655;
     border-radius: 5px;
     margin-top: 1em;
     height: 18.5em;
   }
+
   .bgone{
     margin-top: 5em;
     background-color: #362655;
@@ -347,6 +421,18 @@
   .grid{
     width: 100%;height:10em;
     margin: 1em 0 1em 2em;
+  }
+  @media screen and (min-width: 426px) and (max-width: 768px) {
+    .bgone{
+      margin-top: 2em;
+      margin-bottom: 0em;
+    }
+  }
+  @media screen and (max-width: 425px) {
+    .bgone{
+      margin-top: 1.5em;
+      margin-bottom: 0em;
+    }
   }
   .h{
     border-bottom:1px solid #534769;

@@ -1,7 +1,7 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" id="Mindex" style="overflow-x:hidden">
     <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
           <table class="table" id="table_id" data-toggle="table" data-classes="table-no-bordered" data-pagination="true" data-page-number="1" data-url="http://localhost:3000/api/solve" data-page-size="10" data-search="true" data-show-refresh="true">
             <colgroup>
@@ -19,7 +19,7 @@
         </div>
 
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 two">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 two">
         <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive">
           <h3>
             {{detail}}

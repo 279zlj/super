@@ -18,6 +18,8 @@ import Rpara from '@/components/Rpara'
 import Aoperation from '@/components/Aoperation'
 import Mwarn from '@/components/Mwarn'
 import Msolve from '@/components/Msolve'
+import Log from '@/components/Log'
+import User from '@/components/User'
 
 Vue.use(Router)
 
@@ -38,6 +40,26 @@ export default new Router({
       name:'index',
       menuShow:true,
       component:index
+    },
+    {
+      path:'/Log',
+      name:'Log',
+      menuShow:true,
+      components: {
+        default:HelloWorld,
+        bottom:Log
+
+      }
+    },
+    {
+      path:'/User',
+      name:'User',
+      menuShow:true,
+      components: {
+        default:HelloWorld,
+        bottom:User
+
+      }
     },
     {
       path:'/Resources',

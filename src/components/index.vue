@@ -114,7 +114,7 @@
             },
             dataZoom: [
               {
-                start: 90,
+                start: 95,
                 end: 100,
                 startValue: '00:00',
                 lineStyle: {color: 'white'},
@@ -457,4 +457,5 @@
       width: 100%;height:15em;margin-top: 7em;
     }
   }
+
 </style>

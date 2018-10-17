@@ -2,10 +2,14 @@
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 container-fluid" id="Aoperation">
     <div class="row">
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
-
+      <div id="y">
         <p @click="editlist()" id="edit" data-toggle="editmodal"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="编辑"></span></p>
         <p @click="deletelist()" id="deletelist"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
-
+      </div>
+      <div style="width: 300px" id="h">
+        <span @click="editlist()" id="edit" data-toggle="editmodal"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-right: 1em" title="编辑"></span></span>
+        <span @click="deletelist()" id="deletelist"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></span>
+      </div>
       </div>
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
         <div class="row">
@@ -36,10 +40,10 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">修改快照信息</h4>
+            <h4 class="modal-title" id="myModalLabel">修改运维信息</h4>
           </div>
           <div class="modal-body">
-            <p>快照名称：</p><input type="text" class="form-control" id="name"/>
+            <p>容量：</p><input type="text" class="form-control" id="name"/>
             <p>描述：</p><input type="text" class="form-control" id="content"/>
           </div>
           <div class="modal-footer">
@@ -117,6 +121,29 @@
 <style scoped>
   #table_id{
     color: white;
+  }
+  #h{
+    display: none;
+  }
+  @media screen and (max-width: 425px) {
+    .a{
+      margin-top: 3em !important;
+      margin-bottom: 1em !important;
+      width: 100px;
+
+    }
+    .one{
+      margin-top: 2em !important;
+    }
+    #h{
+      display: block;
+    }
+    #y{
+      display: none;
+    }
+    .one{
+      margin-top: 0em;
+    }
   }
   thead{
     background-color: #372B51;

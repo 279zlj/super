@@ -36,18 +36,52 @@
       <div class="col-lg-1 col-lg-offset-2 col-md-1 col-md-offset-0 col-sm-2 col-xs-12 dropdown">
       <a class="dropdown-toggle glyphicon glyphicon-user white" data-toggle="dropdown" style="cursor: pointer"><span class="jl">admin</span></a>
         <ul class="dropdown-menu">
-          <li><a href="#">用户管理</a></li>
-          <li><a href="#">退出登陆</a></li>
+          <li><router-link :to="{name:'User'}">用户管理</router-link></li>
+          <li><a style="cursor: pointer"><span id="out">退出登陆</span></a></li>
         </ul>
       </div>
       <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12 dropdown">
       <a class="dropdown-toggle glyphicon glyphicon-cog white" data-toggle="dropdown" style="cursor: pointer"><span class="jl">管理</span></a>
         <ul class="dropdown-menu">
-          <li><a href="#">版本控制</a></li>
-          <li><a href="#">lisense管理</a></li>
-          <li><a href="#">日志管理</a></li>
+          <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#bb">版本控制</span></a></li>
+          <li><a ><span style="cursor: pointer" data-toggle="modal" data-target="#lisense">lisense管理</span></a></li>
+          <li><router-link :to="{name:'Log'}">日志管理</router-link></li>
         </ul>
       </div>
+    </div>
+    <div class="modal fade" id="bb" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="bbmodal">版本更新</h4>
+          </div>
+          <div class="modal-body">
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary">确认</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>
+    <div class="modal fade" id="lisense" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="lisensemodal">lisense管理</h4>
+          </div>
+          <div class="modal-body">
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary">确认</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
     </div>
   </div>
 </template>
@@ -87,7 +121,15 @@ export default {
       this.two=false,
       this.three=false,
       this.four=true
+    },
+    outlog(){
+      $('#out').click(function () {
+        alert('退出成功')
+      })
     }
+  },
+  mounted(){
+    this.outlog()
   }
 }
 </script>

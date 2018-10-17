@@ -2,12 +2,18 @@
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" id="Aindex">
     <div class="row">
     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
-
+      <div id="y">
       <p @click="editlist()" id="edit" data-toggle="editmodal"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="编辑"></span></p>
       <p><span class="glyphicon glyphicon-backward" style="color: white;font-size: 1.5em;margin-bottom: 1em" title="回滚"></span></p>
       <p><span class="glyphicon glyphicon-th-large" style="color: white;font-size: 1.5em;margin-bottom: 1em" title="克隆"></span></p>
       <p @click="deletelist()" id="deletelist"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
-
+      </div>
+      <div style="width: 300px" id="h">
+        <span @click="editlist()" id="edit" data-toggle="editmodal"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-right: 1em;display: inline-block" title="编辑"></span></span>
+        <span><span class="glyphicon glyphicon-backward" style="color: white;font-size: 1.5em;margin-right: 1em;display: inline-block" title="回滚"></span></span>
+        <span><span class="glyphicon glyphicon-th-large" style="color: white;font-size: 1.5em;margin-right: 1em;display: inline-block" title="克隆"></span></span>
+        <span @click="deletelist()" id="deletelist"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em;display: inline-block" title="删除"></span></span>
+      </div>
     </div>
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive">
         <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-toggle="table"  data-classes="table-no-bordered" data-pagination="true" data-page-number="1" data-url="http://localhost:3000/api/tableDate" data-page-size="10" data-search="true" data-show-refresh="true">
@@ -134,6 +140,23 @@
   }
   .a{
     margin-top: 10em;
+  }
+  #h{
+    display: none;
+  }
+  @media screen and (max-width: 425px) {
+    .a{
+      margin-top: 0em;
+      margin-bottom: 2em;
+      width: 100px;
+
+    }
+    #h{
+      display: block;
+    }
+    #y{
+      display: none;
+    }
   }
   #table_id{
 

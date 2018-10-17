@@ -3,7 +3,7 @@
 
   <div class="row all">
   <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 container">
-    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 container one">
+    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 container one">
       <div class="row san" v-for="(i,index) in osdlist"  @click="change(index)">
         <div class="row">
           <div class="row block " :class="{'chan':ind===index}">
@@ -62,7 +62,7 @@
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <div class=" container-fluid">
           <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">ISCSI服务网络/内部网络</span></p>
-          <span class="ff">{{content[0].iscsi}}</span>
+          <span class="ff">{{content[0].iscsi}}</span><span class="glyphicon glyphicon-edit e" title="修改" data-toggle="editmodal" @click="edit()" id="edit"></span>
           <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">内部网络</span></p>
           <span class="ff">{{content[0].netw}}</span>
           </div>
@@ -70,8 +70,8 @@
     </div>
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-          <div class="container-fluid borb">
-          <table class="table table-condensed" >
+          <div class=" borb">
+          <table class="table table-condensed table-responsive" >
             <tbody>
               <tr>
                 <td>设备名：</td>
@@ -102,8 +102,8 @@
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-          <div class="container-fluid borc">
-          <table class="table table-condensed" >
+          <div class=" borc">
+          <table class="table table-condensed table-responsive" >
             <tbody>
             <tr>
               <td>设备名：</td>
@@ -140,6 +140,23 @@
       </div>
     </div>
   </div>
+    <div class="modal fade" id="editm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">修改ISCSI信息</h4>
+          </div>
+          <div class="modal-body">
+            <p>修改ip：</p><input type="text" class="form-control" id="ip"/>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" @click="editsend()">确认修改</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>
   </div>
 </template>
 
@@ -192,7 +209,11 @@
           // })
           console.log(this.ind,index)
         },
-
+        edit(){
+          $('#edit').click(function () {
+            $('#editm').modal("show")
+          })
+        },
         piechart() {
           let i;
           for (i in this.osdlist) {
@@ -268,6 +289,9 @@
   border-radius: .3em;
 
 }
+.e{
+  margin-left: 10%;
+}
 .one{
   height: 55em;
   overflow-y: scroll;
@@ -287,6 +311,13 @@
 }
 .bgdown div div{
   height:18em;
+}
+#editm{
+  color: black;
+}
+#editm input{
+  background-color: white;
+  color: black;
 }
 .pie{
   height: 10em;
@@ -314,6 +345,23 @@
     border-bottom:1px solid #1b6d85;
     border-left:1px solid #1b6d85;
 
+  }
+  @media screen and (min-width: 426px) and (max-width: 768px) {
+    .font p{
+      font-size: .8em;
+    }
+    img{
+      width: 15%;
+    }
+  }
+  @media screen and (max-width: 425px){
+    .bgdown{
+      margin-top: 3em;
+      height: 60em;
+    }
+    .one{
+      height: 30em;
+    }
   }
   .borb{
     border-right:1px solid #1b6d85;

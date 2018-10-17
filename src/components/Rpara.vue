@@ -1,7 +1,7 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 container-fluid" id="Rpara">
     <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 container " >
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 container " >
         <div class="row">
             <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 bg table-responsive">
             <table class="table table-condensed ">
@@ -60,7 +60,7 @@
         </div>
       </div>
 
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 container " >
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 container " >
         <div class="row">
           <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 bg table-responsive">
           <table class="table table-condensed ">
@@ -121,7 +121,7 @@
         </div>
       </div>
 
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 container " >
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 container " >
         <div class="row">
           <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 bg table-responsive">
             <table class="table table-condensed ">
@@ -208,6 +208,12 @@
     background-color: #392C53;
     margin-top: 5em;
   }
+@media screen and (max-width: 425px) {
+  .bg{
+    margin-top: 1.5em;
+    margin-bottom: 0em;
+  }
+}
   table{
     width: 98%;
 
