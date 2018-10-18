@@ -1,6 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import Vuex from 'vuex'
 import App from './App'
 import router from './router'
 import '@/assets/js/jquery-3.3.1.min.js'
@@ -16,7 +17,10 @@ import '@/assets/dist/bootstrap-table.js'
 import '@/assets/dist/locale/bootstrap-table-zh-CN.min.js'
 import '@/assets/dist/ga.js'
 require('./mock/mock')
+import 'es6-promise/auto'
 
+
+Vue.use(Vuex)
 Vue.component(VTable.name, VTable)
 Vue.component(VPagination.name, VPagination)
 Vue.config.productionTip = false

@@ -109,9 +109,9 @@
           }
           else if(ids.length === 1){
             this.edit = ids;
-            $('#edit').click(function () {
+
               $('#editm').modal("show")
-            })
+
           }
         },
         deletelist(){
@@ -170,6 +170,10 @@
   .b{
     margin-top: 10em;
   }
+  .modal-content{
+    background-color:#3E324E ;
+    color: white;
+  }
   thead{
     background-color: #372B51;
   }
@@ -184,8 +188,8 @@
     background-color: #473D59 !important;
   }
   #editm input{
-    background-color: white !important;
-    color: black !important;
+    background-color: #43355F !important;
+    color: white !important;
   }
   #editm{
     color: black;

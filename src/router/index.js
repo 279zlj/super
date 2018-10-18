@@ -20,6 +20,7 @@ import Mwarn from '@/components/Mwarn'
 import Msolve from '@/components/Msolve'
 import Log from '@/components/Log'
 import User from '@/components/User'
+import Installone from '@/components/Installone'
 
 Vue.use(Router)
 
@@ -203,6 +204,15 @@ export default new Router({
         default:HelloWorld,
         bottom: Aoperation,
         right:Aright,
+      }
+    },
+    {
+      path:'/Installone',
+      name:'Installone',
+      menuShow:true,
+      components: {
+        default:HelloWorld,
+        bottom: Installone,
       }
     }
 

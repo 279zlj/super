@@ -26,7 +26,7 @@
                 <div id="tankcontent" class="content">
                   <p>name</p>
                   <p>已使用：</p>
-                  <p>已用百分比</p>
+                  <p>已用百分比：</p>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -38,14 +38,14 @@
       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <div class="row container-fluid">
           <div class="col-lg-11 col-md-11 col-sm-12 col-sm-offset-0 col-xs-12 bgone">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="margin-left: -15px">
               <h4 class="ho"><span style="font-size: 2.2em">3</span>个块设备</h4>
               <div id="rbdcontent" class="content">
                 <p>总大小：</p>
                 <p>客户端连接数：</p>
               </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
               <div id="pictorialBar" class="grid"></div>
             </div>
           </div>
@@ -56,11 +56,11 @@
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  bb">
         <div class="row two container-fluid">
-        <div class="row container-fluid" style="overflow-y: scroll;height: 10em;margin-bottom: 2em">
+        <div class="row container-fluid" >
           <h4>
             节点CPU使用率/TOP3
           </h4>
-          <div class="row">
+          <div class="row" style="margin-bottom: 1em">
             <table class="table-condensed table-responsive table">
               <tbody>
               <tr v-for="i in cpu">
@@ -74,7 +74,7 @@
 
           </div>
         </div>
-        <div class="row container-fluid" style="overflow-y: scroll;height: 10em;margin-bottom: 2em">
+        <div class="row container-fluid" style="margin-bottom: 2em">
           <h4>
             节点IOPS/TOP3
           </h4>
@@ -92,7 +92,7 @@
 
           </div>
         </div>
-        <div class="row container-fluid" style="overflow-y: scroll;height: 10em;margin-bottom: 2em">
+        <div class="row container-fluid" style="margin-bottom: 1em">
           <h4>
             节点MBPS/TOP3
           </h4>
@@ -116,12 +116,13 @@
 
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="row container-fluid">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bbone" style="overflow-y: scroll;">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bbone">
             <div class="warn">
               <div class="row container-fluid">
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="font-size: 18px">
                   警告事件
                 </div>
+
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                   <p><span>{{jj}}</span><img src="../../static/image/jj.png" class="img-responsive" title="紧急"/></p>
                 </div>
@@ -132,6 +133,7 @@
                 <span>{{cy}}<img src="../../static/image/cy.png" class="img-responsive" title="次要"></span>
                 </div>
               </div>
+              <div style="overflow-y: scroll;height: 12em">
               <table class="table-responsive table table-condensed">
                 <tbody>
                   <tr v-for="p in warn">
@@ -142,13 +144,15 @@
                   </tr>
                 </tbody>
               </table>
+              </div>
             </div>
           </div>
         </div>
         <div class="row container-fluid">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bbone" style="overflow-y: scroll;">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bbone">
             <div class="warn">
               <h4>操作事件</h4>
+              <div style="overflow-y: scroll;height: 12em">
               <table class="table-condensed table-responsive table">
                 <tbody>
                 <tr v-for="m in log">
@@ -159,6 +163,7 @@
                 </tr>
                 </tbody>
               </table>
+              </div>
             </div>
           </div>
         </div>
@@ -181,10 +186,7 @@
               {ip:'192.168.1.12',network:'net',status:'正常',time:'now'},
               {ip:'192.168.1.15',network:'net',status:'正常',time:'now'},
               {ip:'192.168.1.19',network:'net',status:'正常',time:'now'},
-              {ip:'192.168.1.24',network:'net',status:'正常',time:'now'},
-              {ip:'192.168.1.35',network:'net',status:'正常',time:'now'},
-              {ip:'192.168.1.14',network:'net',status:'正常',time:'now'},
-              {ip:'192.168.1.63',network:'net',status:'正常',time:'now'},
+
             ],
             ipos:[
               {ip:'192.168.1.12',network:'net',status:'正常',time:'now'},
@@ -331,7 +333,7 @@
               type: 'pictorialBar',
               symbolRepeat: true,
               color:'#ffc523',
-              symbolSize: ['500%', '200%'],
+              symbolSize: ['550%', '200%'],
               data: [{
                 value: 3,
                 symbol: pathSymbols.reindeer

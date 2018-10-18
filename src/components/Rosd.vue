@@ -3,7 +3,9 @@
 
   <div class="row all">
   <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 container">
+    <input type="button" class="btn btn-default" value="展开" style="margin-bottom: 1em;float: right"/>
     <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 container one">
+
       <div class="row san" v-for="(i,index) in osdlist"  @click="change(index)">
         <div class="row">
           <div class="row block " :class="{'chan':ind===index}">
@@ -12,15 +14,15 @@
                 <div class="row font " :class="{'chan':ind===index}">
                   <p>{{i.osdid}}</p>
                   <p>{{i.osdip}}</p>
-                  <input type="button" class="btn btn-sm b" value="控制台"/>
+                  <input type="button" class="btn btn-sm b" value="控制台" id="hi"/>
                 </div>
 
               </div>
-              <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 pie " :class="{'chan':ind===index}">
+              <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 pie " :class="{'chan':ind===index}" id="hi">
                 <div :id=i.id class="grid container-fluid " :class="{'chan':ind===index}"></div>
               </div>
             </div>
-            <div class="row down " :class="{'chan':ind===index}">
+            <div class="row down " :class="{'chan':ind===index}" id="hi">
               <span v-for="i in imgage"><img :src="i"/></span>
             </div>
           </div>
@@ -61,7 +63,7 @@
 
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <div class=" container-fluid">
-          <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">ISCSI服务网络/内部网络</span></p>
+          <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">iSCSI服务网络/内部网络</span></p>
           <span class="ff">{{content[0].iscsi}}</span><span class="glyphicon glyphicon-edit e" title="修改" data-toggle="editmodal" @click="edit()" id="edit"></span>
           <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">内部网络</span></p>
           <span class="ff">{{content[0].netw}}</span>
@@ -145,7 +147,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">修改ISCSI信息</h4>
+            <h4 class="modal-title" id="myModalLabel">修改iSCSI信息</h4>
           </div>
           <div class="modal-body">
             <p>修改ip：</p><input type="text" class="form-control" id="ip"/>
@@ -207,7 +209,7 @@
           // }).catch(function (error) {
           //   console.log(error)
           // })
-          console.log(this.ind,index)
+
         },
         edit(){
           $('#edit').click(function () {
@@ -289,11 +291,16 @@
   border-radius: .3em;
 
 }
+#hi{
+  display: none;
+}
 .e{
   margin-left: 10%;
+  color: #B9B0C7;
+
 }
 .one{
-  height: 55em;
+  height: 50em;
   overflow-y: scroll;
 }
 .chan{
@@ -382,6 +389,7 @@
   .up{
     border-bottom: 1px solid #452F64;
     width: 95%;
+
     margin: 0 auto;
   }
 
@@ -406,12 +414,13 @@
     height: 100%;
   }
   .font {
-    margin:1.5em 0em;
+    margin:1em 0em;
     line-height: 1em;
-    font-size: 1.3em;
+    font-size: 1.2em;
   }
   .b{
     background-color: #6B6DAE;
     color: white;
+    margin-top: 1em;
   }
 </style>

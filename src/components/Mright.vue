@@ -1,6 +1,6 @@
 <template>
   <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12" id="Mright">
-    <div class="one" v-for="(i,index) in nav" :class="{'two':ind===index}" @click="changenav(index)">
+    <div class="one" v-for="i in nav" :class="ind===i.name?'two':''" @click="changenav(i.name)">
       <div>
         <router-link :to="{name:i.href}" ><p >{{i.name}}</p></router-link>
       </div>
@@ -18,16 +18,18 @@
             {index: '0',name:'警报',href:'Mwarn'},
             {index: '0',name: '导入解决包',href:'Msolve'},
           ],
-          ind:''
+          ind:'解决方案'
         }
       },
-      mounted(){
-          this.changenav(0);
-      },
       methods:{
-          changenav:function (index) {
-            this.ind=index
+          changenav:function (name) {
+            this.ind=name;
+
           }
+      },
+      mounted(){
+          this.changenav('解决方案')
+
       }
     }
 </script>

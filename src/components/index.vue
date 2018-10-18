@@ -52,7 +52,7 @@
             color: ['#1a58cc', '#fe6300', '#d20579'],
             legend: {
               icon: 'rect',
-              data: ['ipos', 'mbps', '时延'],
+              data: ['IOPS', 'MBPS', '时延'],
               align: 'right',
               right: 20,
               textStyle: {
@@ -60,7 +60,7 @@
               },
             },
             title: [{
-              text: '系统ipos、mbps、时延监控',
+              text: '系统IOPS、MBPS、时延监控',
               textStyle: {
                 color: 'white'
               }
@@ -125,7 +125,7 @@
               },
             ],
             series: [{
-              name: 'ipos',
+              name: 'IOPS',
               smooth: true,
               type: 'line',
               symbol: 'none',
@@ -187,7 +187,7 @@
               }
             },
               {
-                name: 'mbps',
+                name: 'MBPS',
                 smooth: true,
                 type: 'line',
                 symbol: 'none',

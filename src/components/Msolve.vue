@@ -64,7 +64,7 @@
   .bg{
     background-color: #292433;
     color: white;
-    height: 30em;
+    height: 40em;
     margin-top: 1em;
     border-radius: 8px;
   }

@@ -105,6 +105,7 @@
 }
 .one{
   background-color: #3A2F50;
+  height: 44em;
 }
 #table_id{
   background-color: #3A2F50;
@@ -113,6 +114,9 @@
 }
 tr{
   cursor:pointer;
+}
+.fixed-table-pagination{
+  padding-bottom: 5em !important;
 }
 thead{
   font-size: 1.2em;

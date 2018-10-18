@@ -7,7 +7,7 @@
           <p @click="deletelist()" id="deletelist"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em;margin-top: 1em" title="删除"></span></p>
           </div>
           <div id="h" style="width: 300px">
-            <span @click="editl()" id="editl"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em;margin-right: 1em" title="编辑" ></span></span>
+            <span @click="editlist()" id="editlist"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em;margin-right: 1em" title="编辑" ></span></span>
             <span @click="deletelist()" id="deletelist"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em;margin-top: 1em" title="删除"></span></span>
           </div>
         </div>
@@ -68,39 +68,40 @@
           var ids = $.map($('#usert').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
           });
-          console.log(ids.length)
+          console.log(ids)
           if (ids.length !== 1) {
             alert('请选择其中一个设备进行修改')
 
             return ('ok');
           }
+
           if(ids.length === 1){
             this.edit = ids;
             console.log(ids)
-            $('#editlist').click(function () {
-              $('#editm').modal("show")
-            })
-          }
-        },
-        editl() {
-          console.log(this.its)
-          var its = $.map($('#usert').bootstrapTable('getSelections'), function (row) {
-            return row.snapid;
-          });
 
-          if (its.length !== 1) {
-            alert('请选择其中一个设备进行修改')
-            return ('ok');
+              $('#editm').modal("show")
 
           }
-          else if(its.length === 1){
-            this.edit = its;
-            console.log(its)
-            $('#editl').click(function () {
-              $('#editm').modal("show")
-            })
-          }
+
         },
+        // editl() {
+        //   console.log(this.its)
+        //   var its = $.map($('#usert').bootstrapTable('getSelections'), function (row) {
+        //     return row.snapid;
+        //   });
+        //
+        //   if (its.length !== 1) {
+        //     alert('请选择其中一个设备进行修改')
+        //     return ('ok');
+        //
+        //   }
+        //   else if(its.length === 1){
+        //     this.edit = its;
+        //
+        //       $('#editm').modal("show")
+        //
+        //   }
+        // },
         deletelist(){
 
           var ids = $.map( $('#usert').bootstrapTable('getSelections'), function (row) {
@@ -144,8 +145,12 @@
     color: black;
   }
   #editm input{
-    background-color: white;
-    color: black;
+    background-color: #43355F !important;
+    color: white !important;
+  }
+  .modal-content{
+    background-color:#3E324E ;
+    color: white;
   }
   #y{
     display: block;

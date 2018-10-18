@@ -1,6 +1,6 @@
 <template>
   <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12" id="Rleft">
-    <div class="one" v-for="(i,index) in nav" :class="{'two':ind===index}" @click="changenav(index)">
+    <div class="one" v-for="i in nav" :class="isse===i.name?'two':''" @click="changenav(i.name)">
       <div>
         <router-link :to="{name:i.href}" ><p >{{i.name}}</p></router-link>
       </div>
@@ -21,14 +21,21 @@
               {index:'4',name:'object',href:''},
               {index:'5',name:'参数修改',href:'Rpara'}
             ],
-            ind:''
+            ind:'',
+            isse:'io-agent'
           }
       },
       methods:{
-        changenav:function (index) {
-          this.ind=index
+        changenav:function (name) {
+          this.isse=name
+
         }
+      },
+
+      mounted(){
+        this.isse='none'
       }
+
     }
 </script>
 
