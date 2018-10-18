@@ -46,6 +46,7 @@
   }
   .a{
     margin-top: 3em;
+    margin-bottom: 2em;
   }
      thead{
        background-color: #372B51;

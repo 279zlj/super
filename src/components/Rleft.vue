@@ -14,26 +14,32 @@
       data:function(){
           return{
             nav: [
-                {index: '0',name: 'io-agent',href:'Rosd'},
-              {index:'1',name:'tank',href:'Rpool'},
-              {index:'2',name:'block',href:'Rblock'},
-              {index:'3',name:'FS',href:''},
-              {index:'4',name:'object',href:''},
-              {index:'5',name:'参数修改',href:'Rpara'}
+              {index:'0',name:'概览',href:'Resources'},
+              {index: '1',name: 'io-agent',href:'Rosd'},
+              {index:'2',name:'tank',href:'Rpool'},
+              {index:'3',name:'block',href:'Rblock'},
+              {index:'4',name:'FS',href:''},
+              {index:'5',name:'object',href:''},
+              {index:'6',name:'参数修改',href:'Rpara'}
             ],
             ind:'',
-            isse:'io-agent'
+            isse:'概览'
           }
       },
       methods:{
         changenav:function (name) {
           this.isse=name
-
+          sessionStorage.setItem('isse',this.isse)
         }
       },
 
       mounted(){
-        this.isse='none'
+        if (sessionStorage.getItem('isse').length<1){
+          this.isse='概览'
+        }
+        else{
+          this.isse=sessionStorage.getItem('isse')
+        }
       }
 
     }

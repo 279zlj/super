@@ -1,28 +1,50 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 container-fluid" id="Rosd">
 
-  <div class="row all">
-  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 container">
-    <input type="button" class="btn btn-default" value="展开" style="margin-bottom: 1em;float: right"/>
-    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 container one">
-
-      <div class="row san" v-for="(i,index) in osdlist"  @click="change(index)">
+  <div class="row">
+  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 container allo">
+    <input type="button" class="btn btn-default b" value="展开" style="margin-bottom: 1em;margin-left:1em;float: right" @click="open()"/>
+    <input type="button" class="btn btn-default b" value="极简" style="margin-bottom: 1em;float: right" @click="clos()"/>
+    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 container one" id="sample">
+      <div class="row san" v-for="(i,index) in osdlist"  @click="change(index)" >
         <div class="row">
-          <div class="row block " :class="{'chan':ind===index}">
+          <div class="row aa" :class="{'chan':ind===index}" >
             <div class="row up " :class="{'chan':ind===index}">
               <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 " :class="{'chan':ind===index}">
                 <div class="row font " :class="{'chan':ind===index}">
                   <p>{{i.osdid}}</p>
                   <p>{{i.osdip}}</p>
-                  <input type="button" class="btn btn-sm b" value="控制台" id="hi"/>
+
                 </div>
 
               </div>
-              <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 pie " :class="{'chan':ind===index}" id="hi">
+              <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 " :class="{'chan':ind===index}" >
+                <input type="button" class="btn btn-sm b" value="控制台" />
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 container one" id="detail">
+      <div class="row san" v-for="(i,index) in osdlist"  @click="change(index)">
+        <div class="row">
+          <div class="row block aa" :class="{'chan':ind===index}">
+            <div class="row up " :class="{'chan':ind===index}">
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 " :class="{'chan':ind===index}">
+                <div class="row font " :class="{'chan':ind===index}">
+                  <p>{{i.osdid}}</p>
+                  <p>{{i.osdip}}</p>
+                  <input type="button" class="btn btn-sm b" value="控制台" />
+                </div>
+
+              </div>
+              <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 pie " :class="{'chan':ind===index}" >
                 <div :id=i.id class="grid container-fluid " :class="{'chan':ind===index}"></div>
               </div>
             </div>
-            <div class="row down " :class="{'chan':ind===index}" id="hi">
+            <div class="row down " :class="{'chan':ind===index}" >
               <span v-for="i in imgage"><img :src="i"/></span>
             </div>
           </div>
@@ -31,7 +53,7 @@
       </div>
   </div>
 
-    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 bgdown">
+    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 bgdown all">
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <div class=" bor container-fluid">
@@ -211,6 +233,20 @@
           // })
 
         },
+        clos(){
+
+            $('#sample').css("display",'block')
+            $('#detail').css("display",'none')
+
+
+        },
+        open(){
+          for (let i in this.osdlist) {
+            $('#sample').css("display", 'none')
+            $('#detail').css("display", 'block')
+          }
+
+        },
         edit(){
           $('#edit').click(function () {
             $('#editm').modal("show")
@@ -219,7 +255,7 @@
         piechart() {
           let i;
           for (i in this.osdlist) {
-            console.log(this.osdlist[i].id)
+
             var piec = this.$echarts.init(document.getElementById(this.osdlist[i].id))
             var option = {
               tooltip: {
@@ -275,6 +311,7 @@
       mounted(){
         this.piechart()
         this.change(0)
+        this.clos()
       },
       activated(){
         this.piechart()
@@ -291,9 +328,7 @@
   border-radius: .3em;
 
 }
-#hi{
-  display: none;
-}
+
 .e{
   margin-left: 10%;
   color: #B9B0C7;
@@ -317,7 +352,7 @@
 
 }
 .bgdown div div{
-  height:18em;
+  height:17.5em;
 }
 #editm{
   color: black;
@@ -376,16 +411,24 @@
   }
   .all{
     margin-top: 5em;
+
+  }
+  .allo{
+    margin-top: 1em;
   }
   .san{
     margin-bottom: 1em;
     margin-left: 15px;
-
+    background-color: #3E285A;
     width: 85%;
+  }
+  .aa{
+    background-color: #3E285A;
   }
   .one div{
 
   }
+
   .up{
     border-bottom: 1px solid #452F64;
     width: 95%;

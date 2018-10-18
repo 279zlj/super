@@ -25,16 +25,16 @@
       <div class="col-lg-1 col-lg-offset-2 col-md-1 col-md-offset-0 col-sm-2 col-xs-12 dropdown">
       <a class="dropdown-toggle glyphicon glyphicon-user white" data-toggle="dropdown" style="cursor: pointer"><span class="jl">admin</span></a>
         <ul class="dropdown-menu">
-          <li><router-link :to="{name:'User'}">用户管理</router-link></li>
+          <li @click="us()"><router-link :to="{name:'User'}">用户管理</router-link></li>
           <li><a style="cursor: pointer"><span id="out">退出登陆</span></a></li>
         </ul>
       </div>
       <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12 dropdown">
       <a class="dropdown-toggle glyphicon glyphicon-cog white" data-toggle="dropdown" style="cursor: pointer"><span class="jl">管理</span></a>
         <ul class="dropdown-menu">
-          <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#bb">版本控制</span></a></li>
+          <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#bb">版本管理</span></a></li>
           <li><a ><span style="cursor: pointer" data-toggle="modal" data-target="#lisense">lisense管理</span></a></li>
-          <li><router-link :to="{name:'Log'}">日志管理</router-link></li>
+          <li @click="us()"><router-link :to="{name:'Log'}">日志管理</router-link></li>
         </ul>
       </div>
     </div>
@@ -133,6 +133,9 @@ export default {
         confirm('确定退出？')
       })
     },
+    us(){
+      this.changenav('none')
+    },
     changenav:function (name) {
       this.issele=name
 
@@ -142,7 +145,12 @@ export default {
   },
   mounted(){
     this.outlog()
+    if (sessionStorage.getItem('issele').length<1){
+      this.changenav('首页')
+    }
+    else {
     this.issele=sessionStorage.getItem('issele')
+    }
   },
   // beforeMount(){
   //   this.changenav(0)

@@ -60,6 +60,7 @@
   }
   .a{
     margin-top: 4em;
+
   }
   .bg{
     background-color: #292433;
@@ -67,5 +68,6 @@
     height: 40em;
     margin-top: 1em;
     border-radius: 8px;
+    margin-bottom: 2em;
   }
 </style>
