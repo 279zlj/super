@@ -21,6 +21,8 @@ import Msolve from '@/components/Msolve'
 import Log from '@/components/Log'
 import User from '@/components/User'
 import Installone from '@/components/Installone'
+import Installtwo from '@/components/Installtwo'
+import Installthree from '@/components/Installthree'
 
 Vue.use(Router)
 
@@ -210,9 +212,25 @@ export default new Router({
       path:'/Installone',
       name:'Installone',
       menuShow:true,
+      component: Installone,
+
+    },
+    {
+      path:'/Installtwo',
+      name:'Installtwo',
+      menuShow:true,
       components: {
         default:HelloWorld,
-        bottom: Installone,
+        bottom: Installtwo,
+      }
+    },
+    {
+      path:'/Installthree',
+      name:'Installthree',
+      menuShow:true,
+      components: {
+        default:HelloWorld,
+        bottom: Installthree,
       }
     }
 

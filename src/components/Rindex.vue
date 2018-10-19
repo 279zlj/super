@@ -57,9 +57,17 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  bb">
         <div class="row two container-fluid">
         <div class="row container-fluid" >
-          <h4>
-            节点CPU使用率/TOP3
-          </h4>
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col-md-6 col-xs-6">
+              <h4>
+                节点CPU使用率/TOP3
+              </h4>
+            </div>
+            <div class="col-lg-3 col-lg-offset-6 col-md-3 col-md-6 col-xs-6">
+              <input type="button" class="btn btn-default btn-sm bi" value="查看全部" @click="cputop()"/>
+            </div>
+          </div>
+
           <div class="row" style="margin-bottom: 1em">
             <table class="table-condensed table-responsive table">
               <tbody>
@@ -75,9 +83,16 @@
           </div>
         </div>
         <div class="row container-fluid" style="margin-bottom: 2em">
-          <h4>
-            节点IOPS/TOP3
-          </h4>
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col-md-6 col-xs-6">
+              <h4>
+                节点IOPS/TOP3
+              </h4>
+            </div>
+            <div class="col-lg-3 col-lg-offset-6 col-md-3 col-md-6 col-xs-6">
+              <input type="button" class="btn btn-default btn-sm bi" value="查看全部" @click="iopstop()"/>
+            </div>
+          </div>
           <div class="row">
             <table class="table-condensed table-responsive table">
               <tbody>
@@ -93,9 +108,17 @@
           </div>
         </div>
         <div class="row container-fluid" style="margin-bottom: 1em">
-          <h4>
-            节点MBPS/TOP3
-          </h4>
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col-md-6 col-xs-6">
+              <h4>
+                节点MBPS/TOP3
+              </h4>
+            </div>
+            <div class="col-lg-3 col-lg-offset-6 col-md-3 col-md-6 col-xs-6">
+              <input type="button" class="btn btn-default btn-sm bi" value="查看全部" @click="mbpstop()"/>
+            </div>
+          </div>
+
           <div class="row">
             <table class="table-condensed table-responsive table">
               <tbody>
@@ -271,7 +294,7 @@
               {
                 name:'节点状况',
                 type:'pie',
-                radius : '90%',
+                radius : '85%',
                 roseType : 'radius',
                 itemStyle:{
                   normal:{
@@ -361,8 +384,28 @@
           }
           return this.jj,this.zy,this.cy
           console.log(this.jj,this.zy,this.cy)
-        }
+        },
+        cputop(){
+          this.$axios.get('').then(function (res) {
 
+          }).catch(function (error) {
+            console.log(error)
+          })
+        },
+        iopstop(){
+          this.$axios.get('').then(function (res) {
+
+          }).catch(function (error) {
+            console.log(error)
+          })
+        },
+        mbpstop(){
+          this.$axios.get('').then(function (res) {
+
+          }).catch(function (error) {
+            console.log(error)
+          })
+        }
       }
     }
 </script>
@@ -469,4 +512,7 @@
     text-overflow: ellipsis;
     width: 10em;
   }
+.bi{
+  margin-top: .3em;background-color: #6B6DAE;color: white
+}
 </style>

@@ -225,4 +225,10 @@
       margin-top: 1em;
     }
   }
+  @media screen and (min-width:1600px ) {
+    #kr{
+      width: 50px !important;
+    }
+
+  }
 </style>

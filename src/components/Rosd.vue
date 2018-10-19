@@ -78,7 +78,7 @@
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">数据盘</span></p>
             <span v-for="q in content[0].datap"><img src="../../static/image/three.png" class="img-responsive"></span>
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">缓存盘</span></p>
-            <span v-for="w in content[0].cachep"><img src="../../static/image/three.png" class="img-responsive"></span>
+            <span v-for="w in content[0].cachep"><img src="../../static/image/cachedata.png" class="img-responsive"></span>
           </div>
         </div>
 
@@ -424,6 +424,7 @@
   }
   .aa{
     background-color: #3E285A;
+    border-radius: 5px;
   }
   .one div{
 

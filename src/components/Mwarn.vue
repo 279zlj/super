@@ -1,7 +1,7 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" id="Mwarn" >
     <div class="row a">
-      <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="550" data-toggle="table"  data-classes="table-no-bordered"  data-url="http://localhost:3000/api/tableDate">
+      <table class="table table-responsive text-nowrap" id="table_id" data-height="550" data-side-pagination="server" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toggle="table"  data-classes="table-no-bordered"  data-url="http://localhost:3000/api/tableDate">
         <thead>
         <tr>
           <th data-field="snapid" >级别</th>

@@ -239,4 +239,15 @@
       margin-top: 2em;
     }
   }
+  @media screen and (min-width:1600px ) {
+    #kr{
+      width: 50px !important;
+    }
+    #adduser{
+      width: 50px !important;
+    }
+    #get,#nget{
+      width: 50px !important;
+    }
+  }
 </style>

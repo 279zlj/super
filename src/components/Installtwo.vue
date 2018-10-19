@@ -1,17 +1,13 @@
 <template>
-    <div class="row" id="Installone">
-
-    </div>
+    
 </template>
 
 <script>
     export default {
-        name: "Installone"
+        name: "Installtwo"
     }
 </script>
 
 <style scoped>
-#Installone{
 
-}
 </style>

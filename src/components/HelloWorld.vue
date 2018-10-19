@@ -12,7 +12,7 @@
           <img src="../../static/image/logo.png" class="img-responsive imgg"/>
         </a>
       </div>
-    <div class="col-lg-11 collapse navbar-collapse" id="navbar-menu">
+    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 collapse navbar-collapse" id="navbar-menu">
       <div class="col-lg-3 col-md-3 col-sm-1 col-xs-0">
 
       </div>
@@ -267,6 +267,15 @@ export default {
     .imgg{
       padding: .8rem .5rem .8rem .8rem;
       width: 90%;
+    }
+
+  }
+  @media screen and (min-width:1600px ) {
+
+    .imgg{
+      padding: .7rem .5rem .8rem 2rem;
+      margin-left: .5em;
+      width: 75%;
     }
 
   }

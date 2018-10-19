@@ -1,6 +1,6 @@
 <template>
   <div id="index" class="container">
-    <div class="row ">
+    <div class="row " id="one">
       <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
           <div id="mycharts" class="chartone"></div>
@@ -9,8 +9,16 @@
           <div id="mychartss" class="charttwo"></div>
         </div>
       </div>
-      <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 font bg" style="table-layout: fixed">
-        <div id="mychart" class="chart" ></div>
+      <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 font bg" >
+        <div class="row">
+        <div id="mychart" class="chartfirst" ></div>
+        </div>
+        <div class="row">
+          <div id="mchart" class="chartsecond" ></div>
+        </div>
+        <div class="row">
+          <div id="ychart" class="chartthird" ></div>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -40,33 +48,157 @@
     echarts,
 
     mounted() {
-      this.linechart();
+      this.linechartone();
+      this.lindecharttwo();
+      this.linechartthree();
       this.columnar();
       this.piechart();
+
     },
     methods: {
-      linechart: function () {
+      linechartone(){
         var mychart = this.$echarts.init(document.getElementById('mychart'));
+          this.$axios.get('http://localhost:3000/api/data').then(function (data) {
+            var option = {
+              color: ['#1a58cc'],
+
+              title: [{
+                left:'10%',
+                text: '系统IOPS',
+                textStyle: {
+                  color: 'white',
+                  fontSize:14
+                }
+              }],
+              tooltip: {
+                trigger: 'axis',
+                position: ['35%', 0],
+                show: true
+              },
+              xAxis: [{
+                name: '时间',
+                data: data.data.map(function (item) {
+                  return item[0];
+                }),
+                lineStyle: {
+                  color: 'white'
+                },
+                "axisLine": {
+                  lineStyle: {
+                    color: 'white'
+                  }
+                },
+                axisLabel: {
+                  textStyle: {
+                    color: 'white'
+                  }
+                }
+              },
+              ],
+              yAxis: {
+                name: '',
+                lineStyle: {
+                  color: 'white'
+                },
+                "axisLine": {
+                  lineStyle: {
+                    color: 'white'
+                  }
+                },
+                splitLine: {
+                  show: false
+                }
+              },
+              toolbox: {
+                left: 'center',
+                feature: {
+                  dataZoom: {
+                    yAxisIndex: 'none'
+                  },
+                  restore: {},
+                  saveAsImage: {}
+                }
+              },
+              dataZoom: [
+                {
+                  start: 50,
+                  end: 100,
+                  startValue: '00:00',
+                  endValue: '24:00',
+                  lineStyle: {color: 'white'},
+                  areaStyle: {color: '#ff9933'}
+                },
+                {
+                  type: 'inside',
+                },
+              ],
+              series: [{
+                name: 'IOPS',
+                smooth: true,
+                type: 'line',
+                symbol: 'none',
+                itemStyle: {
+                  normal: {
+                    lineStyle: {
+                      type: 'solid',
+                      width: 2,
+                      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#fff'
+                      },
+                        {
+                          offset: 0.02,
+                          color: '#83DEFC'
+                        },
+                        {
+                          offset: 0.10,
+                          color: '#1a58cc'
+                        },
+                        {
+                          offset: 1,
+                          color: '#5cd2fd'
+                        }]),//线条渐变色
+                    }
+                  }
+                },
+                data: data.data.map(function (item) {
+                  return item[1];
+                }),
+                labelLine: {
+                  normal: {
+                    lineStyle: {
+                      color: '#fff',
+                      width: 10
+                    }
+                  }
+                },
+
+              },
+              ]
+            }
+            mychart.setOption(option)
+          })
+          .catch(function (error) {
+                      console.log(error)
+                    })
+      },
+      lindecharttwo(){
+        var mchart = this.$echarts.init(document.getElementById('mchart'));
         this.$axios.get('http://localhost:3000/api/data').then(function (data) {
           var option = {
-            color: ['#1a58cc', '#fe6300', '#d20579'],
-            legend: {
-              icon: 'rect',
-              data: ['IOPS', 'MBPS', '时延'],
-              align: 'right',
-              right: 20,
-              textStyle: {
-                color: 'white'
-              },
-            },
+            color: ['#fe6300', ],
             title: [{
-              text: '系统IOPS、MBPS、时延监控',
+              left:'10%',
+              text: '系统MBPS',
               textStyle: {
-                color: 'white'
+                color: 'white',
+                fontSize:14
               }
             }],
             tooltip: {
               trigger: 'axis',
+              position: ['35%', 0],
+              show: true
             },
             xAxis: [{
               name: '时间',
@@ -89,7 +221,7 @@
             },
             ],
             yAxis: {
-              name: 'kb/s、b/s、ms',
+              name: 'b/s',
               lineStyle: {
                 color: 'white'
               },
@@ -114,9 +246,10 @@
             },
             dataZoom: [
               {
-                start: 95,
+                start: 50,
                 end: 100,
                 startValue: '00:00',
+                endValue: '24:00',
                 lineStyle: {color: 'white'},
                 areaStyle: {color: '#ff9933'}
               },
@@ -124,8 +257,132 @@
                 type: 'inside',
               },
             ],
-            series: [{
-              name: 'IOPS',
+            series: [ {
+                        name: 'MBPS',
+                        smooth: true,
+                        type: 'line',
+                        symbol: 'none',
+                        itemStyle: {
+                          normal: {
+                            lineStyle: {
+                              type: 'solid',
+                              width: 2,
+                              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: '#fff'
+                              },
+                                {
+                                  offset: 0.02,
+                                  color: '#FFD37C'
+                                },
+                                {
+                                  offset: 0.1,
+                                  color: '#fe6300'
+                                },
+                                {
+                                  offset: 1,
+                                  color: '#fecb5c'
+                                }]),//线条渐变色
+                            }
+                          }
+                        },
+
+                        data: data.data.map(function (item) {
+                          return item[1];
+                        }),
+                        labelLine: {
+                          normal: {
+                            lineStyle: {
+                              color: 'red'
+                            }
+                          }
+                        },
+                      },]
+          }
+          mchart.setOption(option)
+        })
+          .catch(function (error) {
+            console.log(error)
+          })
+      },
+      linechartthree(){
+        var ychart = this.$echarts.init(document.getElementById('ychart'));
+        this.$axios.get('http://localhost:3000/api/data').then(function (data) {
+          var option = {
+            color: ['#d20579', ],
+            title: [{
+              left:'10%',
+              text: '系统时延',
+              textStyle: {
+                color: 'white',
+                fontSize:14
+              }
+            }],
+            tooltip: {
+              trigger: 'axis',
+              position: ['35%', 0],
+              show: true
+            },
+            xAxis: [{
+              name: '时间',
+              data: data.data.map(function (item) {
+                return item[0];
+              }),
+              lineStyle: {
+                color: 'white'
+              },
+              "axisLine": {
+                lineStyle: {
+                  color: 'white'
+                }
+              },
+              axisLabel: {
+                textStyle: {
+                  color: 'white'
+                }
+              }
+            },
+            ],
+            yAxis: {
+              name: 'ms',
+              lineStyle: {
+                color: 'white'
+              },
+              "axisLine": {
+                lineStyle: {
+                  color: 'white'
+                }
+              },
+              splitLine: {
+                show: false
+              }
+            },
+            toolbox: {
+              left: 'center',
+              feature: {
+                dataZoom: {
+                  yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {}
+              }
+            },
+            dataZoom: [
+              {
+                start: 50,
+                end: 100,
+
+                lineStyle: {color: 'white'},
+                areaStyle: {color: '#ff9933'}
+              },
+              {
+                type: 'inside',
+                startValue: '00:00',
+                endValue: '24:00',
+              },
+            ],
+            series: [ {
+              name: '时延',
               smooth: true,
               type: 'line',
               symbol: 'none',
@@ -133,145 +390,42 @@
                 normal: {
                   lineStyle: {
                     type: 'solid',
-                    width: 6,
+                    width: 2,
                     color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                       offset: 0,
                       color: '#fff'
                     },
                       {
                         offset: 0.02,
-                        color: '#83DEFC'
+                        color: '#FF8BE8'
                       },
                       {
-                        offset: 0.10,
-                        color: '#1a58cc'
-                      },
-                      {
+                        offset: 0.1,
+                        color: '#d20579'
+                      }, {
                         offset: 1,
-                        color: '#5cd2fd'
+                        color: '#fd3cd9'
                       }]),//线条渐变色
                   }
                 }
               },
               data: data.data.map(function (item) {
-                return item[1];
+                return item[2];
               }),
               labelLine: {
                 normal: {
                   lineStyle: {
-                    color: '#fff',
-                    width: 10
+                    color: 'red'
                   }
                 }
               },
-              markLine: {
-                silent: true,
-                itemStyle: {
-                  normal: {
-                    lineStyle: {
-                      color: 'white'
-                    }
-                  }
-                },
-                data: [{
-                  yAxis: 50
-                }, {
-                  yAxis: 100
-                }, {
-                  yAxis: 150
-                }, {
-                  yAxis: 200
-                }, {
-                  yAxis: 300
-                }]
-              }
-            },
-              {
-                name: 'MBPS',
-                smooth: true,
-                type: 'line',
-                symbol: 'none',
-                itemStyle: {
-                  normal: {
-                    lineStyle: {
-                      type: 'solid',
-                      width: 6,
-                      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                        offset: 0,
-                        color: '#fff'
-                      },
-                        {
-                          offset: 0.02,
-                          color: '#FFD37C'
-                        },
-                        {
-                          offset: 0.1,
-                          color: '#fe6300'
-                        },
-                        {
-                          offset: 1,
-                          color: '#fecb5c'
-                        }]),//线条渐变色
-                    }
-                  }
-                },
-                data: data.data.map(function (item) {
-                  return item[2];
-                }),
-                labelLine: {
-                  normal: {
-                    lineStyle: {
-                      color: 'red'
-                    }
-                  }
-                },
-              },
-              {
-                name: '时延',
-                symbol: 'none',
-                type: 'line',
-                smooth: true,
-                itemStyle: {
-                  normal: {
-                    lineStyle: {
-                      type: 'solid',
-                      width: 6,
-                      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                        offset: 0,
-                        color: '#fff'
-                      },
-                        {
-                          offset: 0.02,
-                          color: '#FF8BE8'
-                        },
-                        {
-                          offset: 0.1,
-                          color: '#d20579'
-                        }, {
-                          offset: 1,
-                          color: '#fd3cd9'
-                        }]),//线条渐变色
-                    }
-                  }
-                },
-                data: data.data.map(function (item) {
-                  return item[3];
-                }),
-                labelLine: {
-                  normal: {
-                    lineStyle: {
-                      color: 'blue'
-                    }
-                  }
-                },
-              }
-            ]
-          };
-          mychart.setOption(option);
+            },]
+          }
+          ychart.setOption(option)
         })
           .catch(function (error) {
             console.log(error)
-          });
+          })
       },
       columnar: function () {
         var mycharts = this.$echarts.init(document.getElementById('mycharts'));
@@ -412,11 +566,17 @@
   p{
     color: white;
   }
-  .chart{
-    width: 100%;height:35em;margin-top: 7em;
+  .chartfirst{
+    width: 100%;height:13em;margin-top: 5em;
+  }
+  .chartsecond{
+    width: 100%;height:13em;margin-top: 1em;
+  }
+  .chartthird{
+    width: 100%;height:13em;margin-top: 1em;
   }
   .charttwo{
-    width: 100%;height:15em;margin-top: 3em;
+    width: 100%;height:15em;margin-top: 5em;
   }
   .chartone{
     width: 100%;height: 16em;margin-top: 7em
@@ -457,5 +617,23 @@
       width: 100%;height:15em;margin-top: 7em;
     }
   }
+  @media screen and (min-width:1600px ) {
+    #index{
+      width: 100%;
+    }
+  #one{
+    width: 100%;
 
+  }
+    #mycharts{
+      width: 120%;
+
+    }
+    .text{
+      margin-top:2.5%;
+    }
+  }
+  #mycharts div canvas{
+    height:5em;
+  }
 </style>

@@ -34,10 +34,15 @@
       },
 
       mounted(){
+
         if (sessionStorage.getItem('isse').length<1){
           this.isse='概览'
         }
-        else{
+        else if(this.$router.path==='/Resources'){
+          console.log(this.$router.path)
+          this.changenav('概览')
+        }
+        else {
           this.isse=sessionStorage.getItem('isse')
         }
       }
