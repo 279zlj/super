@@ -23,6 +23,7 @@ import User from '@/components/User'
 import Installone from '@/components/Installone'
 import Installtwo from '@/components/Installtwo'
 import Installthree from '@/components/Installthree'
+import Login from '@/components/Login'
 
 Vue.use(Router)
 
@@ -219,19 +220,22 @@ export default new Router({
       path:'/Installtwo',
       name:'Installtwo',
       menuShow:true,
-      components: {
-        default:HelloWorld,
-        bottom: Installtwo,
-      }
+      component: Installtwo,
+
     },
     {
       path:'/Installthree',
       name:'Installthree',
       menuShow:true,
-      components: {
-        default:HelloWorld,
-        bottom: Installthree,
-      }
+      component: Installthree,
+
+    },
+    {
+      path:'/Login',
+      name:'Login',
+      menuShow:true,
+      component: Login,
+
     }
 
   ]
