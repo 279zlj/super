@@ -36,6 +36,9 @@
     },
     mounted(){
       this.gbo()
+    },
+    created(){
+      this.gbo()
     }
   }
 </script>
@@ -49,6 +52,9 @@
   /*body{*/
     /*background-color: #2E2245;*/
   /*}*/
+  #app{
+    background-color: #2E2245;
+  }
   @media screen and (min-width:1600px ) {
     #app{
       width: 80%;

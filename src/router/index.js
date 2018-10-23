@@ -24,6 +24,7 @@ import Installone from '@/components/Installone'
 import Installtwo from '@/components/Installtwo'
 import Installthree from '@/components/Installthree'
 import Login from '@/components/Login'
+import Error from '@/components/Error'
 
 Vue.use(Router)
 
@@ -37,13 +38,16 @@ export default new Router({
         default:HelloWorld,
         bottom:index
 
-      }
+      },
+
+      meta: { requiresAuth: true }
     },
     {
       path:'/index',
       name:'index',
       menuShow:true,
-      component:index
+      component:index,
+      meta: { requiresAuth: true }
     },
     {
       path:'/Log',
@@ -53,7 +57,8 @@ export default new Router({
         default:HelloWorld,
         bottom:Log
 
-      }
+      },
+      meta: { requiresAuth: true }
     },
     {
       path:'/User',
@@ -63,7 +68,8 @@ export default new Router({
         default:HelloWorld,
         bottom:User
 
-      }
+      },
+      meta: { requiresAuth: true }
     },
     {
       path:'/Resources',
@@ -74,6 +80,7 @@ export default new Router({
         bottom: Rindex,
         right:Rleft,
       },
+      meta: { requiresAuth: true }
     },
     {
       path:'/Allocation',
@@ -83,7 +90,8 @@ export default new Router({
         default:HelloWorld,
         bottom: Aindex,
         right:Aright,
-      }
+      },
+      meta: { requiresAuth: true }
     },
     {
       path:'/Management',
@@ -93,19 +101,22 @@ export default new Router({
         default:HelloWorld,
         bottom: Mindex,
         right:Mright,
-      }
+      },
+      meta: { requiresAuth: true }
     },
     {
       path:'/Rleft',
       name:'Rleft',
       menuShow:true,
-      component:Rleft
+      component:Rleft,
+      meta: { requiresAuth: true }
     },
     {
       path:'/Rindex',
       name:'Rindex',
       menuShow:true,
-      component:Rindex
+      component:Rindex,
+      meta: { requiresAuth: true }
     },
     {
       path:'/Aindex',
@@ -115,13 +126,15 @@ export default new Router({
         default:HelloWorld,
         bottom: Aindex,
         right:Aright,
-      }
+      },
+      meta: { requiresAuth: true }
     },
     {
       path:'/Aright',
       name:'Aright',
       menuShow:true,
-      component:Aright
+      component:Aright,
+      meta: { requiresAuth: true }
     },
     {
       path:'/Mindex',
@@ -131,7 +144,8 @@ export default new Router({
         default:HelloWorld,
         bottom: Mindex,
         right:Mright,
-      }
+      },
+      meta: { requiresAuth: true }
     },
     {
       path:'/Mwarn',
@@ -141,7 +155,8 @@ export default new Router({
         default:HelloWorld,
         bottom: Mwarn,
         right:Mright,
-      }
+      },
+      meta: { requiresAuth: true }
     },
     {
       path:'/Msolve',
@@ -151,13 +166,15 @@ export default new Router({
         default:HelloWorld,
         bottom: Msolve,
         right:Mright,
-      }
+      },
+      meta: { requiresAuth: true }
     },
     {
       path:'/Mright',
       name:'Mright',
       menuShow:true,
-      component:Mright
+      component:Mright,
+      meta: { requiresAuth: true }
     },
     {
       path:'/Rosd',
@@ -168,6 +185,7 @@ export default new Router({
         bottom: Rosd,
         right:Rleft,
       },
+      meta: { requiresAuth: true }
     },
     {
       path:'/Rpool',
@@ -177,7 +195,8 @@ export default new Router({
         default:HelloWorld,
         bottom: Rpool,
         right:Rleft,
-      }
+      },
+      meta: { requiresAuth: true }
     },
     {
       path:'/Rblock',
@@ -187,7 +206,8 @@ export default new Router({
         default:HelloWorld,
         bottom: Rblock,
         right:Rleft,
-      }
+      },
+      meta: { requiresAuth: true }
     },
     {
       path:'/Rpara',
@@ -197,7 +217,8 @@ export default new Router({
         default:HelloWorld,
         bottom: Rpara,
         right:Rleft,
-      }
+      },
+      meta: { requiresAuth: true }
     },
     {
       path:'/Aoperation',
@@ -207,7 +228,8 @@ export default new Router({
         default:HelloWorld,
         bottom: Aoperation,
         right:Aright,
-      }
+      },
+      meta: { requiresAuth: true }
     },
     {
       path:'/Installone',
@@ -235,6 +257,13 @@ export default new Router({
       name:'Login',
       menuShow:true,
       component: Login,
+
+    },
+    {
+      path:'*',
+      name:'Error',
+      menuShow:true,
+      component: Error,
 
     }
 

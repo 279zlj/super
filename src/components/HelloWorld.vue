@@ -22,7 +22,7 @@
           <!--<p class="font" @click="changenav(i.name)">{{i.name}}</p>-->
         </div>
       </div>
-      <div class="col-lg-1 col-lg-offset-2 col-md-1 col-md-offset-0 col-sm-2 col-xs-12 dropdown">
+      <div class="col-lg-1 col-lg-offset-1 col-md-1 col-md-offset-0 col-sm-2 col-xs-12 dropdown">
       <a class="dropdown-toggle glyphicon glyphicon-user white" data-toggle="dropdown" style="cursor: pointer"><span class="jl">admin</span></a>
         <ul class="dropdown-menu">
           <li @click="us()"><router-link :to="{name:'User'}">用户管理</router-link></li>
@@ -35,6 +35,13 @@
           <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#bb">版本管理</span></a></li>
           <li><a ><span style="cursor: pointer" data-toggle="modal" data-target="#lisense">lisense管理</span></a></li>
           <li @click="us()"><router-link :to="{name:'Log'}">日志管理</router-link></li>
+        </ul>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12 dropdown" style="height: 3em">
+        <a data-toggle="dropdown" style="cursor: pointer;color: white"><span class="j2">语言</span></a>
+        <ul class="dropdown-menu">
+          <li ><a style="cursor: pointer">中文</a></li>
+          <li><a style="cursor: pointer">英语</a></li>
         </ul>
       </div>
     </div>
@@ -113,6 +120,9 @@
 </template>
 
 <script>
+  import 'store'
+  import 'vuex'
+  import '../store/store'
 export default {
   name: 'HelloWorld',
   data () {
@@ -127,10 +137,25 @@ export default {
       ind:''
     }
   },
+  computed:{
+    islogin(){
+      return this.$store.state.islogin
+    }
+  },
   methods:{
     outlog(){
+      let self=this
       $('#out').click(function () {
-        confirm('确定退出？')
+
+        var msg=confirm('确定退出？')
+        if (msg===true){
+          self.$store.commit('islogin',0)
+          sessionStorage.removeItem('islogin');
+          localStorage.removeItem('islogin')
+          self.$router.push({path:'/Login'})
+          window.document.body.style.backgroundColor = '#242424';
+        }
+        else return;
       })
     },
     us(){
@@ -181,6 +206,10 @@ export default {
   .jl{
     padding-left: 1rem;
     line-height: 4rem;
+  }
+  .j2{
+    line-height: 3.9em;
+
   }
   .white{
     color: white;

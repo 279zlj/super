@@ -12,10 +12,10 @@
           <div class="container-fluid">
           <h2 class="t">登录</h2>
           <label class="l">用户名：</label>
-          <input type="text" class="form-control" placeholder="请输入用户名"/>
+          <input type="text" class="form-control" placeholder="请输入用户名" ref="user" id="user"/>
           <label class="l">密码：</label>
-          <input type="password" class="form-control"/>
-          <input type="button" class="btn btn-info b" value="登录"/>
+          <input type="password" class="form-control" placeholder="输入密码" ref="pwd" id="pwd"/>
+          <input type="button" class="btn btn-info b" value="登录" @click="loginuser()" />
           </div>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6" >
@@ -29,8 +29,54 @@
 </template>
 
 <script>
+  import 'store'
+  import 'vuex'
+  import '../store/store'
+
     export default {
-        name: "Login"
+        name: "Login",
+
+      computed:{
+          islogin(){
+            return this.$store.state.islogin
+          }
+      },
+      data(){
+          return{
+            user:'',
+            pwd:''
+          }
+      },
+
+      methods:{
+        loginuser(){
+
+          if (this.$refs.user.value==''||this.$refs.pwd.value==''){
+            alert('用户名或密码不能为空')
+          }
+
+          else {
+            this.user=this.$refs.user.value;
+            this.pwd=this.$refs.pwd.value;
+            // this.setToken('login_token','ewraweesdfasd')
+            // this.setToken('islogin',200)
+            this.$store.commit('islogin',200)
+            sessionStorage.setItem('islogin','200')
+            this.$router.push('/')
+            // this.$axios.post('/Login',{user:this.user,pwd:this.pwd}).then(function (res) {
+            //   if (res.status=='200'){
+            //     this.$store.commit('islogin',200)
+            //     sessionStorage.setItem('islogin','200')
+            //     this.$router.push('/')
+            //   }
+            // }).catch(function (error) {
+            //   console.log(error)
+            // })
+
+
+          }
+        }
+      }
     }
 </script>
 
@@ -44,6 +90,8 @@
     top: 0;
     bottom: 0;
     left: 0;
+    background-color: #242424 !important;
+    width: 100%;
   }
   .one{
     position: fixed;

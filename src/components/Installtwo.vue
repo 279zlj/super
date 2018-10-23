@@ -22,12 +22,12 @@
               </div>
 
             </div>
-            <div style="background-color: #9AA3B0;width: 45em;height: 30em;position: relative;z-index: 999;margin-top: 1em;border-radius: 5px">
+            <div class="g">
 
             </div>
             <div class="r">
-              <router-link :to="{}"><span style="margin-right: 1em"><span class="glyphicon glyphicon-chevron-left"></span>上一步</span></router-link>
-              <router-link :to="{}"><span>下一步<span class="glyphicon glyphicon-chevron-right"></span></span></router-link>
+              <router-link :to="{name:'Installone'}"><span style="margin-right: 1em"><span class="glyphicon glyphicon-chevron-left"></span>上一步</span></router-link>
+              <router-link :to="{name:'Installthree'}"><span>下一步<span class="glyphicon glyphicon-chevron-right"></span></span></router-link>
             </div>
           </div>
         </div>
@@ -54,6 +54,11 @@
   top: 0;
   bottom: 0;
   left: 0;
+  background-color: white !important;
+  width: 100%;
+}
+.g{
+  background-color: #9AA3B0;width: 45em;height: 30em;position: relative;z-index: 999;margin-top: 1em;border-radius: 5px
 }
 .font1{
   text-align: center;margin: 6em 0 0 0;font-size: 3.5em
@@ -95,5 +100,67 @@
   line-height: 3.5em;
 
   font-size: 1.5em;
+}
+@media screen and (min-width: 1440px){
+  .cont,.g{
+    margin-left: 13em;
+    width: 50em;
+  }
+  .font1{
+    margin-left: 2em;
+  }
+  .font2{
+    margin-left: 4em;
+  }
+  .r{
+    margin-left: 20em;
+  }
+}
+@media screen and (max-width: 1440px) and (min-width: 1024px){
+  .cont,.g{
+    margin-left: 0em;
+    width: 45em;
+  }
+  .font1{
+    margin-left: 0em;
+  }
+  .font2{
+    margin-left: 0em;
+  }
+  .r{
+    margin-left: 0em;
+  }
+}
+@media screen and (max-width: 1024px) and (min-width: 768px){
+  .cont,.g{
+    margin-left: 0em;
+    width: 35em;
+  }
+  .font1{
+    margin-left: 0em;
+    font-size: 2em;
+    margin-top: 10em;
+  }
+  .font2{
+    margin-left: 0em;
+    font-size: 1em;
+  }
+  .r{
+    margin-left: 0em;
+  }
+  .right{
+    width: 30em;
+  }
+  .left{
+    width: 100px;
+  }
+  .yun{
+    left: 100px;
+    width: 15em;
+  }
+  .logo{
+    left: 1em;
+
+  }
 }
 </style>

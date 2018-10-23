@@ -6,13 +6,13 @@
       </div>
       <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 center">
         <div class="row container">
-        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+        <div class="col-lg-5 col-md-4 col-sm-5 col-xs-5">
 
           <p class="font1" >请选择服务器</p>
           <p class="font2">Plese select your servers.</p>
           <img src="../../static/image/install/oneleftdown.png" class="img-responsive yun"/>
         </div>
-          <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+          <div class="col-lg-7 col-md-6 col-sm-7 col-xs-7">
             <div class="cont" >
               <div class="container-fluid " >
                 <h3>监控节点：</h3>
@@ -28,7 +28,7 @@
               </div>
               <div class="container-fluid" style="margin-top: 3em;margin-left: 2em">
                 <div class="row" style="width: 100%;overflow-y:scroll;height: 10em">
-                  <div v-for="i in servernum" class="col-lg-2">
+                  <div v-for="i in servernum" class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
                     <img src="../../static/image/install/select.png" class="img-responsive" :title="i.content" />
                     <p>{{i.name}}</p>
                   </div>
@@ -36,8 +36,8 @@
               </div>
             </div>
             <div class="r">
-              <router-link :to="{}"><span style="margin-right: 1em"><span class="glyphicon glyphicon-chevron-left"></span>上一步</span></router-link>
-              <router-link :to="{}"><span>下一步<span class="glyphicon glyphicon-chevron-right"></span></span></router-link>
+              <router-link :to="{}" ><span style="margin-right: 1em" ><span class="glyphicon glyphicon-chevron-left"></span>上一步</span></router-link>
+              <router-link :to="{name:'Installtwo'}"><span>下一步<span class="glyphicon glyphicon-chevron-right"></span></span></router-link>
             </div>
           </div>
         </div>
@@ -88,6 +88,11 @@
   top: 0;
   bottom: 0;
   left: 0;
+  background-color: white !important;
+  width: 100%;
+}
+body{
+  background-color: white !important;
 }
 .font1{
   text-align: center;margin: 6em 0 0 0;font-size: 3.5em
@@ -129,19 +134,66 @@
 
     font-size: 1.5em;
   }
-  /*@media screen and (min-width: 1440px){*/
-    /*.cont{*/
-      /*margin-left: 13em;*/
-      /*width: 50em;*/
-    /*}*/
-    /*.font1{*/
-      /*margin-left: 2em;*/
-    /*}*/
-    /*.font2{*/
-      /*margin-left: 4em;*/
-    /*}*/
-    /*.r{*/
-      /*margin-left: 20em;*/
-    /*}*/
-  /*}*/
+  @media screen and (min-width: 1440px){
+    .cont{
+      margin-left: 13em;
+      width: 50em;
+    }
+    .font1{
+      margin-left: 2em;
+    }
+    .font2{
+      margin-left: 4em;
+    }
+    .r{
+      margin-left: 20em;
+    }
+  }
+@media screen and (max-width: 1440px) and (min-width: 1024px){
+  .cont{
+    margin-left: 0em;
+    width: 45em;
+  }
+  .font1{
+    margin-left: 0em;
+  }
+  .font2{
+    margin-left: 0em;
+  }
+  .r{
+    margin-left: 0em;
+  }
+}
+@media screen and (max-width: 1024px) and (min-width: 768px){
+  .cont{
+    margin-left: 0em;
+    width: 35em;
+  }
+  .font1{
+    margin-left: 0em;
+    font-size: 2em;
+    margin-top: 10em;
+  }
+  .font2{
+    margin-left: 0em;
+    font-size: 1em;
+  }
+  .r{
+    margin-left: 0em;
+  }
+  .right{
+    width: 30em;
+  }
+  .left{
+    width: 100px;
+  }
+  .yun{
+    left: 100px;
+    width: 15em;
+  }
+  .logo{
+    left: 1em;
+
+  }
+}
 </style>
