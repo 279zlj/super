@@ -16,18 +16,18 @@
             <div class="cont" >
               <div class="container-fluid " >
                 <h3>监控节点：</h3>
-                <div style="height:8em;width: 100%;border: 1px solid black">
+                <div class="jq">
 
                 </div>
               </div>
               <div class="container-fluid">
                 <h3>集群节点：</h3>
-                <div style="height:8em;width: 100%;border: 1px solid black">
+                <div class="jq">
 
                 </div>
               </div>
               <div class="container-fluid" style="margin-top: 3em;margin-left: 2em">
-                <div class="row" style="width: 100%;overflow-y:scroll;height: 10em">
+                <div class="row ser" >
                   <div v-for="i in servernum" class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
                     <img src="../../static/image/install/select.png" class="img-responsive" :title="i.content" />
                     <p>{{i.name}}</p>
@@ -37,7 +37,7 @@
             </div>
             <div class="r">
               <router-link :to="{}" ><span style="margin-right: 1em" ><span class="glyphicon glyphicon-chevron-left"></span>上一步</span></router-link>
-              <router-link :to="{name:'Installtwo'}"><span>下一步<span class="glyphicon glyphicon-chevron-right"></span></span></router-link>
+              <router-link :to="{name:'Installtwo'}" ><span  >下一步<span class="glyphicon glyphicon-chevron-right"></span></span></router-link>
             </div>
           </div>
         </div>
@@ -75,6 +75,15 @@
               {num:'7',name:'server7'},
             ]
           }
+      },
+      created(){
+          var _this=this
+          document.onkeydown=function (e) {
+            var key=window.event.keyCode
+            if (key==39){
+              _this.$router.push({name:'Installtwo'})
+            }
+          }
       }
     }
 </script>
@@ -90,6 +99,12 @@
   left: 0;
   background-color: white !important;
   width: 100%;
+}
+.jq{
+  height:8em;width: 100%;border: 1px solid black
+}
+.ser{
+  width: 100%;overflow-y:scroll;height: 10em
 }
 body{
   background-color: white !important;
@@ -156,13 +171,16 @@ body{
   }
   .font1{
     margin-left: 0em;
+    margin-top: 5em;
   }
   .font2{
     margin-left: 0em;
   }
   .r{
     margin-left: 0em;
+
   }
+
 }
 @media screen and (max-width: 1024px) and (min-width: 768px){
   .cont{

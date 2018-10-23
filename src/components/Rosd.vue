@@ -10,15 +10,15 @@
         <div class="row">
           <div class="row aa" :class="{'chan':ind===index}" >
             <div class="row up " :class="{'chan':ind===index}">
-              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 " :class="{'chan':ind===index}">
+              <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 " :class="{'chan':ind===index}">
                 <div class="row font " :class="{'chan':ind===index}">
                   <p>{{i.osdid}}</p>
                   <p>{{i.osdip}}</p>
-
+                  <p>状态：<span :class="{'o':i.status==='ok','wa':i.status==='warn','err':i.status==='error'}">{{i.status}}</span></p>
                 </div>
 
               </div>
-              <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 " :class="{'chan':ind===index}" >
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 " :class="{'chan':ind===index}" >
                 <input type="button" class="btn btn-sm b" value="控制台" />
               </div>
             </div>
@@ -36,6 +36,7 @@
                 <div class="row font " :class="{'chan':ind===index}">
                   <p>{{i.osdid}}</p>
                   <p>{{i.osdip}}</p>
+
                   <input type="button" class="btn btn-sm b" value="控制台" />
                 </div>
 
@@ -59,7 +60,7 @@
           <div class=" bor container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">机器信息</span></p>
             <p class="ff">型号：<span>{{content[0].name}}</span></p>
-            <p class="ff">状态：<span>{{content[0].status}}</span></p>
+            <p class="ff">状态：<span :class="{'o':content[0].status==='ok','wa':content[0].status==='warn','err':content[0].status==='error'}">{{content[0].status}}</span></p>
             <p class="ff">操作系统：<span>{{content[0].opsys}}</span></p>
           </div>
         </div>
@@ -193,13 +194,13 @@
       data(){
         return{
           osdlist:[
-            {osdid:'001',osdip:'127.0.0.1',usage:"32",unusage:'52',id:'piechart'},
-            {osdid:'002',osdip:'127.0.0.2',usage:"42",unusage:'214',id:'piecharttwo'},
-            {osdid:'003',osdip:'127.0.0.3',usage:"52",unusage:'145',id:'piechartthree'},
-            {osdid:'004',osdip:'127.0.0.2',usage:"72",unusage:'114',id:'piechartfour'},
-            {osdid:'005',osdip:'127.0.0.3',usage:"75",unusage:'74',id:'piechartfive'},
-            {osdid:'006',osdip:'127.0.0.2',usage:"15",unusage:'153',id:'piechartsix'},
-            {osdid:'007',osdip:'127.0.0.3',usage:"52",unusage:'145',id:'piechartsenven'},
+            {osdid:'001',osdip:'127.0.0.1',usage:"32",unusage:'52',id:'piechart',status:'ok'},
+            {osdid:'002',osdip:'127.0.0.2',usage:"42",unusage:'214',id:'piecharttwo',status:'ok'},
+            {osdid:'003',osdip:'127.0.0.3',usage:"52",unusage:'145',id:'piechartthree',status:'ok'},
+            {osdid:'004',osdip:'127.0.0.2',usage:"72",unusage:'114',id:'piechartfour',status:'ok'},
+            {osdid:'005',osdip:'127.0.0.3',usage:"75",unusage:'74',id:'piechartfive',status:'ok'},
+            {osdid:'006',osdip:'127.0.0.2',usage:"15",unusage:'153',id:'piechartsix',status:'ok'},
+            {osdid:'007',osdip:'127.0.0.3',usage:"52",unusage:'145',id:'piechartsenven',status:'ok'},
           ],
           imgage:[
             '../../static/image/one.png',
@@ -244,6 +245,7 @@
           for (let i in this.osdlist) {
             $('#sample').css("display", 'none')
             $('#detail').css("display", 'block')
+
           }
 
         },
@@ -459,12 +461,24 @@
   }
   .font {
     margin:1em 0em;
-    line-height: 1em;
-    font-size: 1.2em;
+    line-height: .8em;
+    font-size: 1.15em;
   }
   .b{
     background-color: #6B6DAE;
     color: white;
     margin-top: 1em;
+  }
+  .o{
+    color:#17FF1C;
+    font-weight: 700;
+  }
+  .wa{
+    color:orange;
+    font-weight: 700;
+  }
+  .err{
+    color: red;
+    font-weight: 700;
   }
 </style>

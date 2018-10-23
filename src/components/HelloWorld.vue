@@ -284,6 +284,9 @@ export default {
     .nav-color{
       margin-top: 0;
     }
+    .one{
+      width: 100%;
+    }
   }
   @media screen and (min-width: 426px) and (max-width: 768px) {
     .imgg{
