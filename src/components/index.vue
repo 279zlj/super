@@ -46,7 +46,14 @@
   export default {
     name: "index",
     echarts,
-
+    data(){
+      return{
+        sta:[18, 23, 29, 40],
+        net:[
+          {use:'143',nuse:'324'}
+        ]
+      }
+    },
     mounted() {
       this.linechartone();
       this.lindecharttwo();
@@ -479,7 +486,7 @@
               name: '状态',
               type: 'bar',
               barWidth: 20,
-              data: [18, 23, 29, 50],
+              data: this.sta,
               itemStyle: {
                 normal: {
                   color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
@@ -526,8 +533,8 @@
               radius: '55%',
               center: ['50%', '50%'],
               data: [
-                {value: 435, name: '可用'},
-                {value: 210, name: '已用'},
+                {value: this.net[0].nuse, name: '可用'},
+                {value: this.net[0].use, name: '已用'},
               ],
               roseType: 'radius',
               label: {

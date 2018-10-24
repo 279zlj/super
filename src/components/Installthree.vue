@@ -31,7 +31,13 @@
 
 <script>
     export default {
-        name: "Installthree"
+        name: "Installthree",
+      created(){
+        document.onkeydown=function(e) {
+          var key = window.event.keyCode
+          return;
+        }
+      }
     }
 </script>
 

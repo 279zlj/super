@@ -8,19 +8,19 @@
       </div>
       <div class="container-fluid" style="margin-top: 13em">
         <div class="row">
-        <div class="col-lg-3 col-lg-offset-3 col-md-4 col-md-offset-2 col-sm-5 col-sm-offset-1 col-xs-6 content" style="background-color: white;">
-          <div class="container-fluid">
+        <div class="col-lg-3 col-lg-offset-3 col-md-4 col-md-offset-2 col-sm-5 col-sm-offset-1 col-xs-6 content" style="background-color: white;height: 35em">
+          <div class="container-fluid" @keydown.enter="loginuser">
           <h2 class="t">登录</h2>
           <label class="l">用户名：</label>
-          <input type="text" class="form-control" placeholder="请输入用户名" ref="user" id="user"/>
+          <input type="text" class="form-control" placeholder="请输入用户名" ref="user" id="user" autofocus="autofocus"/>
           <label class="l">密码：</label>
           <input type="password" class="form-control" placeholder="输入密码" ref="pwd" id="pwd"/>
           <input type="button" class="btn btn-info b" value="登录" @click="loginuser()" />
           </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6" >
+        <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6">
           <div class="row">
-            <img src="../../static/image/login/right.png" class="img-responsive"/>
+            <img src="../../static/image/login/right.png" class="img-responsive" style="height: 35em;width: 100%"/>
           </div>
         </div>
         </div>
@@ -47,7 +47,9 @@
             pwd:''
           }
       },
-
+      created(){
+          this.loginuser()
+      },
       methods:{
         loginuser(){
 
@@ -101,7 +103,7 @@
   }
   .t{
     text-align: center;
-    margin-top: 3em;
+    margin-top: 2em;
     margin-bottom: .8em;
   }
   .l{
@@ -157,6 +159,12 @@
       margin-top: 3em;
       margin-bottom: 2em;
     }
+    .one{
+      width: 30%;
+    }
+    .two{
+      width: 40%;
+    }
   }
   @media screen and (max-width: 768px) and (min-width: 426px){
     .t{
@@ -173,11 +181,11 @@
   }
   @media screen and (max-width: 425px){
     .t{
-      margin-top: .5em;
-      margin-bottom: 0em;
+      margin-top: 3em;
+      margin-bottom: 1em;
     }
     .b{
-      margin-top: 1em;
+      margin-top: 2em;
       margin-bottom: 1em;
       width: 50%;
       margin-left: 25%;
@@ -187,7 +195,19 @@
     }
     .l{
       font-size:1em ;
-      margin-top: .3em;
+      margin-top: 1em;
+    }
+    .one{
+      width: 30%;
+    }
+    .four{
+      width: 30%;
+    }
+    .two{
+      width: 60%;
+    }
+    .three{
+      width: 20%;
     }
   }
 </style>

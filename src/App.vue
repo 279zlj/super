@@ -1,14 +1,8 @@
 <template>
   <div id="app" :class="patha==='/Installone'||patha==='/Installtwo'||patha==='/Installthree'?'container-fluid':'container'">
-    <keep-alive>
-     <router-view/>
-    </keep-alive>
-    <keep-alive>
-      <router-view name="bottom"></router-view>
-    </keep-alive>
-    <keep-alive>
+    <router-view/>
+    <router-view name="bottom"></router-view>
     <router-view name="right"></router-view>
-    </keep-alive>
   </div>
 </template>
 

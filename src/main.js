@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App'
+import 'store'
+
 import VueI18n from 'vue-i18n'
 import store from '../src/store/store'
 import router from './router'
@@ -65,7 +67,7 @@ const i18n = new VueI18n({
 })
 
 router.beforeEach((to,from,next)=>{
-    console.log(store.state.islogin)
+
     if (to.meta.requiresAuth) {
       if (store.state.islogin=='200'||sessionStorage.getItem('islogin')=='200'){
 
@@ -86,7 +88,14 @@ router.beforeEach((to,from,next)=>{
       next();
       window.document.body.style.backgroundColor = '#2E2245';
     }
-
+    if (to.name==='Installthree'&&from.name==='Installone'){
+      router.push({name:'Installtwo'})
+    }
+    if (to.name==='Login' || to.name==='Installone' || to.name==='Installtwo' || to.name==='Installthree'){
+      router.app.$store.state.islogin='0'
+      sessionStorage.removeItem('islogin');
+      localStorage.removeItem('islogin')
+    }
 
 })
 
@@ -97,9 +106,10 @@ new Vue({
   echarts,
   axios,
   store,
-
   components: { App },
   template: '<App/>',
 
 
 })
+
+

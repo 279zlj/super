@@ -25,9 +25,9 @@
             <div class="g">
 
             </div>
-            <div class="r">
-              <router-link :to="{name:'Installone'}"><span style="margin-right: 1em"><span class="glyphicon glyphicon-chevron-left"></span>上一步</span></router-link>
-              <router-link :to="{name:'Installthree'}"><span>下一步<span class="glyphicon glyphicon-chevron-right"></span></span></router-link>
+            <div class="r" @keydown="keyd" >
+              <router-link :to="{name:'Installone'}"><span style="margin-right: 1em" ><span class="glyphicon glyphicon-chevron-left"></span>上一步</span></router-link>
+              <router-link :to="{name:'Installthree'}"><span >下一步<span class="glyphicon glyphicon-chevron-right"></span></span></router-link>
             </div>
           </div>
         </div>
@@ -41,7 +41,35 @@
 
 <script>
     export default {
-        name: "Installtwo"
+        name: "Installtwo",
+      methods:{
+        keyd(){
+          console.log(this.$route.path)
+
+          var _this=this
+          document.onkeydown=function (e) {
+            var key=window.event.keyCode
+            console.log(key)
+            if (key==39){
+              _this.$router.push({name:'Installthree'})
+            }
+            else if(key==37){
+              _this.$router.push({name:'Installone'})
+            }
+            else {
+              return;
+            }
+            e.cancelBubble=true;
+          }
+
+        }
+      },
+
+      mounted(){
+        this.keyd()
+      },
+
+
     }
 </script>
 

@@ -236,17 +236,17 @@
         },
         clos(){
 
-            $('#sample').css("display",'block')
-            $('#detail').css("display",'none')
+            $('#sample').slideDown(1000)
+            $('#detail').slideUp(800)
 
 
         },
         open(){
-          for (let i in this.osdlist) {
-            $('#sample').css("display", 'none')
-            $('#detail').css("display", 'block')
 
-          }
+            $('#sample').slideUp(800)
+            $('#detail').slideDown(1000)
+
+
 
         },
         edit(){
@@ -313,7 +313,8 @@
       mounted(){
         this.piechart()
         this.change(0)
-        this.clos()
+        $('#sample').css('display','block')
+        $('#detail').css('display','none')
       },
       activated(){
         this.piechart()
