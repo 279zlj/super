@@ -55,11 +55,11 @@
       }
     },
     mounted() {
-      this.linechartone();
-      this.lindecharttwo();
-      this.linechartthree();
-      this.columnar();
-      this.piechart();
+      this.linechartone();                 /*描绘iops折线图，接受Json数据*/
+      this.lindecharttwo();                 /*描绘mbps折线图，接受Json数据*/
+      this.linechartthree();                /*描绘时延折线图，接受Json数据*/
+      this.columnar();                      /*状态统计条形图，接受Json数据*/
+      this.piechart();                        /*网络状态饼状图，接受Json数据*/
 
     },
     methods: {

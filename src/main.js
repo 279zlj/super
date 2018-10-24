@@ -34,13 +34,13 @@ Vue.component(VPagination.name, VPagination)
 Vue.config.productionTip = false
 Vue.prototype.$echarts=echarts
 Vue.prototype.$axios = axios;
-Vue.prototype.detailFormatter=function(index,row){
-  var html=[];
-  $.each(row,function (key,value) {
-    html.push('<h3><b>'+key+':</b></h3><br>'+value);
-  });
-  return html.join('');
-}
+// Vue.prototype.detailFormatter=function(index,row){
+//   var html=[];
+//   $.each(row,function (key,value) {
+//     html.push('<h3><b>'+key+':</b></h3><br>'+value);
+//   });
+//   return html.join('');
+// }
 
 const messages={
   //英文
@@ -60,13 +60,13 @@ const messages={
     }
   },
 }
-const i18n = new VueI18n({
+const i18n = new VueI18n({                    /*页面中英文切换*/
   //定义默认语言
   locale: 'zhCHS',
   messages
 })
 
-router.beforeEach((to,from,next)=>{
+router.beforeEach((to,from,next)=>{                          /*路由守卫，禁止直接通过url访问页面内容*/
 
     if (to.meta.requiresAuth) {
       if (store.state.islogin=='200'||sessionStorage.getItem('islogin')=='200'){

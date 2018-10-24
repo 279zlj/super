@@ -59,11 +59,10 @@
         }
       },
       methods:{
-        start(){
+        start(){                       /*bootstrap-table的初始化*/
           $('#usert').bootstrapTable({})
         },
-        editlist() {
-
+        editlist() {                   /*设备信息的修改*/
 
           var ids = $.map($('#usert').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
@@ -102,8 +101,7 @@
         //
         //   }
         // },
-        deletelist(){
-
+        deletelist(){                       /*用户的删除*/
           var ids = $.map( $('#usert').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
           });

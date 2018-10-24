@@ -234,14 +234,14 @@
           // })
 
         },
-        clos(){
+        clos(){                        /*列表显示为精简模式*/
 
             $('#sample').slideDown(1000)
             $('#detail').slideUp(800)
 
 
         },
-        open(){
+        open(){                        /*列表显示详情*/
 
             $('#sample').slideUp(800)
             $('#detail').slideDown(1000)
@@ -249,12 +249,12 @@
 
 
         },
-        edit(){
+        edit(){                       /*编辑更改iscsi*/
           $('#edit').click(function () {
             $('#editm').modal("show")
           })
         },
-        piechart() {
+        piechart() {                        /*cpu使用率饼状图*/
           let i;
           for (i in this.osdlist) {
 
@@ -313,7 +313,7 @@
       mounted(){
         this.piechart()
         this.change(0)
-        $('#sample').css('display','block')
+        $('#sample').css('display','block')            ./*初始显示状态*/
         $('#detail').css('display','none')
       },
       activated(){

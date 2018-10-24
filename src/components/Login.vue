@@ -36,7 +36,7 @@
     export default {
         name: "Login",
 
-      computed:{
+      computed:{            /*调用Vuex中的islogin值，有缓存左右*/
           islogin(){
             return this.$store.state.islogin
           }
@@ -51,7 +51,7 @@
           this.loginuser()
       },
       methods:{
-        loginuser(){
+        loginuser(){                /*登录的判断，用户名和密码不为空，假如登录成功后跳转，并缓存一个状态值用作页面拦截的通过值*/
 
           if (this.$refs.user.value==''||this.$refs.pwd.value==''){
             alert('用户名或密码不能为空')

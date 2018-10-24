@@ -241,10 +241,10 @@
           }
       },
       mounted(){
-        this.liquidFill();
-        this.pie();
-        this.pictorialBar();
-        this.count()
+        this.liquidFill();                 /*osd使用率占比状态饼状图*/
+        this.pie();                       /*pool水球描绘*/
+        this.pictorialBar();              /*块设备的状态*/
+        this.count()                    /*警告事件的分类统计*/
       },
       updated(){
         this.liquidFill();
@@ -385,21 +385,21 @@
           return this.jj,this.zy,this.cy
           console.log(this.jj,this.zy,this.cy)
         },
-        cputop(){
+        cputop(){                /*cpu使用率前三名*/
           this.$axios.get('').then(function (res) {
 
           }).catch(function (error) {
             console.log(error)
           })
         },
-        iopstop(){
+        iopstop(){                 /*iops使用率前三名*/
           this.$axios.get('').then(function (res) {
 
           }).catch(function (error) {
             console.log(error)
           })
         },
-        mbpstop(){
+        mbpstop(){                     /*mbps使用率前三名*/
           this.$axios.get('').then(function (res) {
 
           }).catch(function (error) {

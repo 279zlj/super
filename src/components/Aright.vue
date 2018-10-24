@@ -27,7 +27,7 @@
 
       },
       methods:{
-        changenav:function (name) {
+        changenav:function (name) {                  /*二级导航栏样式更改*/
           this.ind=name
 
         }

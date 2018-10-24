@@ -27,7 +27,7 @@
           }
       },
       methods:{
-        changenav:function (name) {
+        changenav:function (name) {                    /*二级导航栏状态更改*/
           this.isse=name
           sessionStorage.setItem('isse',this.isse)
         }

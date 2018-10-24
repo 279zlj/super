@@ -92,7 +92,7 @@
           }
       },
       methods:{
-        strat() {
+        strat() {                            /*bootstrap-table初始化*/
           $('#table_id').bootstrapTable({
 
           })
@@ -100,7 +100,7 @@
 
           })
         },
-        editlist() {
+        editlist() {                         /*pool设备的修改*/
           var ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
           });
@@ -114,7 +114,7 @@
 
           }
         },
-        deletelist(){
+        deletelist(){                         /*pool的删除*/
 
           var ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
@@ -133,7 +133,7 @@
           else {return}
           console.log('delete')
         },
-        deletel(){
+        deletel(){                             /*授权的删除*/
 
           var ips = $.map( $('#table').bootstrapTable('getSelections'), function (row) {
             return row.snapid;

@@ -15,7 +15,7 @@
       }
     },
     methods:{
-      gbo(){
+      gbo(){              /*判断目前url的位置来更改背景颜色，单纯用这个会造成跳转渲染迟缓，用户体验差*/
         this.patha=this.$route.path
         if (this.patha==='/Installone'||this.patha==='/Installtwo'||this.patha==='/Installthree'){
           $('body').css('background-color','white')
@@ -28,9 +28,7 @@
         }
       }
     },
-    mounted(){
-      this.gbo()
-    },
+
     created(){
       this.gbo()
     }
@@ -43,17 +41,12 @@
     margin: 0;
     padding: 0;
   }
-  /*body{*/
-    /*background-color: #2E2245;*/
-  /*}*/
   #app{
     background-color: #2E2245;
   }
   @media screen and (min-width:1600px ) {
     #app{
       width: 80%;
-
     }
-
   }
 </style>

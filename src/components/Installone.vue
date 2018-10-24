@@ -88,7 +88,7 @@
           }
       },
       methods:{
-        keyd(){
+        keyd(){                          /*键盘事件监听*/
           console.log(this.$route.path)
           var _this=this
           document.onkeydown=function(e) {
@@ -103,7 +103,7 @@
           }
 
         },
-        jkjd(num,name){
+        jkjd(num,name){                /*选择服务器添加到监控节点，选择后追加到相应的div下*/
           let c=0;
           let o=$("#"+name+" "+"p").text()
 
@@ -132,7 +132,7 @@
           }
           }
         },
-        jqjd(num,name){
+        jqjd(num,name){             /*选择服务器添加到集群节点，选择后追加到相应的div下*/
           let c=0;
           let o=$("#"+name+" "+"p").text()
           if (this.jqlist.length==0){
@@ -161,10 +161,7 @@
           }
 
         },
-        dele(n){
-          console.log(n)
-          console.log('ok')
-        }
+
         // drag(ev){
         //
         //     ev.dataTransfer.setData("Text",ev.target.id);

@@ -32,10 +32,10 @@
         }
       },
       methods:{
-          start(){
+          start(){                 /*bootstrap-table初始化*/
             $('#logt').bootstrapTable({})
           },
-        sele(){
+        sele(){               /*选择某一日志进行操作*/
           var ids = $.map( $('#logt').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
             this.select=row.snapid

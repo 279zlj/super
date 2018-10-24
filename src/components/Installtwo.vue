@@ -43,7 +43,7 @@
     export default {
         name: "Installtwo",
       methods:{
-        keyd(){
+        keyd(){                          /*键盘事件监听*/
           console.log(this.$route.path)
 
           var _this=this

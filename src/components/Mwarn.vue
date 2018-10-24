@@ -27,7 +27,7 @@
         return{}
       },
       methods:{
-          start(){
+          start(){                    /*bootstrap-table初始化，server请求，server分页功能*/
             $('#table_id').bootstrapTable({
 
             })

@@ -58,7 +58,7 @@
       },
 
       methods:{
-          datatable(){
+          datatable(){                         /*请求现有的解决方法手册，返回一组json*/
             $(document).ready( function () {
               $('#table_id').bootstrapTable({
 
@@ -77,7 +77,7 @@
               console.log('ok')
             } );
           },
-        dlick(){
+        dlick(){                      /*点击某行数据内容会相应显示在页面上*/
           var _this=this
           $("#table_id").bootstrapTable({
 

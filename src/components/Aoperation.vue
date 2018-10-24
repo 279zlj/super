@@ -65,12 +65,12 @@
           }
       },
       methods:{
-          start(){
+          start(){                         /*bootstrap-table初始化*/
             $('#table_id').bootstrapTable({
               url:this.urla
             })
           },
-        editlist() {
+        editlist() {                       /*运维信息修改*/
           var ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
           });
@@ -85,7 +85,7 @@
 
           }
         },
-        deletelist(){
+        deletelist(){                 /*删除存储池*/
 
           var ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
@@ -104,7 +104,7 @@
           else {return}
           console.log('delete')
         },
-        sentip(){
+        sentip(){                                  /*发送查找的ip*/
           this.$axios.post('http://localhost:5000/api',this.$refs.inp.value).then(function (res) {
             this.urla="http://localhost/"+res
           }).catch(function (error) {

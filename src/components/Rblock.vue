@@ -93,7 +93,7 @@
         }
       },
       methods:{
-          start(){
+          start(){              /*bootstrap-table初始化*/
             $('#table_id').bootstrapTable({
 
             })
@@ -101,7 +101,7 @@
 
             })
           },
-        editlist() {
+        editlist() {                         /*修改功能*/
           var ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
           });
@@ -115,7 +115,7 @@
 
           }
         },
-        deletelist(){
+        deletelist(){                       /*块设备删除功能*/
 
           var ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
@@ -134,7 +134,7 @@
           else {return}
           console.log('delete')
         },
-        deletel(){
+        deletel(){                    /*快照删除功能*/
 
           var ips = $.map( $('#table').bootstrapTable('getSelections'), function (row) {
             return row.snapid;

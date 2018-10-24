@@ -26,7 +26,7 @@
           }
       },
       methods:{
-        getFile(event) {
+        getFile(event) {                                 /*文件上传*/
           this.file = event.target.files[0];
           console.log(this.file);
         },

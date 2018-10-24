@@ -34,6 +34,7 @@
         </table>
       </div>
     </div>
+
     <div class="modal fade" id="editm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -69,10 +70,10 @@
         this.strat()
       },
       methods: {
-        strat() {
+        strat() {            /*bootstrap-table初始化*/
           $('#table_id').bootstrapTable({})
         },
-        deletelist(){
+        deletelist(){               /*删除快照功能*/
 
             var ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
               return row.snapid;
@@ -91,7 +92,7 @@
             else {return}
         console.log('delete')
         },
-        editlist() {
+        editlist() {              /*快照修改功能*/
           var ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
           });
@@ -132,10 +133,10 @@
     color: white;
   }
   td{
-    word-break:keep-all;/* 不换行 */
-    white-space:nowrap;/* 不换行 */
-    overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
-    text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用*/
+    word-break:keep-all;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
     -o-text-overflow:ellipsis;
     -icab-text-overflow: ellipsis;
     -khtml-text-overflow: ellipsis;

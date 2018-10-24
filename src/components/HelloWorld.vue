@@ -143,7 +143,7 @@ export default {
     }
   },
   methods:{
-    outlog(){
+    outlog(){                 /*退出登录*/
       let self=this
       $('#out').click(function () {
 
@@ -161,7 +161,7 @@ export default {
     us(){
       this.changenav('none')
     },
-    changenav:function (name) {
+    changenav:function (name) {               /*一级导航栏状态存储，建立一个issele的sessionStorage值，刷新时调用，保持状态*/
       this.issele=name
 
       sessionStorage.setItem('issele',this.issele)
@@ -170,16 +170,14 @@ export default {
   },
   mounted(){
     this.outlog()
-    if (sessionStorage.getItem('issele').length<1){
+    if (sessionStorage.getItem('issele').length==0){             /*最初状态设置为首页*/
       this.changenav('首页')
     }
     else {
     this.issele=sessionStorage.getItem('issele')
     }
   },
-  // beforeMount(){
-  //   this.changenav(0)
-  // }
+、
 }
 </script>
 

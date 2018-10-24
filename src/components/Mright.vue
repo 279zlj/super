@@ -22,7 +22,7 @@
         }
       },
       methods:{
-          changenav:function (name) {
+          changenav:function (name) {                /*二级导航栏的状态更改*/
             this.ind=name;
 
           }
