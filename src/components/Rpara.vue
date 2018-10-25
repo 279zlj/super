@@ -2,6 +2,7 @@
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 container-fluid" id="Rpara">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 container " >
+        <form>
         <div class="row">
             <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 bg table-responsive">
             <table class="table table-condensed ">
@@ -17,9 +18,9 @@
                   <td>数据重构QoS控制</td>
                   <td>
                     <div class="form">
-                      <input type="radio" name="rd" value="bus"/><span>优先业务</span>
-                      <input type="radio" name="rd" value="res"/><span>重构优先</span>
-                      <input type="radio" name="rd" value="self"/><span>自定义</span>
+                      <div  v-for="v in radiolist" style="display: table-cell;justify-content: center;align-items: center">
+                      <input type="radio" name="rd" :value="v.value" v-model="checkvalue" style="display: inline-block"/><span>{{v.name}}</span>
+                      </div>
                     </div>
                   </td>
                 </tr>
@@ -28,13 +29,11 @@
                   <td>
                     <div class="row">
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >
-                        <input type="text" id="numone" class="form-control" style="text-align: center">
+                        <input type="text" id="numone" class="form-control" style="text-align: center" ref="selfstart">
                       </div>
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >
-                      <select class="form-control">
-                        <option>分</option>
-                        <option>时</option>
-                        <option>天</option>
+                      <select class="form-control" v-on:change="sel($event)" v-model="unitsele">
+                        <option v-for="m in unit" :value="m.value">{{m.name}}</option>
                       </select>
                       </div>
                     </div>
@@ -43,14 +42,14 @@
                 <tr>
                   <td>一致性检查时间</td>
                   <td>
-                    <input type="time" class="form-control"/>
+                    <input type="time" class="form-control" ref="starttime"/>
                     -
-                    <input type="time" class="form-control"/>
+                    <input type="time" class="form-control" ref="endtime"/>
                   </td>
                 </tr>
               <tr>
                 <td colspan="2" class="last">
-                  <input type="button" class="btn btn-success" value="确认" id="sureone" style="margin:.5em 2em "/>
+                  <input type="button" class="btn btn-success" value="确认" id="sureone" @click="sure()" style="margin:.5em 2em "/>
                   <input type="reset" class="btn btn-info" value="重置" id="resetone" style="margin:.5em 2em"/>
                 </td>
               </tr>
@@ -58,9 +57,11 @@
             </table>
             </div>
         </div>
+        </form>
       </div>
 
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 container " >
+        <form>
         <div class="row">
           <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 bg table-responsive">
           <table class="table table-condensed ">
@@ -76,9 +77,9 @@
               <td>数据重构QoS控制</td>
               <td>
                 <div class="form">
-                  <input type="radio" name="rd" value="bus"/><span>优先业务</span>
-                  <input type="radio" name="rd" value="res"/><span>重构优先</span>
-                  <input type="radio" name="rd" value="self"/><span>自定义</span>
+                  <div  v-for="p in radiolist" style="display: table-cell;justify-content: center;align-items: center">
+                    <input type="radio" name="rp" :value="p.value" v-model="checkvalue2" style="display: inline-block"/><span>{{p.name}}</span>
+                  </div>
                 </div>
               </td>
             </tr>
@@ -87,13 +88,11 @@
               <td>
                 <div class="row">
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >
-                    <input type="text" id="numtwo" class="form-control" style="text-align: center">
+                    <input type="text" id="numtwo" class="form-control" style="text-align: center" ref="selfstart2">
                   </div>
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >
-                    <select class="form-control">
-                      <option>分</option>
-                      <option>时</option>
-                      <option>天</option>
+                    <select class="form-control" v-on:change="sel2($event)" v-model="unitsele2">
+                      <option v-for="m in unit" :value="m.value">{{m.name}}</option>
                     </select>
                   </div>
                 </div>
@@ -103,15 +102,15 @@
               <td>一致性检查时间</td>
               <td>
 
-                  <input type="time" class="form-control"/>
+                  <input type="time" class="form-control" ref="strat2"/>
                   -
-                  <input type="time" class="form-control"/>
+                  <input type="time" class="form-control" ref="end2"/>
 
               </td>
             </tr>
             <tr>
               <td colspan="2" class="last">
-                <input type="button" class="btn btn-success" value="确认" id="suretwo" style="margin:.5em 2em "/>
+                <input type="button" class="btn btn-success" value="确认" id="suretwo" style="margin:.5em 2em " @click="sure2()"/>
                 <input type="reset" class="btn btn-info" value="重置" id="resettwo" style="margin:.5em 2em"/>
               </td>
             </tr>
@@ -119,9 +118,11 @@
           </table>
           </div>
         </div>
+        </form>
       </div>
 
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 container " >
+        <form>
         <div class="row">
           <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 bg table-responsive">
             <table class="table table-condensed ">
@@ -137,9 +138,9 @@
                 <td>数据重构QoS控制</td>
                 <td>
                   <div class="form">
-                    <input type="radio" name="rd" value="bus"/><span>优先业务</span>
-                    <input type="radio" name="rd" value="res"/><span>重构优先</span>
-                    <input type="radio" name="rd" value="self"/><span>自定义</span>
+                    <div  v-for="n in radiolist" style="display: table-cell;justify-content: center;align-items: center">
+                      <input type="radio" name="rd" :value="n.value" v-model="checkvalue3" style="display: inline-block"/><span>{{n.name}}</span>
+                    </div>
                   </div>
                 </td>
               </tr>
@@ -148,13 +149,11 @@
                 <td>
                   <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >
-                      <input type="text" id="numthree" class="form-control" style="text-align: center">
+                      <input type="text" id="numthree" class="form-control" style="text-align: center" ref="selfstart3">
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >
-                      <select class="form-control">
-                        <option>分</option>
-                        <option>时</option>
-                        <option>天</option>
+                      <select class="form-control" v-on:change="sel3($event)" v-model="unitsele3">
+                        <option v-for="m in unit" :value="m.value">{{m.name}}</option>
                       </select>
                     </div>
                   </div>
@@ -163,14 +162,14 @@
               <tr>
                 <td>一致性检查时间</td>
                 <td>
-                  <input type="time" class="form-control"/>
+                  <input type="time" class="form-control" ref="strat3"/>
                   -
-                  <input type="time" class="form-control"/>
+                  <input type="time" class="form-control" ref="end3"/>
                 </td>
               </tr>
               <tr>
                 <td colspan="2" class="last">
-                  <input type="button" class="btn btn-success" value="确认" id="surethree" style="margin:.5em 2em "/>
+                  <input type="button" class="btn btn-success" value="确认" id="surethree" style="margin:.5em 2em " @click="sure3()"/>
                   <input type="reset" class="btn btn-info" value="重置" id="resetthree" style="margin:.5em 2em"/>
                 </td>
               </tr>
@@ -178,6 +177,7 @@
             </table>
           </div>
         </div>
+        </form>
       </div>
 
     </div>
@@ -186,7 +186,71 @@
 
 <script>
     export default {
-        name: "Rpara"
+        name: "Rpara",
+      data(){
+          return{
+            radiolist:[
+              {name:'优先业务',value:'prior'},
+              {name:'重构优先',value:'review'},
+              {name:'自定义',value:'diy'}
+            ],
+            unit:[
+              {name:'分',value:'minute'},
+              {name:'时',value:'hour'},
+              {name:'天',value:'day'}
+            ],
+            checkvalue:'',
+            checkvalue2:'',
+            checkvalue3:'',
+            unitsele:'',
+            unitsele2:'',
+            unitsele3:''
+          }
+      },
+      methods:{
+        sure(){                      /*参数修改配置信息发送*/
+          let rasele=this.checkvalue
+          let self=this.$refs.selfstart.value
+          let start=this.$refs.starttime.value
+          let end=this.$refs.endtime.value
+          this.$axios.post('http://localhost:5000',{radio:rasele,selftime:self,starttime:start,endtime:end,select:this.unitsele}).then(function (res) {
+            console.log(res)
+          }).catch(function (error) {
+            console.log(error)
+          })
+        },
+        sure2(){
+          let rasele=this.checkvalue2
+          let self=this.$refs.selfstart2.value
+          let start=this.$refs.start2.value
+          let end=this.$refs.end2.value
+          this.$axios.post('http://localhost:5000',{radio:rasele,selftime:self,starttime:start,endtime:end,select:this.unitsele}).then(function (res) {
+            console.log(res)
+          }).catch(function (error) {
+            console.log(error)
+          })
+        },
+        sure3(){
+          let rasele=this.checkvalue3
+          let self=this.$refs.selfstart3.value
+          let start=this.$refs.start3.value
+          let end=this.$refs.end3.value
+          this.$axios.post('http://localhost:5000',{radio:rasele,selftime:self,starttime:start,endtime:end,select:this.unitsele}).then(function (res) {
+            console.log(res)
+          }).catch(function (error) {
+            console.log(error)
+          })
+        },
+        sel(event){                     /*选择自建启动延时单位*/
+          this.unitsele=event.target.value
+        },
+        sel2(event){
+          this.unitsele2=event.target.value
+        },
+        sel3(event){
+          this.unitsele3=event.target.value
+        }
+      }
     }
 </script>
 

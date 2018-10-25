@@ -24,9 +24,9 @@
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
-            <th data-field="snapid">ID</th>
-            <th data-field="snapname">描述</th>
-            <th data-field="content">容量</th>
+            <th data-field="id">ID</th>
+            <th data-field="content">描述</th>
+            <th data-field="size">容量</th>
             <th data-field="date">更新时间</th>
           </tr>
           </thead>
@@ -43,12 +43,12 @@
             <h4 class="modal-title" id="myModalLabel">修改运维信息</h4>
           </div>
           <div class="modal-body">
-            <p>容量：</p><input type="text" class="form-control" id="name"/>
-            <p>描述：</p><input type="text" class="form-control" id="content"/>
+            <p>容量：</p><input type="text" class="form-control" id="name" ref="size"/>
+            <p>描述：</p><input type="text" class="form-control" id="content" ref="content"/>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            <button type="button" class="btn btn-primary" @click="editsend()">确认修改</button>
+            <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">确认修改</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -61,7 +61,8 @@
         name: "Aoperation",
       data(){
           return{
-            urla:''
+            urla:'',
+            edit:''
           }
       },
       methods:{
@@ -85,7 +86,16 @@
 
           }
         },
-        deletelist(){                 /*删除存储池*/
+        editsend(){                      /*发送修改运维设置*/
+            let size=this.$refs.size.value
+            let content=this.$refs.content.value
+           this.$axios.post('http://localhost:5000',{size:size,content:content,id:this.edit}).then(function (res) {
+             console.log(res)
+           }).catch(function (error) {
+             console.log(error)
+           })
+        },
+        deletelist(){                 /*删除设置  */
 
           var ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.snapid;

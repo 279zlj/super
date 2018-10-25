@@ -4,11 +4,11 @@
       <table class="table table-responsive text-nowrap" id="table_id" data-height="550" data-side-pagination="server" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toggle="table"  data-classes="table-no-bordered"  data-url="http://localhost:3000/api/tableDate">
         <thead>
         <tr>
-          <th data-field="snapid" >级别</th>
+          <th data-field="rank" >级别</th>
           <th data-field="status" >状态</th>
-          <th data-field="content">警报ID</th>
-          <th data-field="date">警报名称</th>
-          <th data-field="content">对象索引</th>
+          <th data-field="warnid">警报ID</th>
+          <th data-field="warnname">警报名称</th>
+          <th data-field="warnindex">对象索引</th>
           <th data-field="date">产生时间</th>
           <th data-field="content">警报描述</th>
         </tr>

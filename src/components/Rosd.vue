@@ -6,10 +6,10 @@
     <input type="button" class="btn btn-default b" value="展开" style="margin-bottom: 1em;margin-left:1em;float: right" @click="open()"/>
     <input type="button" class="btn btn-default b" value="极简" style="margin-bottom: 1em;float: right" @click="clos()"/>
     <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 container one" id="sample">
-      <div class="row san" v-for="(i,index) in osdlist"  @click="change(index)" >
+      <div class="row san" v-for="(i,index) in osdlist"  @click="change(index,i.osdid)" >
         <div class="row">
           <div class="row aa" :class="{'chan':ind===index}" >
-            <div class="row up " :class="{'chan':ind===index}">
+            <div class="row up " :class="{'chan':ind===index}" :id="i.osdid">
               <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 " :class="{'chan':ind===index}">
                 <div class="row font " :class="{'chan':ind===index}">
                   <p>{{i.osdid}}</p>
@@ -173,11 +173,11 @@
             <h4 class="modal-title" id="myModalLabel">修改iSCSI信息</h4>
           </div>
           <div class="modal-body">
-            <p>修改ip：</p><input type="text" class="form-control" id="ip"/>
+            <p>修改ip：</p><input type="text" class="form-control" id="ip" ref="modifyip"/>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            <button type="button" class="btn btn-primary" @click="editsend()">确认修改</button>
+            <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">确认修改</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -216,23 +216,28 @@
             {name:'eth5',mac:'01:c4:34:52',speed:'28M',pack:'1',status:'success',mtu:'1599'},
             {name:'eth3',type:'01:c4:34:52',size:'28M',wwid:'1',used:'success',small:'1599',health:'ok'},
           ],
-          bcontent:
-            {name:'eth3',mac:'01:c4:34:52',speed:'28M',pack:'1',status:'success',mtu:'1599'},
-
-
 
         }
 
       },
       methods:{
-        change:function (index) {
+        change(index,id) {
           this.ind=index
-          // this.$axios.get('http://loaclhost:5000/api').then(function (res) {
-          //   this.content=res
-          // }).catch(function (error) {
-          //   console.log(error)
-          // })
+          this.$axios.get('http://loaclhost:5000/api',id).then(function (res) {
 
+            this.content=res.content
+          }).catch(function (error) {
+            console.log(error)
+          })
+
+        },
+        editsend(){                      /*发送修改后iSCSI的ip*/
+          let ip=this.$refs.modifyip.value
+          this.$axios.post('http://localhost:5000',ip).then(function (res) {
+            console.log(res)
+          }).catch(function (error) {
+            console.log(error)
+          })
         },
         clos(){                        /*列表显示为精简模式*/
 
@@ -308,12 +313,18 @@
         }
       },
       created(){
+        this.$axios.get('http://loaclhost:5000/api').then(function (res) {
 
+          this.osdlist=res.content
+        }).catch(function (error) {
+          console.log(error)
+        })
       },
       mounted(){
         this.piechart()
-        this.change(0)
-        $('#sample').css('display','block')            ./*初始显示状态*/
+        this.change(0,this.osdlist[0])
+
+        $('#sample').css('display','block') ;           /*初始显示状态*/
         $('#detail').css('display','none')
       },
       activated(){

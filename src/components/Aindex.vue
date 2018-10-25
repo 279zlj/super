@@ -4,14 +4,14 @@
     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
       <div id="y">
       <p @click="editlist()" id="edit" data-toggle="editmodal"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="编辑"></span></p>
-      <p><span class="glyphicon glyphicon-backward" style="color: white;font-size: 1.5em;margin-bottom: 1em" title="回滚"></span></p>
-      <p><span class="glyphicon glyphicon-th-large" style="color: white;font-size: 1.5em;margin-bottom: 1em" title="克隆"></span></p>
+      <p data-toggle="back" @click="goback()"><span class="glyphicon glyphicon-backward" style="color: white;font-size: 1.5em;margin-bottom: 1em" title="回滚"></span></p>
+      <p data-toggle="snclone" @click="snclone()"><span class="glyphicon glyphicon-th-large" style="color: white;font-size: 1.5em;margin-bottom: 1em" title="克隆"></span></p>
       <p @click="deletelist()" id="deletelist"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
       </div>
       <div style="width: 300px" id="h">
         <span @click="editlist()" id="edit" data-toggle="editmodal"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-right: 1em;display: inline-block" title="编辑"></span></span>
-        <span><span class="glyphicon glyphicon-backward" style="color: white;font-size: 1.5em;margin-right: 1em;display: inline-block" title="回滚"></span></span>
-        <span><span class="glyphicon glyphicon-th-large" style="color: white;font-size: 1.5em;margin-right: 1em;display: inline-block" title="克隆"></span></span>
+        <span data-toggle="back" @click="goback()"><span class="glyphicon glyphicon-backward" style="color: white;font-size: 1.5em;margin-right: 1em;display: inline-block" title="回滚"></span></span>
+        <span data-toggle="snclone" @click="snclone"><span class="glyphicon glyphicon-th-large" style="color: white;font-size: 1.5em;margin-right: 1em;display: inline-block" title="克隆"></span></span>
         <span @click="deletelist()" id="deletelist"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em;display: inline-block" title="删除"></span></span>
       </div>
     </div>
@@ -43,16 +43,40 @@
             <h4 class="modal-title" id="myModalLabel">修改快照信息</h4>
           </div>
           <div class="modal-body">
-            <p>快照名称：</p><input type="text" class="form-control" id="name"/>
-            <p>描述：</p><input type="text" class="form-control" id="content"/>
+            <p>快照名称：</p><input type="text" class="form-control" id="name" ref="saname"/>
+            <p>描述：</p><input type="text" class="form-control" id="content" ref="sacontent"/>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            <button type="button" class="btn btn-primary" @click="editsend()">确认修改</button>
+            <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">确认修改</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
     </div>
+
+
+  <div class="modal fade" id="clonesna" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="clonename">快照克隆</h4>
+        </div>
+        <div class="modal-body">
+          <p>所属存储池：</p>
+          <select @click="aselec()" v-on:change="indexsel($event)" v-model="asele" class="form-control">
+            <option value="none">请选择存储池</option>
+            <option v-for="i in apoollist" :value="i.val" >{{i.name}}</option>
+          </select>
+          <p>块设备名称：</p><input type="text" class="form-control" id="aclone" ref="aclone"/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-primary" @click="sendclone()" data-dismiss="modal">确定</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+  </div>
   </div>
 </template>
 
@@ -62,7 +86,13 @@
       name: "Aindex",
       data(){
         return {
-          edit: {}
+          edit: {},
+          apoollist:[
+            {name:'2343',val:'2343'},
+            {name:'dsffsd',val:'dsffsd'}
+          ],
+          asele:'',
+          aback:''
       }
       },
       // tableDate,
@@ -105,8 +135,67 @@
               $('#editm').modal("show")
 
           }
-        }
+        },
+        editsend(){                             /*发送快照修改信息 */
+          let name =this.$refs.saname.value
+          let content=this.$refs.sacontent.value
+          this.$axios.post('http://localhost:5000',{name:name,content:content,id:this.edit}).then(function (res) {
+            console.log(res)
+          }).catch(function (error) {
+            console.log(error)
+          })
+        },
+        snclone(){                            /*块设备克隆*/
+          let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+            return row.snapid;
+          });
+          if (ids.length !== 1) {
+            alert('请选择其中一个设备进行克隆')
+          }
+          else if(ids.length === 1){
+            this.clone = ids;
 
+            $('#clonesna').modal("show")
+
+          }
+        },
+        sendclone(){                       /*发送块设备克隆信息*/
+          let name=this.$refs.aclone.value
+          this.$axios.post('http://localhost:5000',{name:name,cloneid:this.clone,pool:this.sele}).then(function (res) {
+            console.log(res)
+          }).catch(function (error) {
+            console.log(error)
+          })
+        },
+        aselec(){                            /*获得存储池列表*/
+
+          this.$axios.get('http://localhost:5000').then(function (res) {
+            this.apoollist=res.data
+          }).catch(function (error) {
+            console.log(error)
+          })
+        },
+        goback(){                      /*快照回滚*/
+          let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+            return row.snapid;
+          });
+          if (ids.length !== 1) {
+            alert('请选择其中一个设备进行回滚')
+          }
+          else if(ids.length === 1){
+            this.aback = ids;
+            var msg=confirm('此操作不可逆，确认进行回滚？')
+            if (msg===true){
+              this.$axios.post('http://localhost:5000',ids).then(function (res) {
+                console.log(res)
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+
+          }
+
+        }
       }
     }
 </script>

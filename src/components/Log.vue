@@ -9,10 +9,10 @@
       <thead>
       <tr>
         <th data-field="state" data-checkbox="true" ></th>
-        <th data-field="snapid">节点名称</th>
-        <th data-field="snapname">IP地址</th>
-        <th data-field="content">日志大小</th>
-        <th data-field="date">日志名称</th>
+        <th data-field="name">节点名称</th>
+        <th data-field="ip">IP地址</th>
+        <th data-field="size">日志大小</th>
+        <th data-field="logname">日志名称</th>
       </tr>
       </thead>
       <tbody>
@@ -40,6 +40,11 @@
             return row.snapid;
             this.select=row.snapid
           });
+          this.$axios.post('http://localhost:5000',this.select).then(function (res) {
+            console.log(res)
+          }).catch(function (error) {
+            console.log(error)
+          })
           console.log(ids)
         }
       },

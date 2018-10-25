@@ -7,9 +7,9 @@
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
             <h4 class="h">io agent 容量使用占比</h4>
             <div id="iocontent" class="content">
-              <p>name</p>
-              <p>已使用：</p>
-              <p>已用百分比：</p>
+              <p>总大小：{{this.collect.osd_detail.size}}</p>
+              <p>已使用：{{this.collect.osd_detail.use}}</p>
+              <p>已用百分比：{{this.collect.osd_detail.usepct}}%</p>
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 container-fluid">
@@ -24,9 +24,9 @@
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
                 <h4 class="h">tank 存储使用占比</h4>
                 <div id="tankcontent" class="content">
-                  <p>name</p>
-                  <p>已使用：</p>
-                  <p>已用百分比：</p>
+
+                  <p>已使用：{{this.collect.pool.use}}</p>
+                  <p>已用百分比：{{this.collect.pool.usepct}}%</p>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -39,10 +39,10 @@
         <div class="row container-fluid">
           <div class="col-lg-11 col-md-11 col-sm-12 col-sm-offset-0 col-xs-12 bgone">
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="margin-left: -15px">
-              <h4 class="ho"><span style="font-size: 2.2em">3</span>个块设备</h4>
+              <h4 class="ho"><span style="font-size: 2.2em">{{this.collect.osd_detail.block}}</span>个块设备</h4>
               <div id="rbdcontent" class="content">
-                <p>总大小：</p>
-                <p>客户端连接数：</p>
+                <p>总大小：{{this.collect.block_detail.size}}</p>
+                <p>客户端连接数：{{this.collect.block_detail.server_num}}</p>
               </div>
             </div>
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
@@ -96,7 +96,7 @@
           <div class="row">
             <table class="table-condensed table-responsive table">
               <tbody>
-              <tr v-for="i in ipos">
+              <tr v-for="i in iops">
                 <td>{{i.ip}}</td>
                 <td>{{i.network}}</td>
                 <td :class="{'successa':i.status==='正常','fail':i.status==='不健康'}">{{i.status}}</td>
@@ -211,7 +211,7 @@
               {ip:'192.168.1.19',network:'net',status:'正常',time:'now'},
 
             ],
-            ipos:[
+            iops:[
               {ip:'192.168.1.12',network:'net',status:'正常',time:'now'},
               {ip:'192.168.1.15',network:'net',status:'正常',time:'now'},
               {ip:'192.168.1.19',network:'net',status:'正常',time:'now'},
@@ -234,6 +234,25 @@
               {ip:'192.168.1.12',network:'net',status:'成功',time:'now'},
               {ip:'192.168.1.15',network:'net',status:'失败',time:'now'},
               {ip:'192.168.1.19',network:'net',status:'成功',time:'now'},
+            ],
+            osd_use:[
+              {name:'osd1',value:'14'},
+              {name:'osd2',value:'34'},
+              {name:'osd3',value:'24'}
+            ],
+            collect: {
+              pool: {
+                use: '423', usepct: '48'
+              },
+              block_detail:{
+                size:'38245',server_num:"5"
+              },
+              osd_detail:{
+                size:'3852',use:'234',usepct:'14',block:5,
+              },
+            },
+            pool_use:[
+              0.4
             ],
             jj:0,
             zy:0,
@@ -265,7 +284,7 @@
                   color:'#04b8da'
                 }
               },
-              data: [0.5],
+              data: this.pool_use,
               label: {
                 normal: {
                   textStyle: {
@@ -300,7 +319,7 @@
                   normal:{
                     color:function (params) {
                       var colorlist=[
-                        '#2a9ae1','#ffc523','#ff5b23'
+                        '#2a9ae1','#ffc523','#ff5b23','#44AB47','#FF40F5','#FF2424'
                       ];
                       return colorlist[params.dataIndex]
                     }
@@ -322,11 +341,7 @@
                     show: false
                   }
                 },
-                data:[
-                  {value:20, name:'node1'},
-                  {value:10, name:'node2'},
-                  {value:15, name:'node3'}
-                ]
+                data:this.osd_use,
               }
             ]
           };

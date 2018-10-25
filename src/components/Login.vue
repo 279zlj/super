@@ -66,7 +66,7 @@
             sessionStorage.setItem('islogin','200')
             this.$router.push('/')
             // this.$axios.post('/Login',{user:this.user,pwd:this.pwd}).then(function (res) {
-            //   if (res.status=='200'){
+            //   if (res.status=='200'&& res.data==1){
             //     this.$store.commit('islogin',200)
             //     sessionStorage.setItem('islogin','200')
             //     this.$router.push('/')

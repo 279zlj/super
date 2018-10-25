@@ -170,14 +170,13 @@ export default {
   },
   mounted(){
     this.outlog()
-    if (sessionStorage.getItem('issele').length==0){             /*最初状态设置为首页*/
+    if (sessionStorage.getItem('issele')==null){             /*最初状态设置为首页*/
       this.changenav('首页')
     }
     else {
     this.issele=sessionStorage.getItem('issele')
     }
   },
-、
 }
 </script>
 

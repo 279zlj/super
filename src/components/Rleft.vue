@@ -35,7 +35,7 @@
 
       mounted(){
 
-        if (sessionStorage.getItem('isse').length<1){
+        if (sessionStorage.getItem('isse')==null){
           this.isse='概览'
         }
         else if(this.$router.path==='/Resources'){
