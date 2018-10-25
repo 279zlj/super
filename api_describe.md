@@ -10,6 +10,8 @@
 
 ##### 网络饼状图：get => net:[{use:'',nuse:''}]
 
+##### 健康状态： get => http  res => health
+
 ## Resources
 
 ##### io agent占比图：get => osd_use:[{name:'',value:''}]

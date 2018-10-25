@@ -6,7 +6,7 @@
         <img src="../../static/image/login/three.png" class="img-responsive three"/>
         <img src="../../static/image/login/four.png" class="img-responsive four"/>
       </div>
-      <div class="container-fluid" style="margin-top: 13em">
+      <div class="container-fluid" style="margin-top: 13em;margin-bottom: 8em">
         <div class="row">
         <div class="col-lg-3 col-lg-offset-3 col-md-4 col-md-offset-2 col-sm-5 col-sm-offset-1 col-xs-6 content" style="background-color: white;height: 35em">
           <div class="container-fluid" @keydown.enter="loginuser">

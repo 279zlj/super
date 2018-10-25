@@ -30,7 +30,7 @@
             <p>Health Status</p>
           </div>
           <div class="col-lg-10 col-md-10 col-sm-6 col-xs-6 print">
-            <p id="health" >asdhjagshjasdakjsdh<br>asjdgfhjasfdkjasdasafdskhfjdkjs<br>hasdkjjashdkjasd<br>asdgjhasdgasjd<br>cdjkashdkjasdhk<br>fbaskdjfhdskjf<br>fdsjfghsdkjhfskj</p>
+            <p id="health" >{{health}}</p>
           </div>
         </div>
       </div>
@@ -51,7 +51,10 @@
         sta:[18, 23, 29, 40],
         net:[
           {use:'143',nuse:'324'}
-        ]
+        ],
+        health:'dfhkudshkdhskjdshgkjhfkjghkjdfhgkjdfhgjkfnv,cnkjbvdfhkgihrkhasdsadasdasdsakjstjehjsbfkjdsbfjdsfhdsjkhfkjdshfkdsnxcnjvbmcbvdjhfkjsdfhkjdshfkjdsfhdjsfhskj',
+        line:{},
+        pie:{}
       }
     },
     mounted() {
@@ -60,7 +63,7 @@
       this.linechartthree();                /*描绘时延折线图，接受Json数据*/
       this.columnar();                      /*状态统计条形图，接受Json数据*/
       this.piechart();                        /*网络状态饼状图，接受Json数据*/
-
+      this.getall();
     },
     methods: {
       linechartone(){
@@ -558,7 +561,17 @@
           ]
         };
         mychartss.setOption(optionss);
-      }
+      },
+      getall(){                         /*获取健康信息*/
+        this.$axios.get('http://localhost:5000').then(function (res) {
+          this.health=res.health
+          this.line=res.status
+          this.pie=res.net
+        }).catch(function (error) {
+          console.log(error)
+        })
+      },
+
     }
   }
 </script>
@@ -572,6 +585,9 @@
   }
   p{
     color: white;
+  }
+  #health{
+    width: 100%;word-wrap: break-word;font-size:1.2em
   }
   .chartfirst{
     width: 100%;height:13em;margin-top: 5em;

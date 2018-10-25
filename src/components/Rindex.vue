@@ -264,6 +264,10 @@
         this.pie();                       /*pool水球描绘*/
         this.pictorialBar();              /*块设备的状态*/
         this.count()                    /*警告事件的分类统计*/
+        this.cputop()
+        this.iopstop()
+        this.mbpstop()
+        this.logdo()
       },
       updated(){
         this.liquidFill();
@@ -417,6 +421,13 @@
         mbpstop(){                     /*mbps使用率前三名*/
           this.$axios.get('').then(function (res) {
 
+          }).catch(function (error) {
+            console.log(error)
+          })
+        },
+        logdo(){
+          this.$axios.get().then(function (res) {
+            this.log=res.data
           }).catch(function (error) {
             console.log(error)
           })
