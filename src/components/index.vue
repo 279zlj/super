@@ -30,7 +30,7 @@
             <p>Health Status</p>
           </div>
           <div class="col-lg-10 col-md-10 col-sm-6 col-xs-6 print">
-            <p id="health" >{{health}}</p>
+            <p id="health" >{{linpiechart.health}}</p>
           </div>
         </div>
       </div>
@@ -48,27 +48,114 @@
     echarts,
     data(){
       return{
-        sta:[18, 23, 29, 40],
-        net:[
-          {use:'143',nuse:'324'}
-        ],
-        health:'dfhkudshkdhskjdshgkjhfkjghkjdfhgkjdfhgjkfnv,cnkjbvdfhkgihrkhasdsadasdasdsakjstjehjsbfkjdsbfjdsfhdsjkhfkjdshfkdsnxcnjvbmcbvdjhfkjsdfhkjdshfkjdsfhdjsfhskj',
-        line:{},
-        pie:{}
+        linpiechart: [],
+        n:'',
+        u:'',
+        s:'',
+        lineall:'',
+
       }
     },
+    created(){
+
+    },
     mounted() {
-      this.linechartone();                 /*描绘iops折线图，接受Json数据*/
-      this.lindecharttwo();                 /*描绘mbps折线图，接受Json数据*/
-      this.linechartthree();                /*描绘时延折线图，接受Json数据*/
-      this.columnar();                      /*状态统计条形图，接受Json数据*/
-      this.piechart();                        /*网络状态饼状图，接受Json数据*/
       this.getall();
+      // this.ws()
+      // this.initWebSocket()
+      // this.linechartone();                 /*描绘iops折线图，接受Json数据*/
+      // this.lindecharttwo();                 /*描绘mbps折线图，接受Json数据*/
+      // this.linechartthree();                /*描绘时延折线图，接受Json数据*/
+      // this.columnar();                      /*状态统计条形图，接受Json数据*/
+      // this.piechart();                        /*网络状态饼状图，接受Json数据*/
+
+
     },
     methods: {
-      linechartone(){
+      ws(){
+        var socket;
+        var _this=this
+        if (!window.WebSocket){
+          window.WebSocket=window.MozWebSocket;
+        }
+        if (window.WebSocket){
+
+          socket=new WebSocket('ws://192.168.1.42:8000/ws/intime_data');
+          socket.onmessage=function (e) {
+
+            var data=JSON.parse(e.data)
+            var iwrite=data.message.data.iops.write
+            var iread=data.message.data.iops.read
+            var ti=data.message.data.time
+            var mwrite=data.message.data.mbps.write
+            var mread=data.message.data.mbps.read
+            var delaytime=data.message.data.delay
+            // _this.linechartone(ti,iwrite,iread)
+            // _this.lindecharttwo(ti,mwrite,mread)
+            // _this.linechartthree(ti,delaytime)
+            // console.log(data.message,'2')
+          };
+          socket.onopen=function (e) {
+            console.log('connect')
+          };
+          socket.onclose=function (e) {
+            console.log('close')
+          };
+        }
+        else {
+          alert('你的浏览器不支持websocket')
+        }
+      },
+      // initWebSocket(){
+      //   var _this=this
+      //   const wsurl="ws://192.168.1.213:8000/ws/intime_data";
+      //   this.websock=new WebSocket(wsurl);
+      //   this.websock.onmessage=this.websocketonmessage;
+      //   this.websock.onopen=this.websocketonopen;
+      //   this.websock.websocket =this.websocket;
+      //   this.websock.onclose=this.websocketclose;
+      // },
+      // websocketonopen(){
+      //   console.log('ok')
+      //   //console.log(JSON.parse(obj))
+      // },
+      // websocket(){
+      //   this.initWebSocket()
+      // },
+      // websocketonmessage(e){
+      //
+      //   const data=JSON.parse(e.data)
+      //
+      //   this.lineall.push(data.message.data)
+      //   console.log(_this.lineall)
+      // },
+      // websocketsend(Data){
+      //   console.log(Data)
+      // },
+      // websocketclose(e){
+      //   console.log('断开连接',e);
+      // },
+      getall(){                         /*获取首页信息*/
+        var _this=this
+        console.log('start')
+        this.$axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+        this.$axios.get(this.allurl,{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+
+          _this.linpiechart=res.data
+          _this.n=_this.linpiechart.net[0].nuse
+          _this.u=_this.linpiechart.net[0].use
+          _this.s=_this.linpiechart.status
+          _this.piechart();
+          _this.columnar();
+          _this.ws()
+
+        }).catch(function (error) {
+          console.log(error)
+        })
+      },
+      linechartone(time,write,read){
         var mychart = this.$echarts.init(document.getElementById('mychart'));
-          this.$axios.get('http://localhost:3000/api/data').then(function (data) {
+          this.$axios.get('').then(function (data) {
             var option = {
               color: ['#1a58cc'],
 
@@ -87,9 +174,7 @@
               },
               xAxis: [{
                 name: '时间',
-                data: data.data.map(function (item) {
-                  return item[0];
-                }),
+                data:time,
                 lineStyle: {
                   color: 'white'
                 },
@@ -133,8 +218,8 @@
                 {
                   start: 50,
                   end: 100,
-                  startValue: '00:00',
-                  endValue: '24:00',
+                  // startValue: '',
+                  // endValue: '',
                   lineStyle: {color: 'white'},
                   areaStyle: {color: '#ff9933'}
                 },
@@ -143,7 +228,7 @@
                 },
               ],
               series: [{
-                name: 'IOPS',
+                name: 'IOPS-Write',
                 smooth: true,
                 type: 'line',
                 symbol: 'none',
@@ -171,9 +256,7 @@
                     }
                   }
                 },
-                data: data.data.map(function (item) {
-                  return item[1];
-                }),
+                data:write,
                 labelLine: {
                   normal: {
                     lineStyle: {
@@ -184,6 +267,46 @@
                 },
 
               },
+                {
+                  name: 'IOPS-Read',
+                  smooth: true,
+                  type: 'line',
+                  symbol: 'none',
+                  itemStyle: {
+                    normal: {
+                      lineStyle: {
+                        type: 'solid',
+                        width: 2,
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                          offset: 0,
+                          color: '#fff'
+                        },
+                          {
+                            offset: 0.02,
+                            color: '#FCFFA7'
+                          },
+                          {
+                            offset: 0.10,
+                            color: '#DEED00'
+                          },
+                          {
+                            offset: 1,
+                            color: '#FCFFA7'
+                          }]),//线条渐变色
+                      }
+                    }
+                  },
+                  data:read,
+                  labelLine: {
+                    normal: {
+                      lineStyle: {
+                        color: '#fff',
+                        width: 10
+                      }
+                    }
+                  },
+
+                },
               ]
             }
             mychart.setOption(option)
@@ -192,9 +315,9 @@
                       console.log(error)
                     })
       },
-      lindecharttwo(){
+      lindecharttwo(time,write,read){
         var mchart = this.$echarts.init(document.getElementById('mchart'));
-        this.$axios.get('http://localhost:3000/api/data').then(function (data) {
+        this.$axios.get('').then(function (data) {
           var option = {
             color: ['#fe6300', ],
             title: [{
@@ -212,9 +335,7 @@
             },
             xAxis: [{
               name: '时间',
-              data: data.data.map(function (item) {
-                return item[0];
-              }),
+              data: time,
               lineStyle: {
                 color: 'white'
               },
@@ -268,7 +389,7 @@
               },
             ],
             series: [ {
-                        name: 'MBPS',
+                        name: 'MBPS-Write',
                         smooth: true,
                         type: 'line',
                         symbol: 'none',
@@ -297,9 +418,7 @@
                           }
                         },
 
-                        data: data.data.map(function (item) {
-                          return item[1];
-                        }),
+                        data: write,
                         labelLine: {
                           normal: {
                             lineStyle: {
@@ -307,7 +426,47 @@
                             }
                           }
                         },
-                      },]
+                      },
+              {
+                name: 'MBPS-Read',
+                smooth: true,
+                type: 'line',
+                symbol: 'none',
+                itemStyle: {
+                  normal: {
+                    lineStyle: {
+                      type: 'solid',
+                      width: 2,
+                      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#fff'
+                      },
+                        {
+                          offset: 0.02,
+                          color: '#AFFFA7'
+                        },
+                        {
+                          offset: 0.1,
+                          color: '#0DA700'
+                        },
+                        {
+                          offset: 1,
+                          color: '#AFFFA7'
+                        }]),//线条渐变色
+                    }
+                  }
+                },
+
+                data: read,
+                labelLine: {
+                  normal: {
+                    lineStyle: {
+                      color: 'red'
+                    }
+                  }
+                },
+              },
+            ]
           }
           mchart.setOption(option)
         })
@@ -315,9 +474,9 @@
             console.log(error)
           })
       },
-      linechartthree(){
+      linechartthree(delay){
         var ychart = this.$echarts.init(document.getElementById('ychart'));
-        this.$axios.get('http://localhost:3000/api/data').then(function (data) {
+        this.$axios.get('').then(function (data) {
           var option = {
             color: ['#d20579', ],
             title: [{
@@ -419,9 +578,7 @@
                   }
                 }
               },
-              data: data.data.map(function (item) {
-                return item[2];
-              }),
+              data:delay,
               labelLine: {
                 normal: {
                   lineStyle: {
@@ -438,6 +595,7 @@
           })
       },
       columnar: function () {
+
         var mycharts = this.$echarts.init(document.getElementById('mycharts'));
         var options = {
           title: {
@@ -451,7 +609,7 @@
             axisPointer: {
               type: 'shadow'
             },
-            formatter: "{a} <br/>{b} : {c} %"
+            formatter: "{a} <br/>{b} : {c} "
           },
           grid: {
             left: '3%',
@@ -489,7 +647,7 @@
               name: '状态',
               type: 'bar',
               barWidth: 20,
-              data: this.sta,
+              data: this.s,
               itemStyle: {
                 normal: {
                   color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
@@ -536,8 +694,8 @@
               radius: '55%',
               center: ['50%', '50%'],
               data: [
-                {value: this.net[0].nuse, name: '可用'},
-                {value: this.net[0].use, name: '已用'},
+                {value: this.n, name: '可用'},
+                {value: this.u, name: '已用'},
               ],
               roseType: 'radius',
               label: {
@@ -562,15 +720,7 @@
         };
         mychartss.setOption(optionss);
       },
-      getall(){                         /*获取健康信息*/
-        this.$axios.get('http://localhost:5000').then(function (res) {
-          this.health=res.health
-          this.line=res.status
-          this.pie=res.net
-        }).catch(function (error) {
-          console.log(error)
-        })
-      },
+
 
     }
   }

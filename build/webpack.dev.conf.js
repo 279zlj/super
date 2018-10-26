@@ -93,12 +93,12 @@ module.exports = new Promise((resolve, reject) => {
     }
   })
 })
-var jsonServer = require('json-server') //引入文件
-var apiServer = jsonServer.create(); //创建服务器
-var apiRouter = jsonServer.router('./static/data.json') //引入json 文件
-var middlewares = jsonServer.defaults(); //返回JSON服务器使用的中间件。
-apiServer.use(middlewares)
-apiServer.use('/api',apiRouter)
-apiServer.listen(  3000 ,function(){ //json服务器端口:
-  console.log('JSON Server is running')  //json server成功运行会在git bash里面打印出'JSON Server is running'
-})
+// var jsonServer = require('json-server') //引入文件
+// var apiServer = jsonServer.create(); //创建服务器
+// var apiRouter = jsonServer.router('./static/data.json') //引入json 文件
+// var middlewares = jsonServer.defaults(); //返回JSON服务器使用的中间件。
+// apiServer.use(middlewares)
+// apiServer.use('/api',apiRouter)
+// apiServer.listen(  3000 ,function(){ //json服务器端口:
+//   console.log('JSON Server is running')  //json server成功运行会在git bash里面打印出'JSON Server is running'
+// })

@@ -4,7 +4,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App'
 import 'store'
-
+import qs from 'qs'
 import VueI18n from 'vue-i18n'
 import store from '../src/store/store'
 import router from './router'
@@ -29,6 +29,7 @@ import  '../src/assets/js/base'
 Vue.use(Vuex)
 Vue.use(router)
 Vue.use(VueI18n)
+Vue.prototype.$qs=qs
 Vue.component(VTable.name, VTable)
 Vue.component(VPagination.name, VPagination)
 Vue.config.productionTip = false
@@ -41,6 +42,8 @@ Vue.prototype.$axios = axios;
 //   });
 //   return html.join('');
 // }
+
+Vue.prototype.allurl='http://192.168.1.213:8000/'
 
 const messages={
   //英文

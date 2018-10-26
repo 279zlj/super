@@ -7,6 +7,7 @@
         <img src="../../static/image/login/four.png" class="img-responsive four"/>
       </div>
       <div class="container-fluid" style="margin-top: 13em;margin-bottom: 8em">
+        <form>
         <div class="row">
         <div class="col-lg-3 col-lg-offset-3 col-md-4 col-md-offset-2 col-sm-5 col-sm-offset-1 col-xs-6 content" style="background-color: white;height: 35em">
           <div class="container-fluid" @keydown.enter="loginuser">
@@ -15,6 +16,7 @@
           <input type="text" class="form-control" placeholder="请输入用户名" ref="user" id="user" autofocus="autofocus"/>
           <label class="l">密码：</label>
           <input type="password" class="form-control" placeholder="输入密码" ref="pwd" id="pwd"/>
+            <div id="tips" style="color: red;margin-top: .5em;font-weight: 700;">{{tips}}</div>
           <input type="button" class="btn btn-info b" value="登录" @click="loginuser()" />
           </div>
         </div>
@@ -24,6 +26,7 @@
           </div>
         </div>
         </div>
+        </form>
       </div>
     </div>
 </template>
@@ -44,15 +47,14 @@
       data(){
           return{
             user:'',
-            pwd:''
+            pwd:'',
+            tips:''
           }
       },
-      created(){
-          this.loginuser()
-      },
+
       methods:{
         loginuser(){                /*登录的判断，用户名和密码不为空，假如登录成功后跳转，并缓存一个状态值用作页面拦截的通过值*/
-
+          var _this=this
           if (this.$refs.user.value==''||this.$refs.pwd.value==''){
             alert('用户名或密码不能为空')
           }
@@ -62,18 +64,25 @@
             this.pwd=this.$refs.pwd.value;
             // this.setToken('login_token','ewraweesdfasd')
             // this.setToken('islogin',200)
-            this.$store.commit('islogin',200)
-            sessionStorage.setItem('islogin','200')
-            this.$router.push('/')
-            // this.$axios.post('/Login',{user:this.user,pwd:this.pwd}).then(function (res) {
-            //   if (res.status=='200'&& res.data==1){
-            //     this.$store.commit('islogin',200)
-            //     sessionStorage.setItem('islogin','200')
-            //     this.$router.push('/')
-            //   }
-            // }).catch(function (error) {
-            //   console.log(error)
-            // })
+            // this.$store.commit('islogin',200)
+            // sessionStorage.setItem('islogin','200')
+            // this.$router.push('/')
+            this.$axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+            this.$axios.post(this.allurl+'login',{user:this.user,pwd:this.pwd},{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+              console.log(res.data.status)
+              if (res.data.status===0) {
+                _this.tips='账号/密码错误，请重新输入'
+                return(_this.$refs.pwd.value='')
+                // $('#pwd').val
+              }
+              else if (res.status=='200'&& res.data.status===1){
+                _this.$store.commit('islogin',200)
+                sessionStorage.setItem('islogin','200')
+                _this.$router.push('/')
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
 
 
           }
@@ -105,6 +114,7 @@
     text-align: center;
     margin-top: 2em;
     margin-bottom: .8em;
+    color: black !important;
   }
   .l{
     font-size: 1.3em;

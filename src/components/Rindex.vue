@@ -7,9 +7,9 @@
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
             <h4 class="h">io agent 容量使用占比</h4>
             <div id="iocontent" class="content">
-              <p>总大小：{{this.collect.osd_detail.size}}</p>
-              <p>已使用：{{this.collect.osd_detail.use}}</p>
-              <p>已用百分比：{{this.collect.osd_detail.usepct}}%</p>
+              <p>总大小：<span v-if="collect.osd_detail.osize">{{collect.osd_detail.osize}}</span></p>
+              <p>已使用：{{collect.osd_detail.ouse}}</p>
+              <p>已用百分比：{{collect.osd_detail.usepct}}%</p>
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 container-fluid">
@@ -25,8 +25,8 @@
                 <h4 class="h">tank 存储使用占比</h4>
                 <div id="tankcontent" class="content">
 
-                  <p>已使用：{{this.collect.pool.use}}</p>
-                  <p>已用百分比：{{this.collect.pool.usepct}}%</p>
+                  <p>已使用：{{collect.pool.puse}}</p>
+                  <p>已用百分比：{{collect.pool.usepct}}%</p>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -39,10 +39,10 @@
         <div class="row container-fluid">
           <div class="col-lg-11 col-md-11 col-sm-12 col-sm-offset-0 col-xs-12 bgone">
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="margin-left: -15px">
-              <h4 class="ho"><span style="font-size: 2.2em">{{this.collect.osd_detail.block}}</span>个块设备</h4>
+              <h4 class="ho"><span style="font-size: 2.2em">{{collect.block_detail.block}}</span>个块设备</h4>
               <div id="rbdcontent" class="content">
-                <p>总大小：{{this.collect.block_detail.size}}</p>
-                <p>客户端连接数：{{this.collect.block_detail.server_num}}</p>
+                <p>总大小：{{collect.block_detail.bsize}}</p>
+                <p>客户端连接数：{{collect.block_detail.server_num}}</p>
               </div>
             </div>
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
@@ -205,69 +205,25 @@
       liquidfill,
       data(){
           return{
-            cpu:[
-              {ip:'192.168.1.12',network:'net',status:'正常',time:'now'},
-              {ip:'192.168.1.15',network:'net',status:'正常',time:'now'},
-              {ip:'192.168.1.19',network:'net',status:'正常',time:'now'},
-
-            ],
-            iops:[
-              {ip:'192.168.1.12',network:'net',status:'正常',time:'now'},
-              {ip:'192.168.1.15',network:'net',status:'正常',time:'now'},
-              {ip:'192.168.1.19',network:'net',status:'正常',time:'now'},
-            ],
-            mbps:[
-              {ip:'192.168.1.12',network:'net',status:'正常',time:'now'},
-              {ip:'192.168.1.15',network:'net',status:'正常',time:'now'},
-              {ip:'192.168.1.19',network:'net',status:'正常',time:'now'},
-            ],
-            warn:[
-              {ip:'192.168.1.12',network:'net',status:'紧急',time:'now'},
-              {ip:'192.168.1.15',network:'net',status:'重要',time:'now'},
-              {ip:'192.168.1.19',network:'net',status:'次要',time:'now'},
-              {ip:'192.168.1.24',network:'net',status:'重要',time:'now'},
-              {ip:'192.168.1.35',network:'net',status:'次要',time:'now'},
-              {ip:'192.168.1.14',network:'net',status:'重要',time:'now'},
-              {ip:'192.168.1.63',network:'net',status:'次要',time:'now'},
-            ],
-            log:[
-              {ip:'192.168.1.12',network:'net',status:'成功',time:'now'},
-              {ip:'192.168.1.15',network:'net',status:'失败',time:'now'},
-              {ip:'192.168.1.19',network:'net',status:'成功',time:'now'},
-            ],
-            osd_use:[
-              {name:'osd1',value:'14'},
-              {name:'osd2',value:'34'},
-              {name:'osd3',value:'24'}
-            ],
-            collect: {
-              pool: {
-                use: '423', usepct: '48'
-              },
-              block_detail:{
-                size:'38245',server_num:"5"
-              },
-              osd_detail:{
-                size:'3852',use:'234',usepct:'14',block:5,
-              },
-            },
-            pool_use:[
-              0.4
-            ],
+            cpu:[],
+            iops:[],
+            mbps:[],
+            warn:[],
+            log:[],
+            osd_use:[],
+            collect: {},
+            pool_use:[],
             jj:0,
             zy:0,
-            cy:0
+            cy:0,
+
           }
       },
       mounted(){
-        this.liquidFill();                 /*osd使用率占比状态饼状图*/
-        this.pie();                       /*pool水球描绘*/
-        this.pictorialBar();              /*块设备的状态*/
-        this.count()                    /*警告事件的分类统计*/
-        this.cputop()
-        this.iopstop()
-        this.mbpstop()
-        this.logdo()
+        this.allstatus()
+
+
+
       },
       updated(){
         this.liquidFill();
@@ -387,10 +343,10 @@
           };
           pictorial.setOption(optionss);
         },
-
         count(){
           let i;
           for(i in this.warn){
+            console.log(this.warn)
               if(this.warn[i].status=='紧急'){
                 this.jj+=1;
               }
@@ -404,33 +360,31 @@
           return this.jj,this.zy,this.cy
           console.log(this.jj,this.zy,this.cy)
         },
-        cputop(){                /*cpu使用率前三名*/
-          this.$axios.get('').then(function (res) {
+
+        allstatus(){
+          var _this=this
+          this.$axios.get(this.allurl+'overview',{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+            _this.osd_use=res.data.osd_use
+            _this.collect=res.data.collect
+            _this.pool_use=res.data.pool_user
+            // console.log(_this.collect.osd_detail.osize)
+          }).catch(function (error) {
+            console.log(error)
+          })
+          this.$axios.get(this.allurl+'list_data',{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+            _this.mbps=res.data.mbps
+            _this.log=res.data.log
+            _this.warn=res.data.warn
+            _this.iops=res.data.iops
+            _this.cpu=res.data.cpu
 
           }).catch(function (error) {
             console.log(error)
           })
-        },
-        iopstop(){                 /*iops使用率前三名*/
-          this.$axios.get('').then(function (res) {
-
-          }).catch(function (error) {
-            console.log(error)
-          })
-        },
-        mbpstop(){                     /*mbps使用率前三名*/
-          this.$axios.get('').then(function (res) {
-
-          }).catch(function (error) {
-            console.log(error)
-          })
-        },
-        logdo(){
-          this.$axios.get().then(function (res) {
-            this.log=res.data
-          }).catch(function (error) {
-            console.log(error)
-          })
+          _this.count()                    /*警告事件的分类统计*/
+          _this.liquidFill();                 /*osd使用率占比状态饼状图*/
+          _this.pie();                       /*pool水球描绘*/
+          _this.pictorialBar();              /*块设备的状态*/
         }
       }
     }
