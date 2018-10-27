@@ -1,6 +1,7 @@
 # super
 
-> A Vue.js project
+> 一个关于分布式存储的简单vue应用，鉴于整理过的ceph开源软件例如ceph-dash,openATTIC,inkscope,dashboard,calamari等，发现基本都是基于angular.js开发结合django，不排除有商业产品也采用不一样的开发类似于java,react,vue等，结合flask。
+> 由于本人正在学习vue,就采用vue+webpack形式去结合总结功能做一个分布式系统，当然我的搭档做后台是django，彻底分离前后端，前后都部署在不同的服务器上，所以后端是不放出来的，采用restful api
 
 ## Build Setup
 
