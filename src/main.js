@@ -99,7 +99,9 @@ router.beforeEach((to,from,next)=>{                          /*路由守卫，�
       sessionStorage.removeItem('islogin');
       localStorage.removeItem('islogin')
     }
-
+    if (to.name==='Resources') {
+      sessionStorage.setItem('isse','概况')
+    }
 })
 
 /* eslint-disable no-new */

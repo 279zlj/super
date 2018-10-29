@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
-        <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" data-url="http://localhost:3000/api/tableDate">
+        <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" data-url="http://192.168.1.213:8000/manager/tank/list_tank">
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -46,7 +46,7 @@
         </div>
       </div>
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive two">
-        <table class="table table-responsive text-nowrap" id="table" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" data-url="http://localhost:3000/api/tableDate">
+        <table class="table table-responsive text-nowrap" id="table" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" data-url="http://192.168.1.213:8000/manager/tank/list_auth">
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -104,7 +104,7 @@
             <h4 class="modal-title" id="dila">存储池扩容</h4>
           </div>
           <div class="modal-body">
-            <p>存储池大小修改：</p><input type="text" class="form-control" id="poolsize" ref="poolsize"/>
+            <p>存储池大小修改：</p><input type="number" class="form-control" id="poolsize" ref="poolsize"/>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -168,7 +168,7 @@
         sizesend(){                          /*发送扩容信息*/
 
           let poolsize=this.$refs.poolsize.value
-          this.$axios.post('http://localhost:5000',{name:this.ids,size:poolsize}).then(function (res) {
+          this.$axios.post(this.allurl+'manager/tank/tank_dilatate',{name:this.dilata,poolsize:poolsize},{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
             console.log(res)
           }).catch(function (error) {
             console.log(error)
@@ -187,7 +187,7 @@
               field: 'poolname',
               values: ids
             });
-            this.$axios.post('http://localhost:5000',ids).then(function (res) {
+            this.$axios.post(this.allurl+'manager/tank/remove_tank',{ids:ids},{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
               console.log(res,'post ok')
             }).catch(function (error) {
               console.log(error)
@@ -206,7 +206,7 @@
               field: 'pname',
               values: ips
             });
-            this.$axios.post('http://localhost:5000',ips).then(function (res) {
+            this.$axios.post(this.allurl+'manager/client/authori_delete',{ips:ips},{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
               console.log(res,'post ok')
             }).catch(function (error) {
               console.log(error)
@@ -218,7 +218,7 @@
         editsend(){                 /*发送修改后的存储池信息*/
           let poolname=this.$refs.name.value
           let poolcontent=this.$refs.content.value
-          this.$axios.post('http://localhost:5000',{name:poolname,content:poolcontent,ip:this.ids}).then(function (res) {
+          this.$axios.post(this.allurl+'manager/tank/change_param',{name:poolname,content:poolcontent,ip:this.edit},{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
             console.log(res)
           }).catch(function (error) {
             console.log(error)
@@ -226,7 +226,7 @@
         },
         clientsend(){                       /*发送添加的客户端信息*/
           let client=this.$refs.addclient.value
-          this.$axios.post('http://localhost:5000',client).then(function (res) {
+          this.$axios.post(this.allurl+'manager/tank/client_add',{client:client},{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
             console.log(res)
           }).catch(function (error) {
             console.log(error)
@@ -242,7 +242,7 @@
             }
             else {
               if (confirm('是否确认进行授权操作：' + ips)) {
-                this.$axios.post('http://localhost:5000', ips).then(function (res) {
+                this.$axios.post(this.allurl+'manager/client/man_authori', {ips:ips},{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
                   console.log(res, 'post ok')
                 }).catch(function (error) {
                   console.log(error)
@@ -265,7 +265,7 @@
           }
           else {
             if (confirm('是否确认进行取消授权操作：' + ips)) {
-              this.$axios.post('http://localhost:5000', ips).then(function (res) {
+              this.$axios.post(this.allurl+'manager/client/man_disauthori', {ips:ips},{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
                 console.log(res, 'post ok')
               }).catch(function (error) {
                 console.log(error)

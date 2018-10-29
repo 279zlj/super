@@ -221,9 +221,11 @@
       },
       mounted(){
         this.allstatus()
-
-
-
+      },
+      computed:{            /*调用Vuex中的islogin值，有缓存左右*/
+        countwarn(){
+          return this.$store.state.jj,this.$store.state.zy,this.$store.state.cy
+        }
       },
       updated(){
         this.liquidFill();
@@ -346,9 +348,10 @@
         count(){
           let i;
           for(i in this.warn){
-            console.log(this.warn)
+
               if(this.warn[i].status=='紧急'){
                 this.jj+=1;
+
               }
               if (this.warn[i].status=='重要'){
                 this.zy+=1;
@@ -357,8 +360,9 @@
                 this.cy+=1;
               }
           }
+          this.$store.commit('countwarn',{one:this.jj,two:this.zy,three:this.cy})
           return this.jj,this.zy,this.cy
-          console.log(this.jj,this.zy,this.cy)
+
         },
 
         allstatus(){
@@ -367,6 +371,9 @@
             _this.osd_use=res.data.osd_use
             _this.collect=res.data.collect
             _this.pool_use=res.data.pool_user
+            _this.pictorialBar();              /*块设备的状态*/
+            _this.liquidFill();                 /*osd使用率占比状态饼状图*/
+            _this.pie();                       /*pool水球描绘*/
             // console.log(_this.collect.osd_detail.osize)
           }).catch(function (error) {
             console.log(error)
@@ -377,14 +384,13 @@
             _this.warn=res.data.warn
             _this.iops=res.data.iops
             _this.cpu=res.data.cpu
+            _this.count()                    /*警告事件的分类统计*/
 
           }).catch(function (error) {
             console.log(error)
           })
-          _this.count()                    /*警告事件的分类统计*/
-          _this.liquidFill();                 /*osd使用率占比状态饼状图*/
-          _this.pie();                       /*pool水球描绘*/
-          _this.pictorialBar();              /*块设备的状态*/
+
+
         }
       }
     }

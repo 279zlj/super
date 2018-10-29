@@ -12,7 +12,7 @@
           <img src="../../static/image/logo.png" class="img-responsive imgg"/>
         </a>
       </div>
-    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 collapse navbar-collapse" id="navbar-menu">
+    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 collapse navbar-collapse" id="navbar-menu" style="height: 10em">
       <div class="col-lg-3 col-md-3 col-sm-1 col-xs-0">
 
       </div>
@@ -22,14 +22,21 @@
           <!--<p class="font" @click="changenav(i.name)">{{i.name}}</p>-->
         </div>
       </div>
-      <div class="col-lg-1 col-lg-offset-1 col-md-1 col-md-offset-0 col-sm-2 col-xs-12 dropdown">
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 warnstatus">
+        <router-link :to="{name:'Mwarn'}">
+          <span class="jg" title="紧急">{{$store.state.jj}}</span>
+          <span class="jgtw" title="重要">{{$store.state.zy}}</span>
+          <span class="jgth" title="次要">{{$store.state.cy}}</span>
+        </router-link>
+      </div>
+      <div class="col-lg-1 col-md-1 col-md-offset-0 col-sm-2 col-xs-12 dropdown">
       <a class="dropdown-toggle glyphicon glyphicon-user white" data-toggle="dropdown" style="cursor: pointer"><span class="jl">admin</span></a>
         <ul class="dropdown-menu">
           <li @click="us()"><router-link :to="{name:'User'}">用户管理</router-link></li>
           <li><a style="cursor: pointer"><span id="out">退出登陆</span></a></li>
         </ul>
       </div>
-      <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12 dropdown">
+      <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12 dropdown">
       <a class="dropdown-toggle glyphicon glyphicon-cog white" data-toggle="dropdown" style="cursor: pointer"><span class="jl">管理</span></a>
         <ul class="dropdown-menu">
           <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#bb">版本管理</span></a></li>
@@ -37,7 +44,7 @@
           <li @click="us()"><router-link :to="{name:'Log'}">日志管理</router-link></li>
         </ul>
       </div>
-      <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12 dropdown" style="height: 3em">
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 dropdown" style="height: 3em">
         <a data-toggle="dropdown" style="cursor: pointer;color: white"><span class="j2">语言</span></a>
         <ul class="dropdown-menu">
           <li ><a style="cursor: pointer">中文</a></li>
@@ -134,13 +141,21 @@ export default {
         {index:'2',name:'资源调配',href:'Allocation'},
         {index:'3',name:'风险控制',href:'Management'},
       ],
-      ind:''
+      ind:'',
+      warn:[],
+      jj:0,
+      zy:0,
+      cy:0,
     }
   },
   computed:{
     islogin(){
       return this.$store.state.islogin
+    },
+    countwarn(){
+      return this.$store.state.jj,this.$store.state.zy,this.$store.state.cy
     }
+
   },
   methods:{
     outlog(){                 /*退出登录*/
@@ -166,10 +181,39 @@ export default {
 
       sessionStorage.setItem('issele',this.issele)
 
-    }
+    },
+    warnall(){
+      var _this=this
+      this.$axios.get(this.allurl+'list_data',{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+        _this.warn=res.data.warn
+        _this.count()                    /*警告事件的分类统计*/
+
+      }).catch(function (error) {
+        console.log(error)
+      })
+    },
+    count(){
+      let i;
+      for(i in this.warn){
+        if(this.warn[i].status=='紧急'){
+          this.jj+=1;
+
+        }
+        if (this.warn[i].status=='重要'){
+          this.zy+=1;
+        }
+        if (this.warn[i].status=='次要'){
+          this.cy+=1;
+        }
+      }
+      this.$store.commit('countwarn',{one:this.jj,two:this.zy,three:this.cy})
+      return this.jj,this.zy,this.cy
+    },
+
   },
   mounted(){
     this.outlog()
+    this.warnall()
     if (sessionStorage.getItem('issele')==null){             /*最初状态设置为首页*/
       this.changenav('首页')
     }
@@ -182,6 +226,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
   .navbar-toggle .icon-bar{
     background-color:#ffffff
   }
@@ -272,6 +317,18 @@ export default {
     background-color: #3F3456;
 
   }
+  .warnstatus{
+    line-height: 3.5em;display: flex;text-align: center;vertical-align: middle;
+  }
+  .jg{
+    background-color: #AD1501;padding: 0 .3em;cursor:pointer;margin-top: 1em;color: white;
+  }
+  .jgtw{
+    background-color: #DA4409;padding: 0 .3em;cursor:pointer;margin-top: 1em;color: white;
+  }
+  .jgth{
+    background-color: #FF8A00;padding: 0 .3em;cursor:pointer;margin-top: 1em;color: white;
+  }
   @media screen and (max-width: 425px) {
     .imgg{
       padding: .7rem .5rem .8rem .5rem;
@@ -292,12 +349,14 @@ export default {
     }
 
   }
-  @media screen and (min-width: 769px) and (max-width: 1024px) {
+  @media screen and (min-width: 769px) and (max-width: 1025px) {
     .imgg{
       padding: .8rem .5rem .8rem .8rem;
       width: 90%;
     }
-
+    .jl{
+      padding-left: .2rem;
+    }
   }
   @media screen and (min-width:1600px ) {
 

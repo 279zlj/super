@@ -56,11 +56,10 @@
 
       }
     },
-    created(){
 
-    },
     mounted() {
       this.getall();
+
       // this.ws()
       // this.initWebSocket()
       // this.linechartone();                 /*描绘iops折线图，接受Json数据*/
@@ -72,6 +71,7 @@
 
     },
     methods: {
+
       ws(){
         var socket;
         var _this=this
@@ -80,19 +80,19 @@
         }
         if (window.WebSocket){
 
-          socket=new WebSocket('ws://192.168.1.42:8000/ws/intime_data');
+          socket=new WebSocket('ws://192.168.1.213:8000/ws/intime_data');
           socket.onmessage=function (e) {
-
-            var data=JSON.parse(e.data)
-            var iwrite=data.message.data.iops.write
-            var iread=data.message.data.iops.read
-            var ti=data.message.data.time
-            var mwrite=data.message.data.mbps.write
-            var mread=data.message.data.mbps.read
-            var delaytime=data.message.data.delay
-            // _this.linechartone(ti,iwrite,iread)
-            // _this.lindecharttwo(ti,mwrite,mread)
-            // _this.linechartthree(ti,delaytime)
+            console.log(e.data.message)
+            // var data=JSON.parse(e.data)
+            var iwrite=e.data.message.data.iops.write
+            var iread=e.data.message.data.iops.read
+            var ti=e.data.message.data.time
+            var mwrite=e.data.message.data.mbps.write
+            var mread=e.data.message.data.mbps.read
+            var delaytime=e.data.message.data.delay
+            _this.linechartone(ti,iwrite,iread)
+            _this.lindecharttwo(ti,mwrite,mread)
+            _this.linechartthree(ti,delaytime)
             // console.log(data.message,'2')
           };
           socket.onopen=function (e) {

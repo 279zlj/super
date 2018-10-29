@@ -23,7 +23,7 @@
               {index:'6',name:'参数修改',href:'Rpara'}
             ],
             ind:'',
-            isse:'概览'
+            isse:''
           }
       },
       methods:{
@@ -34,17 +34,7 @@
       },
 
       mounted(){
-
-        if (sessionStorage.getItem('isse')==null){
-          this.isse='概览'
-        }
-        else if(this.$router.path==='/Resources'){
-          console.log(this.$router.path)
-          this.changenav('概览')
-        }
-        else {
           this.isse=sessionStorage.getItem('isse')
-        }
       }
 
     }

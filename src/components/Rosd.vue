@@ -1,7 +1,7 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 container-fluid" id="Rosd">
 
-  <div class="row">
+  <div class="row" v-if="osdlist!=null">
   <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 container allo">
     <input type="button" class="btn btn-default b" value="展开" style="margin-bottom: 1em;margin-left:1em;float: right" @click="open()"/>
     <input type="button" class="btn btn-default b" value="极简" style="margin-bottom: 1em;float: right" @click="clos()"/>
@@ -14,7 +14,7 @@
                 <div class="row font " :class="{'chan':ind===index}">
                   <p>{{i.osdid}}</p>
                   <p>{{i.osdip}}</p>
-                  <p>状态：<span :class="{'o':i.status==='ok','wa':i.status==='warn','err':i.status==='error'}">{{i.status}}</span></p>
+                  <p>状态：<span :class="{'o':i.status==='ok','wa':i.status==='warning','err':i.status==='error'}">{{i.status}}</span></p>
                 </div>
 
               </div>
@@ -31,7 +31,7 @@
       <div class="row san" v-for="(i,index) in osdlist"  @click="change(index)">
         <div class="row">
           <div class="row block aa" :class="{'chan':ind===index}">
-            <div class="row up " :class="{'chan':ind===index}">
+            <div class="row up " :class="{'chan':ind===index}" >
               <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 " :class="{'chan':ind===index}">
                 <div class="row font " :class="{'chan':ind===index}">
                   <p>{{i.osdid}}</p>
@@ -41,8 +41,8 @@
                 </div>
 
               </div>
-              <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 pie " :class="{'chan':ind===index}" >
-                <div :id=i.id class="grid container-fluid " :class="{'chan':ind===index}"></div>
+              <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 pie " :class="{'chan':ind===index}">
+                <div :id=i.id class="grid container-fluid " :class="{'chan':ind===index}" style="width: 10em;height: 10em"></div>
               </div>
             </div>
             <div class="row down " :class="{'chan':ind===index}" >
@@ -54,22 +54,22 @@
       </div>
   </div>
 
-    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 bgdown all">
+    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 bgdown all" v-if="content!=null">
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <div class=" bor container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">机器信息</span></p>
-            <p class="ff">型号：<span>{{content[0].name}}</span></p>
-            <p class="ff">状态：<span :class="{'o':content[0].status==='ok','wa':content[0].status==='warn','err':content[0].status==='error'}">{{content[0].status}}</span></p>
-            <p class="ff">操作系统：<span>{{content[0].opsys}}</span></p>
+            <p class="ff">型号：<span >{{content.all.sname}}</span></p>
+            <p class="ff">状态：<span :class="{'o':content.all.status==='ok','wa':content.all.status==='warning','err':content.all.status==='error'}">{{content.all.status}}</span></p>
+            <p class="ff">操作系统：<span>{{content.all.opsys}}</span></p>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <div class="bora container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">CPU</span></p>
-            <p class="ff">CPU：<span>{{content[0].cpu}}</span></p>
+            <p class="ff">CPU：<span>{{content.all.cpu}}</span></p>
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">内存</span></p>
-            <span class="ff">{{content[0].nc}}</span>
+            <span class="ff">{{content.all.nc}}</span>
           </div>
         </div>
       </div>
@@ -77,9 +77,9 @@
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <div class="col-lg-11 container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">数据盘</span></p>
-            <span v-for="q in content[0].datap"><img src="../../static/image/three.png" class="img-responsive"></span>
+            <span v-for="q in content.all.datap"><img src="../../static/image/three.png" class="img-responsive im" :id="q" @click="disk(q)" :class="xz==q?'shaw':''" ></span>
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">缓存盘</span></p>
-            <span v-for="w in content[0].cachep"><img src="../../static/image/cachedata.png" class="img-responsive"></span>
+            <span v-for="w in content.all.cachep"><img src="../../static/image/cachedata.png" class="img-responsive im" :id="w"  @click="disk(w)" :class="xz==w?'shaw':''"></span>
           </div>
         </div>
 
@@ -87,9 +87,9 @@
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <div class=" container-fluid">
           <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">iSCSI服务网络/内部网络</span></p>
-          <span class="ff">{{content[0].iscsi}}</span><span class="glyphicon glyphicon-edit e" title="修改" data-toggle="editmodal" @click="edit()" id="edit"></span>
+          <span class="ff">{{content.all.iscsi}}</span><span class="glyphicon glyphicon-edit e" title="修改" data-toggle="editmodal" @click="edit()" id="edit"></span>
           <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">内部网络</span></p>
-          <span class="ff">{{content[0].netw}}</span>
+          <span class="ff">{{content.all.netw}}</span>
           </div>
         </div>
     </div>
@@ -100,28 +100,33 @@
             <tbody>
               <tr>
                 <td>设备名：</td>
-                <td>{{content[1].name}}</td>
+                <td>{{content.netcard.dname}}</td>
               </tr>
               <tr>
-                <td>MAC：</td>
-                <td>{{content[1].mac}}</td>
+                <td>类型：</td>
+                <td>{{content.netcard.type}}</td>
               </tr>
               <tr>
-                <td>速率：</td>
-                <td>{{content[1].speed}}</td>
+                <td>容量：</td>
+                <td>{{content.netcard.size}}</td>
               </tr>
               <tr>
-                <td>丢包：</td>
-                <td>{{content[1].pack}}</td>
+                <td>WWID：</td>
+                <td>{{content.netcard.wwid}}</td>
               </tr>
               <tr>
-                <td>连接状态：</td>
-                <td>{{content[1].status}}</td>
+                <td>用途：</td>
+                <td>{{content.netcard.used}}</td>
               </tr>
               <tr>
-                <td>MTU：</td>
-                <td>{{content[1].mtu}}</td>
+                <td>慢盘：</td>
+                <td>{{content.netcard.small}}</td>
               </tr>
+              <tr>
+                <td>健康度：</td>
+                <td>{{content.netcard.health}}</td>
+              </tr>
+
             </tbody>
           </table>
           </div>
@@ -130,34 +135,30 @@
           <div class=" borc">
           <table class="table table-condensed table-responsive" >
             <tbody>
-            <tr>
-              <td>设备名：</td>
-              <td>{{content[2].name}}</td>
-            </tr>
-            <tr>
-              <td>类型：</td>
-              <td>{{content[2].type}}</td>
-            </tr>
-            <tr>
-              <td>容量：</td>
-              <td>{{content[2].size}}</td>
-            </tr>
-            <tr>
-              <td>WWID：</td>
-              <td>{{content[2].wwid}}</td>
-            </tr>
-            <tr>
-              <td>用途：</td>
-              <td>{{content[2].used}}</td>
-            </tr>
-            <tr>
-              <td>慢盘：</td>
-              <td>{{content[2].small}}</td>
-            </tr>
-            <tr>
-              <td>健康度：</td>
-              <td>{{content[2].health}}</td>
-            </tr>
+              <tr>
+                <td>设备名：</td>
+                <td>{{content.diskall.nname}}</td>
+              </tr>
+              <tr>
+                <td>MAC：</td>
+                <td>{{content.diskall.mac}}</td>
+              </tr>
+              <tr>
+                <td>速率：</td>
+                <td>{{content.diskall.speed}}</td>
+              </tr>
+              <tr>
+                <td>丢包：</td>
+                <td>{{content.diskall.pack}}</td>
+              </tr>
+              <tr>
+                <td>连接状态：</td>
+                <td>{{content.diskall.status}}</td>
+              </tr>
+              <tr>
+                <td>MTU：</td>
+                <td>{{content.diskall.mtu}}</td>
+              </tr>
             </tbody>
           </table>
           </div>
@@ -188,20 +189,15 @@
 <script>
 
   import Vue from 'vue'
+  import echarts from 'echarts';
     export default {
         name: "Rosd",
-
+      echarts,
+      Vue,
       data(){
         return{
-          osdlist:[
-            {osdid:'001',osdip:'127.0.0.1',usage:"32",unusage:'52',id:'piechart',status:'ok'},
-            {osdid:'002',osdip:'127.0.0.2',usage:"42",unusage:'214',id:'piecharttwo',status:'ok'},
-            {osdid:'003',osdip:'127.0.0.3',usage:"52",unusage:'145',id:'piechartthree',status:'ok'},
-            {osdid:'004',osdip:'127.0.0.2',usage:"72",unusage:'114',id:'piechartfour',status:'ok'},
-            {osdid:'005',osdip:'127.0.0.3',usage:"75",unusage:'74',id:'piechartfive',status:'ok'},
-            {osdid:'006',osdip:'127.0.0.2',usage:"15",unusage:'153',id:'piechartsix',status:'ok'},
-            {osdid:'007',osdip:'127.0.0.3',usage:"52",unusage:'145',id:'piechartsenven',status:'ok'},
-          ],
+          osdlist:'',
+          list:[],
           imgage:[
             '../../static/image/one.png',
             '../../static/image/two.png',
@@ -210,30 +206,38 @@
           ],
           num:'',
           ind:'',
-          content:[
-            {name:'dgasjhd',status:'ok',opsys:"N",cpu:'dashd',nc:'dsad',datap:'4',cachep:'2',iscsi:'127.0.01',netw:'127.0.02'},
-
-            {name:'eth5',mac:'01:c4:34:52',speed:'28M',pack:'1',status:'success',mtu:'1599'},
-            {name:'eth3',type:'01:c4:34:52',size:'28M',wwid:'1',used:'success',small:'1599',health:'ok'},
-          ],
+          content:[],
+          xz:''
 
         }
 
       },
       methods:{
         change(index,id) {
+          var _this=this
           this.ind=index
-          this.$axios.get('http://loaclhost:5000/api',id).then(function (res) {
+          this.$axios.post(this.allurl+'manager/ioagent/ioagent_de',{id:id},{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
 
-            this.content=res.content
+            _this.content.disk=res.content
           }).catch(function (error) {
             console.log(error)
           })
 
         },
+        disk(n){
+          var _this=this
+          this.xs=n;
+          // this.$axios.post('',n).then(function (res) {
+          //
+          //   // console.log(res)
+          // }).catch(function (error) {
+          //   console.log(error)
+          // })
+        },
         editsend(){                      /*发送修改后iSCSI的ip*/
-          let ip=this.$refs.modifyip.value
-          this.$axios.post('http://localhost:5000',ip).then(function (res) {
+          var _this=this
+          let ip=_this.$refs.modifyip.value
+          this.$axios.post(this.allurl+'manager/ioagent/iscsi_change',{ip:ip},{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
             console.log(res)
           }).catch(function (error) {
             console.log(error)
@@ -260,10 +264,12 @@
           })
         },
         piechart() {                        /*cpu使用率饼状图*/
+          var _this=this
           let i;
           for (i in this.osdlist) {
+            // console.log(this.osdlist[i].id)
 
-            var piec = this.$echarts.init(document.getElementById(this.osdlist[i].id))
+            var piec = _this.$echarts.init(document.getElementById(_this.osdlist[i].id))
             var option = {
               tooltip: {
                 trigger: 'item',
@@ -302,30 +308,72 @@
                     }
                   },
                   data: [
-                    {value: this.osdlist[i].usage, name: '已使用'},
-                    {value: this.osdlist[i].unusage, name: '未使用'}
+                    {value:_this.osdlist[i].usage, name: '已使用'},
+                    {value: _this.osdlist[i].unusage, name: '未使用'}
                   ]
                 }
               ]
             }
             piec.setOption(option)
           }
-        }
-      },
-      created(){
-        this.$axios.get('http://loaclhost:5000/api').then(function (res) {
+        },
+        start(){
+            var _this=this
+            this.$axios.get(this.allurl+'manager/ioagent/list_ioagent',{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+              _this.osdlist=res.data
+              _this.piechart()
+            }).catch(function (error) {
+              console.log(error)
+            })
 
-          this.osdlist=res.content
+            // console.log(_this.osdlist)
+        },
+        cen(){
+          var _this=this
+          this.$axios.get(this.allurl+'manager/ioagent/ioagent_one',{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+            // console.log(res.data)
+            _this.content=res.data
+            return _this.content
+          }).catch(function (error) {
+            console.log(error)
+          })
+          return _this.content
+        },
+        start2(){
+          var _this=this
+          this.$axios.get(this.allurl+'manager/ioagent/list_ioagent',{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+            _this.osdlist=res.data
+          }).catch(function (error) {
+            console.log(error)
+          })
+
+          // console.log(_this.osdlist)
+        },
+
+      },
+      beforeCreate(){
+        var _this=this
+        this.$axios.get(this.allurl+'manager/ioagent/ioagent_one',{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+          console.log(res.data)
+          _this.content=res.data
         }).catch(function (error) {
           console.log(error)
         })
       },
+      created(){
+        this.cen()
+        // this.start2()
+        this.start()
+        // $('#sample').css('display','block') ;           /*初始显示状态*/
+        // $('#detail').css('display','none')
+      },
       mounted(){
-        this.piechart()
+        // this.start()
         this.change(0,this.osdlist[0])
-
+        this.disk('d1')
         $('#sample').css('display','block') ;           /*初始显示状态*/
         $('#detail').css('display','none')
+
       },
       activated(){
         this.piechart()
@@ -342,7 +390,12 @@
   border-radius: .3em;
 
 }
-
+.shaw{
+  box-shadow: 0px 2px 5px white !important;
+}
+.im{
+  display: inline-block;margin: 0 .5rem;cursor: pointer;
+}
 .e{
   margin-left: 10%;
   color: #B9B0C7;
@@ -493,4 +546,5 @@
     color: red;
     font-weight: 700;
   }
+
 </style>

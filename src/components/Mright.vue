@@ -14,8 +14,9 @@
       data:function(){
         return{
           nav:[
-            {index: '0',name:'解决方案',href:'Mindex'},
             {index: '0',name:'警报',href:'Mwarn'},
+            {index: '0',name:'解决方案',href:'Mindex'},
+
             {index: '0',name: '导入解决包',href:'Msolve'},
           ],
           ind:'解决方案'
@@ -28,7 +29,7 @@
           }
       },
       mounted(){
-          this.changenav('解决方案')
+          this.changenav('警报')
 
       }
     }

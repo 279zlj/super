@@ -6,11 +6,19 @@ import '../assets/js/base'
 
 const store =new Vuex.Store({
   state:{
-    islogin:''
+    islogin:'',
+    jj:0,
+    zy:0,
+    cy:0,
   },
   mutations:{
     islogin(state,msg){
       state.islogin=msg;
+    },
+    countwarn(state,stau){
+      state.jj=stau.one;
+      state.zy=stau.two;
+      state.cy=stau.three;
     }
   }
 })
