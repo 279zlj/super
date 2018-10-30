@@ -1,7 +1,7 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" id="Mwarn" >
     <div class="row a">
-      <table class="table table-responsive text-nowrap" id="table_id" data-height="550" data-side-pagination="server" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toggle="table"  data-classes="table-no-bordered"  data-url="http://localhost:3000/api/tableDate">
+      <table class="table table-responsive text-nowrap" id="table_id" data-height="550" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toggle="table"  data-classes="table-no-bordered"  data-url="http://192.168.1.213:8000/manctl/err_ctl/get_err">
         <thead>
         <tr>
           <th data-field="rank" >级别</th>
@@ -45,7 +45,7 @@
     color: white;
   }
   .a{
-    margin-top: 3em;
+    margin-top: 4em;
     margin-bottom: 2em;
   }
      thead{

@@ -17,7 +17,7 @@
           <label class="l">密码：</label>
           <input type="password" class="form-control" placeholder="输入密码" ref="pwd" id="pwd"/>
             <div id="tips" style="color: red;margin-top: .5em;font-weight: 700;">{{tips}}</div>
-          <input type="button" class="btn btn-info b" value="登录" @click="loginuser()" />
+          <input type="button" class="btn btn-info b" value="登录" @click="loginuser()" @keydown.enter="loginuser()"/>
           </div>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6">
@@ -35,10 +35,13 @@
   import 'store'
   import 'vuex'
   import '../store/store'
+  import jsonp from 'jsonp'
+  import qs from 'qs'
 
     export default {
         name: "Login",
-
+        jsonp,
+      qs,
       computed:{            /*调用Vuex中的islogin值，有缓存左右*/
           islogin(){
             return this.$store.state.islogin
@@ -67,8 +70,9 @@
             // this.$store.commit('islogin',200)
             // sessionStorage.setItem('islogin','200')
             // this.$router.push('/')
-            this.$axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-            this.$axios.post(this.allurl+'login',{user:this.user,pwd:this.pwd},{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+            // this.$axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+            this.$axios.post(this.allurl+'login',{user:this.user,pwd:this.pwd}).then(function (res) {
               console.log(res.data.status)
               if (res.data.status===0) {
                 _this.tips='账号/密码错误，请重新输入'
@@ -83,7 +87,22 @@
             }).catch(function (error) {
               console.log(error)
             })
-
+            // jsonp(this.allurl+'login',{user:this.user,pwd:this.pwd},(err,data)=>{
+            //   if(err){
+            //     console.log(err)
+            //   }else{
+            //     if (res.data.status===0) {
+            //       _this.tips='账号/密码错误，请重新输入'
+            //       return(_this.$refs.pwd.value='')
+            //       // $('#pwd').val
+            //     }
+            //     else if (res.status=='200'&& res.data.status===1){
+            //       _this.$store.commit('islogin',200)
+            //       sessionStorage.setItem('islogin','200')
+            //       _this.$router.push('/')
+            //     }
+            //   }
+            // })
 
           }
         }

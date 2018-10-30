@@ -168,7 +168,7 @@
         sizesend(){                          /*发送扩容信息*/
 
           let poolsize=this.$refs.poolsize.value
-          this.$axios.post(this.allurl+'manager/tank/tank_dilatate',{name:this.dilata,poolsize:poolsize},{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+          this.$axios.post(this.allurl+'manager/tank/tank_dilatate',{name:this.dilata,poolsize:poolsize}).then(function (res) {
             console.log(res)
           }).catch(function (error) {
             console.log(error)
@@ -187,7 +187,7 @@
               field: 'poolname',
               values: ids
             });
-            this.$axios.post(this.allurl+'manager/tank/remove_tank',{ids:ids},{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+            this.$axios.post(this.allurl+'manager/tank/remove_tank',{ids:ids}).then(function (res) {
               console.log(res,'post ok')
             }).catch(function (error) {
               console.log(error)
@@ -206,7 +206,7 @@
               field: 'pname',
               values: ips
             });
-            this.$axios.post(this.allurl+'manager/client/authori_delete',{ips:ips},{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+            this.$axios.post(this.allurl+'manager/client/authori_delete',{ips:ips}).then(function (res) {
               console.log(res,'post ok')
             }).catch(function (error) {
               console.log(error)
@@ -218,7 +218,7 @@
         editsend(){                 /*发送修改后的存储池信息*/
           let poolname=this.$refs.name.value
           let poolcontent=this.$refs.content.value
-          this.$axios.post(this.allurl+'manager/tank/change_param',{name:poolname,content:poolcontent,ip:this.edit},{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+          this.$axios.post(this.allurl+'manager/tank/change_param',{name:poolname,content:poolcontent,ip:this.edit}).then(function (res) {
             console.log(res)
           }).catch(function (error) {
             console.log(error)
@@ -226,7 +226,7 @@
         },
         clientsend(){                       /*发送添加的客户端信息*/
           let client=this.$refs.addclient.value
-          this.$axios.post(this.allurl+'manager/tank/client_add',{client:client},{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+          this.$axios.post(this.allurl+'manager/tank/client_add',{client:client}).then(function (res) {
             console.log(res)
           }).catch(function (error) {
             console.log(error)
@@ -242,7 +242,7 @@
             }
             else {
               if (confirm('是否确认进行授权操作：' + ips)) {
-                this.$axios.post(this.allurl+'manager/client/man_authori', {ips:ips},{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+                this.$axios.post(this.allurl+'manager/client/man_authori', {ips:ips}).then(function (res) {
                   console.log(res, 'post ok')
                 }).catch(function (error) {
                   console.log(error)
@@ -265,7 +265,7 @@
           }
           else {
             if (confirm('是否确认进行取消授权操作：' + ips)) {
-              this.$axios.post(this.allurl+'manager/client/man_disauthori', {ips:ips},{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+              this.$axios.post(this.allurl+'manager/client/man_disauthori', {ips:ips}).then(function (res) {
                 console.log(res, 'post ok')
               }).catch(function (error) {
                 console.log(error)

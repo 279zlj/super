@@ -1,6 +1,6 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" id="Rindex">
-    <div class="row ">
+    <div class="row " v-if="collect.osd_detail!=null && collect.pool!=null && collect.block_detail!=null">
       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
       <div class="row container-fluid">
         <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12 bgone" >
@@ -147,13 +147,13 @@
                 </div>
 
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                  <p><span>{{jj}}</span><img src="../../static/image/jj.png" class="img-responsive" title="紧急"/></p>
+                  <p><span>{{$store.state.jj}}</span><img src="../../static/image/jj.png" class="img-responsive" title="紧急"/></p>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                <span>{{zy}}<img src="../../static/image/zy.png" class="img-responsive" title="重要"/></span>
+                <span>{{$store.state.zy}}<img src="../../static/image/zy.png" class="img-responsive" title="重要"/></span>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                <span>{{cy}}<img src="../../static/image/cy.png" class="img-responsive" title="次要"></span>
+                <span>{{$store.state.cy}}<img src="../../static/image/cy.png" class="img-responsive" title="次要"></span>
                 </div>
               </div>
               <div style="overflow-y: scroll;height: 12em">
@@ -213,9 +213,7 @@
             osd_use:[],
             collect: {},
             pool_use:[],
-            jj:0,
-            zy:0,
-            cy:0,
+
 
           }
       },
@@ -345,29 +343,29 @@
           };
           pictorial.setOption(optionss);
         },
-        count(){
-          let i;
-          for(i in this.warn){
-
-              if(this.warn[i].status=='紧急'){
-                this.jj+=1;
-
-              }
-              if (this.warn[i].status=='重要'){
-                this.zy+=1;
-              }
-              if (this.warn[i].status=='次要'){
-                this.cy+=1;
-              }
-          }
-          this.$store.commit('countwarn',{one:this.jj,two:this.zy,three:this.cy})
-          return this.jj,this.zy,this.cy
-
-        },
+        // count(){
+        //   let i;
+        //   for(i in this.warn){
+        //
+        //       if(this.warn[i].status=='紧急'){
+        //         this.jj+=1;
+        //
+        //       }
+        //       if (this.warn[i].status=='重要'){
+        //         this.zy+=1;
+        //       }
+        //       if (this.warn[i].status=='次要'){
+        //         this.cy+=1;
+        //       }
+        //   }
+        //   this.$store.commit('countwarn',{one:this.jj,two:this.zy,three:this.cy})
+        //   return this.jj,this.zy,this.cy
+        //
+        // },
 
         allstatus(){
           var _this=this
-          this.$axios.get(this.allurl+'overview',{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+          this.$axios.get(this.allurl+'overview').then(function (res) {
             _this.osd_use=res.data.osd_use
             _this.collect=res.data.collect
             _this.pool_use=res.data.pool_user
@@ -378,13 +376,13 @@
           }).catch(function (error) {
             console.log(error)
           })
-          this.$axios.get(this.allurl+'list_data',{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+          this.$axios.get(this.allurl+'list_data').then(function (res) {
             _this.mbps=res.data.mbps
             _this.log=res.data.log
             _this.warn=res.data.warn
             _this.iops=res.data.iops
             _this.cpu=res.data.cpu
-            _this.count()                    /*警告事件的分类统计*/
+            // _this.count()                    /*警告事件的分类统计*/
 
           }).catch(function (error) {
             console.log(error)

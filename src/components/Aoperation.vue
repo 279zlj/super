@@ -66,10 +66,12 @@
           }
       },
       methods:{
-          start(){                         /*bootstrap-table初始化*/
+          start(url){                         /*bootstrap-table初始化*/
             $('#table_id').bootstrapTable({
-              url:this.urla
+              url:url
+
             })
+            // console.log(this.urla)
           },
         editlist() {                       /*运维信息修改*/
           var ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
@@ -105,7 +107,7 @@
               field: 'snapid',
               values: ids
             });
-            this.$axios.post('http://localhost:5000',ids).then(function (res) {
+            this.$axios.post(this.allurl+'manager/tank/remove_tank',ids).then(function (res) {
               console.log('post ok')
             }).catch(function (error) {
               console.log(error)
@@ -115,15 +117,19 @@
           console.log('delete')
         },
         sentip(){                                  /*发送查找的ip*/
-          this.$axios.post('http://localhost:5000/api',this.$refs.inp.value).then(function (res) {
-            this.urla="http://localhost/"+res
+            var _this=this
+          this.$axios.post(_this.allurl+'manctl/ip_search',{ip:this.$refs.inp.value}).then(function (res) {
+            // console.log(res.data.status)
+            _this.urla=_this.allurl+res.data.status
+            _this.start(_this.urla)
+            // console.log(_this.urla)
           }).catch(function (error) {
             console.log(error)
           })
         }
       },
       mounted(){
-          this.start()
+          // this.start()
       }
     }
 </script>

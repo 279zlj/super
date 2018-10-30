@@ -5,7 +5,7 @@
         <p @click="sele()" id="deletelist"><span class="glyphicon glyphicon-download" style="color: white;font-size: 1.5em" title="下载" ></span></p>
       </div>
     <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
-    <table class="table table-responsive table-condensed" id="logt" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" data-url="http://localhost:3000/api/tableDate">
+    <table class="table table-responsive table-condensed" id="logt" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" data-url="http://192.168.1.213:8000/manctl/log_list">
       <thead>
       <tr>
         <th data-field="state" data-checkbox="true" ></th>
@@ -28,7 +28,7 @@
         name: "Log",
       data(){
         return{
-          select:''
+
         }
       },
       methods:{
@@ -37,10 +37,10 @@
           },
         sele(){               /*选择某一日志进行操作*/
           var ids = $.map( $('#logt').bootstrapTable('getSelections'), function (row) {
-            return row.snapid;
-            this.select=row.snapid
+            return row.name;
+
           });
-          this.$axios.post('http://localhost:5000',this.select).then(function (res) {
+          this.$axios.post(this.allurl+'manctl/log_exp',{select:ids}).then(function (res) {
             console.log(res)
           }).catch(function (error) {
             console.log(error)

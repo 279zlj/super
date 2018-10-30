@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-      <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 container one" id="detail">
+      <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 container one" id="detail" >
       <div class="row san" v-for="(i,index) in osdlist"  @click="change(index)">
         <div class="row">
           <div class="row block aa" :class="{'chan':ind===index}">
@@ -54,13 +54,13 @@
       </div>
   </div>
 
-    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 bgdown all" v-if="content!=null">
+    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 bgdown all" v-if="content.all!=null && content.netcard!=null && content.diskall!=null">
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <div class=" bor container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">机器信息</span></p>
-            <p class="ff">型号：<span >{{content.all.sname}}</span></p>
-            <p class="ff">状态：<span :class="{'o':content.all.status==='ok','wa':content.all.status==='warning','err':content.all.status==='error'}">{{content.all.status}}</span></p>
+            <p class="ff">型号：<span >{{content.all && content.all.sname}}</span></p>
+            <p class="ff">状态：<span :class="{'o':content.all.status==='ok','wa':content.all.status==='warning','err':content.all.status==='error'}">{{content.all && content.all.status}}</span></p>
             <p class="ff">操作系统：<span>{{content.all.opsys}}</span></p>
           </div>
         </div>
@@ -77,9 +77,9 @@
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <div class="col-lg-11 container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">数据盘</span></p>
-            <span v-for="q in content.all.datap"><img src="../../static/image/three.png" class="img-responsive im" :id="q" @click="disk(q)" :class="xz==q?'shaw':''" ></span>
+            <span v-for="q in content.all.datap"><img src="../../static/image/three.png" class="img-responsive im" :id="q" @click="disk(q)"  :title="q"></span>
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">缓存盘</span></p>
-            <span v-for="w in content.all.cachep"><img src="../../static/image/cachedata.png" class="img-responsive im" :id="w"  @click="disk(w)" :class="xz==w?'shaw':''"></span>
+            <span v-for="w in content.all.cachep"><img src="../../static/image/cachedata.png" class="img-responsive im" :id="w"  @click="disk(w)"  :title="w"></span>
           </div>
         </div>
 
@@ -100,7 +100,7 @@
             <tbody>
               <tr>
                 <td>设备名：</td>
-                <td>{{content.netcard.dname}}</td>
+                <td>{{content.netcard.nname}}</td>
               </tr>
               <tr>
                 <td>类型：</td>
@@ -112,7 +112,7 @@
               </tr>
               <tr>
                 <td>WWID：</td>
-                <td>{{content.netcard.wwid}}</td>
+                  <td>{{content.netcard.wwid}}</td>
               </tr>
               <tr>
                 <td>用途：</td>
@@ -137,7 +137,7 @@
             <tbody>
               <tr>
                 <td>设备名：</td>
-                <td>{{content.diskall.nname}}</td>
+                <td>{{content.diskall.dname}}</td>
               </tr>
               <tr>
                 <td>MAC：</td>
@@ -216,7 +216,7 @@
         change(index,id) {
           var _this=this
           this.ind=index
-          this.$axios.post(this.allurl+'manager/ioagent/ioagent_de',{id:id},{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+          this.$axios.post(this.allurl+'manager/ioagent/ioagent_de',{id:id}).then(function (res) {
 
             _this.content.disk=res.content
           }).catch(function (error) {
@@ -227,17 +227,19 @@
         disk(n){
           var _this=this
           this.xs=n;
-          // this.$axios.post('',n).then(function (res) {
-          //
-          //   // console.log(res)
-          // }).catch(function (error) {
-          //   console.log(error)
-          // })
+          // $('#'+n).animate({left:'1000px'},1000)
+          this.$axios.post(this.allurl+'manager/disk/detail',{id:n}).then(function (res) {
+            console.log(res.data)
+            _this.content.netcard=res.data
+            // console.log(res)
+          }).catch(function (error) {
+            console.log(error)
+          })
         },
         editsend(){                      /*发送修改后iSCSI的ip*/
           var _this=this
           let ip=_this.$refs.modifyip.value
-          this.$axios.post(this.allurl+'manager/ioagent/iscsi_change',{ip:ip},{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+          this.$axios.post(this.allurl+'manager/ioagent/iscsi_change',{ip:ip}).then(function (res) {
             console.log(res)
           }).catch(function (error) {
             console.log(error)
@@ -319,7 +321,7 @@
         },
         start(){
             var _this=this
-            this.$axios.get(this.allurl+'manager/ioagent/list_ioagent',{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+            this.$axios.get(this.allurl+'manager/ioagent/list_ioagent').then(function (res) {
               _this.osdlist=res.data
               _this.piechart()
             }).catch(function (error) {
@@ -328,20 +330,10 @@
 
             // console.log(_this.osdlist)
         },
-        cen(){
-          var _this=this
-          this.$axios.get(this.allurl+'manager/ioagent/ioagent_one',{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
-            // console.log(res.data)
-            _this.content=res.data
-            return _this.content
-          }).catch(function (error) {
-            console.log(error)
-          })
-          return _this.content
-        },
+
         start2(){
           var _this=this
-          this.$axios.get(this.allurl+'manager/ioagent/list_ioagent',{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+          this.$axios.get(this.allurl+'manager/ioagent/list_ioagent').then(function (res) {
             _this.osdlist=res.data
           }).catch(function (error) {
             console.log(error)
@@ -353,27 +345,19 @@
       },
       beforeCreate(){
         var _this=this
-        this.$axios.get(this.allurl+'manager/ioagent/ioagent_one',{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
-          console.log(res.data)
+        this.$axios.get(this.allurl+'manager/ioagent/ioagent_one').then(function (res) {
+          // console.log(res.data)
           _this.content=res.data
         }).catch(function (error) {
           console.log(error)
         })
       },
       created(){
-        this.cen()
-        // this.start2()
+        this.start2()
         this.start()
-        // $('#sample').css('display','block') ;           /*初始显示状态*/
-        // $('#detail').css('display','none')
       },
       mounted(){
-        // this.start()
         this.change(0,this.osdlist[0])
-        this.disk('d1')
-        $('#sample').css('display','block') ;           /*初始显示状态*/
-        $('#detail').css('display','none')
-
       },
       activated(){
         this.piechart()
@@ -493,8 +477,8 @@
     background-color: #3E285A;
     border-radius: 5px;
   }
-  .one div{
-
+  #detail{
+    display: none;
   }
 
   .up{

@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
-        <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" data-url="http://localhost:3000/api/tableDate">
+        <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" data-url="http://192.168.1.213:8000/manager/tank/block/get_blocks">
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -46,7 +46,7 @@
         </div>
       </div>
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive two">
-        <table class="table table-responsive text-nowrap" id="table" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" data-url="http://localhost:3000/api/tableDate">
+        <table class="table table-responsive text-nowrap" id="table" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" data-url="http://192.168.1.213:8000/manager/client/block/list_snap">
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -88,7 +88,7 @@
             <h4 class="modal-title" id="bdilata">块设备扩容</h4>
           </div>
           <div class="modal-body">
-            <p>块设备大小修改：</p><input type="text" class="form-control" id="poolsize" ref="blocksize"/>
+            <p>块设备大小修改：</p><input type="number" class="form-control" id="poolsize" ref="blocksize"/>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -105,6 +105,11 @@
             <h4 class="modal-title" id="bsnap">创建快照</h4>
           </div>
           <div class="modal-body">
+            <p>所属存储池：</p>
+            <select @click="selec()" v-on:change="indexsel($event)" v-model="sele" class="form-control">
+
+              <option v-for="i in poollist" :value="i.val" >{{i.name}}</option>
+            </select>
             <p>快照名称：</p><input type="text" class="form-control" id="snapname" ref="snapname"/>
             <p>描述：</p><input type="text" class="form-control" id="snapcontent" ref="snapcontent"/>
           </div>
@@ -141,12 +146,8 @@
             <h4 class="modal-title" id="clonename">快照克隆</h4>
           </div>
           <div class="modal-body">
-            <p>所属存储池：</p>
-            <select @click="selec()" v-on:change="indexsel($event)" v-model="sele" class="form-control">
-              <option value="none">请选择存储池</option>
-              <option v-for="i in poollist" :value="i.val" >{{i.name}}</option>
-            </select>
-            <p>块设备名称：</p><input type="time" class="form-control" id="bclone" ref="bclone"/>
+
+            <p>克隆快照名称：</p><input type="text" class="form-control" id="bclone" ref="bclone"/>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -171,10 +172,7 @@
           sele:'',
           edit:'',
           snapt:'',
-          poollist:[
-            {name:'2343',val:'2343'},
-            {name:'dsffsd',val:'dsffsd'}
-          ]
+          poollist:[]
         }
       },
       methods:{
@@ -203,7 +201,7 @@
         editsend(){                                /*发送修改功能*/
             let name =this.$refs.name.value
             let content=this.$refs.content.value
-            this.$axios.post('http://localhost:5000',{name:name,content:content,id:this.edit}).then(function (res) {
+            this.$axios.post(this.allurl+'manager/client/block/set_snap',{name:name,content:content,id:this.edit}).then(function (res) {
               console.log(res)
             }).catch(function (error) {
               console.log(error)
@@ -219,7 +217,7 @@
               field: 'blockname',
               values: ids
             });
-            this.$axios.post('http://localhost:5000',ids).then(function (res) {
+            this.$axios.post(this.allurl+'manager/client/block/del_block',{ids:ids}).then(function (res) {
               console.log('post ok')
             }).catch(function (error) {
               console.log(error)
@@ -238,7 +236,7 @@
               field: 'snapid',
               values: ips
             });
-            this.$axios.post('http://localhost:5000',ips).then(function (res) {
+            this.$axios.post(this.allurl+'manager/client/block/del_snap',{ips:ips}).then(function (res) {
               console.log('post ok')
             }).catch(function (error) {
               console.log(error)
@@ -266,7 +264,7 @@
         sizesend(){                    /*发送块设备扩容信息*/
 
             let size=this.$refs.blocksize.value
-            this.$axios.post('http://localhost:5000',{name:this.ids,size:size}).then(function (res) {
+            this.$axios.post(this.allurl+'manager/client/block/block_dilatate',{name:this.edit,size:size}).then(function (res) {
               console.log(res)
             }).catch(function (error) {
               console.log(error)
@@ -289,7 +287,7 @@
         snapsend(){                            /*发送创建快照信息*/
             let name=this.$refs.snapname.value
             let content=this.$refs.snapcontent.value
-            this.$axios.post('http://localhost:5000',{name:name,content:content,id:this.snapi}).then(function (res) {
+            this.$axios.post(this.allurl+'manager/client/block/cre_snap',{name:name,content:content,id:this.snapi,pool:this.sele}).then(function (res) {
               console.log(res)
             }).catch(function (error) {
               console.log(error)
@@ -311,13 +309,13 @@
         },
         changet(){                                 /*发送更改时间*/
             let t=this.$refs.ti.value
-            this.$axios.post('http://localhost:3000',{change:t,id:this.snapt}).then(function (res) {
+            this.$axios.post(this.allurl+'manager/client/block/time_snap',{time:t,id:this.snapt}).then(function (res) {
               console.log(res)
             }).catch(function (error) {
               console.log(error)
             })
         },
-        clonesnap(){                            /*块设备克隆*/
+        clonesnap(){                            /*快照克隆*/
           let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
           });
@@ -331,9 +329,9 @@
 
           }
         },
-        sendclone(){                       /*发送块设备克隆信息*/
+        sendclone(){                       /*发送快照克隆信息*/
             let name=this.$refs.bclone.value
-            this.$axios.post('http://localhost:5000',{name:name,cloneid:this.clone,pool:this.sele}).then(function (res) {
+            this.$axios.post(this.allurl+'manager/client/block/clone_snap',{name:name,cloneid:this.clone}).then(function (res) {
               console.log(res)
             }).catch(function (error) {
               console.log(error)
@@ -344,9 +342,9 @@
 
         },
         selec(){                            /*获得存储池列表*/
-
-          this.$axios.get('http://localhost:5000').then(function (res) {
-            this.poollist=res.data
+          var _this=this
+          this.$axios.get(this.allurl+'manager/tank/list').then(function (res) {
+            _this.poollist=res.data
           }).catch(function (error) {
             console.log(error)
           })

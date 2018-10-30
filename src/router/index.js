@@ -99,7 +99,7 @@ export default new Router({
       menuShow:true,
       components: {
         default:HelloWorld,
-        bottom: Mindex,
+        bottom: Mwarn,
         right:Mright,
       },
       meta: { requiresAuth: true }

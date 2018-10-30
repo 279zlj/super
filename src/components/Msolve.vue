@@ -41,7 +41,7 @@
             }
 
             console.log(form)
-              this.$axios.post('http://loaclhost:5000/api',form,config).then(function (res) {
+              this.$axios.post('',form,config).then(function (res) {
                 if (res.status === 200) {
                   console.log(res.data);
                 }

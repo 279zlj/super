@@ -30,7 +30,8 @@
             <p>Health Status</p>
           </div>
           <div class="col-lg-10 col-md-10 col-sm-6 col-xs-6 print">
-            <p id="health" >{{linpiechart.health}}</p>
+            <p id="health" >{{$store.state.health.status}}</p>
+            <p id="health_detail">{{$store.state.health.health_detail}}</p>
           </div>
         </div>
       </div>
@@ -52,12 +53,16 @@
         n:'',
         u:'',
         s:'',
-        lineall:'',
+
 
       }
     },
 
     mounted() {
+      this.linechartone(this.$store.state.ti,this.$store.state.iwrite,this.$store.state.iread)
+      this.lindecharttwo(this.$store.state.ti,this.$store.state.mwrite,this.$store.state.mread)
+      this.linechartthree(this.$store.state.ti,this.$store.state.delaytime)
+      this.initWebSocket()
       this.getall();
 
       // this.ws()
@@ -70,76 +75,95 @@
 
 
     },
+
+
+    computed:{            /*调用Vuex中的islogin值，有缓存左右*/
+      lindraw(){
+        return this.$store.state.iwrite,this.$store.state.iread,this.$store.state.ti,this.$store.state.mwrite,this.$store.state.mread,this.$store.state.delaytime
+      }
+    },
     methods: {
 
-      ws(){
-        var socket;
-        var _this=this
-        if (!window.WebSocket){
-          window.WebSocket=window.MozWebSocket;
-        }
-        if (window.WebSocket){
-
-          socket=new WebSocket('ws://192.168.1.213:8000/ws/intime_data');
-          socket.onmessage=function (e) {
-            console.log(e.data.message)
-            // var data=JSON.parse(e.data)
-            var iwrite=e.data.message.data.iops.write
-            var iread=e.data.message.data.iops.read
-            var ti=e.data.message.data.time
-            var mwrite=e.data.message.data.mbps.write
-            var mread=e.data.message.data.mbps.read
-            var delaytime=e.data.message.data.delay
-            _this.linechartone(ti,iwrite,iread)
-            _this.lindecharttwo(ti,mwrite,mread)
-            _this.linechartthree(ti,delaytime)
-            // console.log(data.message,'2')
-          };
-          socket.onopen=function (e) {
-            console.log('connect')
-          };
-          socket.onclose=function (e) {
-            console.log('close')
-          };
-        }
-        else {
-          alert('你的浏览器不支持websocket')
-        }
-      },
-      // initWebSocket(){
+      // ws(){
+      //   var socket;
       //   var _this=this
-      //   const wsurl="ws://192.168.1.213:8000/ws/intime_data";
-      //   this.websock=new WebSocket(wsurl);
-      //   this.websock.onmessage=this.websocketonmessage;
-      //   this.websock.onopen=this.websocketonopen;
-      //   this.websock.websocket =this.websocket;
-      //   this.websock.onclose=this.websocketclose;
-      // },
-      // websocketonopen(){
-      //   console.log('ok')
-      //   //console.log(JSON.parse(obj))
-      // },
-      // websocket(){
-      //   this.initWebSocket()
-      // },
-      // websocketonmessage(e){
+      //   if (!window.WebSocket){
+      //     window.WebSocket=window.MozWebSocket;
+      //   }
+      //   if (window.WebSocket){
       //
-      //   const data=JSON.parse(e.data)
-      //
-      //   this.lineall.push(data.message.data)
-      //   console.log(_this.lineall)
+      //     socket=new WebSocket('ws://192.168.1.213:8000/ws/intime_data');
+      //     socket.onmessage=function (e) {
+      //       var a=JSON.parse(e.data)
+      //       console.log(a.message.data)
+      //       var data=JSON.parse(e.data)
+      //       var iwrite=a.message.data.iops[0]
+      //       var iread=a.message.data.iops[1]
+      //       var ti=a.message.data.time
+      //       var mwrite=a.message.data.mbps[0]
+      //       var mread=a.message.data.mbps[1]
+      //       var delaytime=a.message.data.delay
+      //       _this.linechartone(ti,iwrite,iread)
+      //       _this.lindecharttwo(ti,mwrite,mread)
+      //       _this.linechartthree(ti,delaytime)
+      //       // console.log(data.message,'2')
+      //     };
+      //     socket.onopen=function (e) {
+      //       console.log('connect')
+      //     };
+      //     socket.onclose=function (e) {
+      //       console.log('close')
+      //     };
+      //   }
+      //   else {
+      //     alert('你的浏览器不支持websocket')
+      //   }
       // },
-      // websocketsend(Data){
-      //   console.log(Data)
-      // },
-      // websocketclose(e){
-      //   console.log('断开连接',e);
-      // },
+      initWebSocket(){
+        // var _this=this
+        const wsurl="ws://192.168.1.213:8000/ws/intime_data";
+        this.websock=new WebSocket(wsurl);
+        this.websock.onmessage=this.websocketonmessage;
+        // this.websock.onopen=this.websocketonopen;
+        // this.websock.websocket =this.websocket;
+        this.websock.onclose=this.websocketclose;
+      },
+      websocketonopen(){
+        console.log('ok')
+        //console.log(JSON.parse(obj))
+      },
+      websocket(){
+        this.initWebSocket()
+      },
+      websocketonmessage(e){
+
+        const data=JSON.parse(e.data)
+
+        // this.iwrite.push(data.message.data.iops[0])
+        // this.iread.push(data.message.data.iops[1])
+        // this.mwrite.push(data.message.data.mbps[0])
+        // this.mread.push(data.message.data.mbps[1])
+        // this.delaytime.push(data.message.data.delay)
+        // this.ti.push(data.message.data.time)
+        this.$store.commit('lindraw',{iwrite:data.message.data.iops[0],iread:data.message.data.iops[1],mwrite:data.message.data.mbps[0],mread:data.message.data.mbps[1],delaytime:data.message.data.delay,ti:data.message.data.time,health:data.message.data.health})
+        this.linechartone(this.$store.state.ti,this.$store.state.iwrite,this.$store.state.iread)
+        this.lindecharttwo(this.$store.state.ti,this.$store.state.mwrite,this.$store.state.mread)
+        this.linechartthree(this.$store.state.ti,this.$store.state.delaytime)
+        // this.health=data.message.data.health
+        // console.log(this.$store.state.ti,this.$store.state.iwrite,this.$store.state.iread,this.$store.state.mwrite,this.$store.state.mread,this.$store.state.delaytime)
+      },
+      websocketsend(Data){
+        console.log(Data)
+      },
+      websocketclose(e){
+        console.log('断开连接',e);
+        this.websock.close()
+      },
       getall(){                         /*获取首页信息*/
         var _this=this
         console.log('start')
         this.$axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-        this.$axios.get(this.allurl,{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+        this.$axios.get(this.allurl).then(function (res) {
 
           _this.linpiechart=res.data
           _this.n=_this.linpiechart.net[0].nuse
@@ -147,7 +171,7 @@
           _this.s=_this.linpiechart.status
           _this.piechart();
           _this.columnar();
-          _this.ws()
+          // _this.ws()
 
         }).catch(function (error) {
           console.log(error)
@@ -157,7 +181,7 @@
         var mychart = this.$echarts.init(document.getElementById('mychart'));
           this.$axios.get('').then(function (data) {
             var option = {
-              color: ['#1a58cc'],
+              color: ['#1a58cc','#DEED00'],
 
               title: [{
                 left:'10%',
@@ -319,7 +343,7 @@
         var mchart = this.$echarts.init(document.getElementById('mchart'));
         this.$axios.get('').then(function (data) {
           var option = {
-            color: ['#fe6300', ],
+            color: ['#fe6300','#0DA700' ],
             title: [{
               left:'10%',
               text: '系统MBPS',
@@ -474,7 +498,7 @@
             console.log(error)
           })
       },
-      linechartthree(delay){
+      linechartthree(time,delay){
         var ychart = this.$echarts.init(document.getElementById('ychart'));
         this.$axios.get('').then(function (data) {
           var option = {
@@ -494,9 +518,7 @@
             },
             xAxis: [{
               name: '时间',
-              data: data.data.map(function (item) {
-                return item[0];
-              }),
+              data: time,
               lineStyle: {
                 color: 'white'
               },
@@ -722,6 +744,9 @@
       },
 
 
+    },
+    destroyed(){
+      this.websocketclose()
     }
   }
 </script>
@@ -737,6 +762,9 @@
     color: white;
   }
   #health{
+    width: 100%;word-wrap: break-word;font-size:1.2em
+  }
+  #health_detail{
     width: 100%;word-wrap: break-word;font-size:1.2em
   }
   .chartfirst{

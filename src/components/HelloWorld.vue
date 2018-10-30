@@ -39,8 +39,8 @@
       <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12 dropdown">
       <a class="dropdown-toggle glyphicon glyphicon-cog white" data-toggle="dropdown" style="cursor: pointer"><span class="jl">管理</span></a>
         <ul class="dropdown-menu">
-          <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#bb">版本管理</span></a></li>
-          <li><a ><span style="cursor: pointer" data-toggle="modal" data-target="#lisense">lisense管理</span></a></li>
+          <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#bb" @click="bbm()">版本管理</span></a></li>
+          <li><a ><span style="cursor: pointer" data-toggle="modal" data-target="#lisense" @click="lis()">lisense管理</span></a></li>
           <li @click="us()"><router-link :to="{name:'Log'}">日志管理</router-link></li>
         </ul>
       </div>
@@ -70,12 +70,13 @@
             </div>
             <div class="row container-fluid" style="margin-top: 1em">
 
-              <table class="table table-responsive">
-                <thead class="p"><th>当前版本：v11</th></thead>
+              <table class="table table-responsive" id="modalt" data-toggle="table"  data-classes="table-no-bordered"  data-toolbar="#toolbar" data-url="http://192.168.1.213:8000/manctl/versions">
+                <thead class="p">
+                <tr>
+                  <th data-field="rank">当前版本：v11</th>
+                </tr>
+                </thead>
                 <tbody>
-                  <tr>
-                    <td>1232143142</td>
-                  </tr>
                 </tbody>
               </table>
             </div>
@@ -95,24 +96,18 @@
             <h4 class="modal-title" id="lisensemodal">lisense管理</h4>
           </div>
           <div class="modal-body">
-            <table class="table table-responsive table-condensed">
+            <table class="table table-responsive table-condensed" id="lisenset" data-toggle="table"  data-toolbar="#toolbar" data-classes="table-no-bordered"  data-url="http://192.168.1.213:8000/manctl/licen_list">
               <thead class="o">
-                <th>服务器节点</th>
-                <th>IP地址</th>
-                <th>许可证</th>
-                <th>剩余时间</th>
-                <th>授权容量</th>
-                <th>使用容量</th>
+              <tr>
+                <th data-field="node" >服务器节点</th>
+                <th data-field="ipaddress" >IP地址</th>
+                <th data-field="rank" >许可证</th>
+                <th data-field="time" >剩余时间</th>
+                <th data-field="size" >授权容量</th>
+                <th data-field="usize" >使用容量</th>
+              </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>2</td>
-                  <td>3</td>
-                  <td>4</td>
-                  <td>5</td>
-                  <td>6</td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -184,7 +179,7 @@ export default {
     },
     warnall(){
       var _this=this
-      this.$axios.get(this.allurl+'list_data',{headers:{'Access-Control-Allow-Origin':'*'}}).then(function (res) {
+      this.$axios.get(this.allurl+'list_data').then(function (res) {
         _this.warn=res.data.warn
         _this.count()                    /*警告事件的分类统计*/
 
@@ -209,7 +204,18 @@ export default {
       this.$store.commit('countwarn',{one:this.jj,two:this.zy,three:this.cy})
       return this.jj,this.zy,this.cy
     },
+    lis(){
+      // console.log('lis',document.getElementById('lisenset'))
+      $('#lisenset').bootstrapTable({
 
+      })
+    },
+    bbm(){
+      // console.log('bbm')
+      $('#modalt').bootstrapTable({
+
+      })
+    }
   },
   mounted(){
     this.outlog()
@@ -220,6 +226,8 @@ export default {
     else {
     this.issele=sessionStorage.getItem('issele')
     }
+
+
   },
 }
 </script>

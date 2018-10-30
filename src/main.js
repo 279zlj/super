@@ -13,6 +13,7 @@ import '@/assets/css/bootstrap.min.css'
 import '@/assets/js/bootstrap.min.js'
 import echarts from 'echarts'
 import axios from 'axios'
+
 import 'vue-easytable/libs/themes-base/index.css'
 import {VTable,VPagination} from 'vue-easytable'
 import $ from 'jquery'
@@ -35,6 +36,7 @@ Vue.component(VPagination.name, VPagination)
 Vue.config.productionTip = false
 Vue.prototype.$echarts=echarts
 Vue.prototype.$axios = axios;
+
 // Vue.prototype.detailFormatter=function(index,row){
 //   var html=[];
 //   $.each(row,function (key,value) {

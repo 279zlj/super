@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
-          <table class="table table-responsive table-condensed" id="usert" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" data-url="http://localhost:3000/api/tableDate">
+          <table class="table table-responsive table-condensed" id="usert" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" data-url="http://192.168.1.213:8000/manctl/users">
             <thead>
             <tr>
               <th data-field="state" data-checkbox="true" ></th>
@@ -66,7 +66,7 @@
         editlist() {                   /*设备信息的修改*/
 
           var ids = $.map($('#usert').bootstrapTable('getSelections'), function (row) {
-            return row.snapid;
+            return row.userid;
           });
           console.log(ids)
           if (ids.length !== 1) {
@@ -85,9 +85,9 @@
 
         },
         editsend(){                      /*发送用户修改信息*/
-          let user=this.$refs.user.value
+          let userpwd=this.$refs.user.value
           let role=this.$refs.role.value
-          this.$axios.post('http://localhost:5000',{user:user,role:role,id:this.edit}).then(function (res) {
+          this.$axios.post(this.allurl+'manctl/user_edit',{user:userpwd,role:role,id:this.edit}).then(function (res) {
             console.log(res)
           }).catch(function (error) {
             console.log(error)
@@ -95,14 +95,14 @@
         },
         deletelist(){                       /*用户的删除*/
           var ids = $.map( $('#usert').bootstrapTable('getSelections'), function (row) {
-            return row.snapid;
+            return row.userid;
           });
           if (confirm('是否确认选择删除用户：'+ids)){
             $('#usert').bootstrapTable('remove', {
-              field: 'snapid',
+              field: 'userid',
               values: ids
             });
-            this.$axios.post('http://localhost:5000',ids).then(function (res) {
+            this.$axios.post(this.allurl+'manctl/user_delete',{ids:ids}).then(function (res) {
               console.log('post ok')
             }).catch(function (error) {
               console.log(error)
