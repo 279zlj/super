@@ -3,16 +3,16 @@
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 navbar-header mp">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
           <span class="sr-only">切换导航</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
+          <span class="icon-bar" data-toggle="collapse" data-target="#navbar-menu" ></span>
+          <span class="icon-bar" data-toggle="collapse" data-target="#navbar-menu"></span>
+          <span class="icon-bar" data-toggle="collapse" data-target="#navbar-menu"></span>
+          <span class="icon-bar" data-toggle="collapse" data-target="#navbar-menu"></span>
         </button>
         <a href="index.html" class="navbar-brand nav-title bg">
           <img src="../../static/image/logo.png" class="img-responsive imgg"/>
         </a>
       </div>
-    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 collapse navbar-collapse" id="navbar-menu" style="height: 10em">
+    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 collapse navbar-collapse navn" id="navbar-menu" >
       <div class="col-lg-3 col-md-3 col-sm-1 col-xs-0">
 
       </div>
@@ -22,11 +22,11 @@
           <!--<p class="font" @click="changenav(i.name)">{{i.name}}</p>-->
         </div>
       </div>
-      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 warnstatus">
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 warnstatus" >
         <router-link :to="{name:'Mwarn'}">
-          <span class="jg" title="紧急">{{$store.state.jj}}</span>
-          <span class="jgtw" title="重要">{{$store.state.zy}}</span>
-          <span class="jgth" title="次要">{{$store.state.cy}}</span>
+          <span class="jg" title="警告事件：紧急">{{$store.state.jj}}</span>
+          <span class="jgtw" title="警告事件：重要">{{$store.state.zy}}</span>
+          <span class="jgth" title="警告事件：次要">{{$store.state.cy}}</span>
         </router-link>
       </div>
       <div class="col-lg-1 col-md-1 col-md-offset-0 col-sm-2 col-xs-12 dropdown">
@@ -44,7 +44,7 @@
           <li @click="us()"><router-link :to="{name:'Log'}">日志管理</router-link></li>
         </ul>
       </div>
-      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 dropdown" style="height: 3em">
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 dropdown" style="height: 3.5em;font-size: 1.2rem;line-height: 4.5em">
         <a data-toggle="dropdown" style="cursor: pointer;color: white"><span class="j2">语言</span></a>
         <ul class="dropdown-menu">
           <li ><a style="cursor: pointer">中文</a></li>
@@ -70,7 +70,7 @@
             </div>
             <div class="row container-fluid" style="margin-top: 1em">
 
-              <table class="table table-responsive" id="modalt" data-toggle="table"  data-classes="table-no-bordered"  data-toolbar="#toolbar" data-url="http://192.168.1.213:8000/manctl/versions">
+              <table class="table table-responsive" id="modalt" data-toggle="table"  data-classes="table-no-bordered"  data-toolbar="#toolbar" >
                 <thead class="p">
                 <tr>
                   <th data-field="rank">当前版本：v11</th>
@@ -96,7 +96,7 @@
             <h4 class="modal-title" id="lisensemodal">lisense管理</h4>
           </div>
           <div class="modal-body">
-            <table class="table table-responsive table-condensed" id="lisenset" data-toggle="table"  data-toolbar="#toolbar" data-classes="table-no-bordered"  data-url="http://192.168.1.213:8000/manctl/licen_list">
+            <table class="table table-responsive table-condensed" id="lisenset" data-toggle="table"  data-toolbar="#toolbar" data-classes="table-no-bordered">
               <thead class="o">
               <tr>
                 <th data-field="node" >服务器节点</th>
@@ -207,13 +207,13 @@ export default {
     lis(){
       // console.log('lis',document.getElementById('lisenset'))
       $('#lisenset').bootstrapTable({
-
+        url:this.allurl+"manctl/licen_list"
       })
     },
     bbm(){
       // console.log('bbm')
       $('#modalt').bootstrapTable({
-
+        url:this.allurl+"manctl/versions"
       })
     }
   },
@@ -234,7 +234,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  .navn{
+    height: 3.5em !important;
+  }
   .navbar-toggle .icon-bar{
     background-color:#ffffff
   }
@@ -254,7 +256,7 @@ export default {
     z-index: 999;
   }
   .jl{
-    padding-left: 1rem;
+    padding-left: .5rem;
     line-height: 4rem;
   }
   .j2{
@@ -313,6 +315,7 @@ export default {
   }
   .bg{
     background-color: #0090ff;
+    height: 2.8em;
   }
   .nav-color{
     background-color: #56466D;
@@ -326,7 +329,7 @@ export default {
 
   }
   .warnstatus{
-    line-height: 3.5em;display: flex;text-align: center;vertical-align: middle;
+    line-height: 3.5em;display: table-cell;text-align: center;vertical-align: middle;
   }
   .jg{
     background-color: #AD1501;padding: 0 .3em;cursor:pointer;margin-top: 1em;color: white;
@@ -355,7 +358,9 @@ export default {
       padding: 1rem .5rem .8rem .5rem;
       width: 100%;
     }
-
+    .warnstatus{
+      line-height: 1.2em;
+    }
   }
   @media screen and (min-width: 769px) and (max-width: 1025px) {
     .imgg{
@@ -364,6 +369,10 @@ export default {
     }
     .jl{
       padding-left: .2rem;
+      font-size: 12.5px;
+    }
+    .warnstatus{
+     line-height: 1.8em;
     }
   }
   @media screen and (min-width:1600px ) {

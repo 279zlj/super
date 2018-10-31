@@ -28,7 +28,7 @@
       methods:{
         getFile(event) {                                 /*文件上传*/
           this.file = event.target.files[0];
-          console.log(this.file);
+          // console.log(this.file);
         },
           solve(){
             event.preventDefault();
@@ -43,7 +43,7 @@
             console.log(form)
               this.$axios.post('',form,config).then(function (res) {
                 if (res.status === 200) {
-                  console.log(res.data);
+                  // console.log(res.data);
                 }
               }).catch(function (error) {
                 console.log(error)

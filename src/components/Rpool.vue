@@ -3,20 +3,22 @@
     <div class="row">
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
       <div id="y">
+        <p @click="addnew()" id="add" data-toggle="addnew"><img src="../../static/image/add.svg" class="img-responsive add" style="width: 25px;font-size: 1.5em ;margin-bottom: 1em" title="添加"/></p>
         <p @click="dilatation()" id="kr" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="扩容"/></p>
         <p @click="editlist()" id="edit" data-toggle="editmodal"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="编辑"></span></p>
         <p @click="addclient()"  id="adduser" data-toggle="clientmodal"><img src="../../static/image/user.png" class="img-responsive adduser" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="新增客户端"/></p>
         <p @click="deletelist()" id="deletelist"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
       </div>
         <div style="width: 300px" id="h">
-          <div @click="" id="kr" style="float: left" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;" title="扩容"/></div>
+          <div @click="addnew()" id="add" data-toggle="addnew" style="float: left"><img src="../../static/image/add.svg" class="img-responsive add" style="width: 25px;font-size: 1.5em ;margin-bottom: 1em;margin-right: 1em" title="添加"/></div>
+          <div @click="dilatation()" id="kr" style="float: left" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;" title="扩容"/></div>
           <div @click="editlist()" id="edit" data-toggle="editmodal" style="float: left"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-right: 1.2em" title="编辑"></span></div>
-          <div @click="" id="adduser"  style="float: left" data-toggle="clientmodal"><img src="../../static/image/user.png" class="img-responsive adduser" style="width: 45%;font-size: 1.5em ;" title="新增用户"/></div>
+          <div @click="addclient()" id="adduser"  style="float: left" data-toggle="clientmodal"><img src="../../static/image/user.png" class="img-responsive adduser" style="width: 45%;font-size: 1.5em ;" title="新增用户"/></div>
           <div @click="deletelist()" id="deletelist" style="float: left"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></div>
         </div>
       </div>
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
-        <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" data-url="http://192.168.1.213:8000/manager/tank/list_tank">
+        <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" >
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -35,18 +37,18 @@
     <div class="row">
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 b" >
       <div id="y">
-        <p @click="" id="get" @click="empower()"><img src="../../static/image/get.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="授权"/></p>
-        <p @click="" id="nget" @click="noempower()"><img src="../../static/image/nget.png" class="img-responsive adduser" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="取消授权"/></p>
+        <p id="get" @click="empower()"><img src="../../static/image/get.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="授权"/></p>
+        <p  id="nget" @click="noempower()"><img src="../../static/image/nget.png" class="img-responsive adduser" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="取消授权"/></p>
         <p @click="deletel()" id="deletel"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
       </div>
         <div style="width: 300px" id="h">
-          <div @click="" id="get" style="float: left" ><img src="../../static/image/get.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="授权"/></div>
-          <div @click="" id="nget" style="float: left" ><img src="../../static/image/nget.png" class="img-responsive adduser" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="取消授权"/></div>
+          <div @click="empower()" id="get" style="float: left" ><img src="../../static/image/get.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="授权"/></div>
+          <div @click="noempower()" id="nget" style="float: left" ><img src="../../static/image/nget.png" class="img-responsive adduser" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="取消授权"/></div>
           <div @click="deletel()" id="deletel" style="float: left"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></div>
         </div>
       </div>
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive two">
-        <table class="table table-responsive text-nowrap" id="table" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" data-url="http://192.168.1.213:8000/manager/tank/list_auth">
+        <table class="table table-responsive text-nowrap" id="table" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered">
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -113,7 +115,33 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
     </div>
-
+    <div class="modal fade" id="addnew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="addpool">添加存储池</h4>
+          </div>
+          <div class="modal-body">
+            <p>存储池名称：</p><input type="text" class="form-control" id="addname" ref="addname"/>
+            <p>存储池容量：</p><input type="number" class="form-control" id="addsize" ref="addsize"/>
+            <p>pgs：</p><input type="number" class="form-control" id="addnum" ref="addnum"/>
+            <p>存储池类型：</p>
+            <select class="form-control" v-on:change="sel($event)" v-model="unitsele">
+              <option v-for="m in unit" :value="m.value">{{m.name}}</option>
+            </select>
+            <div v-if="unitsele=='erasure'">
+              <p>k值：</p><input type="number" class="form-control" id="k" ref="kvalue"/>
+              <p>m值：</p><input type="number" class="form-control" id="m" ref="mvalue"/>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" @click="addsend()" data-dismiss="modal">确认</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>
   </div>
 </template>
 
@@ -124,17 +152,29 @@
           return{
             ids:'',
             ips:'',
-            dilata:''
+            dilata:'',
+            unitsele:'',
+            unit:[
+              {name:'副本策略',value:'fb'},
+              {name:'纠删码',value:'erasure'},
+
+            ],
           }
       },
       methods:{
         strat() {                            /*bootstrap-table初始化*/
           $('#table_id').bootstrapTable({
-
+            url:this.allurl+"manager/tank/list_tank"
           })
           $('#table').bootstrapTable({
-
+            url:this.allurl+"manager/tank/list_auth"
           })
+        },
+        addnew(){
+          $('#addnew').modal("show")
+        },
+        sel(event){                     /*选择自建启动延时单位*/
+          this.unitsele=event.target.value
         },
         editlist() {                         /*pool设备的修改*/
           var ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
@@ -169,10 +209,41 @@
 
           let poolsize=this.$refs.poolsize.value
           this.$axios.post(this.allurl+'manager/tank/tank_dilatate',{name:this.dilata,poolsize:poolsize}).then(function (res) {
-            console.log(res)
+            // console.log(res)
           }).catch(function (error) {
             console.log(error)
           })
+        },
+        addsend(){
+          let addname=this.$refs.addname.value
+          let addsize=this.$refs.addsize.value
+          let addnum=this.$refs.addnum.value
+          if (this.unitsele=='fb') {
+            this.$axios.post(this.allurl + 'manager/tank/create_tank', {
+              name: addname,
+              size: addsize,
+              pgs: addnum,
+              type: this.unitsele
+            }).then(function (res) {
+              console.log(res)
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
+          else {
+            this.$axios.post(this.allurl + 'manager/tank/create_tank', {
+              name: addname,
+              size: addsize,
+              pgs: addnum,
+              type: this.unitsele,
+              k: this.$refs.kvalue.value,
+              m: this.$refs.mvalue.value
+            }).then(function (res) {
+              console.log(res)
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
         },
         addclient(){              /*添加iscsi客户端*/
           $('#clientmodal').modal("show")
@@ -188,13 +259,13 @@
               values: ids
             });
             this.$axios.post(this.allurl+'manager/tank/remove_tank',{ids:ids}).then(function (res) {
-              console.log(res,'post ok')
+              // console.log(res,'post ok')
             }).catch(function (error) {
               console.log(error)
             })
           }
           else {return}
-          console.log('delete')
+          // console.log('delete')
         },
         deletel(){                             /*授权的删除*/
 
@@ -207,19 +278,19 @@
               values: ips
             });
             this.$axios.post(this.allurl+'manager/client/authori_delete',{ips:ips}).then(function (res) {
-              console.log(res,'post ok')
+              // console.log(res,'post ok')
             }).catch(function (error) {
               console.log(error)
             })
           }
           else {return}
-          console.log('delete')
+          // console.log('delete')
         },
         editsend(){                 /*发送修改后的存储池信息*/
           let poolname=this.$refs.name.value
           let poolcontent=this.$refs.content.value
           this.$axios.post(this.allurl+'manager/tank/change_param',{name:poolname,content:poolcontent,ip:this.edit}).then(function (res) {
-            console.log(res)
+            // console.log(res)
           }).catch(function (error) {
             console.log(error)
           })
@@ -227,7 +298,7 @@
         clientsend(){                       /*发送添加的客户端信息*/
           let client=this.$refs.addclient.value
           this.$axios.post(this.allurl+'manager/tank/client_add',{client:client}).then(function (res) {
-            console.log(res)
+            // console.log(res)
           }).catch(function (error) {
             console.log(error)
           })
@@ -243,7 +314,7 @@
             else {
               if (confirm('是否确认进行授权操作：' + ips)) {
                 this.$axios.post(this.allurl+'manager/client/man_authori', {ips:ips}).then(function (res) {
-                  console.log(res, 'post ok')
+                  // console.log(res, 'post ok')
                 }).catch(function (error) {
                   console.log(error)
                 })
@@ -266,7 +337,7 @@
           else {
             if (confirm('是否确认进行取消授权操作：' + ips)) {
               this.$axios.post(this.allurl+'manager/client/man_disauthori', {ips:ips}).then(function (res) {
-                console.log(res, 'post ok')
+                // console.log(res, 'post ok')
               }).catch(function (error) {
                 console.log(error)
               })
@@ -287,7 +358,7 @@
 
   }
   .a{
-    margin-top: 10em;
+    margin-top: 8em;
   }
   .b{
     margin-top: 10em;
@@ -322,9 +393,13 @@
   #table_id::-webkit-scrollbar {
     display: none;
   }
+
   @media screen and (min-width: 769px) and (max-width: 1025px) {
     .kr,.adduser{
       width: 60% !important;
+    }
+    #add{
+      width:65px
     }
   }
   @media screen and (min-width: 426px) and (max-width: 768px) {

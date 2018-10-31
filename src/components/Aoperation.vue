@@ -92,7 +92,7 @@
             let size=this.$refs.size.value
             let content=this.$refs.content.value
            this.$axios.post('http://localhost:5000',{size:size,content:content,id:this.edit}).then(function (res) {
-             console.log(res)
+             // console.log(res)
            }).catch(function (error) {
              console.log(error)
            })
@@ -108,13 +108,13 @@
               values: ids
             });
             this.$axios.post(this.allurl+'manager/tank/remove_tank',ids).then(function (res) {
-              console.log('post ok')
+              // console.log('post ok')
             }).catch(function (error) {
               console.log(error)
             })
           }
           else {return}
-          console.log('delete')
+          // console.log('delete')
         },
         sentip(){                                  /*发送查找的ip*/
             var _this=this

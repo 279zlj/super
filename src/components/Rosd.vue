@@ -229,7 +229,7 @@
           this.xs=n;
           // $('#'+n).animate({left:'1000px'},1000)
           this.$axios.post(this.allurl+'manager/disk/detail',{id:n}).then(function (res) {
-            console.log(res.data)
+            // console.log(res.data)
             _this.content.netcard=res.data
             // console.log(res)
           }).catch(function (error) {
@@ -240,7 +240,7 @@
           var _this=this
           let ip=_this.$refs.modifyip.value
           this.$axios.post(this.allurl+'manager/ioagent/iscsi_change',{ip:ip}).then(function (res) {
-            console.log(res)
+            // console.log(res)
           }).catch(function (error) {
             console.log(error)
           })

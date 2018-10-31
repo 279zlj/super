@@ -3,16 +3,16 @@
       <div class="row container-fluid">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
           <div id="y">
-          <p @click="editlist()" id="editlist" ><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em" title="编辑" ></span></p>
-          <p @click="deletelist()" id="deletelist"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em;margin-top: 1em" title="删除"></span></p>
+          <p @click="editlist()"  ><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em" title="编辑" ></span></p>
+          <p @click="deletelist()" ><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em;margin-top: 1em" title="删除"></span></p>
           </div>
           <div id="h" style="width: 300px">
-            <span @click="editlist()" id="editlist"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em;margin-right: 1em" title="编辑" ></span></span>
-            <span @click="deletelist()" id="deletelist"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em;margin-top: 1em" title="删除"></span></span>
+            <span @click="editlist()" ><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em;margin-right: 1em" title="编辑" ></span></span>
+            <span @click="deletelist()" ><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em;margin-top: 1em" title="删除"></span></span>
           </div>
         </div>
         <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
-          <table class="table table-responsive table-condensed" id="usert" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" data-url="http://192.168.1.213:8000/manctl/users">
+          <table class="table table-responsive table-condensed" id="usert" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered">
             <thead>
             <tr>
               <th data-field="state" data-checkbox="true" ></th>
@@ -61,14 +61,16 @@
       },
       methods:{
         start(){                       /*bootstrap-table的初始化*/
-          $('#usert').bootstrapTable({})
+          $('#usert').bootstrapTable({
+            url:this.allurl+"manctl/users"
+          })
         },
         editlist() {                   /*设备信息的修改*/
 
           var ids = $.map($('#usert').bootstrapTable('getSelections'), function (row) {
             return row.userid;
           });
-          console.log(ids)
+          // console.log(ids)
           if (ids.length !== 1) {
             alert('请选择其中一个设备进行修改')
 
@@ -77,7 +79,7 @@
 
           if(ids.length === 1){
             this.edit = ids;
-            console.log(ids)
+            // console.log(ids)
 
               $('#editm').modal("show")
 
@@ -88,7 +90,7 @@
           let userpwd=this.$refs.user.value
           let role=this.$refs.role.value
           this.$axios.post(this.allurl+'manctl/user_edit',{user:userpwd,role:role,id:this.edit}).then(function (res) {
-            console.log(res)
+            // console.log(res)
           }).catch(function (error) {
             console.log(error)
           })
@@ -103,13 +105,13 @@
               values: ids
             });
             this.$axios.post(this.allurl+'manctl/user_delete',{ids:ids}).then(function (res) {
-              console.log('post ok')
+              // console.log('post ok')
             }).catch(function (error) {
               console.log(error)
             })
           }
           else {return}
-          console.log('delete')
+          // console.log('delete')
         },
       },
       mounted(){

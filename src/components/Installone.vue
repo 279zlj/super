@@ -89,7 +89,7 @@
       },
       methods:{
         keyd(){                          /*键盘事件监听*/
-          console.log(this.$route.path)
+          // console.log(this.$route.path)
           var _this=this
           document.onkeydown=function(e) {
             var key = window.event.keyCode

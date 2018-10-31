@@ -9,7 +9,7 @@
       <div class="container-fluid" style="margin-top: 13em;margin-bottom: 8em">
         <form>
         <div class="row">
-        <div class="col-lg-3 col-lg-offset-3 col-md-4 col-md-offset-2 col-sm-5 col-sm-offset-1 col-xs-6 content" style="background-color: white;height: 35em">
+        <div class="col-lg-3 col-lg-offset-3 col-md-4 col-md-offset-2 col-sm-5 col-sm-offset-1 col-xs-6 content" >
           <div class="container-fluid" @keydown.enter="loginuser">
           <h2 class="t">登录</h2>
           <label class="l">用户名：</label>
@@ -22,7 +22,7 @@
         </div>
         <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6">
           <div class="row">
-            <img src="../../static/image/login/right.png" class="img-responsive" style="height: 35em;width: 100%"/>
+            <img src="../../static/image/login/right.png" class="img-responsive logo_img" />
           </div>
         </div>
         </div>
@@ -65,15 +65,8 @@
           else {
             this.user=this.$refs.user.value;
             this.pwd=this.$refs.pwd.value;
-            // this.setToken('login_token','ewraweesdfasd')
-            // this.setToken('islogin',200)
-            // this.$store.commit('islogin',200)
-            // sessionStorage.setItem('islogin','200')
-            // this.$router.push('/')
-            // this.$axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-
             this.$axios.post(this.allurl+'login',{user:this.user,pwd:this.pwd}).then(function (res) {
-              console.log(res.data.status)
+              // console.log(res.data.status)
               if (res.data.status===0) {
                 _this.tips='账号/密码错误，请重新输入'
                 return(_this.$refs.pwd.value='')
@@ -123,6 +116,9 @@
     background-color: #242424 !important;
     width: 100%;
   }
+  .logo_img{
+    height: 35em;width: 100%
+  }
   .one{
     position: fixed;
     right: 0;
@@ -168,6 +164,7 @@
   .content{
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
+    background-color: white;height: 35em
   }
   @media screen and (max-width: 1440px) and (min-width: 1025px){
     .t{
@@ -209,6 +206,9 @@
     }
   }
   @media screen and (max-width: 425px){
+    .content,.logo_img{
+      height: 30em;
+    }
     .t{
       margin-top: 3em;
       margin-bottom: 1em;

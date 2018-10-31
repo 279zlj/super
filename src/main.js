@@ -13,10 +13,6 @@ import '@/assets/css/bootstrap.min.css'
 import '@/assets/js/bootstrap.min.js'
 import echarts from 'echarts'
 import axios from 'axios'
-
-import 'vue-easytable/libs/themes-base/index.css'
-import {VTable,VPagination} from 'vue-easytable'
-import $ from 'jquery'
 import '@/assets/dist/bootstrap-table.css'
 import '@/assets/dist/bootstrap-table.js'
 import '@/assets/dist/locale/bootstrap-table-zh-CN.min.js'
@@ -31,8 +27,6 @@ Vue.use(Vuex)
 Vue.use(router)
 Vue.use(VueI18n)
 Vue.prototype.$qs=qs
-Vue.component(VTable.name, VTable)
-Vue.component(VPagination.name, VPagination)
 Vue.config.productionTip = false
 Vue.prototype.$echarts=echarts
 Vue.prototype.$axios = axios;
@@ -72,10 +66,8 @@ const i18n = new VueI18n({                    /*页面中英文切换*/
 })
 
 router.beforeEach((to,from,next)=>{                          /*路由守卫，禁止直接通过url访问页面内容*/
-
     if (to.meta.requiresAuth) {
       if (store.state.islogin=='200'||sessionStorage.getItem('islogin')=='200'){
-
         next();
         window.document.body.style.backgroundColor = '#2E2245';
       }
@@ -89,7 +81,6 @@ router.beforeEach((to,from,next)=>{                          /*路由守卫，�
       }
     }
     else {
-
       next();
       window.document.body.style.backgroundColor = '#2E2245';
     }

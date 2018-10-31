@@ -64,16 +64,6 @@
       this.linechartthree(this.$store.state.ti,this.$store.state.delaytime)
       this.initWebSocket()
       this.getall();
-
-      // this.ws()
-      // this.initWebSocket()
-      // this.linechartone();                 /*描绘iops折线图，接受Json数据*/
-      // this.lindecharttwo();                 /*描绘mbps折线图，接受Json数据*/
-      // this.linechartthree();                /*描绘时延折线图，接受Json数据*/
-      // this.columnar();                      /*状态统计条形图，接受Json数据*/
-      // this.piechart();                        /*网络状态饼状图，接受Json数据*/
-
-
     },
 
 
@@ -83,42 +73,6 @@
       }
     },
     methods: {
-
-      // ws(){
-      //   var socket;
-      //   var _this=this
-      //   if (!window.WebSocket){
-      //     window.WebSocket=window.MozWebSocket;
-      //   }
-      //   if (window.WebSocket){
-      //
-      //     socket=new WebSocket('ws://192.168.1.213:8000/ws/intime_data');
-      //     socket.onmessage=function (e) {
-      //       var a=JSON.parse(e.data)
-      //       console.log(a.message.data)
-      //       var data=JSON.parse(e.data)
-      //       var iwrite=a.message.data.iops[0]
-      //       var iread=a.message.data.iops[1]
-      //       var ti=a.message.data.time
-      //       var mwrite=a.message.data.mbps[0]
-      //       var mread=a.message.data.mbps[1]
-      //       var delaytime=a.message.data.delay
-      //       _this.linechartone(ti,iwrite,iread)
-      //       _this.lindecharttwo(ti,mwrite,mread)
-      //       _this.linechartthree(ti,delaytime)
-      //       // console.log(data.message,'2')
-      //     };
-      //     socket.onopen=function (e) {
-      //       console.log('connect')
-      //     };
-      //     socket.onclose=function (e) {
-      //       console.log('close')
-      //     };
-      //   }
-      //   else {
-      //     alert('你的浏览器不支持websocket')
-      //   }
-      // },
       initWebSocket(){
         // var _this=this
         const wsurl="ws://192.168.1.213:8000/ws/intime_data";
@@ -138,13 +92,6 @@
       websocketonmessage(e){
 
         const data=JSON.parse(e.data)
-
-        // this.iwrite.push(data.message.data.iops[0])
-        // this.iread.push(data.message.data.iops[1])
-        // this.mwrite.push(data.message.data.mbps[0])
-        // this.mread.push(data.message.data.mbps[1])
-        // this.delaytime.push(data.message.data.delay)
-        // this.ti.push(data.message.data.time)
         this.$store.commit('lindraw',{iwrite:data.message.data.iops[0],iread:data.message.data.iops[1],mwrite:data.message.data.mbps[0],mread:data.message.data.mbps[1],delaytime:data.message.data.delay,ti:data.message.data.time,health:data.message.data.health})
         this.linechartone(this.$store.state.ti,this.$store.state.iwrite,this.$store.state.iread)
         this.lindecharttwo(this.$store.state.ti,this.$store.state.mwrite,this.$store.state.mread)
@@ -161,7 +108,7 @@
       },
       getall(){                         /*获取首页信息*/
         var _this=this
-        console.log('start')
+        // console.log('start')
         this.$axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
         this.$axios.get(this.allurl).then(function (res) {
 

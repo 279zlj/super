@@ -98,7 +98,7 @@
               <tbody>
               <tr v-for="i in iops">
                 <td>{{i.ip}}</td>
-                <td>{{i.network}}</td>
+                <td>{{i.network[0]}}/{{i.network[1]}}</td>
                 <td :class="{'successa':i.status==='正常','fail':i.status==='不健康'}">{{i.status}}</td>
                 <td>{{i.time}}</td>
               </tr>
@@ -124,7 +124,7 @@
               <tbody>
               <tr v-for="i in mbps">
                 <td>{{i.ip}}</td>
-                <td>{{i.network}}</td>
+                <td>{{i.network[0]}}/{{i.network[1]}}</td>
                 <td :class="{'successa':i.status==='正常','fail':i.status==='不健康'}">{{i.status}}</td>
                 <td>{{i.time}}</td>
               </tr>
@@ -343,25 +343,6 @@
           };
           pictorial.setOption(optionss);
         },
-        // count(){
-        //   let i;
-        //   for(i in this.warn){
-        //
-        //       if(this.warn[i].status=='紧急'){
-        //         this.jj+=1;
-        //
-        //       }
-        //       if (this.warn[i].status=='重要'){
-        //         this.zy+=1;
-        //       }
-        //       if (this.warn[i].status=='次要'){
-        //         this.cy+=1;
-        //       }
-        //   }
-        //   this.$store.commit('countwarn',{one:this.jj,two:this.zy,three:this.cy})
-        //   return this.jj,this.zy,this.cy
-        //
-        // },
 
         allstatus(){
           var _this=this

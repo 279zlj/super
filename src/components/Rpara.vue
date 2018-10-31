@@ -214,7 +214,7 @@
           let start=this.$refs.starttime.value
           let end=this.$refs.endtime.value
           this.$axios.post(this.allurl+'manager/params_set',{radio:rasele,selftime:self,starttime:start,endtime:end,select:this.unitsele}).then(function (res) {
-            console.log(res)
+            // console.log(res)
           }).catch(function (error) {
             console.log(error)
           })
@@ -225,7 +225,7 @@
           let start=this.$refs.start2.value
           let end=this.$refs.end2.value
           this.$axios.post(this.allurl+'manager/params_set',{radio:rasele,selftime:self,starttime:start,endtime:end,select:this.unitsele}).then(function (res) {
-            console.log(res)
+            // console.log(res)
           }).catch(function (error) {
             console.log(error)
           })

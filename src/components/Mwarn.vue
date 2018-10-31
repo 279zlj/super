@@ -1,7 +1,7 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" id="Mwarn" >
     <div class="row a">
-      <table class="table table-responsive text-nowrap" id="table_id" data-height="550" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toggle="table"  data-classes="table-no-bordered"  data-url="http://192.168.1.213:8000/manctl/err_ctl/get_err">
+      <table class="table table-responsive text-nowrap" id="table_id" data-height="550" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toggle="table"  data-classes="table-no-bordered" >
         <thead>
         <tr>
           <th data-field="rank" >级别</th>
@@ -29,7 +29,7 @@
       methods:{
           start(){                    /*bootstrap-table初始化，server请求，server分页功能*/
             $('#table_id').bootstrapTable({
-
+              url:this.allurl+"manctl/err_ctl/get_err"
             })
 
           }

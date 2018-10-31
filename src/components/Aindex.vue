@@ -16,8 +16,7 @@
       </div>
     </div>
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive">
-        <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-toggle="table"  data-classes="table-no-bordered" data-pagination="true" data-page-number="1" data-url="http://192.168.1.213:8000/manager/client/block/list_snap
-" data-page-size="10" data-search="true" data-show-refresh="true">
+        <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-toggle="table"  data-classes="table-no-bordered" data-pagination="true" data-page-number="1"  data-page-size="10" data-search="true" data-show-refresh="true">
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -64,11 +63,6 @@
           <h4 class="modal-title" id="clonename">快照克隆</h4>
         </div>
         <div class="modal-body">
-          <!--<p>所属存储池：</p>-->
-          <!--<select @click="aselec()" v-on:change="indexsel($event)" v-model="asele" class="form-control">-->
-            <!--<option value="none">请选择存储池</option>-->
-            <!--<option v-for="i in apoollist" :value="i.val" >{{i.name}}</option>-->
-          <!--</select>-->
           <p>克隆快照名称：</p><input type="text" class="form-control" id="aclone" ref="aclone"/>
         </div>
         <div class="modal-footer">
@@ -88,10 +82,6 @@
       data(){
         return {
           edit: {},
-          // apoollist:[
-          //   {name:'2343',val:'2343'},
-          //   {name:'dsffsd',val:'dsffsd'}
-          // ],
           asele:'',
           aback:''
       }
@@ -102,7 +92,9 @@
       },
       methods: {
         strat() {            /*bootstrap-table初始化*/
-          $('#table_id').bootstrapTable({})
+          $('#table_id').bootstrapTable({
+            url:this.allurl+'manager/client/block/list_snap'
+          })
         },
         deletelist(){               /*删除快照功能*/
 
@@ -115,13 +107,13 @@
               values: ids
             });
             this.$axios.post(this.allurl+'manager/client/block/del_snap',{ids:ids}).then(function (res) {
-              console.log('post ok')
+              // console.log('post ok')
             }).catch(function (error) {
               console.log(error)
             })
             }
             else {return}
-        console.log('delete')
+        // console.log('delete')
         },
         editlist() {              /*快照修改功能*/
           var ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
@@ -141,7 +133,7 @@
           let name =this.$refs.saname.value
           let content=this.$refs.sacontent.value
           this.$axios.post(this.allurl+'manager/client/block/set_snap',{name:name,content:content,id:this.edit}).then(function (res) {
-            console.log(res)
+            // console.log(res)
           }).catch(function (error) {
             console.log(error)
           })
@@ -163,19 +155,11 @@
         sendclone(){                       /*发送快照克隆信息*/
           let name=this.$refs.aclone.value
           this.$axios.post(this.allurl+'manager/client/block/clone_snap',{name:name,cloneid:this.clone,pool:this.sele}).then(function (res) {
-            console.log(res)
+            // console.log(res)
           }).catch(function (error) {
             console.log(error)
           })
         },
-        // aselec(){                            /*获得存储池列表*/
-        //
-        //   this.$axios.get('http://localhost:5000').then(function (res) {
-        //     this.apoollist=res.data
-        //   }).catch(function (error) {
-        //     console.log(error)
-        //   })
-        // },
         goback(){                      /*快照回滚*/
           let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
@@ -188,7 +172,7 @@
             var msg=confirm('此操作不可逆，确认进行回滚？')
             if (msg===true){
               this.$axios.post(this.allurl+'manager/client/block/roll_snap',{ids:ids}).then(function (res) {
-                console.log(res)
+                // console.log(res)
               }).catch(function (error) {
                 console.log(error)
               })
