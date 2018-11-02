@@ -126,10 +126,42 @@
       },
       linechartone(time,write,read){
         var mychart = this.$echarts.init(document.getElementById('mychart'));
-          this.$axios.get('').then(function (data) {
+
             var option = {
               color: ['#1a58cc','#DEED00'],
-
+              legend:{
+                data:['IOPS-Write','IOPS-Read'],
+                x:'right',
+                textStyle:{
+                  color:'#FFF'
+                },
+              },
+              axisLabel: {
+                interval: 0,
+                formatter:function(value)
+                {
+                  debugger
+                  var ret = "";//拼接加\n返回的类目项  
+                  var maxLength = 10;//每项显示文字个数  
+                  var valLength = value.length;//X轴类目项的文字个数  
+                  var rowN = Math.ceil(valLength / maxLength); //类目项需要换行的行数  
+                  if (rowN > 1)//如果类目项的文字大于3,  
+                  {
+                    for (var i = 0; i < rowN; i++) {
+                      var temp = "";//每次截取的字符串  
+                      var start = i * maxLength;//开始截取的位置  
+                      var end = start + maxLength;//结束截取的位置  
+                      //这里也可以加一个是否是最后一行的判断，但是不加也没有影响，那就不加吧  
+                      temp = value.substring(start, end) + "\n";
+                      ret += temp; //凭借最终的字符串  
+                    }
+                    return ret;
+                  }
+                  else {
+                    return value;
+                  }
+                }
+              },
               title: [{
                 left:'10%',
                 text: '系统IOPS',
@@ -166,6 +198,7 @@
                 lineStyle: {
                   color: 'white'
                 },
+                max: 100,
                 "axisLine": {
                   lineStyle: {
                     color: 'white'
@@ -192,7 +225,8 @@
                   // startValue: '',
                   // endValue: '',
                   lineStyle: {color: 'white'},
-                  areaStyle: {color: '#ff9933'}
+                  areaStyle: {color: '#ff9933'},
+                  show:false
                 },
                 {
                   type: 'inside',
@@ -281,14 +315,12 @@
               ]
             }
             mychart.setOption(option)
-          })
-          .catch(function (error) {
-                      console.log(error)
-                    })
+
+
       },
       lindecharttwo(time,write,read){
         var mchart = this.$echarts.init(document.getElementById('mchart'));
-        this.$axios.get('').then(function (data) {
+
           var option = {
             color: ['#fe6300','#0DA700' ],
             title: [{
@@ -299,6 +331,40 @@
                 fontSize:14
               }
             }],
+            legend:{
+              data:['MBPS-Write','MBPS-Read'],
+              x:'right',
+              textStyle:{
+                color:'#FFF'
+              },
+
+            },
+            axisLabel: {
+              interval: 0,
+              formatter:function(value)
+              {
+                debugger
+                var ret = "";//拼接加\n返回的类目项  
+                var maxLength = 10;//每项显示文字个数  
+                var valLength = value.length;//X轴类目项的文字个数  
+                var rowN = Math.ceil(valLength / maxLength); //类目项需要换行的行数  
+                if (rowN > 1)//如果类目项的文字大于3,  
+                {
+                  for (var i = 0; i < rowN; i++) {
+                    var temp = "";//每次截取的字符串  
+                    var start = i * maxLength;//开始截取的位置  
+                    var end = start + maxLength;//结束截取的位置  
+                    //这里也可以加一个是否是最后一行的判断，但是不加也没有影响，那就不加吧  
+                    temp = value.substring(start, end) + "\n";
+                    ret += temp; //凭借最终的字符串  
+                  }
+                  return ret;
+                }
+                else {
+                  return value;
+                }
+              }
+            },
             tooltip: {
               trigger: 'axis',
               position: ['35%', 0],
@@ -310,6 +376,7 @@
               lineStyle: {
                 color: 'white'
               },
+
               "axisLine": {
                 lineStyle: {
                   color: 'white'
@@ -327,6 +394,7 @@
               lineStyle: {
                 color: 'white'
               },
+              max:100,
               "axisLine": {
                 lineStyle: {
                   color: 'white'
@@ -350,6 +418,7 @@
               {
                 start: 50,
                 end: 100,
+                show:false,
                 startValue: '00:00',
                 endValue: '24:00',
                 lineStyle: {color: 'white'},
@@ -440,14 +509,11 @@
             ]
           }
           mchart.setOption(option)
-        })
-          .catch(function (error) {
-            console.log(error)
-          })
+
       },
       linechartthree(time,delay){
         var ychart = this.$echarts.init(document.getElementById('ychart'));
-        this.$axios.get('').then(function (data) {
+
           var option = {
             color: ['#d20579', ],
             title: [{
@@ -462,6 +528,32 @@
               trigger: 'axis',
               position: ['35%', 0],
               show: true
+            },
+            axisLabel: {
+              interval: 0,
+              formatter:function(value)
+              {
+                debugger
+                var ret = "";//拼接加\n返回的类目项  
+                var maxLength = 10;//每项显示文字个数  
+                var valLength = value.length;//X轴类目项的文字个数  
+                var rowN = Math.ceil(valLength / maxLength); //类目项需要换行的行数  
+                if (rowN > 1)//如果类目项的文字大于3,  
+                {
+                  for (var i = 0; i < rowN; i++) {
+                    var temp = "";//每次截取的字符串  
+                    var start = i * maxLength;//开始截取的位置  
+                    var end = start + maxLength;//结束截取的位置  
+                    //这里也可以加一个是否是最后一行的判断，但是不加也没有影响，那就不加吧  
+                    temp = value.substring(start, end) + "\n";
+                    ret += temp; //凭借最终的字符串  
+                  }
+                  return ret;
+                }
+                else {
+                  return value;
+                }
+              }
             },
             xAxis: [{
               name: '时间',
@@ -486,6 +578,7 @@
               lineStyle: {
                 color: 'white'
               },
+              max:100,
               "axisLine": {
                 lineStyle: {
                   color: 'white'
@@ -509,7 +602,7 @@
               {
                 start: 50,
                 end: 100,
-
+                show:false,
                 lineStyle: {color: 'white'},
                 areaStyle: {color: '#ff9933'}
               },
@@ -518,6 +611,7 @@
                 startValue: '00:00',
                 endValue: '24:00',
               },
+
             ],
             series: [ {
               name: '时延',
@@ -558,10 +652,7 @@
             },]
           }
           ychart.setOption(option)
-        })
-          .catch(function (error) {
-            console.log(error)
-          })
+
       },
       columnar: function () {
 
@@ -709,19 +800,16 @@
     color: white;
   }
   #health{
-    width: 100%;word-wrap: break-word;font-size:1.2em
+    width: 100%;word-wrap: break-word;font-size:1.6em
   }
   #health_detail{
     width: 100%;word-wrap: break-word;font-size:1.2em
   }
   .chartfirst{
-    width: 100%;height:13em;margin-top: 5em;
+    width: 100%;height:14em;margin-top: 5em;
   }
-  .chartsecond{
-    width: 100%;height:13em;margin-top: 1em;
-  }
-  .chartthird{
-    width: 100%;height:13em;margin-top: 1em;
+  .chartsecond,.chartthird{
+    width: 100%;height:14em;
   }
   .charttwo{
     width: 100%;height:15em;margin-top: 5em;

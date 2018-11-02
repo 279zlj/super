@@ -40,7 +40,7 @@
 
 <style scoped>
   #Aright{
-    margin-top: 4.5em;
+    margin-top: 3.9em;
     color: white;
   }
   p{

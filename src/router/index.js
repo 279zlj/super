@@ -25,6 +25,8 @@ import Installtwo from '@/components/Installtwo'
 import Installthree from '@/components/Installthree'
 import Login from '@/components/Login'
 import Error from '@/components/Error'
+import tips from '@/components/tips'
+
 
 Vue.use(Router)
 
@@ -265,6 +267,12 @@ export default new Router({
       menuShow:true,
       component: Error,
 
+    },
+    {
+      path:'/tips',
+      name:'tips',
+      menuShow:true,
+      component:tips
     }
 
   ]

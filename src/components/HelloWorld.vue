@@ -24,7 +24,7 @@
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 warnstatus" >
         <router-link :to="{name:'Mwarn'}">
-          <span class="jg" title="警告事件：紧急">{{$store.state.jj}}</span>
+          <span class="jg" title="警告事件：紧急" >{{$store.state.jj}}</span>
           <span class="jgtw" title="警告事件：重要">{{$store.state.zy}}</span>
           <span class="jgth" title="警告事件：次要">{{$store.state.cy}}</span>
         </router-link>
@@ -42,6 +42,7 @@
           <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#bb" @click="bbm()">版本管理</span></a></li>
           <li><a ><span style="cursor: pointer" data-toggle="modal" data-target="#lisense" @click="lis()">lisense管理</span></a></li>
           <li @click="us()"><router-link :to="{name:'Log'}">日志管理</router-link></li>
+          <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#notice" @click="addnotice()">添加警告通知</span></a></li>
         </ul>
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 dropdown" style="height: 3.5em;font-size: 1.2rem;line-height: 4.5em">
@@ -79,11 +80,15 @@
                 <tbody>
                 </tbody>
               </table>
+              <div class="col-lg-2 col-lg-offset-10">
+                <input type="button" class="btn btn-info" value="一键升级" style="margin-top: 1em"/>
+              </div>
             </div>
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            <button type="button" class="btn btn-primary">确认</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -113,11 +118,36 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            <button type="button" class="btn btn-primary">确认</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
     </div>
+    <div class="modal fade" id="notice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="noticeconfigure">通知配置</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <input type="text" class="form-control" placeholder="手机号码" autofocus="autofocus"/>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <input type="button" class="btn btn-info" value="添加"/>
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>
+
   </div>
 </template>
 
@@ -215,6 +245,10 @@ export default {
       $('#modalt').bootstrapTable({
         url:this.allurl+"manctl/versions"
       })
+    },
+    addnotice(){
+      // console.log('bbm')
+
     }
   },
   mounted(){
@@ -291,6 +325,7 @@ export default {
   .font{
     font-size: 1.3rem;
     line-height: 2em;
+    height: 2em;
     width: 100%;
     text-align: center;
     display: table-cell;
@@ -332,14 +367,15 @@ export default {
     line-height: 3.5em;display: table-cell;text-align: center;vertical-align: middle;
   }
   .jg{
-    background-color: #AD1501;padding: 0 .3em;cursor:pointer;margin-top: 1em;color: white;
+    background-color: #AD1501;padding: 0 .3em;cursor:pointer;margin-top: 1em;color: white;width: 1.8em !important;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;display: inline-block;height: 1.5em;line-height: 1em;
   }
   .jgtw{
-    background-color: #DA4409;padding: 0 .3em;cursor:pointer;margin-top: 1em;color: white;
+    background-color: #DA4409;padding: 0 .3em;cursor:pointer;margin-top: 1em;color: white;width: 1.8em !important;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;display: inline-block;height: 1.5em;line-height: 1em;
   }
   .jgth{
-    background-color: #FF8A00;padding: 0 .3em;cursor:pointer;margin-top: 1em;color: white;
+    background-color: #FF8A00;padding: 0 .3em;cursor:pointer;margin-top: 1em;color: white;width: 1.8em !important;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;display: inline-block;height: 1.5em;line-height: 1em;
   }
+
   @media screen and (max-width: 425px) {
     .imgg{
       padding: .7rem .5rem .8rem .5rem;
@@ -359,7 +395,12 @@ export default {
       width: 100%;
     }
     .warnstatus{
-      line-height: 1.2em;
+      line-height: 0em;
+    }
+    .jg,.jgtw,.jgth{
+      margin-top: 0em;
+      height: 1.2em;
+      line-height: 0.8em;
     }
   }
   @media screen and (min-width: 769px) and (max-width: 1025px) {
@@ -372,7 +413,22 @@ export default {
       font-size: 12.5px;
     }
     .warnstatus{
-     line-height: 1.8em;
+     line-height: 0em;
+    }
+   .jg,.jgtw,.jgth{
+     margin-top: 0em;
+     height: 1.2em;
+     line-height: 0.8em;
+   }
+  }
+  @media screen and (min-width: 1440px) and (max-width: 1599px) {
+    .warnstatus{
+      line-height: 1em;
+    }
+    .jg,.jgtw,.jgth{
+      margin-top: 0.2em;
+      height: 1.5em;
+      line-height: 1.5em;
     }
   }
   @media screen and (min-width:1600px ) {

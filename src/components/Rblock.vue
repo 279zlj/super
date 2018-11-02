@@ -3,10 +3,10 @@
     <div class="row">
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
       <div id="y">
-        <p @click="addnew()" id="add" data-toggle="addnew"><img src="../../static/image/add.svg" class="img-responsive add" style="width: 25px;font-size: 1.5em ;margin-bottom: 1em" title="添加"/></p>
-        <p @click="bdilata()" id="kr" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="扩容"/></p>
-        <p @click="addsn()" id="snap" data-toggle="addsnap"><span class="glyphicon glyphicon-camera" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="创建快照"></span></p>
-        <p @click="deletelist()" id="deletelist"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
+        <p @click="addnew()" id="add" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" class="img-responsive add" style="width: 25px;font-size: 1.5em ;margin-bottom: 1em" title="添加"/></p>
+        <p @click="bdilata()" id="kr" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="扩容"/></p>
+        <p @click="addsn()" id="snap" data-toggle="addsnap" style="cursor: pointer"><span class="glyphicon glyphicon-camera" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="创建快照"></span></p>
+        <p @click="deletelist()" id="deletelist" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
       </div>
         <div style="width: 300px" id="h">
           <div @click="addnew()" id="add" data-toggle="addnew" style="float: left"><img src="../../static/image/add.svg" class="img-responsive add" style="width: 25px;font-size: 1.5em ;margin-bottom: 1em;margin-right: 1em" title="添加"/></div>
@@ -35,10 +35,10 @@
     <div class="row">
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 b" >
         <div id="y">
-        <p @click="editlist()" id="edit" data-toggle="editmodal"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="编辑"></span></p>
-        <p @click="changetime()" id="time" data-toggle="changeti" ><span class="glyphicon glyphicon-time" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="更改时间"></span></p>
-        <p @click="clonesnap()" id="clone" data-toggle="clonesn" ><span class="glyphicon glyphicon glyphicon-th-list" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="克隆快照"></span></p>
-        <p @click="deletel()" id="deletel"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
+        <p @click="editlist()" id="edit" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="编辑"></span></p>
+        <p @click="changetime()" id="time" data-toggle="changeti"  style="cursor: pointer"><span class="glyphicon glyphicon-time" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="更改时间"></span></p>
+        <p @click="clonesnap()" id="clone" data-toggle="clonesn" style="cursor: pointer" ><span class="glyphicon glyphicon glyphicon-th-list" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="克隆快照"></span></p>
+        <p @click="deletel()" id="deletel" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
         </div>
         <div id="h" style="width: 300px">
           <span @click="editlist()" id="edit" data-toggle="editmodal" ><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-right: 1em" title="编辑"></span></span>
@@ -72,11 +72,11 @@
             <h4 class="modal-title" id="myModalLabel">修改快照信息</h4>
           </div>
           <div class="modal-body">
-            <p>快照名称：</p><input type="text" class="form-control" id="name" ref="name"/>
+            <p>快照名称：</p><input type="text" class="form-control" id="name" ref="name" :placeholder=name />
             <p>描述：</p><input type="text" class="form-control" id="content" ref="content"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">确认修改</button>
           </div>
         </div><!-- /.modal-content -->
@@ -93,7 +93,7 @@
             <p>块设备大小修改：</p><input type="number" class="form-control" id="poolsize" ref="blocksize"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             <button type="button" class="btn btn-primary" @click="sizesend()" data-dismiss="modal">确认更改</button>
           </div>
         </div><!-- /.modal-content -->
@@ -116,7 +116,7 @@
             <p>描述：</p><input type="text" class="form-control" id="snapcontent" ref="snapcontent"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             <button type="button" class="btn btn-primary" @click="snapsend()" data-dismiss="modal">确认创建</button>
           </div>
         </div><!-- /.modal-content -->
@@ -134,7 +134,7 @@
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             <button type="button" class="btn btn-primary" @click="changet()" data-dismiss="modal">确认更改</button>
           </div>
         </div><!-- /.modal-content -->
@@ -152,7 +152,7 @@
             <p>克隆快照名称：</p><input type="text" class="form-control" id="bclone" ref="bclone"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             <button type="button" class="btn btn-primary" @click="sendclone()" data-dismiss="modal">确定</button>
           </div>
         </div><!-- /.modal-content -->
@@ -175,22 +175,26 @@
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             <button type="button" class="btn btn-primary" @click="addsend()" data-dismiss="modal">确认</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
     </div>
+    <tips ref="tips" :content=tipscontent></tips>
   </div>
 </template>
 
 <script>
+  import tips from './tips'
     export default {
         name: "Rblock",
+      components:{tips},
       data(){
         return{
           ids:'',
           ips:'',
+          name:'',
           snapi:'',
           clone:'',
           poolsele:'',
@@ -198,7 +202,8 @@
           bsele:'',
           edit:'',
           snapt:'',
-          poollist:[]
+          poollist:[],
+          tipscontent:''
         }
       },
       methods:{
@@ -214,8 +219,13 @@
           var ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
           });
+          var name = $.map($('#table').bootstrapTable('getSelections'), function (row) {
+            return row.snapname;
+          });
           if (ids.length !== 1) {
-            alert('请选择其中一个设备进行修改')
+            this.tipscontent='请选择其中一个设备进行修改'
+            this.$refs.tips.usetips()
+            // alert('请选择其中一个设备进行修改')
           }
           else if(ids.length === 1){
             this.edit = ids;
@@ -223,6 +233,7 @@
               $('#editm').modal("show")
 
           }
+          this.name=name
         },
         editsend(){                                /*发送修改功能*/
             let name =this.$refs.name.value
@@ -234,42 +245,60 @@
             })
         },
         deletelist(){                       /*块设备删除功能*/
-
           var ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.blockname;
           });
-          if (confirm('是否确认选择删除块设备：'+ids)){
-            $('#table_id').bootstrapTable('remove', {
-              field: 'blockname',
-              values: ids
-            });
-            this.$axios.post(this.allurl+'manager/client/block/del_block',{ids:ids}).then(function (res) {
-              // console.log('post ok')
-            }).catch(function (error) {
-              console.log(error)
-            })
+          if (ids.length < 1) {
+            this.tipscontent='请选择删除项'
+            this.$refs.tips.usetips()
+            // alert('请选择删除项')
           }
-          else {return}
-          // console.log('delete')
+          else if(ids.length >= 1) {
+
+            if (confirm('是否确认选择删除块设备：' + ids)) {
+              $('#table_id').bootstrapTable('remove', {
+                field: 'blockname',
+                values: ids
+              });
+              this.$axios.post(this.allurl + 'manager/client/block/del_block', {ids: ids}).then(function (res) {
+                // console.log('post ok')
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+            else {
+              return
+            }
+            // console.log('delete')
+          }
         },
         deletel(){                    /*快照删除功能*/
-
-          var ips = $.map( $('#table').bootstrapTable('getSelections'), function (row) {
+          var ids = $.map( $('#table').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
           });
-          if (confirm('是否确认选择删除快照：'+ips)){
-            $('#table').bootstrapTable('remove', {
-              field: 'snapid',
-              values: ips
-            });
-            this.$axios.post(this.allurl+'manager/client/block/del_snap',{ips:ips}).then(function (res) {
-              // console.log('post ok')
-            }).catch(function (error) {
-              console.log(error)
-            })
+          if (ids.length < 1) {
+            this.tipscontent='请选择删除项'
+            this.$refs.tips.usetips()
+            // alert('请选择删除项')
           }
-          else {return}
-          // console.log('delete')
+          else if(ids.length >= 1) {
+
+            if (confirm('是否确认选择删除快照：' + ips)) {
+              $('#table').bootstrapTable('remove', {
+                field: 'snapid',
+                values: ips
+              });
+              this.$axios.post(this.allurl + 'manager/client/block/del_snap', {ips: ips}).then(function (res) {
+                // console.log('post ok')
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+            else {
+              return
+            }
+            // console.log('delete')
+          }
         },
         bdilata(){                        /*块设备扩容*/
           var ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
@@ -277,7 +306,9 @@
             this.ids=ids
           });
           if (ids.length !== 1) {
-            alert('请选择其中一个设备进行修改')
+            this.tipscontent='请选择其中一个设备进行修改'
+            this.$refs.tips.usetips()
+            // alert('请选择其中一个设备进行修改')
           }
           else if(ids.length === 1){
             this.edit = ids;
@@ -301,7 +332,9 @@
             return row.blockname;
           });
           if (ids.length !== 1) {
-            alert('请选择其中一个设备进行快照')
+            this.tipscontent='请选择其中一个设备进行快照'
+            this.$refs.tips.usetips()
+            // alert('请选择其中一个设备进行快照')
           }
           else if(ids.length === 1){
             this.snapi = ids;
@@ -324,7 +357,9 @@
             return row.snapid;
           });
           if (ids.length !== 1) {
-            alert('请选择其中一个设备更改时间')
+            this.tipscontent='请选择其中一个设备更改时间'
+            this.$refs.tips.usetips()
+            // alert('请选择其中一个设备更改时间')
           }
           else if(ids.length === 1){
             this.snapt = ids;
@@ -346,7 +381,9 @@
             return row.snapid;
           });
           if (ids.length !== 1) {
-            alert('请选择其中一个设备进行克隆')
+            this.tipscontent='请选择其中一个设备进行克隆'
+            this.$refs.tips.usetips()
+            // alert('请选择其中一个设备进行克隆')
           }
           else if(ids.length === 1){
             this.clone = ids;
@@ -417,7 +454,7 @@
     margin-top: 10em;
   }
   .one{
-    margin-top: 4em;
+    margin-top: 3.5em;
   }
   .two{
     margin-top: 2em;

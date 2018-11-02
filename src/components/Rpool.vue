@@ -3,11 +3,11 @@
     <div class="row">
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
       <div id="y">
-        <p @click="addnew()" id="add" data-toggle="addnew"><img src="../../static/image/add.svg" class="img-responsive add" style="width: 25px;font-size: 1.5em ;margin-bottom: 1em" title="添加"/></p>
-        <p @click="dilatation()" id="kr" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="扩容"/></p>
-        <p @click="editlist()" id="edit" data-toggle="editmodal"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="编辑"></span></p>
-        <p @click="addclient()"  id="adduser" data-toggle="clientmodal"><img src="../../static/image/user.png" class="img-responsive adduser" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="新增客户端"/></p>
-        <p @click="deletelist()" id="deletelist"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
+        <p @click="addnew()" id="add" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" class="img-responsive add" style="width: 25px;font-size: 1.5em ;margin-bottom: 1em" title="添加"/></p>
+        <p @click="dilatation()" id="kr" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="扩容"/></p>
+        <p @click="editlist()" id="edit" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="编辑"></span></p>
+        <p @click="addclient()"  id="adduser" data-toggle="clientmodal" style="cursor: pointer"><img src="../../static/image/user.png" class="img-responsive adduser" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="新增客户端"/></p>
+        <p @click="deletelist()" id="deletelist" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
       </div>
         <div style="width: 300px" id="h">
           <div @click="addnew()" id="add" data-toggle="addnew" style="float: left"><img src="../../static/image/add.svg" class="img-responsive add" style="width: 25px;font-size: 1.5em ;margin-bottom: 1em;margin-right: 1em" title="添加"/></div>
@@ -37,9 +37,9 @@
     <div class="row">
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 b" >
       <div id="y">
-        <p id="get" @click="empower()"><img src="../../static/image/get.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="授权"/></p>
-        <p  id="nget" @click="noempower()"><img src="../../static/image/nget.png" class="img-responsive adduser" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="取消授权"/></p>
-        <p @click="deletel()" id="deletel"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
+        <p id="get" @click="empower()" style="cursor: pointer"><img src="../../static/image/get.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="授权"/></p>
+        <p  id="nget" @click="noempower()" style="cursor: pointer"><img src="../../static/image/nget.png" class="img-responsive adduser" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="取消授权"/></p>
+        <p @click="deletel()" id="deletel" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
       </div>
         <div style="width: 300px" id="h">
           <div @click="empower()" id="get" style="float: left" ><img src="../../static/image/get.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="授权"/></div>
@@ -71,11 +71,11 @@
             <h4 class="modal-title" id="myModalLabel">修改存储池信息</h4>
           </div>
           <div class="modal-body">
-            <p>存储池名称：</p><input type="text" class="form-control" id="name" ref="name"/>
+            <p>存储池名称：</p><input type="text" class="form-control" id="name" ref="name" :placeholder=this.ids />
             <p>存储策略：</p><input type="text" class="form-control" id="content" ref="content"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">确认修改</button>
           </div>
         </div><!-- /.modal-content -->
@@ -92,7 +92,7 @@
             <p>添加iSCSI客户端：</p><input type="text" class="form-control" id="clientname" ref="addclient"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             <button type="button" class="btn btn-primary" @click="clientsend()" data-dismiss="modal">确认添加</button>
           </div>
         </div><!-- /.modal-content -->
@@ -109,7 +109,7 @@
             <p>存储池大小修改：</p><input type="number" class="form-control" id="poolsize" ref="poolsize"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             <button type="button" class="btn btn-primary" @click="sizesend()" data-dismiss="modal">确认更改</button>
           </div>
         </div><!-- /.modal-content -->
@@ -123,7 +123,7 @@
             <h4 class="modal-title" id="addpool">添加存储池</h4>
           </div>
           <div class="modal-body">
-            <p>存储池名称：</p><input type="text" class="form-control" id="addname" ref="addname"/>
+            <p>存储池名称：</p><input type="text" class="form-control" id="addname" ref="addname" />
             <p>存储池容量：</p><input type="number" class="form-control" id="addsize" ref="addsize"/>
             <p>pgs：</p><input type="number" class="form-control" id="addnum" ref="addnum"/>
             <p>存储池类型：</p>
@@ -136,18 +136,21 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             <button type="button" class="btn btn-primary" @click="addsend()" data-dismiss="modal">确认</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
     </div>
+    <tips ref="tips" :content=tipscontent></tips>
   </div>
 </template>
 
 <script>
+  import tips from './tips'
     export default {
         name: "Rpool",
+      components:{tips},
       data(){
           return{
             ids:'',
@@ -159,6 +162,7 @@
               {name:'纠删码',value:'erasure'},
 
             ],
+            tipscontent:''
           }
       },
       methods:{
@@ -182,7 +186,9 @@
             this.ids=ids
           });
           if (ids.length !== 1) {
-            alert('请选择其中一个设备进行修改')
+            this.tipscontent='请选择其中一个设备进行修改'
+            this.$refs.tips.usetips()
+            // alert('请选择其中一个设备进行修改')
           }
           else if(ids.length === 1){
             this.edit = ids;
@@ -190,13 +196,17 @@
               $('#editm').modal("show")
 
           }
+          this.ids=ids
+          // console.log(this.ids)
         },
         dilatation(){                   /*存储池扩容大小修改*/
           let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.poolname;
           });
           if (ids.length !== 1) {
-            alert('请选择其中一个设备进行扩容')
+            this.tipscontent='请选择其中一个设备进行扩容'
+            this.$refs.tips.usetips()
+            // alert('请选择其中一个设备进行扩容')
           }
           else if(ids.length === 1){
             this.dilata = ids;
@@ -253,38 +263,56 @@
           var ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.poolname;
           });
-          if (confirm('是否确认选择删除存储池：'+ids)){
-            $('#table_id').bootstrapTable('remove', {
-              field: 'poolname',
-              values: ids
-            });
-            this.$axios.post(this.allurl+'manager/tank/remove_tank',{ids:ids}).then(function (res) {
-              // console.log(res,'post ok')
-            }).catch(function (error) {
-              console.log(error)
-            })
+          if (ids.length < 1) {
+            this.tipscontent='请选择删除项'
+            this.$refs.tips.usetips()
+            // alert('请选择删除项')
           }
-          else {return}
-          // console.log('delete')
+          else if(ids.length >= 1) {
+            if (confirm('是否确认选择删除存储池：' + ids)) {
+              $('#table_id').bootstrapTable('remove', {
+                field: 'poolname',
+                values: ids
+              });
+              this.$axios.post(this.allurl + 'manager/tank/remove_tank', {ids: ids}).then(function (res) {
+                // console.log(res,'post ok')
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+            else {
+              return
+            }
+            // console.log('delete')
+          }
         },
         deletel(){                             /*授权的删除*/
-
-          var ips = $.map( $('#table').bootstrapTable('getSelections'), function (row) {
+          var ids = $.map( $('#table').bootstrapTable('getSelections'), function (row) {
             return row.pname;
           });
-          if (confirm('是否确认选择删除该授权记录：'+ips)){
-            $('#table').bootstrapTable('remove', {
-              field: 'pname',
-              values: ips
-            });
-            this.$axios.post(this.allurl+'manager/client/authori_delete',{ips:ips}).then(function (res) {
-              // console.log(res,'post ok')
-            }).catch(function (error) {
-              console.log(error)
-            })
+          if (ids.length < 1) {
+            this.tipscontent='请选择删除项'
+            this.$refs.tips.usetips()
+            // alert('请选择删除项')
           }
-          else {return}
-          // console.log('delete')
+          else if(ids.length >= 1) {
+
+            if (confirm('是否确认选择删除该授权记录：' + ips)) {
+              $('#table').bootstrapTable('remove', {
+                field: 'pname',
+                values: ips
+              });
+              this.$axios.post(this.allurl + 'manager/client/authori_delete', {ips: ips}).then(function (res) {
+                // console.log(res,'post ok')
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+            else {
+              return
+            }
+            // console.log('delete')
+          }
         },
         editsend(){                 /*发送修改后的存储池信息*/
           let poolname=this.$refs.name.value
@@ -309,7 +337,9 @@
           });
 
             if (ips.length!=1){
-              alert('请选择其中一个进行授权')
+              this.tipscontent='请选择其中一个进行授权'
+              this.$refs.tips.usetips()
+              // alert('请选择其中一个进行授权')
             }
             else {
               if (confirm('是否确认进行授权操作：' + ips)) {
@@ -332,7 +362,9 @@
             values: ips
           });
           if (ips.length!=1){
-            alert('请选择其中一个取消授权')
+            this.tipscontent='请选择其中一个取消授权'
+            this.$refs.tips.usetips()
+            // alert('请选择其中一个取消授权')
           }
           else {
             if (confirm('是否确认进行取消授权操作：' + ips)) {
@@ -344,7 +376,8 @@
             }
 
           }
-        }
+        },
+
       },
       mounted(){
           this.strat()
@@ -371,7 +404,7 @@
     background-color: #372B51;
   }
   .one{
-      margin-top: 4em;
+      margin-top: 3.5em;
     }
   .two{
     margin-top: 2em;

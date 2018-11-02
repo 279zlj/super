@@ -3,10 +3,10 @@
     <div class="row">
     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
       <div id="y">
-      <p @click="editlist()" id="edit" data-toggle="editmodal"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="编辑"></span></p>
-      <p data-toggle="back" @click="goback()"><span class="glyphicon glyphicon-backward" style="color: white;font-size: 1.5em;margin-bottom: 1em" title="回滚"></span></p>
-      <p data-toggle="snclone" @click="snclone()"><span class="glyphicon glyphicon-th-large" style="color: white;font-size: 1.5em;margin-bottom: 1em" title="克隆"></span></p>
-      <p @click="deletelist()" id="deletelist"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
+      <p @click="editlist()" id="edit" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="编辑"></span></p>
+      <p data-toggle="back" @click="goback()" style="cursor: pointer"><span class="glyphicon glyphicon-backward" style="color: white;font-size: 1.5em;margin-bottom: 1em" title="回滚"></span></p>
+      <p data-toggle="snclone" @click="snclone()" style="cursor: pointer"><span class="glyphicon glyphicon-th-large" style="color: white;font-size: 1.5em;margin-bottom: 1em" title="克隆"></span></p>
+      <p @click="deletelist()" id="deletelist" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
       </div>
       <div style="width: 300px" id="h">
         <span @click="editlist()" id="edit" data-toggle="editmodal"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-right: 1em;display: inline-block" title="编辑"></span></span>
@@ -43,11 +43,11 @@
             <h4 class="modal-title" id="myModalLabel">修改快照信息</h4>
           </div>
           <div class="modal-body">
-            <p>快照名称：</p><input type="text" class="form-control" id="name" ref="saname"/>
+            <p>快照名称：</p><input type="text" class="form-control" id="name" ref="saname" :placeholder=ids />
             <p>描述：</p><input type="text" class="form-control" id="content" ref="sacontent"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">确认修改</button>
           </div>
         </div><!-- /.modal-content -->
@@ -66,24 +66,28 @@
           <p>克隆快照名称：</p><input type="text" class="form-control" id="aclone" ref="aclone"/>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
           <button type="button" class="btn btn-primary" @click="sendclone()" data-dismiss="modal">确定</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal -->
   </div>
+    <tips ref="tips" :content="tipscontent"></tips>
   </div>
 </template>
 
 <script>
-
+    import tips from './tips'
     export default {
       name: "Aindex",
+      components:{tips},
       data(){
         return {
           edit: {},
           asele:'',
-          aback:''
+          aback:'',
+          ids:'',
+          tipscontent:''
       }
       },
       // tableDate,
@@ -97,30 +101,44 @@
           })
         },
         deletelist(){               /*删除快照功能*/
+          var ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
+            return row.snapid;
+          });
+          if (ids.length < 1) {
+            this.tipscontent='请选择删除项'
+            this.$refs.tips.usetips()
+            // alert('请选择删除项')
+          }
+          else if(ids.length >= 1) {
 
-            var ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
-              return row.snapid;
-            });
-            if (confirm('是否确认选择删除快照：'+ids)){
-            $('#table_id').bootstrapTable('remove', {
-              field: 'snapid',
-              values: ids
-            });
-            this.$axios.post(this.allurl+'manager/client/block/del_snap',{ids:ids}).then(function (res) {
-              // console.log('post ok')
-            }).catch(function (error) {
-              console.log(error)
-            })
+            if (confirm('是否确认选择删除快照：' + ids)) {
+              $('#table_id').bootstrapTable('remove', {
+                field: 'snapid',
+                values: ids
+              });
+              this.$axios.post(this.allurl + 'manager/client/block/del_snap', {ids: ids}).then(function (res) {
+                // console.log('post ok')
+              }).catch(function (error) {
+                console.log(error)
+              })
             }
-            else {return}
-        // console.log('delete')
+            else {
+              return
+            }
+            // console.log('delete')
+          }
         },
         editlist() {              /*快照修改功能*/
           var ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
           });
+          var name = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+            return row.snapname;
+          });
           if (ids.length != 1) {
-            alert('请选择其中一个设备进行修改')
+            this.tipscontent='请选择其中一个设备进行修改'
+            this.$refs.tips.usetips()
+            // alert('请选择其中一个设备进行修改')
           }
           else if(ids.length === 1){
             this.edit = ids;
@@ -128,6 +146,7 @@
               $('#editm').modal("show")
 
           }
+          this.ids=name
         },
         editsend(){                             /*发送快照修改信息 */
           let name =this.$refs.saname.value
@@ -143,7 +162,9 @@
             return row.snapid;
           });
           if (ids.length !== 1) {
-            alert('请选择其中一个设备进行克隆')
+            this.tipscontent='请选择其中一个设备进行克隆'
+            this.$refs.tips.usetips()
+            // alert('请选择其中一个设备进行克隆')
           }
           else if(ids.length === 1){
             this.clone = ids;
@@ -165,7 +186,9 @@
             return row.snapid;
           });
           if (ids.length !== 1) {
-            alert('请选择其中一个设备进行回滚')
+            this.tipscontent='请选择其中一个设备进行回滚'
+            this.$refs.tips.usetips()
+            // alert('请选择其中一个设备进行回滚')
           }
           else if(ids.length === 1){
             this.aback = ids;

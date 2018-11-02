@@ -31,9 +31,9 @@
       }
     },
 
-    created(){
-      this.gbo()
-    }
+    // created(){
+    //   this.gbo()
+    // }
   }
 </script>
 
@@ -46,6 +46,9 @@
   }
   #app{
     background-color: #2E2245;
+  }
+  a{
+    text-decoration: none !important;
   }
   @media screen and (min-width:1600px ) {
     #app{

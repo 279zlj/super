@@ -42,7 +42,7 @@
 
 <style scoped>
   #Rleft{
-    margin-top: 4.5em;
+    margin-top: 4.2em;
     color: white;
   }
   p{

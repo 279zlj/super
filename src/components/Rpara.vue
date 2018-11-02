@@ -10,10 +10,19 @@
                 <col style="width:35%" />
               </colgroup>
               <thead>
+
                 <th>配置项</th>
                 <th>参数</th>
               </thead>
               <tbody>
+              <tr>
+                <td>io-agent对象</td>
+                <td>
+                  <select class="form-control" @click="iosele()" v-on:change="ioindexsel($event)" v-model="iosele">
+                    <option v-for="i in iolist" :value="i.val" >{{i.name}}</option>
+                  </select>
+                </td>
+              </tr>
                 <tr>
                   <td>数据重构QoS控制</td>
                   <td>
@@ -73,6 +82,15 @@
             <th>参数</th>
             </thead>
             <tbody>
+            <tr>
+              <td>tank对象</td>
+              <td>
+                <select class="form-control">
+                  <select class="form-control" @click="psele()" v-on:change="pindexsel($event)" v-model="psele">
+                    <option v-for="i in plist" :value="i.val" >{{i.name}}</option>
+                  </select>
+                </select>
+              </td>
             <tr>
               <td>数据重构QoS控制</td>
               <td>
@@ -135,6 +153,15 @@
               </thead>
               <tbody>
               <tr>
+                <td>block对象</td>
+                <td>
+                  <select class="form-control">
+                    <select class="form-control" @click="bsele()" v-on:change="bindexsel($event)" v-model="bsele">
+                      <option v-for="i in blist" :value="i.val" >{{i.name}}</option>
+                    </select>
+                  </select>
+                </td>
+              <tr>
                 <td>数据重构QoS控制</td>
                 <td>
                   <div class="form">
@@ -189,6 +216,9 @@
         name: "Rpara",
       data(){
           return{
+            iolist:'',
+            plist:'',
+            blist:'',
             radiolist:[
               {name:'优先业务',value:'prior'},
               {name:'重构优先',value:'review'},
@@ -249,7 +279,31 @@
         },
         sel3(event){
           this.unitsele3=event.target.value
-        }
+        },
+        iosele(){                            /*获得存储池列表*/
+          var _this=this
+          this.$axios.get(this.allurl+'').then(function (res) {
+            _this.iolist=res.data
+          }).catch(function (error) {
+            console.log(error)
+          })
+        },
+        ioindexsel(event){//下拉框选择
+          this.sele=event.target.value
+
+        },
+        psele(){                            /*获得存储池列表*/
+          var _this=this
+          this.$axios.get(this.allurl+'').then(function (res) {
+            _this.iolist=res.data
+          }).catch(function (error) {
+            console.log(error)
+          })
+        },
+        pindexsel(event){//下拉框选择
+          this.sele=event.target.value
+
+        },
       }
     }
 </script>
@@ -270,7 +324,7 @@
   }
   .bg{
     background-color: #392C53;
-    margin-top: 5em;
+    margin-top: 4.9em;
   }
 @media screen and (max-width: 425px) {
   .bg{

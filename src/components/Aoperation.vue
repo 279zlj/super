@@ -3,8 +3,8 @@
     <div class="row">
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
       <div id="y">
-        <p @click="editlist()" id="edit" data-toggle="editmodal"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="编辑"></span></p>
-        <p @click="deletelist()" id="deletelist"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
+        <p @click="editlist()" id="edit" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="编辑"></span></p>
+        <p @click="deletelist()" id="deletelist" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
       </div>
       <div style="width: 300px" id="h">
         <span @click="editlist()" id="edit" data-toggle="editmodal"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-right: 1em" title="编辑"></span></span>
@@ -47,22 +47,26 @@
             <p>描述：</p><input type="text" class="form-control" id="content" ref="content"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">确认修改</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
+      <tips ref="tips" :content=tipscontent></tips>
     </div>
   </div>
 </template>
 
 <script>
+  import tips from './tips'
     export default {
         name: "Aoperation",
+      components:{tips},
       data(){
           return{
             urla:'',
-            edit:''
+            edit:'',
+            tipscontent:''
           }
       },
       methods:{
@@ -78,7 +82,9 @@
             return row.snapid;
           });
           if (ids.length !== 1) {
-            alert('请选择其中一个设备进行修改');
+            this.tipscontent='请选择其中一个设备进行修改'
+            this.$refs.tips.usetips()
+            // alert('请选择其中一个设备进行修改');
             return;
           }
           else if(ids.length === 1){
@@ -98,23 +104,31 @@
            })
         },
         deletelist(){                 /*删除设置  */
-
           var ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
           });
-          if (confirm('是否确认选择删除存储池：'+ids)){
-            $('#table_id').bootstrapTable('remove', {
-              field: 'snapid',
-              values: ids
-            });
-            this.$axios.post(this.allurl+'manager/tank/remove_tank',ids).then(function (res) {
-              // console.log('post ok')
-            }).catch(function (error) {
-              console.log(error)
-            })
+          if (ids.length < 1) {
+            this.tipscontent='请选择删除项'
+            this.$refs.tips.usetips()
+            // alert('请选择删除项')
           }
-          else {return}
-          // console.log('delete')
+          else if(ids.length >= 1) {
+            if (confirm('是否确认选择删除存储池：' + ids)) {
+              $('#table_id').bootstrapTable('remove', {
+                field: 'snapid',
+                values: ids
+              });
+              this.$axios.post(this.allurl + 'manager/tank/remove_tank', ids).then(function (res) {
+                // console.log('post ok')
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+            else {
+              return
+            }
+            // console.log('delete')
+          }
         },
         sentip(){                                  /*发送查找的ip*/
             var _this=this
@@ -177,6 +191,6 @@
     margin-top: 15em;
   }
   .one{
-    margin-top: 4em;
+    margin-top: 4.7em;
   }
 </style>

@@ -7,9 +7,9 @@
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
             <h4 class="h">io agent 容量使用占比</h4>
             <div id="iocontent" class="content">
-              <p>总大小：<span v-if="collect.osd_detail.osize">{{collect.osd_detail.osize}}</span></p>
-              <p>已使用：{{collect.osd_detail.ouse}}</p>
-              <p>已用百分比：{{collect.osd_detail.usepct}}%</p>
+              <p>总大小：<span v-if="collect.osd_detail.osize" class="keynote">{{collect.osd_detail.osize}}</span></p>
+              <p>已使用：<span class="keynote">{{collect.osd_detail.ouse}}</span></p>
+              <p>已用百分比：<span class="keynote">{{collect.osd_detail.usepct}}%</span></p>
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 container-fluid">
@@ -25,8 +25,8 @@
                 <h4 class="h">tank 存储使用占比</h4>
                 <div id="tankcontent" class="content">
 
-                  <p>已使用：{{collect.pool.puse}}</p>
-                  <p>已用百分比：{{collect.pool.usepct}}%</p>
+                  <p>已使用：<span class="keynote">{{collect.pool.puse}}</span></p>
+                  <p>已用百分比：<span class="keynote">{{collect.pool.usepct}}%</span></p>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -41,8 +41,8 @@
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="margin-left: -15px">
               <h4 class="ho"><span style="font-size: 2.2em">{{collect.block_detail.block}}</span>个块设备</h4>
               <div id="rbdcontent" class="content">
-                <p>总大小：{{collect.block_detail.bsize}}</p>
-                <p>客户端连接数：{{collect.block_detail.server_num}}</p>
+                <p>总大小：<span class="keynote">{{collect.block_detail.bsize}}</span></p>
+                <p>客户端连接数：<span class="keynote">{{collect.block_detail.server_num}}</span></p>
               </div>
             </div>
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
@@ -386,11 +386,10 @@
   table{
     margin-bottom: 1em;
   }
-  .bg{
-    border-radius: 5px;
-    background-color: #362655;
-    width: 100%;
-    margin-bottom: 1em;
+
+  .keynote{
+    font-size: 1.2em;
+    font-weight: 700;
   }
   .bb{
     background-color: #362655;

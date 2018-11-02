@@ -15,6 +15,7 @@
                 <th data-field="content">具体解决方法</th>
               </tr>
               </thead>
+            <tbody></tbody>
             </table>
         </div>
 
@@ -103,6 +104,7 @@
   margin-bottom: 2em;
 
 }
+
 .one{
   background-color: #3A2F50;
   height: 44em;

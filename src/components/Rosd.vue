@@ -53,8 +53,8 @@
         </div>
       </div>
   </div>
-
-    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 bgdown all" v-if="content.all!=null && content.netcard!=null && content.diskall!=null">
+    <input type="button" class="btn btn-default all" value="添加磁盘" style="margin-bottom: 1em;float: right" @click="adddisk()"/>
+    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 bgdown " v-if="content.all!=null && content.netcard!=null && content.diskall!=null">
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <div class=" bor container-fluid">
@@ -67,19 +67,23 @@
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <div class="bora container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">CPU</span></p>
-            <p class="ff">CPU：<span>{{content.all.cpu}}</span></p>
+            <span class="ff">{{content.all.cpu}}</span>
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">内存</span></p>
             <span class="ff">{{content.all.nc}}</span>
           </div>
         </div>
       </div>
-        <div class="row">
+        <div class="row datamoreone">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <div class="col-lg-11 container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">数据盘</span></p>
-            <span v-for="q in content.all.datap"><img src="../../static/image/three.png" class="img-responsive im" :id="q" @click="disk(q)"  :title="q"></span>
+            <div class="datapstyle" >
+              <span v-for="q in content.all.datap"><img src="../../static/image/three.png" class="img-responsive im" :id="q" @click="disk(q)"  :title="q"></span>
+            </div>
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">缓存盘</span></p>
-            <span v-for="w in content.all.cachep"><img src="../../static/image/cachedata.png" class="img-responsive im" :id="w"  @click="disk(w)"  :title="w"></span>
+            <div class="datapstyle" >
+              <span v-for="w in content.all.cachep"><img src="../../static/image/cachedata.png" class="img-responsive im" :id="w"  @click="disk(w)"  :title="w"></span>
+            </div>
           </div>
         </div>
 
@@ -87,16 +91,22 @@
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <div class=" container-fluid">
           <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">iSCSI服务网络/内部网络</span></p>
-          <span class="ff">{{content.all.iscsi}}</span><span class="glyphicon glyphicon-edit e" title="修改" data-toggle="editmodal" @click="edit()" id="edit"></span>
+            <div class="datapstyle"><span v-for="w in content.all.cachep"><img src="../../static/image/four.png" class="img-responsive im" :id="w"  @click="net(w)"  :title="w"></span></div>
+          <span class="ff">{{content.all.iscsi}}</span><span class="glyphicon glyphicon-edit e" style="cursor: pointer" title="修改" data-toggle="editmodal" @click="edit()" id="edit"></span>
           <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">内部网络</span></p>
           <span class="ff">{{content.all.netw}}</span>
           </div>
         </div>
     </div>
-      <div class="row">
+      <div class="row datamore">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <div class=" borb">
           <table class="table table-condensed table-responsive" >
+            <thead>
+              <tr>
+                <th colspan="2">磁盘信息：</th>
+              </tr>
+            </thead>
             <tbody>
               <tr>
                 <td>设备名：</td>
@@ -126,7 +136,10 @@
                 <td>健康度：</td>
                 <td>{{content.netcard.health}}</td>
               </tr>
-
+              <tr>
+                <td>操作：</td>
+                <td><input type="button" class="btn btn-danger btn-xs" value="点亮定位灯"/></td>
+              </tr>
             </tbody>
           </table>
           </div>
@@ -134,6 +147,11 @@
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <div class=" borc">
           <table class="table table-condensed table-responsive" >
+            <thead>
+            <tr>
+              <th colspan="2">网卡信息：</th>
+            </tr>
+            </thead>
             <tbody>
               <tr>
                 <td>设备名：</td>
@@ -177,8 +195,26 @@
             <p>修改ip：</p><input type="text" class="form-control" id="ip" ref="modifyip"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">确认修改</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>
+    <div class="modal fade" id="disk" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="diskdata">添加io-agent</h4>
+          </div>
+          <div class="modal-body">
+            <p>ip：</p><input type="text" class="form-control" id="addip" ref="addip"/>
+            <p>磁盘路径：</p><input type="text" class="form-control" id="diskpath" ref="diskpath"/>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" @click="addsend()" data-dismiss="modal">确认</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -235,6 +271,18 @@
           }).catch(function (error) {
             console.log(error)
           })
+        },
+        net(n){
+          var _this=this
+          this.xs=n;
+          // $('#'+n).animate({left:'1000px'},1000)
+          // this.$axios.post(this.allurl+'manager/disk/detail',{id:n}).then(function (res) {
+          //   // console.log(res.data)
+          //   _this.content.diskall=res.data
+          //   // console.log(res)
+          // }).catch(function (error) {
+          //   console.log(error)
+          // })
         },
         editsend(){                      /*发送修改后iSCSI的ip*/
           var _this=this
@@ -341,6 +389,18 @@
 
           // console.log(_this.osdlist)
         },
+        adddisk(){
+          $('#disk').modal('show')
+        },
+        addsend(){
+          var ip=this.$refs.addip.value
+          var diskpath=this.$refs.diskpath.value
+          this.$axios.post(this.allurl+'manager/ioagent/add_ioagent',{ip:ip,diskpath:diskpath}).then(function (res) {
+
+          }).catch(function (error) {
+            console.log(error)
+          })
+        }
 
       },
       beforeCreate(){
@@ -402,15 +462,22 @@
   margin-bottom: 2em;
 
 }
-.bgdown div div{
-  height:17.5em;
+.datamoreone{
+  height: 17em;
+}
+.datamore{
+  height:22em;
 }
 #editm{
-  color: black;
+  color: white;
 }
+  .modal-content{
+    background-color:#3E324E ;
+    color: white;
+  }
 #editm input{
-  background-color: white;
-  color: black;
+  background-color: #43355F;
+  color: white;
 }
 .pie{
   height: 10em;
@@ -461,7 +528,9 @@
     border-top:1px solid #1b6d85;
   }
   .all{
-    margin-top: 5em;
+    background-color: #6B6DAE;
+    color: white;
+    margin-top: 1.55em;
 
   }
   .allo{
@@ -502,7 +571,7 @@
   table{
     width: 90%;
     height: 10em;
-    margin: 2em auto;
+    margin: 0em auto;
   }
   .grid{
     width: 100%;
@@ -516,7 +585,7 @@
   .b{
     background-color: #6B6DAE;
     color: white;
-    margin-top: 1em;
+    margin-top: .6em;
   }
   .o{
     color:#17FF1C;
@@ -530,5 +599,8 @@
     color: red;
     font-weight: 700;
   }
-
+  .datapstyle{
+    height: 3em !important;
+    overflow-y: scroll;
+  }
 </style>

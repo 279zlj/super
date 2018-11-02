@@ -3,8 +3,8 @@
       <div class="row container-fluid">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
           <div id="y">
-          <p @click="editlist()"  ><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em" title="编辑" ></span></p>
-          <p @click="deletelist()" ><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em;margin-top: 1em" title="删除"></span></p>
+          <p @click="editlist()"  style="cursor: pointer" ><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em" title="编辑" ></span></p>
+          <p @click="deletelist()"  style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em;margin-top: 1em" title="删除"></span></p>
           </div>
           <div id="h" style="width: 300px">
             <span @click="editlist()" ><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em;margin-right: 1em" title="编辑" ></span></span>
@@ -36,27 +36,32 @@
             </div>
             <div class="modal-body">
               <p>用户密码：</p><input type="text" class="form-control" id="name" ref="user"/>
-              <p>用户角色：</p><input type="text" class="form-control" id="content" ref="role"/>
+              <p>用户角色：</p><input type="text" class="form-control" id="content" ref="role" :placeholder=rolerank />
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
               <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">确认修改</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal -->
       </div>
+      <tips ref="tips" :content=tipscontent></tips>
     </div>
 </template>
 
 <script>
+  import tips from './tips'
     export default {
         name: "User",
+      components:{tips},
       data(){
         return{
           ids:'',
           ips:'',
           its:'',
-          edit:''
+          edit:'',
+          rolerank:'',
+          tipscontent:''
         }
       },
       methods:{
@@ -70,9 +75,14 @@
           var ids = $.map($('#usert').bootstrapTable('getSelections'), function (row) {
             return row.userid;
           });
+          var rank = $.map($('#usert').bootstrapTable('getSelections'), function (row) {
+            return row.role;
+          });
           // console.log(ids)
           if (ids.length !== 1) {
-            alert('请选择其中一个设备进行修改')
+            this.tipscontent='请选择其中一个设备进行修改'
+            this.$refs.tips.usetips()
+            // alert('请选择其中一个设备进行修改')
 
             return ('ok');
           }
@@ -84,7 +94,7 @@
               $('#editm').modal("show")
 
           }
-
+          this.rolerank=rank
         },
         editsend(){                      /*发送用户修改信息*/
           let userpwd=this.$refs.user.value
@@ -96,22 +106,32 @@
           })
         },
         deletelist(){                       /*用户的删除*/
-          var ids = $.map( $('#usert').bootstrapTable('getSelections'), function (row) {
+          var ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.userid;
           });
-          if (confirm('是否确认选择删除用户：'+ids)){
-            $('#usert').bootstrapTable('remove', {
-              field: 'userid',
-              values: ids
-            });
-            this.$axios.post(this.allurl+'manctl/user_delete',{ids:ids}).then(function (res) {
-              // console.log('post ok')
-            }).catch(function (error) {
-              console.log(error)
-            })
+          if (ids.length < 1) {
+            this.tipscontent='请选择删除项'
+            this.$refs.tips.usetips()
+            // alert('请选择删除项')
           }
-          else {return}
-          // console.log('delete')
+          else if(ids.length >= 1) {
+
+            if (confirm('是否确认选择删除用户：' + ids)) {
+              $('#usert').bootstrapTable('remove', {
+                field: 'userid',
+                values: ids
+              });
+              this.$axios.post(this.allurl + 'manctl/user_delete', {ids: ids}).then(function (res) {
+                // console.log('post ok')
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+            else {
+              return
+            }
+            // console.log('delete')
+          }
         },
       },
       mounted(){
@@ -123,6 +143,7 @@
 <style scoped>
   #User{
     color: white;
+    width: 100%;
   }
   .a{
     margin-top: 10em;
