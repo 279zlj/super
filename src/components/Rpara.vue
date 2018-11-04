@@ -234,7 +234,10 @@
             checkvalue3:'',
             unitsele:'',
             unitsele2:'',
-            unitsele3:''
+            unitsele3:'',
+            itsele:'',
+            ptsele:'',
+            btsele:''
           }
       },
       methods:{
@@ -289,19 +292,31 @@
           })
         },
         ioindexsel(event){//下拉框选择
-          this.sele=event.target.value
+          this.itsele=event.target.value
 
         },
         psele(){                            /*获得存储池列表*/
           var _this=this
           this.$axios.get(this.allurl+'').then(function (res) {
-            _this.iolist=res.data
+            _this.plist=res.data
           }).catch(function (error) {
             console.log(error)
           })
         },
         pindexsel(event){//下拉框选择
-          this.sele=event.target.value
+          this.ptsele=event.target.value
+
+        },
+        bsele(){                            /*获得存储池列表*/
+          var _this=this
+          this.$axios.get(this.allurl+'').then(function (res) {
+            _this.blist=res.data
+          }).catch(function (error) {
+            console.log(error)
+          })
+        },
+        bindexsel(event){//下拉框选择
+          this.btsele=event.target.value
 
         },
       }

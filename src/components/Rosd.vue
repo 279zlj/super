@@ -3,8 +3,8 @@
 
   <div class="row" v-if="osdlist!=null">
   <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 container allo">
-    <input type="button" class="btn btn-default b" value="展开" style="margin-bottom: 1em;margin-left:1em;float: right" @click="open()"/>
-    <input type="button" class="btn btn-default b" value="极简" style="margin-bottom: 1em;float: right" @click="clos()"/>
+    <input type="button" class="btn btn-default b" value="展开" id="open" @click="open()"/>
+    <input type="button" class="btn btn-default b" value="极简" id="closed" @click="clos()"/>
     <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 container one" id="sample">
       <div class="row san" v-for="(i,index) in osdlist"  @click="change(index,i.osdid)" >
         <div class="row">
@@ -505,6 +505,12 @@
     border-bottom:1px solid #1b6d85;
     border-left:1px solid #1b6d85;
 
+  }
+  #open{
+    margin-bottom: 1em;margin-left:1em;float: right
+  }
+  #closed{
+    margin-bottom: 1em;float: right
   }
   @media screen and (min-width: 426px) and (max-width: 768px) {
     .font p{

@@ -3,12 +3,12 @@
       <div class="row container-fluid">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
           <div id="y">
-          <p @click="editlist()"  style="cursor: pointer" ><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em" title="编辑" ></span></p>
-          <p @click="deletelist()"  style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em;margin-top: 1em" title="删除"></span></p>
+          <p @click="editlist()"  style="cursor: pointer" ><span class="glyphicon glyphicon-edit edit" title="编辑" ></span></p>
+          <p @click="deletelist()"  style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除"></span></p>
           </div>
           <div id="h" style="width: 300px">
-            <span @click="editlist()" ><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em;margin-right: 1em" title="编辑" ></span></span>
-            <span @click="deletelist()" ><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em;margin-top: 1em" title="删除"></span></span>
+            <span @click="editlist()" ><span class="glyphicon glyphicon-edit edith"  title="编辑" ></span></span>
+            <span @click="deletelist()" ><span class="glyphicon glyphicon-remove-circle delete" title="删除"></span></span>
           </div>
         </div>
         <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
@@ -153,6 +153,16 @@
   }
   thead{
     background-color: #372B51;
+  }
+  .edit{
+    color: white;font-size: 1.5em
+  }
+  .edith{
+    color: white;font-size: 1.5em;margin-right: 1em
+  }
+  .delete{
+    color: white;font-size: 1.5em;margin-top: 1em
+
   }
   #editm{
     color: black;

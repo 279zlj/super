@@ -3,16 +3,16 @@
     <div class="row">
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
       <div id="y">
-        <p @click="addnew()" id="add" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" class="img-responsive add" style="width: 25px;font-size: 1.5em ;margin-bottom: 1em" title="添加"/></p>
-        <p @click="bdilata()" id="kr" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="扩容"/></p>
-        <p @click="addsn()" id="snap" data-toggle="addsnap" style="cursor: pointer"><span class="glyphicon glyphicon-camera" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="创建快照"></span></p>
-        <p @click="deletelist()" id="deletelist" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
+        <p @click="addnew()" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" class="img-responsive add" title="添加"/></p>
+        <p @click="bdilata()" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" class="img-responsive kr" title="扩容"/></p>
+        <p @click="addsn()" data-toggle="addsnap" style="cursor: pointer"><span class="glyphicon glyphicon-camera create" title="创建快照"></span></p>
+        <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除"></span></p>
       </div>
         <div style="width: 300px" id="h">
-          <div @click="addnew()" id="add" data-toggle="addnew" style="float: left"><img src="../../static/image/add.svg" class="img-responsive add" style="width: 25px;font-size: 1.5em ;margin-bottom: 1em;margin-right: 1em" title="添加"/></div>
-          <div @click="bdilata()" id="kr" style="float: left" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="扩容"/></div>
-          <div @click="addsn()" id="snap" style="float: left" data-toggle="addsnap"><span class="glyphicon glyphicon-camera" style="color: white;font-size: 1.5em ;margin-right: 1em" title="创建快照"></span></div>
-          <div @click="deletelist()" id="deletelist" style="float: left"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></div>
+          <div @click="addnew()" data-toggle="addnew" style="float: left"><img src="../../static/image/add.svg" class="img-responsive addh" title="添加"/></div>
+          <div @click="bdilata()" style="float: left" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive kr" title="扩容"/></div>
+          <div @click="addsn()" style="float: left" data-toggle="addsnap"><span class="glyphicon glyphicon-camera createh" title="创建快照"></span></div>
+          <div @click="deletelist()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="删除"></span></div>
         </div>
       </div>
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
@@ -35,16 +35,16 @@
     <div class="row">
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 b" >
         <div id="y">
-        <p @click="editlist()" id="edit" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="编辑"></span></p>
-        <p @click="changetime()" id="time" data-toggle="changeti"  style="cursor: pointer"><span class="glyphicon glyphicon-time" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="更改时间"></span></p>
-        <p @click="clonesnap()" id="clone" data-toggle="clonesn" style="cursor: pointer" ><span class="glyphicon glyphicon glyphicon-th-list" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="克隆快照"></span></p>
-        <p @click="deletel()" id="deletel" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
+        <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="编辑"></span></p>
+        <p @click="changetime()" data-toggle="changeti"  style="cursor: pointer"><span class="glyphicon glyphicon-time time" title="更改时间"></span></p>
+        <p @click="clonesnap()" data-toggle="clonesn" style="cursor: pointer" ><span class="glyphicon glyphicon glyphicon-th-list clone" title="克隆快照"></span></p>
+        <p @click="deletel()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除"></span></p>
         </div>
         <div id="h" style="width: 300px">
-          <span @click="editlist()" id="edit" data-toggle="editmodal" ><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-right: 1em" title="编辑"></span></span>
-          <span @click="changetime()" id="time" data-toggle="changeti"><span class="glyphicon glyphicon-time" style="color: white;font-size: 1.5em ;margin-right: 1em" title="更改时间"></span></span>
-          <span @click="clonesnap()" id="clone" data-toggle="clonesn" ><span class="glyphicon glyphicon glyphicon-th-list" style="color: white;font-size: 1.5em ;margin-right: 1em" title="克隆快照"></span></span>
-          <span @click="deletel()" id="deletel" ><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></span>
+          <span @click="editlist()" data-toggle="editmodal" ><span class="glyphicon glyphicon-edit edith" title="编辑"></span></span>
+          <span @click="changetime()" data-toggle="changeti"><span class="glyphicon glyphicon-time edith" title="更改时间"></span></span>
+          <span @click="clonesnap()" data-toggle="clonesn" ><span class="glyphicon glyphicon glyphicon-th-list edith" title="克隆快照"></span></span>
+          <span @click="deletel()" ><span class="glyphicon glyphicon-remove-circle edith" title="删除"></span></span>
         </div>
       </div>
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive two">
@@ -460,6 +460,42 @@
     margin-top: 2em;
     margin-bottom: 2em;
   }
+  .add{
+    width: 25px;font-size: 1.5em ;margin-bottom: 1em
+
+  }
+  .addh{
+    width: 25px;font-size: 1.5em ;margin-bottom: 1em;margin-right: 1em
+  }
+  .kr{
+    width: 45%;font-size: 1.5em ;margin-bottom: 1em
+
+  }
+  .create{
+    color: white;font-size: 1.5em ;margin-bottom: 1em
+
+  }
+  .createh{
+    color: white;font-size: 1.5em ;margin-right: 1em
+  }
+  .delete{
+    color: white;font-size: 1.5em
+
+  }
+  .edit{
+    color: white;font-size: 1.5em ;margin-bottom: 1em
+
+  }
+  .edith{
+    color: white;font-size: 1.5em ;margin-right: 1em
+
+  }
+  .time{
+    color: white;font-size: 1.5em ;margin-bottom: 1em
+  }
+  .clone{
+    color: white;font-size: 1.5em ;margin-bottom: 1em
+  }
   #editm input{
     background-color: #43355F !important;
     color: white !important;
@@ -475,7 +511,7 @@
     .kr{
       width: 60% !important;
     }
-    #add{
+    .add{
       width:65px
     }
   }
@@ -491,7 +527,7 @@
     display: none;
   }
   @media screen and (max-width: 425px) {
-    #kr{
+    .kr{
       width: 50px !important;
     }
     #y{
@@ -508,7 +544,7 @@
     }
   }
   @media screen and (min-width:1600px ) {
-    #kr{
+    .kr{
       width: 50px !important;
     }
 

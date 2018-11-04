@@ -3,18 +3,18 @@
     <div class="row">
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
       <div id="y">
-        <p @click="addnew()" id="add" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" class="img-responsive add" style="width: 25px;font-size: 1.5em ;margin-bottom: 1em" title="添加"/></p>
-        <p @click="dilatation()" id="kr" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="扩容"/></p>
-        <p @click="editlist()" id="edit" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="编辑"></span></p>
-        <p @click="addclient()"  id="adduser" data-toggle="clientmodal" style="cursor: pointer"><img src="../../static/image/user.png" class="img-responsive adduser" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="新增客户端"/></p>
-        <p @click="deletelist()" id="deletelist" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
+        <p @click="addnew()" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" class="img-responsive add" title="添加"/></p>
+        <p @click="dilatation()" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" class="img-responsive kr" title="扩容"/></p>
+        <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="编辑"></span></p>
+        <p @click="addclient()"  data-toggle="clientmodal" style="cursor: pointer"><img src="../../static/image/user.png" class="img-responsive adduser" title="新增客户端"/></p>
+        <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除"></span></p>
       </div>
         <div style="width: 300px" id="h">
-          <div @click="addnew()" id="add" data-toggle="addnew" style="float: left"><img src="../../static/image/add.svg" class="img-responsive add" style="width: 25px;font-size: 1.5em ;margin-bottom: 1em;margin-right: 1em" title="添加"/></div>
-          <div @click="dilatation()" id="kr" style="float: left" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;" title="扩容"/></div>
-          <div @click="editlist()" id="edit" data-toggle="editmodal" style="float: left"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-right: 1.2em" title="编辑"></span></div>
-          <div @click="addclient()" id="adduser"  style="float: left" data-toggle="clientmodal"><img src="../../static/image/user.png" class="img-responsive adduser" style="width: 45%;font-size: 1.5em ;" title="新增用户"/></div>
-          <div @click="deletelist()" id="deletelist" style="float: left"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></div>
+          <div @click="addnew()" data-toggle="addnew" style="float: left"><img src="../../static/image/add.svg" class="img-responsive addh" title="添加"/></div>
+          <div @click="dilatation()" style="float: left" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive krh" title="扩容"/></div>
+          <div @click="editlist()" data-toggle="editmodal" style="float: left"><span class="glyphicon glyphicon-edit edith" title="编辑"></span></div>
+          <div @click="addclient()"   style="float: left" data-toggle="clientmodal"><img src="../../static/image/user.png" class="img-responsive adduserh" style="" title="新增用户"/></div>
+          <div @click="deletelist()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="删除"></span></div>
         </div>
       </div>
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
@@ -37,14 +37,14 @@
     <div class="row">
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 b" >
       <div id="y">
-        <p id="get" @click="empower()" style="cursor: pointer"><img src="../../static/image/get.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="授权"/></p>
-        <p  id="nget" @click="noempower()" style="cursor: pointer"><img src="../../static/image/nget.png" class="img-responsive adduser" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="取消授权"/></p>
-        <p @click="deletel()" id="deletel" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
+        <p id="get" @click="empower()" style="cursor: pointer"><img src="../../static/image/get.png" class="img-responsive getpower" title="授权"/></p>
+        <p  id="nget" @click="noempower()" style="cursor: pointer"><img src="../../static/image/nget.png" class="img-responsive getpower" title="取消授权"/></p>
+        <p @click="deletel()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除"></span></p>
       </div>
         <div style="width: 300px" id="h">
-          <div @click="empower()" id="get" style="float: left" ><img src="../../static/image/get.png" class="img-responsive kr" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="授权"/></div>
-          <div @click="noempower()" id="nget" style="float: left" ><img src="../../static/image/nget.png" class="img-responsive adduser" style="width: 45%;font-size: 1.5em ;margin-bottom: 1em" title="取消授权"/></div>
-          <div @click="deletel()" id="deletel" style="float: left"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></div>
+          <div @click="empower()" id="gett" style="float: left" ><img src="../../static/image/get.png" class="img-responsive getpower" title="授权"/></div>
+          <div @click="noempower()" id="ngett" style="float: left" ><img src="../../static/image/nget.png" class="img-responsive getpower" title="取消授权"/></div>
+          <div @click="deletel()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="删除"></span></div>
         </div>
       </div>
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive two">
@@ -426,12 +426,44 @@
   #table_id::-webkit-scrollbar {
     display: none;
   }
+  .add{
+    width: 25px;font-size: 1.5em ;margin-bottom: 1em
 
+  }
+  .addh{
+    width: 25px;font-size: 1.5em ;margin-bottom: 1em;margin-right: 1em
+  }
+  .kr{
+    width: 45%;font-size: 1.5em ;margin-bottom: 1em
+  }
+  .krh{
+    width: 45%;font-size: 1.5em ;
+  }
+  .edit{
+    color: white;font-size: 1.5em ;margin-bottom: 1em
+
+  }
+  .edith{
+    color: white;font-size: 1.5em ;margin-right: 1.2em
+  }
+  .adduser{
+    width: 45%;font-size: 1.5em ;margin-bottom: 1em
+
+  }
+  .adduserh{
+     width: 45%;font-size: 1.5em ;
+   }
+  .delete{
+    color: white;font-size: 1.5em
+  }
+  .getpower{
+    width: 45%;font-size: 1.5em ;margin-bottom: 1em
+  }
   @media screen and (min-width: 769px) and (max-width: 1025px) {
     .kr,.adduser{
       width: 60% !important;
     }
-    #add{
+    .add{
       width:65px
     }
   }
@@ -447,13 +479,13 @@
     display: none;
   }
   @media screen and (max-width: 425px) {
-    #kr{
+    .kr{
       width: 50px !important;
     }
-    #adduser{
+    .adduser{
       width: 50px !important;
     }
-    #get,#nget{
+    #get,#nget,#gett,#ngett{
       width: 50px !important;
     }
     #y{
@@ -470,13 +502,13 @@
     }
   }
   @media screen and (min-width:1600px ) {
-    #kr{
+    .kr{
       width: 50px !important;
     }
-    #adduser{
+    .adduser{
       width: 50px !important;
     }
-    #get,#nget{
+    #get,#nget,#gett,#ngett{
       width: 50px !important;
     }
   }

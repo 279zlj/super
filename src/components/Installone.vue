@@ -17,7 +17,7 @@
               <div class="container-fluid " >
                 <h3>监控节点：</h3>
                 <div class="jq" id="jk">
-                  <div class="row" id="one" style="height: 7em;overflow-y: scroll;margin: .5em 0 0 .5em;width: 98%">
+                  <div class="row" id="one" >
 
                   </div>
                 </div>
@@ -25,7 +25,7 @@
               <div class="container-fluid">
                 <h3>集群节点：</h3>
                 <div class="jq" id="jq">
-                  <div class="row" id="two" style="height: 7em;overflow-y: scroll;margin: .5em 0 0 .5em;width: 98%">
+                  <div class="row" id="two">
 
                   </div>
                 </div>
@@ -249,6 +249,10 @@ body{
 
     font-size: 1.5em;
   }
+  #one,#two{
+    height: 7em;overflow-y: scroll;margin: .5em 0 0 .5em;width: 98%
+  }
+
   @media screen and (min-width: 1440px){
     .cont{
       margin-left: 13em;

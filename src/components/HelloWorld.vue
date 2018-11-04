@@ -45,7 +45,7 @@
           <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#notice" @click="addnotice()">添加警告通知</span></a></li>
         </ul>
       </div>
-      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 dropdown" style="height: 3.5em;font-size: 1.2rem;line-height: 4.5em">
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 dropdown" id="lang">
         <a data-toggle="dropdown" style="cursor: pointer;color: white"><span class="j2">语言</span></a>
         <ul class="dropdown-menu">
           <li ><a style="cursor: pointer">中文</a></li>
@@ -375,7 +375,11 @@ export default {
   .jgth{
     background-color: #FF8A00;padding: 0 .3em;cursor:pointer;margin-top: 1em;color: white;width: 1.8em !important;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;display: inline-block;height: 1.5em;line-height: 1em;
   }
-
+  .lang {
+    height: 3.5em;
+    font-size: 1.2rem;
+    line-height: 4.5em
+  }
   @media screen and (max-width: 425px) {
     .imgg{
       padding: .7rem .5rem .8rem .5rem;

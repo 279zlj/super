@@ -1,14 +1,14 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 container-fluid" id="Aoperation">
     <div class="row">
-      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 contenttop" >
       <div id="y">
-        <p @click="editlist()" id="edit" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-bottom: 1em" title="编辑"></span></p>
-        <p @click="deletelist()" id="deletelist" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></p>
+        <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit verticalimg" title="编辑"></span></p>
+        <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle verticalimg" title="删除"></span></p>
       </div>
       <div style="width: 300px" id="h">
-        <span @click="editlist()" id="edit" data-toggle="editmodal"><span class="glyphicon glyphicon-edit" style="color: white;font-size: 1.5em ;margin-right: 1em" title="编辑"></span></span>
-        <span @click="deletelist()" id="deletelist"><span class="glyphicon glyphicon-remove-circle" style="color: white;font-size: 1.5em" title="删除"></span></span>
+        <span @click="editlist()" data-toggle="editmodal"><span class="glyphicon glyphicon-edit infeed" title="编辑"></span></span>
+        <span @click="deletelist()" ><span class="glyphicon glyphicon-remove-circle infeed" title="删除"></span></span>
       </div>
       </div>
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
@@ -155,8 +155,16 @@
   #h{
     display: none;
   }
+  .verticalimg{
+    color: white;font-size: 1.5em ;margin-bottom: 1em
+  }
+  .infeed {
+    color: white;
+    font-size: 1.5em;
+    margin-right: 1em
+  }
   @media screen and (max-width: 425px) {
-    .a{
+    .contenttop{
       margin-top: 3em !important;
       margin-bottom: 1em !important;
       width: 100px;
@@ -187,7 +195,7 @@
     background-color:#3E324E ;
     color: white;
   }
-  .a{
+  .contenttop{
     margin-top: 15em;
   }
   .one{
