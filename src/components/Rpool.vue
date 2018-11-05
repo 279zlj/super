@@ -142,7 +142,7 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
     </div>
-    <tips ref="tips" :content=tipscontent></tips>
+    <tips ref="tips" :content=tipscontent :title=title v-on:respond="res"></tips>
   </div>
 </template>
 
@@ -162,7 +162,10 @@
               {name:'纠删码',value:'erasure'},
 
             ],
-            tipscontent:''
+            tipscontent:'',
+            title:'',
+            respond:'',
+            who:''
           }
       },
       methods:{
@@ -258,9 +261,81 @@
         addclient(){              /*添加iscsi客户端*/
           $('#clientmodal').modal("show")
         },
-        deletelist(){                         /*pool的删除*/
+        res(data){
+          if (this.who=='pool') {
+            let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.poolname;
+            });
+            this.respond = data
+            // console.log(data,this.respond)
+            if (this.respond == 'ok') {
+              this.$axios.post(this.allurl + 'manager/tank/remove_tank', {ids: ids}).then(function (res) {
+                // console.log(res,'post ok')
+                if (res.data = 'ok') {
+                  $('#table_id').bootstrapTable('remove', {
+                    field: 'poolname',
+                    values: ids
+                  });
+                }
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+          }
+          else if (this.who=='empower'){
+            let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
+              return row.pname;
+            });
+            this.respond = data
+            // console.log(data,this.respond)
+            if (this.respond == 'ok') {
+              this.$axios.post(this.allurl + 'manager/client/authori_delete', {ids: ids}).then(function (res) {
+                // console.log(res,'post ok')
+                if (res.data = 'ok') {
+                  $('#table').bootstrapTable('remove', {
+                    field: 'pname',
+                    values: ids
+                  });
+                }
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+          }
+          else if(this.who=='getpower'){
+            let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
+              return row.pname;
+            });
+            this.respond = data
+            // console.log(data,this.respond)
+            if (this.respond == 'ok') {
+              this.$axios.post(this.allurl + 'manager/client/man_authori', {ids: ids}).then(function (res) {
+                // console.log(res,'post ok')
 
-          var ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+          }
+          else if (this.who='ngetpower'){
+            let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
+              return row.pname;
+            });
+            this.respond = data
+            // console.log(data,this.respond)
+            if (this.respond == 'ok') {
+              this.$axios.post(this.allurl + 'manager/client/man_disauthori', {ids: ids}).then(function (res) {
+                // console.log(res,'post ok')
+
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+          }
+        },
+        deletelist(){                         /*pool的删除*/
+          this.who='pool'
+          let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.poolname;
           });
           if (ids.length < 1) {
@@ -269,25 +344,22 @@
             // alert('请选择删除项')
           }
           else if(ids.length >= 1) {
-            if (confirm('是否确认选择删除存储池：' + ids)) {
-              $('#table_id').bootstrapTable('remove', {
-                field: 'poolname',
-                values: ids
-              });
-              this.$axios.post(this.allurl + 'manager/tank/remove_tank', {ids: ids}).then(function (res) {
-                // console.log(res,'post ok')
-              }).catch(function (error) {
-                console.log(error)
-              })
+            this.tipscontent='是否确认选择删除存储池'
+            this.title=ids
+            this.$refs.tips.dselect()
+
+
             }
             else {
               return
             }
-            // console.log('delete')
-          }
+
+
         },
+
         deletel(){                             /*授权的删除*/
-          var ids = $.map( $('#table').bootstrapTable('getSelections'), function (row) {
+          this.who='empower'
+          let ids = $.map( $('#table').bootstrapTable('getSelections'), function (row) {
             return row.pname;
           });
           if (ids.length < 1) {
@@ -296,23 +368,17 @@
             // alert('请选择删除项')
           }
           else if(ids.length >= 1) {
+              this.tipscontent='是否确认选择删除该授权记录'
+              this.title=ids
+              this.$refs.tips.dselect()
 
-            if (confirm('是否确认选择删除该授权记录：' + ips)) {
-              $('#table').bootstrapTable('remove', {
-                field: 'pname',
-                values: ips
-              });
-              this.$axios.post(this.allurl + 'manager/client/authori_delete', {ips: ips}).then(function (res) {
-                // console.log(res,'post ok')
-              }).catch(function (error) {
-                console.log(error)
-              })
+
             }
             else {
               return
             }
             // console.log('delete')
-          }
+
         },
         editsend(){                 /*发送修改后的存储池信息*/
           let poolname=this.$refs.name.value
@@ -332,6 +398,7 @@
           })
         },
         empower(){                      /*确认授权*/
+          this.who='getpower'
           var ips = $.map( $('#table').bootstrapTable('getSelections'), function (row) {
             return row.pname;
           });
@@ -342,39 +409,27 @@
               // alert('请选择其中一个进行授权')
             }
             else {
-              if (confirm('是否确认进行授权操作：' + ips)) {
-                this.$axios.post(this.allurl+'manager/client/man_authori', {ips:ips}).then(function (res) {
-                  // console.log(res, 'post ok')
-                }).catch(function (error) {
-                  console.log(error)
-                })
-              }
+              this.tipscontent='是否确认进行授权操作'
+              this.title=ips
+              this.$refs.tips.dselect()
 
             }
         },
         noempower(){                          /*取消授权*/
+          this.who='ngetpower'
           var ips = $.map( $('#table').bootstrapTable('getSelections'), function (row) {
             return row.pname;
           });
 
-          $('#table').bootstrapTable('remove', {
-            field: 'name',
-            values: ips
-          });
           if (ips.length!=1){
             this.tipscontent='请选择其中一个取消授权'
             this.$refs.tips.usetips()
             // alert('请选择其中一个取消授权')
           }
           else {
-            if (confirm('是否确认进行取消授权操作：' + ips)) {
-              this.$axios.post(this.allurl+'manager/client/man_disauthori', {ips:ips}).then(function (res) {
-                // console.log(res, 'post ok')
-              }).catch(function (error) {
-                console.log(error)
-              })
-            }
-
+            this.tipscontent='是否确认进行取消授权操作'
+            this.title=ips
+            this.$refs.tips.dselect()
           }
         },
 
@@ -464,12 +519,21 @@
       width: 60% !important;
     }
     .add{
-      width:65px
+      width:65%
+    }
+    #get,#nget{
+      width: 3em;
     }
   }
   @media screen and (min-width: 426px) and (max-width: 768px) {
     .kr,.adduser{
       width: 100% !important;
+    }
+    .adduser{
+      width: 4em;
+    }
+    #get,#nget{
+      width: 3em;
     }
   }
   #y{
@@ -479,11 +543,11 @@
     display: none;
   }
   @media screen and (max-width: 425px) {
-    .kr{
-      width: 50px !important;
+    .krh{
+      width: 45% !important; margin-right: 1em;
     }
-    .adduser{
-      width: 50px !important;
+    .adduserh{
+      width: 55% !important; margin-right: .5em;
     }
     #get,#nget,#gett,#ngett{
       width: 50px !important;
@@ -503,10 +567,10 @@
   }
   @media screen and (min-width:1600px ) {
     .kr{
-      width: 50px !important;
+      width: 30% !important;
     }
     .adduser{
-      width: 50px !important;
+      width: 30% !important;
     }
     #get,#nget,#gett,#ngett{
       width: 50px !important;

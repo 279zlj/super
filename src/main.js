@@ -41,28 +41,14 @@ Vue.prototype.$axios = axios;
 
 Vue.prototype.allurl='http://192.168.1.213:8000/'
 
-const messages={
-  //英文
-  en: {
-    message: {
-      hello: 'hello',
-      about: 'about',
-      welcome: "Welcome"
-    }
-  },
-  //简体中文
-  zhCHS: {
-    message: {
-      hello: '你好',
-      about: '关于',
-      welcome: "欢迎"
-    }
-  },
-}
-const i18n = new VueI18n({                    /*页面中英文切换*/
+const il8n = new VueI18n({                    /*页面中英文切换*/
   //定义默认语言
-  locale: 'zhCHS',
-  messages
+  locale: 'zh',
+  messages:{
+    zh:import('../static/language/zh.json'),
+    en:import('../static/language/zh.json')
+
+  }
 })
 
 router.beforeEach((to,from,next)=>{                          /*路由守卫，禁止直接通过url访问页面内容*/
@@ -103,6 +89,7 @@ new Vue({
   router,
   echarts,
   axios,
+  il8n,
   store,
   components: { App },
   template: '<App/>',

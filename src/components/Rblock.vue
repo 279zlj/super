@@ -181,7 +181,7 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
     </div>
-    <tips ref="tips" :content=tipscontent></tips>
+    <tips ref="tips" :content=tipscontent :title=title v-on:respond="res"></tips>
   </div>
 </template>
 
@@ -203,7 +203,9 @@
           edit:'',
           snapt:'',
           poollist:[],
-          tipscontent:''
+          tipscontent:'',
+          title:'',
+          who:''
         }
       },
       methods:{
@@ -244,8 +246,51 @@
               console.log(error)
             })
         },
+        res(data){
+          if (this.who=='block') {
+            let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.blockname;
+            });
+            this.respond = data
+            // console.log(data,this.respond)
+            if (this.respond == 'ok') {
+              this.$axios.post(this.allurl + 'manager/client/block/del_block', {ids: ids}).then(function (res) {
+                // console.log(res,'post ok')
+                if (res.data = 'ok') {
+                  $('#table_id').bootstrapTable('remove', {
+                    field: 'blockname',
+                    values: ids
+                  });
+                }
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+          }
+          else if (this.who=='snap') {
+            let ips = $.map( $('#table').bootstrapTable('getSelections'), function (row) {
+              return row.snapid;
+            });
+            this.respond = data
+            // console.log(data,this.respond)
+            if (this.respond == 'ok') {
+              this.$axios.post(this.allurl + 'manager/client/block/del_snap', {ips: ips}).then(function (res) {
+                // console.log(res,'post ok')
+                if (res.data = 'ok') {
+                  $('#table').bootstrapTable('remove', {
+                    field: 'snapid',
+                    values: ips
+                  });
+                }
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+          }
+        },
         deletelist(){                       /*块设备删除功能*/
-          var ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
+            this.who='block'
+          let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.blockname;
           });
           if (ids.length < 1) {
@@ -254,26 +299,15 @@
             // alert('请选择删除项')
           }
           else if(ids.length >= 1) {
+            this.tipscontent='是否确认选择删除块设备'
+            this.title=ids
+            this.$refs.tips.dselect()
 
-            if (confirm('是否确认选择删除块设备：' + ids)) {
-              $('#table_id').bootstrapTable('remove', {
-                field: 'blockname',
-                values: ids
-              });
-              this.$axios.post(this.allurl + 'manager/client/block/del_block', {ids: ids}).then(function (res) {
-                // console.log('post ok')
-              }).catch(function (error) {
-                console.log(error)
-              })
-            }
-            else {
-              return
-            }
-            // console.log('delete')
           }
         },
         deletel(){                    /*快照删除功能*/
-          var ids = $.map( $('#table').bootstrapTable('getSelections'), function (row) {
+            this.who='snap'
+          let ids = $.map( $('#table').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
           });
           if (ids.length < 1) {
@@ -282,21 +316,10 @@
             // alert('请选择删除项')
           }
           else if(ids.length >= 1) {
+            this.tipscontent='是否确认选择删除块设备'
+            this.title=ids
+            this.$refs.tips.dselect()
 
-            if (confirm('是否确认选择删除快照：' + ips)) {
-              $('#table').bootstrapTable('remove', {
-                field: 'snapid',
-                values: ips
-              });
-              this.$axios.post(this.allurl + 'manager/client/block/del_snap', {ips: ips}).then(function (res) {
-                // console.log('post ok')
-              }).catch(function (error) {
-                console.log(error)
-              })
-            }
-            else {
-              return
-            }
             // console.log('delete')
           }
         },
@@ -512,12 +535,15 @@
       width: 60% !important;
     }
     .add{
-      width:65px
+      width:65%
     }
   }
   @media screen and (min-width: 426px) and (max-width: 768px) {
     .kr{
       width: 100% !important;
+    }
+    .add{
+      width:100%
     }
   }
   #y{
@@ -528,7 +554,7 @@
   }
   @media screen and (max-width: 425px) {
     .kr{
-      width: 50px !important;
+      width: 45% !important;margin-right: 1em;
     }
     #y{
       display: none;
@@ -545,7 +571,7 @@
   }
   @media screen and (min-width:1600px ) {
     .kr{
-      width: 50px !important;
+      width: 30% !important;
     }
 
   }

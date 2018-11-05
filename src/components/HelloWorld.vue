@@ -8,7 +8,7 @@
           <span class="icon-bar" data-toggle="collapse" data-target="#navbar-menu"></span>
           <span class="icon-bar" data-toggle="collapse" data-target="#navbar-menu"></span>
         </button>
-        <a href="index.html" class="navbar-brand nav-title bg">
+        <a href="#" class="navbar-brand nav-title bg">
           <img src="../../static/image/logo.png" class="img-responsive imgg"/>
         </a>
       </div>

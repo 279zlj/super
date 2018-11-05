@@ -692,7 +692,7 @@
           ],
           yAxis: {
             type: 'category',
-            data: ['存储空间', 'cpu利用率', '内存容量', '可用资源'],
+            data: ['存储空间', 'CPU利用率', '内存容量', '可用资源'],
             lineStyle: {
               color: 'white'
             },

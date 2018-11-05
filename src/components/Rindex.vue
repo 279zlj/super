@@ -174,7 +174,7 @@
         <div class="row container-fluid">
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bbone">
             <div class="warn">
-              <h4>操作事件</h4>
+              <h4 style="margin: 1em">操作事件</h4>
               <div style="overflow-y: scroll;height: 12em">
               <table class="table-condensed table-responsive table">
                 <tbody>
@@ -191,18 +191,20 @@
           </div>
         </div>
       </div>
-
     </div>
+    <tips ref="tips" :content="transmiturl" :title="transmittitle"></tips>
   </div>
 </template>
 
 <script>
   import echarts from 'echarts';
   import liquidfill from 'echarts-liquidfill'
+  import tips from './tips'
     export default {
         name: "Rindex",
       echarts,
       liquidfill,
+      components:{tips},
       data(){
           return{
             cpu:[],
@@ -213,7 +215,8 @@
             osd_use:[],
             collect: {},
             pool_use:[],
-
+            transmiturl:'',
+            transmittitle:'',
 
           }
       },
@@ -275,16 +278,7 @@
                 type:'pie',
                 radius : '85%',
                 roseType : 'radius',
-                itemStyle:{
-                  normal:{
-                    color:function (params) {
-                      var colorlist=[
-                        '#2a9ae1','#ffc523','#ff5b23','#44AB47','#FF40F5','#FF2424'
-                      ];
-                      return colorlist[params.dataIndex]
-                    }
-                  }
-                },
+
                 label: {
                   normal: {
                     show: false
@@ -370,6 +364,20 @@
           })
 
 
+        },
+        cputop(){
+          this.transmiturl=this.allurl+''
+          this.$refs.tips.cpuall()
+        },
+        iopstop(){
+          this.transmiturl=this.allurl+''
+          this.transmittitle='节点IOPS信息'
+          this.$refs.tips.iopsmbpsall()
+        },
+        mbpstop(){
+          this.transmiturl=this.allurl+''
+          this.transmittitle='节点MBPS信息'
+          this.$refs.tips.iopsmbpsall()
         }
       }
     }

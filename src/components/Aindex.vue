@@ -72,7 +72,7 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal -->
   </div>
-    <tips ref="tips" :content="tipscontent"></tips>
+    <tips ref="tips" :content=tipscontent :title=title v-on:respond="res"></tips>
   </div>
 </template>
 
@@ -87,7 +87,9 @@
           asele:'',
           aback:'',
           ids:'',
-          tipscontent:''
+          tipscontent:'',
+          title:'',
+          who:''
       }
       },
       // tableDate,
