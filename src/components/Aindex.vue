@@ -102,8 +102,43 @@
             url:this.allurl+'manager/client/block/list_snap'
           })
         },
+        res(data){
+          if(this.data=='snap'){
+            let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.snapid;
+            });
+            this.respond = data
+            if (this.respond == 'ok') {
+              this.$axios.post(this.allurl + 'manager/client/block/del_snap', {ids: ids}).then(function (res) {
+                // console.log(res,'post ok')
+                if (res.data = 'ok') {
+                  $('#table_id').bootstrapTable('remove', {
+                    field: 'snapid',
+                    values: ids
+                  });
+                }
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+          }
+          else if (this.who=='back'){
+            let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.snapid;
+            });
+            this.respond = data
+            if (this.respond == 'ok') {
+              this.$axios.post(this.allurl + 'manager/client/block/roll_snap', {ids: ids}).then(function (res) {
+                // console.log(res)
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+          }
+        },
         deletelist(){               /*删除快照功能*/
-          var ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
+          this.who='snap'
+          let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
           });
           if (ids.length < 1) {
@@ -112,21 +147,9 @@
             // alert('请选择删除项')
           }
           else if(ids.length >= 1) {
-
-            if (confirm('是否确认选择删除快照：' + ids)) {
-              $('#table_id').bootstrapTable('remove', {
-                field: 'snapid',
-                values: ids
-              });
-              this.$axios.post(this.allurl + 'manager/client/block/del_snap', {ids: ids}).then(function (res) {
-                // console.log('post ok')
-              }).catch(function (error) {
-                console.log(error)
-              })
-            }
-            else {
-              return
-            }
+            this.tipscontent='是否确认选择删除快照'
+            this.title=ids
+            this.$refs.tips.dselect()
             // console.log('delete')
           }
         },
@@ -184,6 +207,7 @@
           })
         },
         goback(){                      /*快照回滚*/
+          this.who='back'
           let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
           });
@@ -193,15 +217,11 @@
             // alert('请选择其中一个设备进行回滚')
           }
           else if(ids.length === 1){
+            this.tipscontent='此操作不可逆，确认进行回滚'
+            this.title=ids
+            this.$refs.tips.dselect()
             this.aback = ids;
-            var msg=confirm('此操作不可逆，确认进行回滚？')
-            if (msg===true){
-              this.$axios.post(this.allurl+'manager/client/block/roll_snap',{ids:ids}).then(function (res) {
-                // console.log(res)
-              }).catch(function (error) {
-                console.log(error)
-              })
-            }
+
 
           }
 

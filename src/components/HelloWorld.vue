@@ -147,7 +147,7 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
     </div>
-
+    <tips ref="tips" :title=title v-on:respond="res"></tips>
   </div>
 </template>
 
@@ -155,8 +155,10 @@
   import 'store'
   import 'vuex'
   import '../store/store'
+  import tips from './tips'
 export default {
   name: 'HelloWorld',
+  components:{tips},
   data () {
     return {
       issele:'首页',
@@ -171,6 +173,7 @@ export default {
       jj:0,
       zy:0,
       cy:0,
+      title:''
     }
   },
   computed:{
@@ -183,19 +186,31 @@ export default {
 
   },
   methods:{
+    res(data){
+      this.respond=data
+      if(this.respond=='ok'){
+        this.$store.commit('islogin',0)
+        sessionStorage.removeItem('islogin');
+        localStorage.removeItem('islogin')
+        this.$router.push({path:'/Login'})
+        window.document.body.style.backgroundColor = '#242424';
+      }
+    },
     outlog(){                 /*退出登录*/
       let self=this
       $('#out').click(function () {
-
-        var msg=confirm('确定退出？')
-        if (msg===true){
-          self.$store.commit('islogin',0)
-          sessionStorage.removeItem('islogin');
-          localStorage.removeItem('islogin')
-          self.$router.push({path:'/Login'})
-          window.document.body.style.backgroundColor = '#242424';
-        }
-        else return;
+        this.title='确定退出？'
+        // this.title=ids
+        this.$refs.tips.dselect()
+        // var msg=confirm('确定退出？')
+        // if (msg===true){
+        //   self.$store.commit('islogin',0)
+        //   sessionStorage.removeItem('islogin');
+        //   localStorage.removeItem('islogin')
+        //   self.$router.push({path:'/Login'})
+        //   window.document.body.style.backgroundColor = '#242424';
+        // }
+        // else return;
       })
     },
     us(){

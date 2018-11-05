@@ -52,7 +52,7 @@
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
-      <tips ref="tips" :content=tipscontent></tips>
+      <tips ref="tips" :content=tipscontent :title=title v-on:respond="res"></tips>
     </div>
   </div>
 </template>
@@ -66,7 +66,9 @@
           return{
             urla:'',
             edit:'',
-            tipscontent:''
+            tipscontent:'',
+            title:'',
+            respond:''
           }
       },
       methods:{
@@ -103,8 +105,21 @@
              console.log(error)
            })
         },
+        res(data){
+          let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
+            return row.snapid;
+          });
+          this.respond = data
+          if (this.respond == 'ok') {
+            this.$axios.post(this.allurl + 'manager/tank/remove_tank', ids).then(function (res) {
+              // console.log('post ok')
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
+        },
         deletelist(){                 /*删除设置  */
-          var ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
+          let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
           });
           if (ids.length < 1) {
@@ -113,20 +128,9 @@
             // alert('请选择删除项')
           }
           else if(ids.length >= 1) {
-            if (confirm('是否确认选择删除存储池：' + ids)) {
-              $('#table_id').bootstrapTable('remove', {
-                field: 'snapid',
-                values: ids
-              });
-              this.$axios.post(this.allurl + 'manager/tank/remove_tank', ids).then(function (res) {
-                // console.log('post ok')
-              }).catch(function (error) {
-                console.log(error)
-              })
-            }
-            else {
-              return
-            }
+            this.tipscontent='是否确认选择删除存储池'
+            this.title=ids
+            this.$refs.tips.dselect()
             // console.log('delete')
           }
         },

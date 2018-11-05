@@ -45,7 +45,7 @@
           </div><!-- /.modal-content -->
         </div><!-- /.modal -->
       </div>
-      <tips ref="tips" :content=tipscontent></tips>
+      <tips ref="tips" :content=tipscontent :title=title v-on:respond="res"></tips>
     </div>
 </template>
 
@@ -61,7 +61,9 @@
           its:'',
           edit:'',
           rolerank:'',
-          tipscontent:''
+          tipscontent:'',
+          title:'',
+          respond:''
         }
       },
       methods:{
@@ -105,8 +107,21 @@
             console.log(error)
           })
         },
+        res(data){
+          let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
+            return row.userid;
+          });
+          this.respond=data
+          if(this.respond=='ok'){
+            this.$axios.post(this.allurl + 'manctl/user_delete', {ids: ids}).then(function (res) {
+              // console.log('post ok')
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
+        },
         deletelist(){                       /*用户的删除*/
-          var ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
+          let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.userid;
           });
           if (ids.length < 1) {
@@ -115,21 +130,10 @@
             // alert('请选择删除项')
           }
           else if(ids.length >= 1) {
+            this.tipscontent='是否确认选择删除用户'
+            this.title=ids
+            this.$refs.tips.dselect()
 
-            if (confirm('是否确认选择删除用户：' + ids)) {
-              $('#usert').bootstrapTable('remove', {
-                field: 'userid',
-                values: ids
-              });
-              this.$axios.post(this.allurl + 'manctl/user_delete', {ids: ids}).then(function (res) {
-                // console.log('post ok')
-              }).catch(function (error) {
-                console.log(error)
-              })
-            }
-            else {
-              return
-            }
             // console.log('delete')
           }
         },

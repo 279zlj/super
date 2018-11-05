@@ -44,7 +44,8 @@
         <div style="width: 300px" id="h">
           <div @click="empower()" id="gett" style="float: left" ><img src="../../static/image/get.png" class="img-responsive getpower" title="授权"/></div>
           <div @click="noempower()" id="ngett" style="float: left" ><img src="../../static/image/nget.png" class="img-responsive getpower" title="取消授权"/></div>
-          <div @click="deletel()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="删除"></span></div>
+          <div @click="deletel()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete
+" title="删除"></span></div>
         </div>
       </div>
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive two">
