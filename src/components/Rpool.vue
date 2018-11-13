@@ -22,11 +22,11 @@
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
-            <th data-field="poolname">存储池名称</th>
-            <th data-field="strategy">存储策略</th>
+            <th data-field="poolname">{{$t('message.Pool-name')}}</th>
+            <th data-field="strategy">{{$t('message.Strategy')}}</th>
             <th data-field="iops">IOPS</th>
-            <th data-field="thtuput">吞吐量</th>
-            <th data-field="status">状态</th>
+            <th data-field="thtuput">{{$t('message.Throughput')}}</th>
+            <th data-field="status">{{$t('message.Status')}}</th>
           </tr>
           </thead>
           <tbody>
@@ -53,10 +53,10 @@
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
-            <th data-field="pname">发起程序名</th>
+            <th data-field="pname">{{$t('message.Initiator-name')}}</th>
             <th data-field="ip">IP</th>
-            <th data-field="isempower">是否授权</th>
-            <th data-field="isconnect">是否连接</th>
+            <th data-field="isempower">{{$t('message.Authorized')}}</th>
+            <th data-field="isconnect">{{$t('message.Connection')}}</th>
           </tr>
           </thead>
           <tbody>
@@ -69,15 +69,15 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">修改存储池信息</h4>
+            <h4 class="modal-title" id="myModalLabel">{{$t('message.Modify-storage-pool-information')}}</h4>
           </div>
           <div class="modal-body">
-            <p>存储池名称：</p><input type="text" class="form-control" id="name" ref="name" :placeholder=this.ids />
-            <p>存储策略：</p><input type="text" class="form-control" id="content" ref="content"/>
+            <p>{{$t('message.Pool-name')}}：</p><input type="text" class="form-control" id="name" ref="name" :placeholder=this.ids />
+            <p>{{$t('message.Strategy')}}：</p><input type="text" class="form-control" id="content" ref="content"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">确认修改</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+            <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -87,14 +87,14 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="client">添加iSCSI客户端</h4>
+            <h4 class="modal-title" id="client">{{$t('message.Add-iSCSI-client')}}</h4>
           </div>
           <div class="modal-body">
-            <p>添加iSCSI客户端：</p><input type="text" class="form-control" id="clientname" ref="addclient"/>
+            <p>{{$t('message.Add-iSCSI-client')}}：</p><input type="text" class="form-control" id="clientname" ref="addclient"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" @click="clientsend()" data-dismiss="modal">确认添加</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+            <button type="button" class="btn btn-primary" @click="clientsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -104,14 +104,14 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="dila">存储池扩容</h4>
+            <h4 class="modal-title" id="dila">{{$t('message.Memory-pool-expansion')}}</h4>
           </div>
           <div class="modal-body">
-            <p>存储池大小修改：</p><input type="number" class="form-control" id="poolsize" ref="poolsize"/>
+            <p>{{$t('message.Memory-pool-size-modification')}}：</p><input type="number" class="form-control" id="poolsize" ref="poolsize"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" @click="sizesend()" data-dismiss="modal">确认更改</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+            <button type="button" class="btn btn-primary" @click="sizesend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -121,13 +121,13 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="addpool">添加存储池</h4>
+            <h4 class="modal-title" id="addpool">{{$t('message.Add-storage-pool')}}</h4>
           </div>
           <div class="modal-body">
-            <p>存储池名称：</p><input type="text" class="form-control" id="addname" ref="addname" />
-            <p>存储池容量：</p><input type="number" class="form-control" id="addsize" ref="addsize"/>
+            <p>{{$t('message.Pool-name')}}：</p><input type="text" class="form-control" id="addname" ref="addname" />
+            <p>{{$t('message.Storage-pool-capacity')}}：</p><input type="number" class="form-control" id="addsize" ref="addsize"/>
             <p>pgs：</p><input type="number" class="form-control" id="addnum" ref="addnum"/>
-            <p>存储池类型：</p>
+            <p>{{$t('message.Storage-pool-type')}}：</p>
             <select class="form-control" v-on:change="sel($event)" v-model="unitsele">
               <option v-for="m in unit" :value="m.value">{{m.name}}</option>
             </select>
@@ -137,13 +137,13 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" @click="addsend()" data-dismiss="modal">确认</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+            <button type="button" class="btn btn-primary" @click="addsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
     </div>
-    <tips ref="tips" :content=tipscontent :title=title v-on:respond="res"></tips>
+    <tips ref="tips" :content=tipscontent :dotitle=title :docontent=dosome v-on:respond="res"></tips>
   </div>
 </template>
 
@@ -166,7 +166,8 @@
             tipscontent:'',
             title:'',
             respond:'',
-            who:''
+            who:'',
+            dosome:''
           }
       },
       methods:{
@@ -209,6 +210,7 @@
           });
           if (ids.length !== 1) {
             this.tipscontent='请选择其中一个设备进行扩容'
+            // console.log(this.tipscontent)
             this.$refs.tips.usetips()
             // alert('请选择其中一个设备进行扩容')
           }
@@ -345,8 +347,8 @@
             // alert('请选择删除项')
           }
           else if(ids.length >= 1) {
-            this.tipscontent='是否确认选择删除存储池'
-            this.title=ids
+            this.title='是否确认选择删除存储池'
+            this.dosome=ids
             this.$refs.tips.dselect()
 
 
@@ -369,8 +371,8 @@
             // alert('请选择删除项')
           }
           else if(ids.length >= 1) {
-              this.tipscontent='是否确认选择删除该授权记录'
-              this.title=ids
+              this.title='是否确认选择删除该授权记录'
+              this.some=ids
               this.$refs.tips.dselect()
 
 
@@ -410,8 +412,8 @@
               // alert('请选择其中一个进行授权')
             }
             else {
-              this.tipscontent='是否确认进行授权操作'
-              this.title=ips
+              this.title='是否确认进行授权操作'
+              this.dosome=ips
               this.$refs.tips.dselect()
 
             }
@@ -428,8 +430,8 @@
             // alert('请选择其中一个取消授权')
           }
           else {
-            this.tipscontent='是否确认进行取消授权操作'
-            this.title=ips
+            this.title='是否确认进行取消授权操作'
+            this.dosome=ips
             this.$refs.tips.dselect()
           }
         },

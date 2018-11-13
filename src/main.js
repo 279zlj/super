@@ -6,6 +6,7 @@ import App from './App'
 import 'store'
 import qs from 'qs'
 import VueI18n from 'vue-i18n'
+import VueResource from 'vue-resource'
 import store from '../src/store/store'
 import router from './router'
 import '@/assets/js/jquery-3.3.1.min.js'
@@ -21,10 +22,12 @@ import '@/assets/js/base.js'
 import './mock/mock'
 import 'es6-promise/auto'
 import  '../src/assets/js/base'
-
+import langzh from './language/zh'
+import langen from './language/en'
 
 Vue.use(Vuex)
 Vue.use(router)
+Vue.use(VueResource)
 Vue.use(VueI18n)
 Vue.prototype.$qs=qs
 Vue.config.productionTip = false
@@ -39,17 +42,20 @@ Vue.prototype.$axios = axios;
 //   return html.join('');
 // }
 
-Vue.prototype.allurl='http://192.168.1.213:8000/'
+Vue.prototype.allurl='http://192.168.1.198:8000/'
 
-const il8n = new VueI18n({                    /*页面中英文切换*/
-  //定义默认语言
-  locale: 'zh',
-  messages:{
-    zh:import('../static/language/zh.json'),
-    en:import('../static/language/zh.json')
-
+const i18n = new VueI18n({
+  // locale: window.localStorage.getItem('language')===null?'zh':window.localStorage.getItem('language'), // 语言标识，设置默认语言
+  locale:'zh',
+  messages: {
+    'zh': langzh, // 简体中文
+    'en': langen, // 英文
   }
 })
+
+
+
+
 
 router.beforeEach((to,from,next)=>{                          /*路由守卫，禁止直接通过url访问页面内容*/
     if (to.meta.requiresAuth) {
@@ -89,7 +95,7 @@ new Vue({
   router,
   echarts,
   axios,
-  il8n,
+  i18n,
   store,
   components: { App },
   template: '<App/>',

@@ -20,12 +20,12 @@
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
-            <th data-field="snapid">快照ID</th>
-            <th data-field="snapname">快照名称</th>
-            <th data-field="content">描述</th>
-            <th data-field="date">创建日期</th>
-            <th data-field="size">大小</th>
-            <th data-field="status">状态</th>
+            <th data-field="snapid">{{$t('message.Snap-ID')}}</th>
+            <th data-field="snapname">{{$t('message.Snap-name')}}</th>
+            <th data-field="content">{{$t('message.Description')}}</th>
+            <th data-field="date">{{$t('message.Date-created')}}</th>
+            <th data-field="size">{{$t('message.Size')}}</th>
+            <th data-field="status">{{$t('message.Status')}}</th>
           </tr>
           </thead>
           <tbody>
@@ -40,15 +40,15 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">修改快照信息</h4>
+            <h4 class="modal-title" id="myModalLabel">{{$t('message.Modify-snapshot-information')}}</h4>
           </div>
           <div class="modal-body">
-            <p>快照名称：</p><input type="text" class="form-control" id="name" ref="saname" :placeholder=ids />
-            <p>描述：</p><input type="text" class="form-control" id="content" ref="sacontent"/>
+            <p>{{$t('message.Snap-name')}}：</p><input type="text" class="form-control" id="name" ref="saname" :placeholder=ids />
+            <p>{{$t('message.Description')}}：</p><input type="text" class="form-control" id="content" ref="sacontent"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">确认修改</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+            <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -60,19 +60,19 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title" id="clonename">快照克隆</h4>
+          <h4 class="modal-title" id="clonename">{{$t('message.Snapclone')}}</h4>
         </div>
         <div class="modal-body">
-          <p>克隆快照名称：</p><input type="text" class="form-control" id="aclone" ref="aclone"/>
+          <p>{{$t('message.Snapclone-name')}}：</p><input type="text" class="form-control" id="aclone" ref="aclone"/>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-          <button type="button" class="btn btn-primary" @click="sendclone()" data-dismiss="modal">确定</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+          <button type="button" class="btn btn-primary" @click="sendclone()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal -->
   </div>
-    <tips ref="tips" :content=tipscontent :title=title v-on:respond="res"></tips>
+    <tips ref="tips" :content=tipscontent :dotitle=title :docontent=dosome v-on:respond="res"></tips>
   </div>
 </template>
 
@@ -89,7 +89,8 @@
           ids:'',
           tipscontent:'',
           title:'',
-          who:''
+          who:'',
+          dosome:''
       }
       },
       // tableDate,
@@ -147,8 +148,8 @@
             // alert('请选择删除项')
           }
           else if(ids.length >= 1) {
-            this.tipscontent='是否确认选择删除快照'
-            this.title=ids
+            this.title='是否确认选择删除快照'
+            this.dosome=ids
             this.$refs.tips.dselect()
             // console.log('delete')
           }
@@ -217,8 +218,8 @@
             // alert('请选择其中一个设备进行回滚')
           }
           else if(ids.length === 1){
-            this.tipscontent='此操作不可逆，确认进行回滚'
-            this.title=ids
+            this.title='此操作不可逆，确认进行回滚'
+            this.dosome=ids
             this.$refs.tips.dselect()
             this.aback = ids;
 

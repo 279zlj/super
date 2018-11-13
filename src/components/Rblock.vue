@@ -20,11 +20,11 @@
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
-            <th data-field="blockname">块设备名称</th>
-            <th data-field="bpool">存储池</th>
-            <th data-field="bsize">容量</th>
-            <th data-field="bfrom">源自</th>
-            <th data-field="status">状态</th>
+            <th data-field="blockname">{{$t('message.Block-name')}}</th>
+            <th data-field="bpool">{{$t('message.Pool')}}</th>
+            <th data-field="bsize">{{$t('message.Capacity')}}</th>
+            <th data-field="bfrom">{{$t('message.From')}}</th>
+            <th data-field="status">{{$t('message.Status')}}</th>
           </tr>
           </thead>
           <tbody>
@@ -52,11 +52,11 @@
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
-            <th data-field="snapid">快照ID</th>
-            <th data-field="snapname">快照名称</th>
-            <th data-field="content">描述</th>
-            <th data-field="date">创建时间</th>
-            <th data-field="status">状态</th>
+            <th data-field="snapid">{{$t('message.Snap-ID')}}</th>
+            <th data-field="snapname">{{$t('message.Snap-name')}}</th>
+            <th data-field="content">{{$t('message.Description')}}</th>
+            <th data-field="date">{{$t('message.Creation-time')}}</th>
+            <th data-field="status">{{$t('message.Status')}}</th>
           </tr>
           </thead>
           <tbody>
@@ -69,15 +69,15 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">修改快照信息</h4>
+            <h4 class="modal-title" id="myModalLabel">{{$t('message.Modify-snapshot-information')}}</h4>
           </div>
           <div class="modal-body">
-            <p>快照名称：</p><input type="text" class="form-control" id="name" ref="name" :placeholder=name />
-            <p>描述：</p><input type="text" class="form-control" id="content" ref="content"/>
+            <p>{{$t('message.Snap-name')}}：</p><input type="text" class="form-control" id="name" ref="name" :placeholder=name />
+            <p>{{$t('message.Description')}}：</p><input type="text" class="form-control" id="content" ref="content"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">确认修改</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+            <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -87,14 +87,14 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="bdilata">块设备扩容</h4>
+            <h4 class="modal-title" id="bdilata">{{$t('message.Block-capacity-expansion')}}</h4>
           </div>
           <div class="modal-body">
-            <p>块设备大小修改：</p><input type="number" class="form-control" id="poolsize" ref="blocksize"/>
+            <p>{{$t('message.Block-device-size-modification')}}：</p><input type="number" class="form-control" id="poolsize" ref="blocksize"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" @click="sizesend()" data-dismiss="modal">确认更改</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+            <button type="button" class="btn btn-primary" @click="sizesend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -104,20 +104,20 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="bsnap">创建快照</h4>
+            <h4 class="modal-title" id="bsnap">{{$t('message.Create-Snapshot')}}</h4>
           </div>
           <div class="modal-body">
-            <p>所属存储池：</p>
+            <p>{{$t('message.Subordinate-storage-pool')}}：</p>
             <select @click="selec()" v-on:change="indexsel($event)" v-model="sele" class="form-control">
 
               <option v-for="i in poollist" :value="i.val" >{{i.name}}</option>
             </select>
-            <p>快照名称：</p><input type="text" class="form-control" id="snapname" ref="snapname"/>
-            <p>描述：</p><input type="text" class="form-control" id="snapcontent" ref="snapcontent"/>
+            <p>{{$t('message.Snap-name')}}：</p><input type="text" class="form-control" id="snapname" ref="snapname"/>
+            <p>{{$t('message.Description')}}：</p><input type="text" class="form-control" id="snapcontent" ref="snapcontent"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" @click="snapsend()" data-dismiss="modal">确认创建</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+            <button type="button" class="btn btn-primary" @click="snapsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -127,15 +127,15 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="change">更改时间</h4>
+            <h4 class="modal-title" id="change">{{$t('message.Change-time')}}</h4>
           </div>
           <div class="modal-body">
-            <p>更改时间：</p><input type="time" class="form-control" id="ti" ref="ti"/>
+            <p>{{$t('message.Change-time')}}：</p><input type="time" class="form-control" id="ti" ref="ti"/>
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" @click="changet()" data-dismiss="modal">确认更改</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+            <button type="button" class="btn btn-primary" @click="changet()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -145,15 +145,15 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="clonename">快照克隆</h4>
+            <h4 class="modal-title" id="clonename">{{$t('message.Snapclone')}}</h4>
           </div>
           <div class="modal-body">
 
-            <p>克隆快照名称：</p><input type="text" class="form-control" id="bclone" ref="bclone"/>
+            <p>{{$t('message.Snapclone-name')}}：</p><input type="text" class="form-control" id="bclone" ref="bclone"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" @click="sendclone()" data-dismiss="modal">确定</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+            <button type="button" class="btn btn-primary" @click="sendclone()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -163,25 +163,25 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="addpool">添加块设备</h4>
+            <h4 class="modal-title" id="addpool">{{$t('message.Add-block-device')}}</h4>
           </div>
           <div class="modal-body">
-            <p>块设备名称：</p><input type="text" class="form-control" id="addname" ref="addname"/>
-            <p>块设备容量：</p><input type="number" class="form-control" id="addsize" ref="addsize"/>
-            <p>存储池：</p>
+            <p>{{$t('message.Block-name')}}：</p><input type="text" class="form-control" id="addname" ref="addname"/>
+            <p>{{$t('message.Block-capacity')}}：</p><input type="number" class="form-control" id="addsize" ref="addsize"/>
+            <p>{{$t('message.Pool')}}：</p>
             <select @click="selec()" v-on:change="bindexsel($event)" v-model="bsele" class="form-control">
               <option v-for="i in poollist" :value="i.val" >{{i.name}}</option>
             </select>
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" @click="addsend()" data-dismiss="modal">确认</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+            <button type="button" class="btn btn-primary" @click="addsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
     </div>
-    <tips ref="tips" :content=tipscontent :title=title v-on:respond="res"></tips>
+    <tips ref="tips" :content=tipscontent :dotitle=title :docontent=dosome v-on:respond="res"></tips>
   </div>
 </template>
 
@@ -205,7 +205,8 @@
           poollist:[],
           tipscontent:'',
           title:'',
-          who:''
+          who:'',
+          dosome:''
         }
       },
       methods:{
@@ -299,8 +300,8 @@
             // alert('请选择删除项')
           }
           else if(ids.length >= 1) {
-            this.tipscontent='是否确认选择删除块设备'
-            this.title=ids
+            this.title='是否确认选择删除块设备'
+            this.dosome=ids
             this.$refs.tips.dselect()
 
           }
@@ -316,8 +317,8 @@
             // alert('请选择删除项')
           }
           else if(ids.length >= 1) {
-            this.tipscontent='是否确认选择删除块设备'
-            this.title=ids
+            this.title='是否确认选择删除块设备'
+            this.dosome=ids
             this.$refs.tips.dselect()
 
             // console.log('delete')

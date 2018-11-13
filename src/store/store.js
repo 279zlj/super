@@ -17,11 +17,15 @@ const store =new Vuex.Store({
     mread:[],
     delaytime:[],
     health:{},
+    // language:''
   },
   mutations:{
     islogin(state,msg){
       state.islogin=msg;
     },
+    // selectlang(state,what){
+    //   state.language=what
+    // },
     countwarn(state,stau){
       state.jj=stau.one;
       state.zy=stau.two;

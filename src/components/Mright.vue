@@ -1,8 +1,18 @@
 <template>
   <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12" id="Mright">
-    <div class="one" v-for="i in nav" :class="ind===i.name?'two':''" @click="changenav(i.name)">
+    <div class="one" :class="ind==='Mwarn'?'two':''" @click="changenav('Mwarn')">
       <div>
-        <router-link :to="{name:i.href}" ><p >{{i.name}}</p></router-link>
+        <router-link :to="{name:'Mwarn'}" ><p >{{$t('message.Alarm')}}</p></router-link>
+      </div>
+    </div>
+    <div class="one" :class="ind==='Mindex'?'two':''" @click="changenav('Mindex')">
+      <div>
+        <router-link :to="{name:'Mindex'}" ><p >{{$t('message.Solution')}}</p></router-link>
+      </div>
+    </div>
+    <div class="one" :class="ind==='Msolve'?'two':''" @click="changenav('Msolve')">
+      <div>
+        <router-link :to="{name:'Msolve'}" ><p >{{$t('message.Import-solution-package')}}</p></router-link>
       </div>
     </div>
   </div>
@@ -13,12 +23,7 @@
         name: "Mright",
       data:function(){
         return{
-          nav:[
-            {index: '0',name:'警报',href:'Mwarn'},
-            {index: '0',name:'解决方案',href:'Mindex'},
 
-            {index: '0',name: '导入解决包',href:'Msolve'},
-          ],
           ind:'解决方案'
         }
       },

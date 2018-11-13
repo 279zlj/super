@@ -4,13 +4,13 @@
       <table class="table table-responsive text-nowrap" id="table_id" data-height="550" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toggle="table"  data-classes="table-no-bordered" >
         <thead>
         <tr>
-          <th data-field="rank" >级别</th>
-          <th data-field="status" >状态</th>
-          <th data-field="warnid">警报ID</th>
-          <th data-field="warnname">警报名称</th>
-          <th data-field="warnindex">对象索引</th>
-          <th data-field="date">产生时间</th>
-          <th data-field="content">警报描述</th>
+          <th data-field="rank" >{{$t('message.Rank')}}</th>
+          <th data-field="status" >{{$t('message.Status')}}</th>
+          <th data-field="warnid">{{$t('message.Alert-ID')}}</th>
+          <th data-field="warnname">{{$t('message.Alert-name')}}</th>
+          <th data-field="warnindex">{{$t('message.An-object')}}</th>
+          <th data-field="date">{{$t('message.Time-Generated')}}</th>
+          <th data-field="content">{{$t('message.Alert-description')}}</th>
         </tr>
         </thead>
         <tbody>

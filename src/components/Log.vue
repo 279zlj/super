@@ -9,10 +9,10 @@
       <thead>
       <tr>
         <th data-field="state" data-checkbox="true" ></th>
-        <th data-field="name">节点名称</th>
-        <th data-field="ip">IP地址</th>
-        <th data-field="size">日志大小</th>
-        <th data-field="logname">日志名称</th>
+        <th data-field="name">{{$t('message.Node-name')}}</th>
+        <th data-field="ip">{{$t('message.IP-address')}}</th>
+        <th data-field="size">{{$t('message.Log-size')}}</th>
+        <th data-field="logname">{{$t('message.Name-of-the-log')}}</th>
       </tr>
       </thead>
       <tbody>

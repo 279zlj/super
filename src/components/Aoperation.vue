@@ -25,9 +25,9 @@
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
             <th data-field="id">ID</th>
-            <th data-field="content">描述</th>
-            <th data-field="size">容量</th>
-            <th data-field="date">更新时间</th>
+            <th data-field="content">{{$t('message.Description')}}</th>
+            <th data-field="size">{{$t('message.Capacity')}}</th>
+            <th data-field="date">{{$t('message.Turnover-time')}}</th>
           </tr>
           </thead>
           <tbody>
@@ -40,19 +40,19 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">修改运维信息</h4>
+            <h4 class="modal-title" id="myModalLabel">{{$t('message.Modify-operational-information')}}</h4>
           </div>
           <div class="modal-body">
-            <p>容量：</p><input type="text" class="form-control" id="name" ref="size"/>
-            <p>描述：</p><input type="text" class="form-control" id="content" ref="content"/>
+            <p>{{$t('message.Capacity')}}：</p><input type="text" class="form-control" id="name" ref="size"/>
+            <p>{{$t('message.Description')}}：</p><input type="text" class="form-control" id="content" ref="content"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">确认修改</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+            <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
-      <tips ref="tips" :content=tipscontent :title=title v-on:respond="res"></tips>
+      <tips ref="tips" :content=tipscontent :dotitle=title :docontent=dosome v-on:respond="res"></tips>
     </div>
   </div>
 </template>
@@ -68,7 +68,8 @@
             edit:'',
             tipscontent:'',
             title:'',
-            respond:''
+            respond:'',
+            dosome:''
           }
       },
       methods:{
@@ -128,8 +129,8 @@
             // alert('请选择删除项')
           }
           else if(ids.length >= 1) {
-            this.tipscontent='是否确认选择删除存储池'
-            this.title=ids
+            this.title='是否确认选择删除存储池'
+            this.dosome=ids
             this.$refs.tips.dselect()
             // console.log('delete')
           }

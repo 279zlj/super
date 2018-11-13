@@ -11,8 +11,8 @@
               </colgroup>
               <thead>
 
-                <th>配置项</th>
-                <th>参数</th>
+                <th>{{$t('message.Config-Options')}}</th>
+                <th>{{$t('message.Parameter')}}</th>
               </thead>
               <tbody>
               <tr>
@@ -24,7 +24,7 @@
                 </td>
               </tr>
                 <tr>
-                  <td>数据重构QoS控制</td>
+                  <td>{{$t('message.Data-refactoring-QoS-control')}}</td>
                   <td>
                     <div class="form">
                       <div  v-for="v in radiolist" style="display: table-cell;justify-content: center;align-items: center">
@@ -34,7 +34,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>自建启动延时</td>
+                  <td>{{$t('message.Self-built-start-delay')}}</td>
                   <td>
                     <div class="row">
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >
@@ -49,7 +49,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>一致性检查时间</td>
+                  <td>{{$t('message.Consistency-check-times')}}</td>
                   <td>
                     <input type="time" class="form-control" ref="starttime"/>
                     -
@@ -78,8 +78,8 @@
               <col style="width:35%" />
             </colgroup>
             <thead>
-            <th>配置项</th>
-            <th>参数</th>
+            <th>{{$t('message.Config-Options')}}</th>
+            <th>{{$t('message.Parameter')}}</th>
             </thead>
             <tbody>
             <tr>
@@ -92,7 +92,7 @@
                 </select>
               </td>
             <tr>
-              <td>数据重构QoS控制</td>
+              <td>{{$t('message.Data-refactoring-QoS-control')}}</td>
               <td>
                 <div class="form">
                   <div  v-for="p in radiolist" style="display: table-cell;justify-content: center;align-items: center">
@@ -102,7 +102,7 @@
               </td>
             </tr>
             <tr>
-              <td>自建启动延时</td>
+              <td>{{$t('message.Self-built-start-delay')}}</td>
               <td>
                 <div class="row">
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >
@@ -117,7 +117,7 @@
               </td>
             </tr>
             <tr>
-              <td>一致性检查时间</td>
+              <td>{{$t('message.Consistency-check-times')}}</td>
               <td>
 
                   <input type="time" class="form-control" ref="strat2"/>
@@ -148,8 +148,8 @@
                 <col style="width:35%" />
               </colgroup>
               <thead>
-              <th>配置项</th>
-              <th>参数</th>
+              <th>{{$t('message.Config-Options')}}</th>
+              <th>{{$t('message.Parameter')}}</th>
               </thead>
               <tbody>
               <tr>
@@ -162,7 +162,7 @@
                   </select>
                 </td>
               <tr>
-                <td>数据重构QoS控制</td>
+                <td>{{$t('message.Data-refactoring-QoS-control')}}</td>
                 <td>
                   <div class="form">
                     <div  v-for="n in radiolist" style="display: table-cell;justify-content: center;align-items: center">
@@ -172,7 +172,7 @@
                 </td>
               </tr>
               <tr>
-                <td>自建启动延时</td>
+                <td>{{$t('message.Self-built-start-delay')}}</td>
                 <td>
                   <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >
@@ -187,7 +187,7 @@
                 </td>
               </tr>
               <tr>
-                <td>一致性检查时间</td>
+                <td>{{$t('message.Consistency-check-times')}}</td>
                 <td>
                   <input type="time" class="form-control" ref="strat3"/>
                   -

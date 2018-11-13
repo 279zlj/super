@@ -1,34 +1,52 @@
 <template>
     <div id="tips">
-      <div class="modal fade" id="tipsmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal fade" id="tipsmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" v-if="content">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="myModalLabel">提示</h4>
+              <h4 class="modal-title" id="myModalLabel">{{$t('message.Prompt')}}</h4>
             </div>
             <div class="modal-body">
                 <p>{{content}}</p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Confirm')}}</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal -->
       </div>
 
-      <div class="modal fade" id="deletesure" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="delete">操作提示</h4>
+              <h4 class="modal-title" id="log">{{$t('message.Exit-the-prompt')}}</h4>
             </div>
             <div class="modal-body">
-              <p>{{content}}：{{title}}</p>
+              <p>{{out}}</p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal" @click="dsure()">确定</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"  @click="osure()">{{$t('message.Confirm')}}</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+      </div>
+
+      <div class="modal fade" id="deletesure" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" v-if="dotitle || docontent">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="delete">{{$t('message.Operation-tip')}}</h4>
+            </div>
+            <div class="modal-body">
+              <p>{{dotitle}}:{{docontent}}</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+              <button type="button" class="btn btn-info" data-dismiss="modal" @click="dsure()">{{$t('message.Confirm')}}</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal -->
@@ -56,14 +74,14 @@
               </table>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-              <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Close')}}</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">{{$t('message.Confirm')}}</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal -->
       </div>
 
-      <div class="modal fade" id="iopsmbps" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal fade" id="iopsmbps" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" v-if="title">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -85,8 +103,8 @@
               </table>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-              <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Close')}}</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">{{$t('message.Confirm')}}</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal -->
@@ -105,10 +123,40 @@
         components:{
           tips
         },
+      props:['content','title','out','docontent','dotitle'],
+      data(){
+          return{
+
+          }
+      },
+      watch:{
+        content(){
+          // console.log(this.content)
+          return this.content
+        },
+        title(){
+          // console.log(this.title)
+          return this.title
+        },
+        out(){
+          // console.log(this.out)
+          return this.out
+        },
+        docontent(){
+          return this.docontent
+        },
+        dotitle(){
+          return this.dotitle
+        }
+      },
       methods:{
         usetips(){
-          // console.log('click')
+
           $('#tipsmodel').modal("show")
+        },
+        logout(){
+          // console.log('click')
+          $('#logout').modal("show")
         },
         cpuall(){
           $('#cput').modal("show")
@@ -127,20 +175,23 @@
         },
         dsure(){
           this.$emit("respond","ok")
+        },
+        osure(){
+          this.$emit("log","logout")
         }
       },
-      props:['content','title']
+
 
     }
 </script>
 
 <style scoped>
-  #tipsmodel {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-  }
+  /*#tipsmodel {*/
+    /*position: absolute;*/
+    /*top: 50%;*/
+    /*left: 50%;*/
+    /*transform: translateX(-50%) translateY(-50%);*/
+  /*}*/
   .o{
     background-color: #292431;
   }

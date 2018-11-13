@@ -16,10 +16,24 @@
       <div class="col-lg-3 col-md-3 col-sm-1 col-xs-0">
 
       </div>
-      <div v-for="i in nav" class="col-lg-1 col-md-1 col-sm-1 col-xs-12 one" :class="issele===i.name?'two':''">
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 one"  :class="issele==='HelloWorld'?'two':''">
         <div class="r-border" >
-          <router-link :to="{name:i.href}"><p class="font" @click="changenav(i.name)">{{i.name}}</p></router-link>
-          <!--<p class="font" @click="changenav(i.name)">{{i.name}}</p>-->
+          <router-link :to="{name:'HelloWorld'}" ><p class="font" @click="changenav('HelloWorld')" >{{$t('nav.Home')}}</p></router-link>
+        </div>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 one"  :class="issele==='Resources'?'two':''">
+        <div class="r-border" >
+          <router-link :to="{name:'Resources'}"><p class="font" @click="changenav('Resources')">{{$t('nav.Control')}}</p></router-link>
+        </div>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 one"  :class="issele==='Allocation'?'two':''">
+        <div class="r-border" >
+          <router-link :to="{name:'Allocation'}"><p class="font" @click="changenav('Allocation')">{{$t('nav.Allocation')}}</p></router-link>
+        </div>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 one" :class="issele==='Management'?'two':''" >
+        <div class="r-border" >
+          <router-link :to="{name:'Management'}"><p class="font" @click="changenav('Management')">{{$t('nav.Risk')}}</p></router-link>
         </div>
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 warnstatus" >
@@ -32,24 +46,24 @@
       <div class="col-lg-1 col-md-1 col-md-offset-0 col-sm-2 col-xs-12 dropdown">
       <a class="dropdown-toggle glyphicon glyphicon-user white" data-toggle="dropdown" style="cursor: pointer"><span class="jl">admin</span></a>
         <ul class="dropdown-menu">
-          <li @click="us()"><router-link :to="{name:'User'}">用户管理</router-link></li>
-          <li><a style="cursor: pointer"><span id="out">退出登陆</span></a></li>
+          <li @click="us()"><router-link :to="{name:'User'}">{{$t('message.User-control')}}</router-link></li>
+          <li><a style="cursor: pointer"><span @click="outlog">{{$t('message.Log-out')}}</span></a></li>
         </ul>
       </div>
       <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12 dropdown">
-      <a class="dropdown-toggle glyphicon glyphicon-cog white" data-toggle="dropdown" style="cursor: pointer"><span class="jl">管理</span></a>
+      <a class="dropdown-toggle glyphicon glyphicon-cog white" data-toggle="dropdown" style="cursor: pointer"><span class="jl">{{$t('nav.Management')}}</span></a>
         <ul class="dropdown-menu">
-          <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#bb" @click="bbm()">版本管理</span></a></li>
-          <li><a ><span style="cursor: pointer" data-toggle="modal" data-target="#lisense" @click="lis()">lisense管理</span></a></li>
-          <li @click="us()"><router-link :to="{name:'Log'}">日志管理</router-link></li>
-          <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#notice" @click="addnotice()">添加警告通知</span></a></li>
+          <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#bb" @click="bbm()">{{$t('message.Versioning')}}</span></a></li>
+          <li><a ><span style="cursor: pointer" data-toggle="modal" data-target="#lisense" @click="lis()">{{$t('message.Lisense-management')}}</span></a></li>
+          <li @click="us()"><router-link :to="{name:'Log'}">{{$t('message.Log-management')}}</router-link></li>
+          <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#notice" @click="addnotice()">{{$t('message.Add-warning-notice')}}</span></a></li>
         </ul>
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 dropdown" id="lang">
-        <a data-toggle="dropdown" style="cursor: pointer;color: white"><span class="j2">语言</span></a>
+        <a data-toggle="dropdown" style="cursor: pointer" class="glyphicon glyphicon-font white"><span class="j2">{{$t('nav.Language')}}</span></a>
         <ul class="dropdown-menu">
-          <li ><a style="cursor: pointer">中文</a></li>
-          <li><a style="cursor: pointer">英语</a></li>
+          <li ><a style="cursor: pointer" @click="changelanguage('zh')">{{$t('message.Chinese')}}</a></li>
+          <li><a style="cursor: pointer" @click="changelanguage('en')">{{$t('message.English')}}</a></li>
         </ul>
       </div>
     </div>
@@ -58,15 +72,15 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="bbmodal">版本升级</h4>
+            <h4 class="modal-title" id="bbmodal">{{$t('message.Version-upgrade')}}</h4>
           </div>
           <div class="modal-body">
             <div class="row">
-              <div class="col-lg-6 col-lg-offset-4 col-md-6 col-sm-6 col-xs-6">
+              <div class="col-lg-6 col-lg-offset-3 col-md-6 col-sm-6 col-xs-6">
                 <input type="file" class="form-control" value="请选择上传的安装包"/>
               </div>
               <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                <button class="btn btn-info">上传</button>
+                <button class="btn btn-info">{{$t('message.Uploading')}}</button>
               </div>
             </div>
             <div class="row container-fluid" style="margin-top: 1em">
@@ -74,7 +88,7 @@
               <table class="table table-responsive" id="modalt" data-toggle="table"  data-classes="table-no-bordered"  data-toolbar="#toolbar" >
                 <thead class="p">
                 <tr>
-                  <th data-field="rank">当前版本：v11</th>
+                  <th data-field="rank">{{$t('message.Current-Versions')}}：v11</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -87,8 +101,8 @@
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Close')}}</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -98,18 +112,18 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
-            <h4 class="modal-title" id="lisensemodal">lisense管理</h4>
+            <h4 class="modal-title" id="lisensemodal">{{$t('message.Lisense-management')}}</h4>
           </div>
           <div class="modal-body">
             <table class="table table-responsive table-condensed" id="lisenset" data-toggle="table"  data-toolbar="#toolbar" data-classes="table-no-bordered">
               <thead class="o">
               <tr>
-                <th data-field="node" >服务器节点</th>
-                <th data-field="ipaddress" >IP地址</th>
-                <th data-field="rank" >许可证</th>
-                <th data-field="time" >剩余时间</th>
-                <th data-field="size" >授权容量</th>
-                <th data-field="usize" >使用容量</th>
+                <th data-field="node" >{{$t('message.Server-node')}}</th>
+                <th data-field="ipaddress" >{{$t('message.IP-address')}}</th>
+                <th data-field="rank" >{{$t('message.Licence')}}</th>
+                <th data-field="time" >{{$t('message.RemainingTime')}}</th>
+                <th data-field="size" >{{$t('message.Authorized-capacity')}}</th>
+                <th data-field="usize" >{{$t('message.Available-capacity')}}</th>
               </tr>
               </thead>
               <tbody>
@@ -117,8 +131,8 @@
             </table>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Close')}}</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -128,7 +142,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="noticeconfigure">通知配置</h4>
+            <h4 class="modal-title" id="noticeconfigure">{{$t('message.Notification-handlers')}}</h4>
           </div>
           <div class="modal-body">
             <div class="row">
@@ -142,12 +156,13 @@
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Close')}}</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
     </div>
-    <tips ref="tips" :title=title v-on:respond="res"></tips>
+    <tips ref="tips" :out=outtitle v-on:log="res"></tips>
   </div>
 </template>
 
@@ -156,24 +171,29 @@
   import 'vuex'
   import '../store/store'
   import tips from './tips'
+  import Vue from 'vue'
+
 export default {
   name: 'HelloWorld',
   components:{tips},
   data () {
     return {
+
       issele:'首页',
-      nav:[
-        {index:'0',name:'首页',href:'HelloWorld'},
-        {index:'1',name:'资源监控',href:'Resources'},
-        {index:'2',name:'资源调配',href:'Allocation'},
-        {index:'3',name:'风险控制',href:'Management'},
-      ],
+      // nav:[
+      //   {index:'0',name:'首页',href:'HelloWorld'},
+      //   {index:'1',name:'资源监控',href:'Resources'},
+      //   {index:'2',name:'资源调配',href:'Allocation'},
+      //   {index:'3',name:'风险控制',href:'Management'},
+      // ],
       ind:'',
       warn:[],
       jj:0,
       zy:0,
       cy:0,
-      title:''
+      outtitle:'',
+      respond:'',
+      language:''
     }
   },
   computed:{
@@ -182,45 +202,45 @@ export default {
     },
     countwarn(){
       return this.$store.state.jj,this.$store.state.zy,this.$store.state.cy
-    }
+    },
+    // selectlang(){
+    //   return this.$store.state.language
+    // }
 
   },
   methods:{
     res(data){
       this.respond=data
-      if(this.respond=='ok'){
+      if(this.respond=='logout'){
         this.$store.commit('islogin',0)
         sessionStorage.removeItem('islogin');
+        sessionStorage.removeItem('issele')
         localStorage.removeItem('islogin')
         this.$router.push({path:'/Login'})
         window.document.body.style.backgroundColor = '#242424';
       }
     },
     outlog(){                 /*退出登录*/
-      let self=this
-      $('#out').click(function () {
-        this.title='确定退出？'
+
+        this.outtitle='确定退出？'
         // this.title=ids
-        this.$refs.tips.dselect()
-        // var msg=confirm('确定退出？')
-        // if (msg===true){
-        //   self.$store.commit('islogin',0)
-        //   sessionStorage.removeItem('islogin');
-        //   localStorage.removeItem('islogin')
-        //   self.$router.push({path:'/Login'})
-        //   window.document.body.style.backgroundColor = '#242424';
-        // }
-        // else return;
-      })
+        this.$refs.tips.logout()
+
+    },
+    changelanguage(lang){
+      this.$i18n.locale = lang
+      this.language=lang
+      // console.log(this.one)
+      sessionStorage.setItem('language',this.language)
+
     },
     us(){
       this.changenav('none')
     },
     changenav:function (name) {               /*一级导航栏状态存储，建立一个issele的sessionStorage值，刷新时调用，保持状态*/
       this.issele=name
-
       sessionStorage.setItem('issele',this.issele)
-
+      // return this.issele
     },
     warnall(){
       var _this=this
@@ -266,8 +286,9 @@ export default {
 
     }
   },
+
   mounted(){
-    this.outlog()
+    // this.outlog()
     this.warnall()
     if (sessionStorage.getItem('issele')==null){             /*最初状态设置为首页*/
       this.changenav('首页')
@@ -275,8 +296,13 @@ export default {
     else {
     this.issele=sessionStorage.getItem('issele')
     }
-
-
+    if (sessionStorage.getItem('language')!=null) {
+      this.language = sessionStorage.getItem('language')
+      // console.log(this.$store.state.language)
+      this.changelanguage(this.language)
+    }
+    else this.changelanguage('zh')
+    // this.$i18n.locale = this.$store.state.language
   },
 }
 </script>
@@ -284,7 +310,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .navn{
-    height: 3.5em !important;
+    height: 3.3em !important;
   }
   .navbar-toggle .icon-bar{
     background-color:#ffffff
@@ -307,14 +333,21 @@ export default {
   .jl{
     padding-left: .5rem;
     line-height: 4rem;
+
   }
   .j2{
-    line-height: 3.9em;
+    line-height: 3.5em;
+    padding-left: .5rem;
+    width: 2em;
+    height: 1em;
 
   }
   .white{
     color: white;
-
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
   thead{
     background-color: #292431;
@@ -348,10 +381,10 @@ export default {
 
   }
   .one{
-    overflow: hidden;
+    width: 10%;
     white-space: nowrap;
     text-overflow: ellipsis;
-    width: 10%;
+    overflow: hidden;
   }
   table{
 
@@ -406,6 +439,9 @@ export default {
     }
     .one{
       width: 100%;
+    }
+    .navn{
+      height:100% !important;
     }
   }
   @media screen and (min-width: 426px) and (max-width: 768px) {

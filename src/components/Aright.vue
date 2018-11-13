@@ -1,8 +1,23 @@
 <template>
   <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12" id="Aright">
-    <div class="one" v-for="i in nav" :class="ind===i.name?'two':''" @click="changenav(i.name)">
+    <div class="one" :class="ind==='快照设置'?'two':''" @click="changenav('快照设置')">
       <div>
-        <router-link :to="{name:i.href}" ><p >{{i.name}}</p></router-link>
+        <router-link :to="{name:'Aindex'}" ><p >{{$t('message.Snapshot-Settings')}}</p></router-link>
+      </div>
+    </div>
+    <div class="one" :class="ind==='FS设置'?'two':''" @click="changenav('FS设置')">
+      <div>
+        <router-link :to="{name:''}"><p >{{$t('message.FS-Setting')}}</p></router-link>
+      </div>
+    </div>
+    <div class="one" :class="ind==='object设置'?'two':''" @click="changenav('object设置')">
+      <div>
+        <router-link  :to="{name:''}"><p >{{$t('message.object-Setting')}}</p></router-link>
+      </div>
+    </div>
+    <div class="one"  :class="ind==='运维设置'?'two':''" @click="changenav('运维设置')">
+      <div>
+        <router-link  :to="{name:'Aoperation'}"><p >{{$t('message.Operational-Settings')}}</p></router-link>
       </div>
     </div>
   </div>
@@ -13,12 +28,7 @@
         name: "Aright",
       data:function(){
         return{
-          nav:[
-            {index: '0',name: '快照设置',href: 'Aindex'},
-            {index: '1',name: 'FS设置',href:''},
-            {index: '2',name: 'object设置',href:''},
-            {index: '3',name: '运维设置',href:'Aoperation'},
-          ],
+
           ind:''
         }
       },

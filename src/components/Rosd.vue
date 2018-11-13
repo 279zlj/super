@@ -14,7 +14,7 @@
                 <div class="row font " :class="{'chan':ind===index}">
                   <p>{{i.osdid}}</p>
                   <p>{{i.osdip}}</p>
-                  <p>状态：<span :class="{'o':i.status==='ok','wa':i.status==='warning','err':i.status==='error'}">{{i.status}}</span></p>
+                  <p>{{$t('message.Status')}}：<span :class="{'o':i.status==='ok','wa':i.status==='warning','err':i.status==='error'}">{{i.status}}</span></p>
                 </div>
 
               </div>
@@ -56,31 +56,31 @@
     <input type="button" class="btn btn-default all" value="添加磁盘" style="margin-bottom: 1em;float: right" @click="adddisk()"/>
     <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 bgdown " v-if="content.all!=null && content.netcard!=null && content.diskall!=null">
       <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
           <div class=" bor container-fluid">
-            <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">机器信息</span></p>
-            <p class="ff">型号：<span >{{content.all && content.all.sname}}</span></p>
-            <p class="ff">状态：<span :class="{'o':content.all.status==='ok','wa':content.all.status==='warning','err':content.all.status==='error'}">{{content.all && content.all.status}}</span></p>
-            <p class="ff">操作系统：<span>{{content.all.opsys}}</span></p>
+            <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.The-machine-information')}}</span></p>
+            <p class="ff">{{$t('message.Model')}}：<span >{{content.all && content.all.sname}}</span></p>
+            <p class="ff">{{$t('message.Status')}}：<span :class="{'o':content.all.status==='ok','wa':content.all.status==='warning','err':content.all.status==='error'}">{{content.all && content.all.status}}</span></p>
+            <p class="ff">{{$t('message.OS')}}：<span>{{content.all.opsys}}</span></p>
           </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
           <div class="bora container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">CPU</span></p>
             <span class="ff">{{content.all.cpu}}</span>
-            <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">内存</span></p>
+            <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.Memory')}}</span></p>
             <span class="ff">{{content.all.nc}}</span>
           </div>
         </div>
       </div>
         <div class="row datamoreone">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
           <div class="col-lg-11 container-fluid">
-            <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">数据盘</span></p>
+            <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.Data-Set')}}</span></p>
             <div class="datapstyle" >
               <span v-for="q in content.all.datap"><img src="../../static/image/three.png" class="img-responsive im" :id="q" @click="disk(q)"  :title="q"></span>
             </div>
-            <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">缓存盘</span></p>
+            <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.Cache-disk')}}</span></p>
             <div class="datapstyle" >
               <span v-for="w in content.all.cachep"><img src="../../static/image/cachedata.png" class="img-responsive im" :id="w"  @click="disk(w)"  :title="w"></span>
             </div>
@@ -88,36 +88,36 @@
         </div>
 
 
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
           <div class=" container-fluid">
-          <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">iSCSI服务网络/内部网络</span></p>
+          <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">iSCSI {{$t('message.Service')}}/{{$t('message.Interior')}} {{$t('message.Network')}}</span></p>
             <div class="datapstyle"><span v-for="w in content.all.cachep"><img src="../../static/image/four.png" class="img-responsive im" :id="w"  @click="net(w)"  :title="w"></span></div>
           <span class="ff">{{content.all.iscsi}}</span><span class="glyphicon glyphicon-edit e" style="cursor: pointer" title="修改" data-toggle="editmodal" @click="edit()" id="edit"></span>
-          <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">内部网络</span></p>
+          <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.Interior')}} {{$t('message.Network')}}</span></p>
           <span class="ff">{{content.all.netw}}</span>
           </div>
         </div>
     </div>
       <div class="row datamore">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
           <div class=" borb">
           <table class="table table-condensed table-responsive" >
             <thead>
               <tr>
-                <th colspan="2">磁盘信息：</th>
+                <th colspan="2">{{$t('message.DiskInfo')}}：</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>设备名：</td>
+                <td>{{$t('message.Device-Name')}}：</td>
                 <td>{{content.netcard.nname}}</td>
               </tr>
               <tr>
-                <td>类型：</td>
+                <td>{{$t('message.Type')}}：</td>
                 <td>{{content.netcard.type}}</td>
               </tr>
               <tr>
-                <td>容量：</td>
+                <td>{{$t('message.Capacity')}}：</td>
                 <td>{{content.netcard.size}}</td>
               </tr>
               <tr>
@@ -125,36 +125,36 @@
                   <td>{{content.netcard.wwid}}</td>
               </tr>
               <tr>
-                <td>用途：</td>
+                <td>{{$t('message.Purpose')}}：</td>
                 <td>{{content.netcard.used}}</td>
               </tr>
               <tr>
-                <td>慢盘：</td>
+                <td>{{$t('message.Slow-disk')}}：</td>
                 <td>{{content.netcard.small}}</td>
               </tr>
               <tr>
-                <td>健康度：</td>
+                <td>{{$t('message.Health-degree')}}：</td>
                 <td>{{content.netcard.health}}</td>
               </tr>
               <tr>
-                <td>操作：</td>
+                <td>{{$t('message.Operation')}}：</td>
                 <td><input type="button" class="btn btn-danger btn-xs" value="点亮定位灯"/></td>
               </tr>
             </tbody>
           </table>
           </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
           <div class=" borc">
           <table class="table table-condensed table-responsive" >
             <thead>
             <tr>
-              <th colspan="2">网卡信息：</th>
+              <th colspan="2">{{$t('message.Ifconfig')}}：</th>
             </tr>
             </thead>
             <tbody>
               <tr>
-                <td>设备名：</td>
+                <td>{{$t('message.Device-Name')}}：</td>
                 <td>{{content.diskall.dname}}</td>
               </tr>
               <tr>
@@ -162,15 +162,15 @@
                 <td>{{content.diskall.mac}}</td>
               </tr>
               <tr>
-                <td>速率：</td>
+                <td>{{$t('message.Rate')}}：</td>
                 <td>{{content.diskall.speed}}</td>
               </tr>
               <tr>
-                <td>丢包：</td>
+                <td>{{$t('message.Loss')}}：</td>
                 <td>{{content.diskall.pack}}</td>
               </tr>
               <tr>
-                <td>连接状态：</td>
+                <td>{{$t('message.Link-status')}}：</td>
                 <td>{{content.diskall.status}}</td>
               </tr>
               <tr>
@@ -192,11 +192,11 @@
             <h4 class="modal-title" id="myModalLabel">修改iSCSI信息</h4>
           </div>
           <div class="modal-body">
-            <p>修改ip：</p><input type="text" class="form-control" id="ip" ref="modifyip"/>
+            <p>{{$t('message.Modify')}} ip：</p><input type="text" class="form-control" id="ip" ref="modifyip"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">确认修改</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+            <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -210,11 +210,11 @@
           </div>
           <div class="modal-body">
             <p>ip：</p><input type="text" class="form-control" id="addip" ref="addip"/>
-            <p>磁盘路径：</p><input type="text" class="form-control" id="diskpath" ref="diskpath"/>
+            <p>{{$t('message.Dirctory')}}：</p><input type="text" class="form-control" id="diskpath" ref="diskpath"/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" @click="addsend()" data-dismiss="modal">确认</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+            <button type="button" class="btn btn-primary" @click="addsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->

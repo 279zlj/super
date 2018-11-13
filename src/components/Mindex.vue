@@ -11,8 +11,8 @@
             </colgroup>
             <thead>
               <tr>
-                <th data-field="title">常见问题</th>
-                <th data-field="content">具体解决方法</th>
+                <th data-field="title">{{$t('message.FAQ')}}</th>
+                <th data-field="content">{{$t('message.Concrete-solution')}}</th>
               </tr>
               </thead>
             <tbody></tbody>

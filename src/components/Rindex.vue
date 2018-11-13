@@ -7,9 +7,9 @@
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
             <h4 class="h">io agent 容量使用占比</h4>
             <div id="iocontent" class="content">
-              <p>总大小：<span v-if="collect.osd_detail.osize" class="keynote">{{collect.osd_detail.osize}}</span></p>
-              <p>已使用：<span class="keynote">{{collect.osd_detail.ouse}}</span></p>
-              <p>已用百分比：<span class="keynote">{{collect.osd_detail.usepct}}%</span></p>
+              <p>{{$t('message.Total-Size')}}：<span v-if="collect.osd_detail.osize" class="keynote">{{collect.osd_detail.osize}}</span></p>
+              <p>{{$t('message.Used')}}：<span class="keynote">{{collect.osd_detail.ouse}}</span></p>
+              <p>{{$t('message.Percent-used')}}：<span class="keynote">{{collect.osd_detail.usepct}}%</span></p>
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 container-fluid">
@@ -25,8 +25,8 @@
                 <h4 class="h">tank 存储使用占比</h4>
                 <div id="tankcontent" class="content">
 
-                  <p>已使用：<span class="keynote">{{collect.pool.puse}}</span></p>
-                  <p>已用百分比：<span class="keynote">{{collect.pool.usepct}}%</span></p>
+                  <p>{{$t('message.Used')}}：<span class="keynote">{{collect.pool.puse}}</span></p>
+                  <p>{{$t('message.Percent-used')}}：<span class="keynote">{{collect.pool.usepct}}%</span></p>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -41,8 +41,8 @@
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="margin-left: -15px">
               <h4 class="ho"><span style="font-size: 2.2em">{{collect.block_detail.block}}</span>个块设备</h4>
               <div id="rbdcontent" class="content">
-                <p>总大小：<span class="keynote">{{collect.block_detail.bsize}}</span></p>
-                <p>客户端连接数：<span class="keynote">{{collect.block_detail.server_num}}</span></p>
+                <p>{{$t('message.Total-Size')}}：<span class="keynote">{{collect.block_detail.bsize}}</span></p>
+                <p>{{$t('message.Client-Connections')}}：<span class="keynote">{{collect.block_detail.server_num}}</span></p>
               </div>
             </div>
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
@@ -58,12 +58,12 @@
         <div class="row two container-fluid">
         <div class="row container-fluid" >
           <div class="row">
-            <div class="col-lg-3 col-md-3 col-md-6 col-xs-6">
+            <div class="col-lg-3 col-md-6 col-md-6 col-xs-6">
               <h4>
-                节点CPU使用率/TOP3
+                {{$t('message.Node')}} CPU {{$t('message.Usage')}}/TOP3
               </h4>
             </div>
-            <div class="col-lg-3 col-lg-offset-6 col-md-3 col-md-6 col-xs-6">
+            <div class="col-lg-3 col-lg-offset-6 col-md-6 col-md-6 col-xs-6">
               <input type="button" class="btn btn-default btn-sm bi" value="查看全部" @click="cputop()"/>
             </div>
           </div>
@@ -84,12 +84,12 @@
         </div>
         <div class="row container-fluid" style="margin-bottom: 2em">
           <div class="row">
-            <div class="col-lg-3 col-md-3 col-md-6 col-xs-6">
+            <div class="col-lg-3 col-md-6 col-md-6 col-xs-6">
               <h4>
-                节点IOPS/TOP3
+                {{$t('message.Node')}} IOPS/TOP3
               </h4>
             </div>
-            <div class="col-lg-3 col-lg-offset-6 col-md-3 col-md-6 col-xs-6">
+            <div class="col-lg-3 col-lg-offset-6 col-md-6 col-md-6 col-xs-6">
               <input type="button" class="btn btn-default btn-sm bi" value="查看全部" @click="iopstop()"/>
             </div>
           </div>
@@ -109,12 +109,12 @@
         </div>
         <div class="row container-fluid" style="margin-bottom: 1em">
           <div class="row">
-            <div class="col-lg-3 col-md-3 col-md-6 col-xs-6">
+            <div class="col-lg-3 col-md-6 col-md-6 col-xs-6">
               <h4>
-                节点MBPS/TOP3
+                {{$t('message.Node')}} MBPS/TOP3
               </h4>
             </div>
-            <div class="col-lg-3 col-lg-offset-6 col-md-3 col-md-6 col-xs-6">
+            <div class="col-lg-3 col-lg-offset-6 col-md-6 col-md-6 col-xs-6">
               <input type="button" class="btn btn-default btn-sm bi" value="查看全部" @click="mbpstop()"/>
             </div>
           </div>
@@ -143,7 +143,7 @@
             <div class="warn">
               <div class="row container-fluid">
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="font-size: 18px">
-                  警告事件
+                  {{$t('message.Warning-Event')}}
                 </div>
 
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
@@ -174,7 +174,7 @@
         <div class="row container-fluid">
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bbone">
             <div class="warn">
-              <h4 style="margin: 1em">操作事件</h4>
+              <h4 style="margin: 1em">{{$t('message.Operational-Events')}}</h4>
               <div style="overflow-y: scroll;height: 12em">
               <table class="table-condensed table-responsive table">
                 <tbody>

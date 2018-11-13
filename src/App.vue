@@ -1,9 +1,7 @@
 <template>
   <div id="app" :class="patha==='/Installone'||patha==='/Installtwo'||patha==='/Installthree'?'container-fluid':'container'">
     <router-view/>
-    <keep-alive>
-      <router-view name="bottom"></router-view>
-    </keep-alive>
+    <router-view name="bottom"></router-view>
     <router-view name="right"></router-view>
   </div>
 </template>

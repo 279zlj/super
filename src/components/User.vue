@@ -17,9 +17,9 @@
             <tr>
               <th data-field="state" data-checkbox="true" ></th>
               <th data-field="userid">ID</th>
-              <th data-field="username">登录名</th>
-              <th data-field="role">角色</th>
-              <th data-field="date">登陆时间</th>
+              <th data-field="username">{{$t('message.Login-name')}}</th>
+              <th data-field="role">{{$t('message.Role')}}</th>
+              <th data-field="date">{{$t('message.Log-in-time')}}</th>
             </tr>
             </thead>
             <tbody>
@@ -32,20 +32,20 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="myModalLabel">修改用户信息信息</h4>
+              <h4 class="modal-title" id="myModalLabel">{{$t('message.Modify-user-information')}}</h4>
             </div>
             <div class="modal-body">
-              <p>用户密码：</p><input type="text" class="form-control" id="name" ref="user"/>
-              <p>用户角色：</p><input type="text" class="form-control" id="content" ref="role" :placeholder=rolerank />
+              <p>{{$t('message.Password')}}：</p><input type="text" class="form-control" id="name" ref="user"/>
+              <p>{{$t('message.User-role')}}：</p><input type="text" class="form-control" id="content" ref="role" :placeholder=rolerank />
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-              <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">确认修改</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+              <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal -->
       </div>
-      <tips ref="tips" :content=tipscontent :title=title v-on:respond="res"></tips>
+      <tips ref="tips" :content=tipscontent :dotitle=title :docontent=dosome v-on:respond="res"></tips>
     </div>
 </template>
 
@@ -63,7 +63,8 @@
           rolerank:'',
           tipscontent:'',
           title:'',
-          respond:''
+          respond:'',
+          dosome:''
         }
       },
       methods:{
@@ -108,7 +109,7 @@
           })
         },
         res(data){
-          let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
+          let ids = $.map( $('#usert').bootstrapTable('getSelections'), function (row) {
             return row.userid;
           });
           this.respond=data
@@ -121,7 +122,7 @@
           }
         },
         deletelist(){                       /*用户的删除*/
-          let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
+          let ids = $.map( $('#usert').bootstrapTable('getSelections'), function (row) {
             return row.userid;
           });
           if (ids.length < 1) {
@@ -130,8 +131,8 @@
             // alert('请选择删除项')
           }
           else if(ids.length >= 1) {
-            this.tipscontent='是否确认选择删除用户'
-            this.title=ids
+            this.title='是否确认选择删除用户'
+            this.dosome=ids
             this.$refs.tips.dselect()
 
             // console.log('delete')
