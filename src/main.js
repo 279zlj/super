@@ -45,7 +45,6 @@ Vue.prototype.$axios = axios;
 Vue.prototype.allurl='http://192.168.1.198:8000/'
 
 const i18n = new VueI18n({
-  // locale: window.localStorage.getItem('language')===null?'zh':window.localStorage.getItem('language'), // 语言标识，设置默认语言
   locale:'zh',
   messages: {
     'zh': langzh, // 简体中文
@@ -76,7 +75,7 @@ router.beforeEach((to,from,next)=>{                          /*路由守卫，�
       next();
       window.document.body.style.backgroundColor = '#2E2245';
     }
-    if (to.name==='Installthree'&&from.name==='Installone'){
+    if (to.name==='Installone'&& from.name=='Installthree'){
       router.push({name:'Installtwo'})
     }
     if (to.name==='Login' || to.name==='Installone' || to.name==='Installtwo' || to.name==='Installthree'){

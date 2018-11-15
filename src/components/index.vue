@@ -75,7 +75,7 @@
     methods: {
       initWebSocket(){
         // var _this=this
-        const wsurl="ws://192.168.1.213:8000/ws/intime_data";
+        const wsurl="ws://192.168.1.198:8000/ws/intime_data";
         this.websock=new WebSocket(wsurl);
         this.websock.onmessage=this.websocketonmessage;
         // this.websock.onopen=this.websocketonopen;

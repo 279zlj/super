@@ -322,8 +322,9 @@ export default {
     text-decoration: none;
   }
   .imgg{
-    padding: .7rem .5rem .8rem 1.5rem;
-    width: 85%;
+    padding: .7rem .5rem .8rem 1.8rem;
+    margin-left: .2em;
+    width: 75%;
 
   }
   .two{
@@ -447,7 +448,7 @@ export default {
   @media screen and (min-width: 426px) and (max-width: 768px) {
     .imgg{
       padding: 1rem .5rem .8rem .5rem;
-      width: 100%;
+      width: 20%;
     }
     .warnstatus{
       line-height: 0em;
@@ -458,7 +459,7 @@ export default {
       line-height: 0.8em;
     }
   }
-  @media screen and (min-width: 769px) and (max-width: 1025px) {
+  @media screen and (min-width: 769px) and (max-width: 1024px) {
     .imgg{
       padding: .8rem .5rem .8rem .8rem;
       width: 90%;
@@ -476,7 +477,53 @@ export default {
      line-height: 0.8em;
    }
   }
+  @media screen and (min-width: 1025px) and (max-width: 1199px) {
+    .imgg{
+      padding: .8rem .5rem .8rem .8rem;
+      width: 90%;
+    }
+    .jl{
+      padding-left: .2rem;
+      font-size: 12.5px;
+    }
+    .warnstatus{
+      line-height: 0em;
+    }
+    .jg,.jgtw,.jgth{
+      margin-top: 0em;
+      height: 1.2em;
+      line-height: 0.8em;
+    }
+  }
+  @media screen and (min-width: 1200px) and (max-width: 1439px) {
+    .imgg{
+      padding: .8rem .5rem .8rem .8rem;
+      width: 90%;
+    }
+    .jl{
+      padding-left: .2rem;
+      font-size: 12.5px;
+    }
+    .warnstatus{
+      line-height: 0em;
+    }
+    .jg,.jgtw,.jgth{
+      margin-top: 0.3em;
+      height: 1.2em;
+      line-height: 1em;
+    }
+  }
   @media screen and (min-width: 1440px) and (max-width: 1599px) {
+    .warnstatus{
+      line-height: 1em;
+    }
+    .jg,.jgtw,.jgth{
+      margin-top: 0em;
+      height: 1.5em;
+      line-height: 1.5em;
+    }
+  }
+  @media screen and (min-width:1600px ) and (max-width:1910px ) {
     .warnstatus{
       line-height: 1em;
     }
@@ -485,9 +532,6 @@ export default {
       height: 1.5em;
       line-height: 1.5em;
     }
-  }
-  @media screen and (min-width:1600px ) {
-
     .imgg{
       padding: .7rem .5rem .8rem 2rem;
       margin-left: .5em;
@@ -495,6 +539,7 @@ export default {
     }
 
   }
+
   .nav-title{
     font-family: 'Abril Fatface', cursive;
   }

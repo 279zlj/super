@@ -5,7 +5,7 @@
       <div class="row container-fluid">
         <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12 bgone" >
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
-            <h4 class="h">io agent 容量使用占比</h4>
+            <h4 class="h">{{$t('message.io-agent')}} 容量使用占比</h4>
             <div id="iocontent" class="content">
               <p>{{$t('message.Total-Size')}}：<span v-if="collect.osd_detail.osize" class="keynote">{{collect.osd_detail.osize}}</span></p>
               <p>{{$t('message.Used')}}：<span class="keynote">{{collect.osd_detail.ouse}}</span></p>
@@ -22,7 +22,7 @@
           <div class="row container-fluid">
             <div class="col-lg-11 col-md-11 col-sm-12 col-sm-offset-0 col-xs-12 bgone">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
-                <h4 class="h">tank 存储使用占比</h4>
+                <h4 class="h">{{$t('message.Tank')}} 存储使用占比</h4>
                 <div id="tankcontent" class="content">
 
                   <p>{{$t('message.Used')}}：<span class="keynote">{{collect.pool.puse}}</span></p>
@@ -39,7 +39,7 @@
         <div class="row container-fluid">
           <div class="col-lg-11 col-md-11 col-sm-12 col-sm-offset-0 col-xs-12 bgone">
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="margin-left: -15px">
-              <h4 class="ho"><span style="font-size: 2.2em">{{collect.block_detail.block}}</span>个块设备</h4>
+              <h4 class="ho"><span style="font-size: 2.2em">{{collect.block_detail.block}}</span>个{{$t('message.Block')}}</h4>
               <div id="rbdcontent" class="content">
                 <p>{{$t('message.Total-Size')}}：<span class="keynote">{{collect.block_detail.bsize}}</span></p>
                 <p>{{$t('message.Client-Connections')}}：<span class="keynote">{{collect.block_detail.server_num}}</span></p>
@@ -64,7 +64,8 @@
               </h4>
             </div>
             <div class="col-lg-3 col-lg-offset-6 col-md-6 col-md-6 col-xs-6">
-              <input type="button" class="btn btn-default btn-sm bi" value="查看全部" @click="cputop()"/>
+              <button  class="btn btn-default btn-sm bi" @click="cputop()">{{$t('message.View-All')}}</button>
+              <!--<input type="button" class="btn btn-default btn-sm bi" value="查看全部" @click="cputop()"/>-->
             </div>
           </div>
 
@@ -90,7 +91,8 @@
               </h4>
             </div>
             <div class="col-lg-3 col-lg-offset-6 col-md-6 col-md-6 col-xs-6">
-              <input type="button" class="btn btn-default btn-sm bi" value="查看全部" @click="iopstop()"/>
+              <button  class="btn btn-default btn-sm bi" @click="iopstop()">{{$t('message.View-All')}}</button>
+              <!--<input type="button" class="btn btn-default btn-sm bi" value="查看全部" @click="iopstop()"/>-->
             </div>
           </div>
           <div class="row">
@@ -115,7 +117,8 @@
               </h4>
             </div>
             <div class="col-lg-3 col-lg-offset-6 col-md-6 col-md-6 col-xs-6">
-              <input type="button" class="btn btn-default btn-sm bi" value="查看全部" @click="mbpstop()"/>
+              <button  class="btn btn-default btn-sm bi" @click="mbpstop()">{{$t('message.View-All')}}</button>
+              <!--<input type="button" class="btn btn-default btn-sm bi" value="查看全部" @click="mbpstop()"/>-->
             </div>
           </div>
 

@@ -3,8 +3,10 @@
 
   <div class="row" v-if="osdlist!=null">
   <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 container allo">
-    <input type="button" class="btn btn-default b" value="展开" id="open" @click="open()"/>
-    <input type="button" class="btn btn-default b" value="极简" id="closed" @click="clos()"/>
+    <button  class="btn btn-default b" @click="open()" id="open">{{$t('message.Unfold')}}</button>
+    <button  class="btn btn-default b" @click="clos()" id="closed">{{$t('message.Minimalism')}}</button>
+    <!--<input type="button" class="btn btn-default b" value="展开" id="open" @click="open()"/>-->
+    <!--<input type="button" class="btn btn-default b" value="极简" id="closed" @click="clos()"/>-->
     <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 container one" id="sample">
       <div class="row san" v-for="(i,index) in osdlist"  @click="change(index,i.osdid)" >
         <div class="row">
@@ -19,7 +21,8 @@
 
               </div>
               <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 " :class="{'chan':ind===index}" >
-                <input type="button" class="btn btn-sm b" value="控制台" />
+                <button  class="btn btn-sm b"  >{{$t('message.Console')}}</button>
+                <!--<input type="button" class="btn btn-sm b" value="控制台" />-->
               </div>
             </div>
 
@@ -36,8 +39,8 @@
                 <div class="row font " :class="{'chan':ind===index}">
                   <p>{{i.osdid}}</p>
                   <p>{{i.osdip}}</p>
-
-                  <input type="button" class="btn btn-sm b" value="控制台" />
+                  <button  class="btn btn-sm b"  >{{$t('message.Console')}}</button>
+                  <!--<input type="button" class="btn btn-sm b" value="控制台" />-->
                 </div>
 
               </div>
@@ -53,7 +56,8 @@
         </div>
       </div>
   </div>
-    <input type="button" class="btn btn-default all" value="添加磁盘" style="margin-bottom: 1em;float: right" @click="adddisk()"/>
+    <button  class="btn btn-default all" @click="adddisk()" style="margin-bottom: 1em;float: right" >{{$t('message.Add-a-disk')}}</button>
+    <!--<input type="button" class="btn btn-default all" value="添加磁盘" style="margin-bottom: 1em;float: right" @click="adddisk()"/>-->
     <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 bgdown " v-if="content.all!=null && content.netcard!=null && content.diskall!=null">
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
@@ -138,7 +142,7 @@
               </tr>
               <tr>
                 <td>{{$t('message.Operation')}}：</td>
-                <td><input type="button" class="btn btn-danger btn-xs" value="点亮定位灯"/></td>
+                <td><button  class="btn btn-danger btn-xs"  >{{$t('message.Lighting-position-lamp')}}</button></td>
               </tr>
             </tbody>
           </table>
