@@ -3,20 +3,21 @@
     <div class="row">
     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
       <div id="y">
-      <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit verticalimg"  title="编辑"></span></p>
-      <p data-toggle="back" @click="goback()" style="cursor: pointer"><span class="glyphicon glyphicon-backward verticalimg" title="回滚"></span></p>
-      <p data-toggle="snclone" @click="snclone()" style="cursor: pointer"><span class="glyphicon glyphicon-th-large verticalimg" title="克隆"></span></p>
-      <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle verticalimg-l" title="删除"></span></p>
+      <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit verticalimg"  title="<h5>编辑</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+      <p data-toggle="back" @click="goback()" style="cursor: pointer"><span class="glyphicon glyphicon-backward verticalimg" title="<h5>回滚</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+      <p data-toggle="snclone" @click="snclone()" style="cursor: pointer"><span class="glyphicon glyphicon-th-large verticalimg" title="<h5>克隆</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+      <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle verticalimg-l" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></p>
       </div>
       <div id="h">
-        <span @click="editlist()" data-toggle="editmodal"><span class="glyphicon glyphicon-edit infeed" title="编辑"></span></span>
-        <span data-toggle="back" @click="goback()"><span class="glyphicon glyphicon-backward infeed" title="回滚"></span></span>
-        <span data-toggle="snclone" @click="snclone"><span class="glyphicon glyphicon-th-large infeed" title="克隆"></span></span>
-        <span @click="deletelist()"><span class="glyphicon glyphicon-remove-circle infeed" title="删除"></span></span>
+        <span @click="editlist()" data-toggle="editmodal"><span class="glyphicon glyphicon-edit infeed" title="<h5>编辑</h5>" data-toggle="tooltip" data-placement="right"></span></span>
+        <span data-toggle="back" @click="goback()"><span class="glyphicon glyphicon-backward infeed" title="<h5>回滚</h5>" data-toggle="tooltip" data-placement="right"></span></span>
+        <span data-toggle="snclone" @click="snclone"><span class="glyphicon glyphicon-th-large infeed" title="<h5>克隆</h5>" data-toggle="tooltip" data-placement="right"></span></span>
+        <span @click="deletelist()"><span class="glyphicon glyphicon-remove-circle infeed" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></span>
       </div>
     </div>
+
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive">
-        <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-toggle="table"  data-classes="table-no-bordered" data-pagination="true" data-page-number="1"  data-page-size="10" data-search="true" data-show-refresh="true">
+        <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-toggle="table"  data-click-to-select="true" data-classes="table-no-bordered" data-pagination="true" data-page-number="1"  data-page-size="10" data-search="true" data-show-refresh="true">
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -33,6 +34,13 @@
           </tbody>
         </table>
       </div>
+      <!-- context menu -->
+      <ul id="context-menu" class="dropdown-menu">
+        <li data-item="edit" data-toggle="editmodal" style="cursor: pointer"><a>编辑</a></li>
+        <li data-item="back" style="cursor: pointer"><a>回滚</a></li>
+        <li data-item="clone" data-toggle="clonesna" style="cursor: pointer"><a>克隆</a></li>
+        <li data-item="delete" style="cursor: pointer"><a>删除</a></li>
+      </ul>
     </div>
 
     <div class="modal fade" id="editm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -84,25 +92,66 @@
       data(){
         return {
           edit: {},
-          asele:'',
+          sele:'',
           aback:'',
           ids:'',
           tipscontent:'',
           title:'',
           who:'',
-          dosome:''
+          dosome:'',
+          clone:''
+
       }
       },
       // tableDate,
       mounted(){
         this.strat()
+
       },
       methods: {
+        rightm(id){
+          this.who='back'
+          let ids = id
+          this.title='此操作不可逆，确认进行回滚'
+          this.dosome=ids
+          this.$refs.tips.dselect()
+          this.aback = ids;
+        },
         strat() {            /*bootstrap-table初始化*/
           $('#table_id').bootstrapTable({
-            url:this.allurl+'manager/client/block/list_snap'
+            url:this.allurl+'manager/client/block/list_snap',
+            contextMenu: '#context-menu',
+            onContextMenuItem: function(row, $el){
+              if($el.data("item") == "edit"){
+                this.edit=row.snapname
+                // alert(this.ids)
+                $('#editm').modal("show")
+                return this.edit
+              }
+              if($el.data("item") == "back"){
+                var _this=this
+                let id = row.snapid
+                _this.rightm(id)
+
+
+              }
+              if($el.data("item") == "clone"){
+                var _this=this
+                _this.clone=row.snapid
+
+                $('#clonesna').modal("show")
+                return _this.clone
+            }
+            if ($el.data('item')=='delete'){
+              this.tipscontent='请选择删除项'
+              this.$refs.tips.usetips()
+            }
+
+            }
           })
+          $("[data-toggle='tooltip']").tooltip({html:true});
         },
+
         res(data){
           if(this.data=='snap'){
             let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
@@ -201,6 +250,7 @@
         },
         sendclone(){                       /*发送快照克隆信息*/
           let name=this.$refs.aclone.value
+
           this.$axios.post(this.allurl+'manager/client/block/clone_snap',{name:name,cloneid:this.clone,pool:this.sele}).then(function (res) {
             // console.log(res)
           }).catch(function (error) {

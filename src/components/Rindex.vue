@@ -145,20 +145,24 @@
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bbone">
             <div class="warn">
               <div class="row container-fluid">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="font-size: 18px">
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="font-size: 18px">
                   {{$t('message.Warning-Event')}}
+                  <span class=" label label-danger" style="vertical-align: super" title="紧急"  data-toggle="tooltip" data-placement="top">{{$store.state.jj}}</span>
+                  <span class=" label label-warning" style="vertical-align: super" title="重要" data-toggle="tooltip" data-placement="top">{{$store.state.zy}}</span>
+                  <span class=" label label-info" style="vertical-align: super" title="次要" data-toggle="tooltip" data-placement="top">{{$store.state.cy}}</span>
                 </div>
 
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                  <p><span>{{$store.state.jj}}</span><img src="../../static/image/jj.png" class="img-responsive" title="紧急"/></p>
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                <span>{{$store.state.zy}}<img src="../../static/image/zy.png" class="img-responsive" title="重要"/></span>
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                <span>{{$store.state.cy}}<img src="../../static/image/cy.png" class="img-responsive" title="次要"></span>
-                </div>
+                <!--<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">-->
+                  <!--<p><span>{{$store.state.jj}}</span><img src="../../static/image/jj.png" class="img-responsive" title="<h5>紧急</h5>" data-toggle="tooltip" data-placement="right"/></p>-->
+                <!--</div>-->
+                <!--<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">-->
+                <!--<span>{{$store.state.zy}}<img src="../../static/image/zy.png" class="img-responsive" title="<h5>重要</h5>" data-toggle="tooltip" data-placement="right"/></span>-->
+                <!--</div>-->
+                <!--<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">-->
+                <!--<span>{{$store.state.cy}}<img src="../../static/image/cy.png" class="img-responsive" title="<h5>次要</h5>" data-toggle="tooltip" data-placement="right"></span>-->
+                <!--</div>-->
               </div>
+
               <div style="overflow-y: scroll;height: 12em">
               <table class="table-responsive table table-condensed">
                 <tbody>
@@ -225,6 +229,7 @@
       },
       mounted(){
         this.allstatus()
+        $("[data-toggle='tooltip']").tooltip({html:true});
       },
       computed:{            /*调用Vuex中的islogin值，有缓存左右*/
         countwarn(){

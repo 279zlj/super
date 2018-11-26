@@ -3,20 +3,21 @@
     <div class="row">
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
       <div id="y">
-        <p @click="addnew()" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" class="img-responsive add" title="添加"/></p>
-        <p @click="bdilata()" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" class="img-responsive kr" title="扩容"/></p>
-        <p @click="addsn()" data-toggle="addsnap" style="cursor: pointer"><span class="glyphicon glyphicon-camera create" title="创建快照"></span></p>
-        <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除"></span></p>
+        <p @click="addnew()" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" class="img-responsive add" title="<h5>添加</h5>" data-toggle="tooltip" data-placement="right"/></p>
+        <p @click="bdilata()" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" class="img-responsive kr" title="<h5>扩容</h5>" data-toggle="tooltip" data-placement="right"/></p>
+        <p @click="addsn()" data-toggle="addsnap" style="cursor: pointer"><span class="glyphicon glyphicon-camera create" title="<h5>创建快照</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+        <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></p>
       </div>
         <div style="width: 300px" id="h">
-          <div @click="addnew()" data-toggle="addnew" style="float: left"><img src="../../static/image/add.svg" class="img-responsive addh" title="添加"/></div>
-          <div @click="bdilata()" style="float: left" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive kr" title="扩容"/></div>
-          <div @click="addsn()" style="float: left" data-toggle="addsnap"><span class="glyphicon glyphicon-camera createh" title="创建快照"></span></div>
-          <div @click="deletelist()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="删除"></span></div>
+          <div @click="addnew()" data-toggle="addnew" style="float: left"><img src="../../static/image/add.svg" class="img-responsive addh" title="<h5>添加</h5>" data-toggle="tooltip" data-placement="right"/></div>
+          <div @click="bdilata()" style="float: left" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive kr" title="<h5>扩容</h5>" data-toggle="tooltip" data-placement="right"/></div>
+          <div @click="addsn()" style="float: left" data-toggle="addsnap"><span class="glyphicon glyphicon-camera createh" title="<h5>创建快照</h5>" data-toggle="tooltip" data-placement="right"></span></div>
+          <div @click="deletelist()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></div>
         </div>
       </div>
+
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
-        <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" >
+        <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-click-to-select="true" data-toggle="table"  data-classes="table-no-bordered" >
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -35,20 +36,20 @@
     <div class="row">
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 b" >
         <div id="y">
-        <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="编辑"></span></p>
-        <p @click="changetime()" data-toggle="changeti"  style="cursor: pointer"><span class="glyphicon glyphicon-time time" title="更改时间"></span></p>
-        <p @click="clonesnap()" data-toggle="clonesn" style="cursor: pointer" ><span class="glyphicon glyphicon glyphicon-th-list clone" title="克隆快照"></span></p>
-        <p @click="deletel()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除"></span></p>
+        <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="<h5>编辑</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+        <p @click="changetime()" data-toggle="changeti"  style="cursor: pointer"><span class="glyphicon glyphicon-time time" title="<h5>更改时间</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+        <p @click="clonesnap()" data-toggle="clonesn" style="cursor: pointer" ><span class="glyphicon glyphicon glyphicon-th-list clone" title="<h5>克隆快照</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+        <p @click="deletel()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></p>
         </div>
         <div id="h" style="width: 300px">
-          <span @click="editlist()" data-toggle="editmodal" ><span class="glyphicon glyphicon-edit edith" title="编辑"></span></span>
-          <span @click="changetime()" data-toggle="changeti"><span class="glyphicon glyphicon-time edith" title="更改时间"></span></span>
-          <span @click="clonesnap()" data-toggle="clonesn" ><span class="glyphicon glyphicon glyphicon-th-list edith" title="克隆快照"></span></span>
-          <span @click="deletel()" ><span class="glyphicon glyphicon-remove-circle edith" title="删除"></span></span>
+          <span @click="editlist()" data-toggle="editmodal" ><span class="glyphicon glyphicon-edit edith" title="<h5>编辑</h5>" data-toggle="tooltip" data-placement="right"></span></span>
+          <span @click="changetime()" data-toggle="changeti"><span class="glyphicon glyphicon-time edith" title="<h5>更改时间</h5>" data-toggle="tooltip" data-placement="right"></span></span>
+          <span @click="clonesnap()" data-toggle="clonesn" ><span class="glyphicon glyphicon glyphicon-th-list edith" title="<h5>克隆快照</h5>" data-toggle="tooltip" data-placement="right"></span></span>
+          <span @click="deletel()" ><span class="glyphicon glyphicon-remove-circle edith" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></span>
         </div>
       </div>
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive two">
-        <table class="table table-responsive text-nowrap" id="table" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered">
+        <table class="table table-responsive text-nowrap" id="table" data-toolbar="#toolbar" data-click-to-select="true" data-height="350" data-toggle="table"  data-classes="table-no-bordered">
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -459,6 +460,7 @@
       },
       mounted(){
           this.start()
+        $("[data-toggle='tooltip']").tooltip({html:true});
       }
     }
 </script>

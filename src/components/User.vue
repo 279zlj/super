@@ -3,14 +3,15 @@
       <div class="row container-fluid">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
           <div id="y">
-          <p @click="editlist()"  style="cursor: pointer" ><span class="glyphicon glyphicon-edit edit" title="编辑" ></span></p>
-          <p @click="deletelist()"  style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除"></span></p>
+          <p @click="editlist()"  style="cursor: pointer" ><span class="glyphicon glyphicon-edit edit" title="<h5>编辑</h5>"  data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="deletelist()"  style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></p>
           </div>
           <div id="h" style="width: 300px">
-            <span @click="editlist()" ><span class="glyphicon glyphicon-edit edith"  title="编辑" ></span></span>
-            <span @click="deletelist()" ><span class="glyphicon glyphicon-remove-circle delete" title="删除"></span></span>
+            <span @click="editlist()" ><span class="glyphicon glyphicon-edit edith"  title="<h5>编辑</h5>" data-toggle="tooltip" data-placement="right" ></span></span>
+            <span @click="deletelist()" ><span class="glyphicon glyphicon-remove-circle delete" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></span>
           </div>
         </div>
+
         <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
           <table class="table table-responsive table-condensed" id="usert" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered">
             <thead>
@@ -141,6 +142,7 @@
       },
       mounted(){
         this.start()
+        $("[data-toggle='tooltip']").tooltip({html:true});
       }
     }
 </script>

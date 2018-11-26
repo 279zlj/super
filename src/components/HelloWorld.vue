@@ -1,5 +1,7 @@
 <template>
+
   <div class="row nav-color" id="HelloWorld">
+
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 navbar-header mp">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
           <span class="sr-only">切换导航</span>
@@ -13,7 +15,7 @@
         </a>
       </div>
     <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 collapse navbar-collapse navn" id="navbar-menu" >
-      <div class="col-lg-3 col-md-3 col-sm-1 col-xs-0">
+      <div class="col-lg-2 col-md-2 col-sm-1 col-xs-0">
 
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 one"  :class="issele==='HelloWorld'?'two':''">
@@ -31,26 +33,34 @@
           <router-link :to="{name:'Allocation'}"><p class="font" @click="changenav('Allocation')">{{$t('nav.Allocation')}}</p></router-link>
         </div>
       </div>
-      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 one" :class="issele==='Management'?'two':''" >
+      <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12" :class="issele==='Management'?'two':''" >
         <div class="r-border" >
-          <router-link :to="{name:'Management'}"><p class="font" @click="changenav('Management')">{{$t('nav.Risk')}}</p></router-link>
+          <router-link :to="{name:'Management'}"><p class="font" @click="changenav('Management')">{{$t('nav.Risk')}}
+
+            <span class=" label label-danger" style="vertical-align: super" title="警告事件：紧急"  data-toggle="tooltip" data-placement="top">{{$store.state.jj}}</span>
+            <span class=" label label-warning" style="vertical-align: super" title="警告事件：重要" data-toggle="tooltip" data-placement="top">{{$store.state.zy}}</span>
+            <span class=" label label-info" style="vertical-align: super" title="警告事件：次要" data-toggle="tooltip" data-placement="top">{{$store.state.cy}}</span>
+
+          </p></router-link>
         </div>
       </div>
-      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 warnstatus" >
-        <router-link :to="{name:'Mwarn'}">
-          <span class="jg" title="警告事件：紧急" >{{$store.state.jj}}</span>
-          <span class="jgtw" title="警告事件：重要">{{$store.state.zy}}</span>
-          <span class="jgth" title="警告事件：次要">{{$store.state.cy}}</span>
-        </router-link>
-      </div>
-      <div class="col-lg-1 col-md-1 col-md-offset-0 col-sm-2 col-xs-12 dropdown">
+      <!--<div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 warnstatus" >-->
+        <!--<router-link :to="{name:'Mwarn'}">-->
+          <!--<span class="jg" title="警告事件：紧急"  data-toggle="tooltip" data-placement="bottom">{{$store.state.jj}}</span>-->
+          <!--<span class="jgtw" title="警告事件：重要" data-toggle="tooltip" data-placement="bottom">{{$store.state.zy}}</span>-->
+          <!--<span class="jgth" title="警告事件：次要" data-toggle="tooltip" data-placement="bottom">{{$store.state.cy}}</span>-->
+        <!--</router-link>-->
+      <!--</div>-->
+      <div class="col-lg-1 col-lg-offset-1 col-md-1 col-sm-2 col-xs-12 dropdown">
       <a class="dropdown-toggle glyphicon glyphicon-user white" data-toggle="dropdown" style="cursor: pointer"><span class="jl">admin</span></a>
         <ul class="dropdown-menu">
           <li @click="us()"><router-link :to="{name:'User'}">{{$t('message.User-control')}}</router-link></li>
           <li><a style="cursor: pointer"><span @click="outlog">{{$t('message.Log-out')}}</span></a></li>
+          <li><a style="cursor: pointer"><span  v-on:click="changeone()" style="color: black;">简约风格</span></a></li>
+          <li><a style="cursor: pointer"><span  v-on:click="changetwo()" style="color: black;">原始主题</span></a></li>
         </ul>
       </div>
-      <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12 dropdown">
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 dropdown">
       <a class="dropdown-toggle glyphicon glyphicon-cog white" data-toggle="dropdown" style="cursor: pointer"><span class="jl">{{$t('nav.Management')}}</span></a>
         <ul class="dropdown-menu">
           <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#bb" @click="bbm()">{{$t('message.Versioning')}}</span></a></li>
@@ -163,7 +173,9 @@
       </div><!-- /.modal -->
     </div>
     <tips ref="tips" :out=outtitle v-on:log="res"></tips>
+
   </div>
+
 </template>
 
 <script>
@@ -194,6 +206,7 @@ export default {
       outtitle:'',
       respond:'',
       language:''
+
     }
   },
   computed:{
@@ -219,6 +232,16 @@ export default {
         this.$router.push({path:'/Login'})
         window.document.body.style.backgroundColor = '#242424';
       }
+    },
+    changeone(){
+      // window.document.body.style.backgroundColor='#FFF'
+      $('body').css('background','#FFF')
+      // $('#app').css('color','#000')
+      $('#app').css('background-color','#FFF')
+    },
+    changetwo(){
+      $('body').css('background','#2E2245')
+      $('#app').css('background-color','#2E2245')
     },
     outlog(){                 /*退出登录*/
 
@@ -289,9 +312,10 @@ export default {
 
   mounted(){
     // this.outlog()
+    $("[data-toggle='tooltip']").tooltip();
     this.warnall()
     if (sessionStorage.getItem('issele')==null){             /*最初状态设置为首页*/
-      this.changenav('首页')
+      this.changenav('HelloWorld')
     }
     else {
     this.issele=sessionStorage.getItem('issele')
@@ -387,6 +411,7 @@ export default {
     text-overflow: ellipsis;
     overflow: hidden;
   }
+
   table{
 
   }
@@ -441,6 +466,7 @@ export default {
     .one{
       width: 100%;
     }
+
     .navn{
       height:100% !important;
     }
@@ -448,8 +474,9 @@ export default {
   @media screen and (min-width: 426px) and (max-width: 768px) {
     .imgg{
       padding: 1rem .5rem .8rem .5rem;
-      width: 20%;
+      width: 100%;
     }
+
     .warnstatus{
       line-height: 0em;
     }

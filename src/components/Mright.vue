@@ -34,7 +34,7 @@
           }
       },
       mounted(){
-          this.changenav('警报')
+          this.changenav('Mwarn')
 
       }
     }

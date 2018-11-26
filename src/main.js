@@ -17,6 +17,7 @@ import axios from 'axios'
 import '@/assets/dist/bootstrap-table.css'
 import '@/assets/dist/bootstrap-table.js'
 import '@/assets/dist/locale/bootstrap-table-zh-CN.min.js'
+import '@/assets/js/bootstrap-table-contextmenu.js'
 import '@/assets/dist/ga.js'
 import '@/assets/js/base.js'
 import './mock/mock'
@@ -42,7 +43,7 @@ Vue.prototype.$axios = axios;
 //   return html.join('');
 // }
 
-Vue.prototype.allurl='http://192.168.1.198:8000/'
+Vue.prototype.allurl='http://192.168.1.162:8000/'
 
 const i18n = new VueI18n({
   locale:'zh',
@@ -60,7 +61,7 @@ router.beforeEach((to,from,next)=>{                          /*路由守卫，�
     if (to.meta.requiresAuth) {
       if (store.state.islogin=='200'||sessionStorage.getItem('islogin')=='200'){
         next();
-        window.document.body.style.backgroundColor = '#2E2245';
+        // window.document.body.style.backgroundColor = '#2E2245';
       }
       else {
         next({
@@ -98,6 +99,46 @@ new Vue({
   store,
   components: { App },
   template: '<App/>',
+  data(){
+    return{
+      time:30*60*1000,
+      handler:-1
+    }
+  },
+  methods:{
+    longout(){
+
+      var already=sessionStorage.getItem('issele');
+      if (already){
+        sessionStorage.setItem('lastTime',new Date().getTime());
+        this.handler=setInterval(this.checklogin(),10*1000)
+      }
+
+
+    },
+    checklogin(){
+      console.log("10秒检查一次是否过期"+window.location.href+"::"+new Date());
+      var getlastTime=sessionStorage.getItem('lastTime')?sessionStorage.getItem('lastTime'):-1;
+      if (getlastTime==-1){
+        clearInterval(this.handler);
+      }
+      else {
+        if ((new Date().getTime()-getlastTime)>this.time){
+          alert('由于您长时间未进行操作，系统已为您自动退出登录');
+          sessionStorage.removeItem('islogin');
+          sessionStorage.removeItem('issele')
+          localStorage.removeItem('islogin')
+          this.$router.push({path:'/Login'})
+        }
+      }
+    }
+  },
+  mounted(){
+    this.$nextTick(function () {
+      setInterval(this.longout,10*1000);
+    })
+  },
+    // this.checklogin()
 
 
 })

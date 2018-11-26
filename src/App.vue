@@ -3,6 +3,7 @@
     <router-view/>
     <router-view name="bottom"></router-view>
     <router-view name="right"></router-view>
+
   </div>
 </template>
 
@@ -11,22 +12,24 @@
     name: 'App',
     data(){
       return{
-        patha:''
+        patha:'',
+
       }
     },
     methods:{
-      gbo(){              /*判断目前url的位置来更改背景颜色，单纯用这个会造成跳转渲染迟缓，用户体验差*/
-        this.patha=this.$route.path
-        if (this.patha==='/Installone'||this.patha==='/Installtwo'||this.patha==='/Installthree'){
-          $('body').css('background-color','white')
-        }
-        else if(this.patha==='/Login'){
-          $('body').css('background-color','#242424')
-        }
-        else {
-          $('body').css('background-color','#2E2245')
-        }
-      }
+      // gbo(){              /*判断目前url的位置来更改背景颜色，单纯用这个会造成跳转渲染迟缓，用户体验差*/
+      //   this.patha=this.$route.path
+      //   if (this.patha==='/Installone'||this.patha==='/Installtwo'||this.patha==='/Installthree'){
+      //     $('body').css('background-color','white')
+      //   }
+      //   else if(this.patha==='/Login'){
+      //     $('body').css('background-color','#242424')
+      //   }
+      //   else {
+      //     $('body').css('background-color','#2E2245')
+      //   }
+      // }
+
     },
 
     // created(){
@@ -41,6 +44,7 @@
     margin: 0;
     padding: 0;
     color: white;
+    background-color: #2E2245;
   }
   #app{
     background-color: #2E2245;

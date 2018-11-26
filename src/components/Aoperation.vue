@@ -3,14 +3,15 @@
     <div class="row">
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 contenttop" >
       <div id="y">
-        <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit verticalimg" title="编辑"></span></p>
-        <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle verticalimg" title="删除"></span></p>
+        <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit verticalimg" title="<h5>编辑</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+        <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle verticalimg" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></p>
       </div>
       <div style="width: 300px" id="h">
-        <span @click="editlist()" data-toggle="editmodal"><span class="glyphicon glyphicon-edit infeed" title="编辑"></span></span>
-        <span @click="deletelist()" ><span class="glyphicon glyphicon-remove-circle infeed" title="删除"></span></span>
+        <span @click="editlist()" data-toggle="editmodal"><span class="glyphicon glyphicon-edit infeed" title="<h5>编辑</h5>" data-toggle="tooltip" data-placement="right"></span></span>
+        <span @click="deletelist()" ><span class="glyphicon glyphicon-remove-circle infeed" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></span>
       </div>
       </div>
+
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
         <div class="row">
           <div class="col-lg-3 col-lg-offset-8 col-md-3 col-md-offset-7 col-sm-4 col-sm-offset-6 col-xs-5 col-xs-offset-5">
@@ -149,6 +150,7 @@
       },
       mounted(){
           // this.start()
+        $("[data-toggle='tooltip']").tooltip({html:true});
       }
     }
 </script>

@@ -82,11 +82,11 @@
           <div class="col-lg-11 container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.Data-Set')}}</span></p>
             <div class="datapstyle" >
-              <span v-for="q in content.all.datap"><img src="../../static/image/three.png" class="img-responsive im" :id="q" @click="disk(q)"  :title="q"></span>
+              <span v-for="q in content.all.datap"><img src="../../static/image/three.png" class="img-responsive im" :id="q" @click="disk(q)"  :title="q" data-toggle="tooltip" data-placement="bottom"></span>
             </div>
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.Cache-disk')}}</span></p>
             <div class="datapstyle" >
-              <span v-for="w in content.all.cachep"><img src="../../static/image/cachedata.png" class="img-responsive im" :id="w"  @click="disk(w)"  :title="w"></span>
+              <span v-for="w in content.all.cachep"><img src="../../static/image/cachedata.png" class="img-responsive im" :id="w"  @click="disk(w)"  :title="w" data-toggle="tooltip" data-placement="bottom"></span>
             </div>
           </div>
         </div>
@@ -95,8 +95,8 @@
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
           <div class=" container-fluid">
           <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">iSCSI {{$t('message.Service')}}/{{$t('message.Interior')}} {{$t('message.Network')}}</span></p>
-            <div class="datapstyle"><span v-for="w in content.all.cachep"><img src="../../static/image/four.png" class="img-responsive im" :id="w"  @click="net(w)"  :title="w"></span></div>
-          <span class="ff">{{content.all.iscsi}}</span><span class="glyphicon glyphicon-edit e" style="cursor: pointer" title="修改" data-toggle="editmodal" @click="edit()" id="edit"></span>
+            <div class="datapstyle"><span v-for="w in content.all.cachep"><img src="../../static/image/four.png" class="img-responsive im" :id="w"  @click="net(w)"  :title="w" data-toggle="tooltip" data-placement="bottom"></span></div>
+          <span class="ff">{{content.all.iscsi}}</span><span class="glyphicon glyphicon-edit e" style="cursor: pointer"  data-toggle="editmodal" @click="edit()" id="edit"></span>
           <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.Interior')}} {{$t('message.Network')}}</span></p>
           <span class="ff">{{content.all.netw}}</span>
           </div>
@@ -421,7 +421,9 @@
         this.start()
       },
       mounted(){
+        $("[data-toggle='tooltip']").tooltip();
         this.change(0,this.osdlist[0])
+
       },
       activated(){
         this.piechart()
