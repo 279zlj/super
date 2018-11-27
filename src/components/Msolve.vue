@@ -59,7 +59,7 @@
     color: white;
   }
   .a{
-    margin-top: 4.1em;
+    margin-top: 1.8em;
 
   }
   .bg{

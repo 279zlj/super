@@ -43,7 +43,7 @@ Vue.prototype.$axios = axios;
 //   return html.join('');
 // }
 
-Vue.prototype.allurl='http://192.168.1.162:8000/'
+Vue.prototype.allurl='http://192.168.2.64:8000/'
 
 const i18n = new VueI18n({
   locale:'zh',
@@ -61,7 +61,7 @@ router.beforeEach((to,from,next)=>{                          /*路由守卫，�
     if (to.meta.requiresAuth) {
       if (store.state.islogin=='200'||sessionStorage.getItem('islogin')=='200'){
         next();
-        // window.document.body.style.backgroundColor = '#2E2245';
+        window.document.body.style.backgroundColor = '#2E2245';
       }
       else {
         next({

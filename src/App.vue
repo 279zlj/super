@@ -1,8 +1,9 @@
 <template>
   <div id="app" :class="patha==='/Installone'||patha==='/Installtwo'||patha==='/Installthree'?'container-fluid':'container'">
     <router-view/>
-    <router-view name="bottom"></router-view>
     <router-view name="right"></router-view>
+    <router-view name="bottom"></router-view>
+
 
   </div>
 </template>
@@ -57,4 +58,31 @@
       width: 80%;
     }
   }
+  /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+  ::-webkit-scrollbar
+  {
+    width: 7px;
+    height: 16px;
+    background-color: #56466D;
+  }
+
+  /*定义滚动条轨道 内阴影+圆角*/
+  ::-webkit-scrollbar-track
+  {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #56466D;
+  }
+
+  /*定义滑块 内阴影+圆角*/
+  ::-webkit-scrollbar-thumb
+  {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #241A35;
+  }
+  ::-moz-scrolled-content{
+    background-color: #56466D;
+  }
+
 </style>

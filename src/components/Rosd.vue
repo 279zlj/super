@@ -2,21 +2,27 @@
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 container-fluid" id="Rosd">
 
   <div class="row" v-if="osdlist!=null">
-  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 container allo">
+
+  <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12 container allo">
     <button  class="btn btn-default b" @click="open()" id="open">{{$t('message.Unfold')}}</button>
     <button  class="btn btn-default b" @click="clos()" id="closed">{{$t('message.Minimalism')}}</button>
     <!--<input type="button" class="btn btn-default b" value="展开" id="open" @click="open()"/>-->
     <!--<input type="button" class="btn btn-default b" value="极简" id="closed" @click="clos()"/>-->
-    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 container one" id="sample">
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 container one" id="sample">
       <div class="row san" v-for="(i,index) in osdlist"  @click="change(index,i.osdid)" >
-        <div class="row">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 container"></div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
           <div class="row aa" :class="{'chan':ind===index}" >
+
             <div class="row up " :class="{'chan':ind===index}" :id="i.osdid">
+
               <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 " :class="{'chan':ind===index}">
                 <div class="row font " :class="{'chan':ind===index}">
-                  <p>{{i.osdid}}</p>
-                  <p>{{i.osdip}}</p>
-                  <p>{{$t('message.Status')}}：<span :class="{'o':i.status==='ok','wa':i.status==='warning','err':i.status==='error'}">{{i.status}}</span></p>
+                  <p style="font-size: 1.2em;line-height: 1em">{{i.osdid}}</p>
+                  <p style="line-height: 1em;font-size: 1em;">{{i.osdip}}</p>
+                  <p style="font-size:1em">{{$t('message.Status')}}：<span :class="{'o':i.status==='ok','wa':i.status==='warning','err':i.status==='error'}">{{i.status}}</span></p>
                 </div>
 
               </div>
@@ -30,15 +36,16 @@
         </div>
       </div>
     </div>
-      <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 container one" id="detail" >
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 container one" id="detail" >
       <div class="row san" v-for="(i,index) in osdlist"  @click="change(index)">
-        <div class="row">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 container"></div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="row block aa" :class="{'chan':ind===index}">
             <div class="row up " :class="{'chan':ind===index}" >
               <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 " :class="{'chan':ind===index}">
                 <div class="row font " :class="{'chan':ind===index}">
-                  <p>{{i.osdid}}</p>
-                  <p>{{i.osdip}}</p>
+                  <p style="font-size: 1.2em;line-height: 1em">{{i.osdid}}</p>
+                  <p style="line-height: 1em;font-size: 1em;">{{i.osdip}}</p>
                   <button  class="btn btn-sm b"  >{{$t('message.Console')}}</button>
                   <!--<input type="button" class="btn btn-sm b" value="控制台" />-->
                 </div>
@@ -58,7 +65,7 @@
   </div>
     <button  class="btn btn-default all" @click="adddisk()" style="margin-bottom: 1em;float: right" >{{$t('message.Add-a-disk')}}</button>
     <!--<input type="button" class="btn btn-default all" value="添加磁盘" style="margin-bottom: 1em;float: right" @click="adddisk()"/>-->
-    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 bgdown " v-if="content.all!=null && content.netcard!=null && content.diskall!=null">
+    <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12 bgdown " v-if="content.all!=null && content.netcard!=null && content.diskall!=null">
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
           <div class=" bor container-fluid">
@@ -436,7 +443,8 @@
   #Rosd{
     color:white;
   }
-.block{
+
+  .block{
   border-radius: .3em;
 
 }

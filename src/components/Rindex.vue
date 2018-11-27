@@ -145,7 +145,7 @@
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bbone">
             <div class="warn">
               <div class="row container-fluid">
-                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="font-size: 18px">
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="font-size: 18px;height: 2em">
                   {{$t('message.Warning-Event')}}
                   <span class=" label label-danger" style="vertical-align: super" title="紧急"  data-toggle="tooltip" data-placement="top">{{$store.state.jj}}</span>
                   <span class=" label label-warning" style="vertical-align: super" title="重要" data-toggle="tooltip" data-placement="top">{{$store.state.zy}}</span>
@@ -490,7 +490,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    width: 10em;
+    width: 11em;
   }
 .bi{
   margin-top: .3em;background-color: #6B6DAE;color: white

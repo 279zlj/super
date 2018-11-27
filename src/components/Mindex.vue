@@ -99,7 +99,7 @@
 <style scoped>
 #Mindex{
   color: white;
-  margin-top: 4em;
+  margin-top: 5.3em;
 
   margin-bottom: 2em;
 

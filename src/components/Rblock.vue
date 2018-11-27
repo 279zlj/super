@@ -1,21 +1,6 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 container-fluid" id="Rblock">
     <div class="row">
-      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
-      <div id="y">
-        <p @click="addnew()" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" class="img-responsive add" title="<h5>添加</h5>" data-toggle="tooltip" data-placement="right"/></p>
-        <p @click="bdilata()" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" class="img-responsive kr" title="<h5>扩容</h5>" data-toggle="tooltip" data-placement="right"/></p>
-        <p @click="addsn()" data-toggle="addsnap" style="cursor: pointer"><span class="glyphicon glyphicon-camera create" title="<h5>创建快照</h5>" data-toggle="tooltip" data-placement="right"></span></p>
-        <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></p>
-      </div>
-        <div style="width: 300px" id="h">
-          <div @click="addnew()" data-toggle="addnew" style="float: left"><img src="../../static/image/add.svg" class="img-responsive addh" title="<h5>添加</h5>" data-toggle="tooltip" data-placement="right"/></div>
-          <div @click="bdilata()" style="float: left" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive kr" title="<h5>扩容</h5>" data-toggle="tooltip" data-placement="right"/></div>
-          <div @click="addsn()" style="float: left" data-toggle="addsnap"><span class="glyphicon glyphicon-camera createh" title="<h5>创建快照</h5>" data-toggle="tooltip" data-placement="right"></span></div>
-          <div @click="deletelist()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></div>
-        </div>
-      </div>
-
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
         <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-click-to-select="true" data-toggle="table"  data-classes="table-no-bordered" >
           <thead>
@@ -32,22 +17,23 @@
           </tbody>
         </table>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 b" >
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
         <div id="y">
-        <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="<h5>编辑</h5>" data-toggle="tooltip" data-placement="right"></span></p>
-        <p @click="changetime()" data-toggle="changeti"  style="cursor: pointer"><span class="glyphicon glyphicon-time time" title="<h5>更改时间</h5>" data-toggle="tooltip" data-placement="right"></span></p>
-        <p @click="clonesnap()" data-toggle="clonesn" style="cursor: pointer" ><span class="glyphicon glyphicon glyphicon-th-list clone" title="<h5>克隆快照</h5>" data-toggle="tooltip" data-placement="right"></span></p>
-        <p @click="deletel()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="addnew()" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" class="img-responsive add" title="<h5>添加</h5>" data-toggle="tooltip" data-placement="right"/></p>
+          <p @click="bdilata()" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" class="img-responsive kr" title="<h5>扩容</h5>" data-toggle="tooltip" data-placement="right"/></p>
+          <p @click="addsn()" data-toggle="addsnap" style="cursor: pointer"><span class="glyphicon glyphicon-camera create" title="<h5>创建快照</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></p>
         </div>
-        <div id="h" style="width: 300px">
-          <span @click="editlist()" data-toggle="editmodal" ><span class="glyphicon glyphicon-edit edith" title="<h5>编辑</h5>" data-toggle="tooltip" data-placement="right"></span></span>
-          <span @click="changetime()" data-toggle="changeti"><span class="glyphicon glyphicon-time edith" title="<h5>更改时间</h5>" data-toggle="tooltip" data-placement="right"></span></span>
-          <span @click="clonesnap()" data-toggle="clonesn" ><span class="glyphicon glyphicon glyphicon-th-list edith" title="<h5>克隆快照</h5>" data-toggle="tooltip" data-placement="right"></span></span>
-          <span @click="deletel()" ><span class="glyphicon glyphicon-remove-circle edith" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></span>
+        <div style="width: 300px" id="h">
+          <div @click="addnew()" data-toggle="addnew" style="float: left"><img src="../../static/image/add.svg" class="img-responsive addh" title="<h5>添加</h5>" data-toggle="tooltip" data-placement="right"/></div>
+          <div @click="bdilata()" style="float: left" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive kr" title="<h5>扩容</h5>" data-toggle="tooltip" data-placement="right"/></div>
+          <div @click="addsn()" style="float: left" data-toggle="addsnap"><span class="glyphicon glyphicon-camera createh" title="<h5>创建快照</h5>" data-toggle="tooltip" data-placement="right"></span></div>
+          <div @click="deletelist()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></div>
         </div>
       </div>
+    </div>
+    <div class="row">
+
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive two">
         <table class="table table-responsive text-nowrap" id="table" data-toolbar="#toolbar" data-click-to-select="true" data-height="350" data-toggle="table"  data-classes="table-no-bordered">
           <thead>
@@ -63,6 +49,20 @@
           <tbody>
           </tbody>
         </table>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 b" >
+        <div id="y">
+          <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="<h5>编辑</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="changetime()"  style="cursor: pointer"><span class="glyphicon glyphicon-backward verticalimg edit" title="<h5>回滚</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="clonesnap()" data-toggle="clonesn" style="cursor: pointer" ><span class="glyphicon glyphicon glyphicon-th-list clone" title="<h5>克隆快照</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="deletel()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+        </div>
+        <div id="h" style="width: 300px">
+          <span @click="editlist()" data-toggle="editmodal" ><span class="glyphicon glyphicon-edit edith" title="<h5>编辑</h5>" data-toggle="tooltip" data-placement="right"></span></span>
+          <span @click="changetime()"><span class="glyphicon glyphicon-backward verticalimg edith" title="<h5>回滚</h5>" data-toggle="tooltip" data-placement="right"></span></span>
+          <span @click="clonesnap()" data-toggle="clonesn" ><span class="glyphicon glyphicon glyphicon-th-list edith" title="<h5>克隆快照</h5>" data-toggle="tooltip" data-placement="right"></span></span>
+          <span @click="deletel()" ><span class="glyphicon glyphicon-remove-circle edith" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></span>
+        </div>
       </div>
     </div>
     <div class="modal fade" id="editm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -123,24 +123,7 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
     </div>
-    <div class="modal fade" id="changetime" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="change">{{$t('message.Change-time')}}</h4>
-          </div>
-          <div class="modal-body">
-            <p>{{$t('message.Change-time')}}：</p><input type="time" class="form-control" id="ti" ref="ti"/>
 
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
-            <button type="button" class="btn btn-primary" @click="changet()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal -->
-    </div>
     <div class="modal fade" id="clonesn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -378,18 +361,21 @@
             })
         },
         changetime(){                           /*更改时间*/
+          this.who='back'
           let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
             return row.snapid;
           });
           if (ids.length !== 1) {
-            this.tipscontent='请选择其中一个设备更改时间'
+            this.tipscontent='请选择其中一个设备进行回滚'
             this.$refs.tips.usetips()
-            // alert('请选择其中一个设备更改时间')
+            // alert('请选择其中一个设备进行回滚')
           }
           else if(ids.length === 1){
-            this.snapt = ids;
+            this.title='此操作不可逆，确认进行回滚'
+            this.dosome=ids
+            this.$refs.tips.dselect()
+            this.aback = ids;
 
-            $('#changetime').modal("show")
 
           }
         },

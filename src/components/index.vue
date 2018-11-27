@@ -1,15 +1,73 @@
 <template>
   <div id="index" class="container">
     <div class="row " id="one">
-      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-        <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-          <div id="mycharts" class="chartone"></div>
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 container-fluid">
+        <div class="row blockone">
+          <h4 style="margin: 1em 0 0.5em 1em">网络状态</h4>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 right">
+            <div id="liquidFill" class="grid"></div>
+            <p style="text-align: center;line-height:1em">健康状态</p>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ">
+            <p class="fontone">问题网卡：<span style="font-size: 1.8em;padding: .5em">3</span>个</p>
+            <div style="margin-top: 3em">
+              <p class="fonttwo">当前带宽：</p>
+              <p class="fonttwo">网卡模式是否匹配：是</p>
+            </div>
+          </div>
         </div>
-        <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-          <div id="mychartss" class="charttwo"></div>
+        <div class="row blockthree">
+          <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 blocktwo">
+            <div class="blockbottom">
+            <h4 style="line-height: 3em">磁盘IO汇总</h4>
+            <div style="text-align: center;padding-bottom: 1em">
+              <p>I：<span class="num">48</span>bps</p>
+              <p>O：<span class="num">48</span>bps</p>
+            </div>
+            </div>
+            <div>
+              <h4 style="line-height: 3em">Swap IO</h4>
+              <div style="text-align: center">
+                <p>I：<span class="num">48</span>bps</p>
+                <p>O：<span class="num">48</span>bps</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 ">
+            <div class="row blockfour">
+              <h4 style="line-height: 1.5em">内存</h4>
+              <div style="text-align: center">
+                <p>已用：<span class="numtwo">62</span>%</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 ">
+            <div class="row blockfive">
+            <div class="blockbottom">
+              <h4 style="line-height: 1.5em">CPU</h4>
+              <div style="text-align: center">
+                <p>已用：<span class="numtwo">38</span>%</p>
+              </div>
+            </div>
+            <div class="row">
+              <h4 style="margin: 1em">CPU使用率/TOP3</h4>
+              <div class="container-fluid" style="width: 90%">
+              <table class="table-condensed table-responsive table">
+                <tbody style="text-align: center">
+                <tr v-for="i in cpu">
+                  <td>{{i.ip}}</td>
+                  <td>{{i.network}}</td>
+                </tr>
+                </tbody>
+              </table>
+              </div>
+            </div>
+            </div>
+          </div>
         </div>
+
       </div>
-      <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 font bg" >
+      <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 font bg" >
         <div class="row">
         <div id="mychart" class="chartfirst" ></div>
         </div>
@@ -44,17 +102,19 @@
   import 'echarts/lib/echarts.js';
   import 'echarts/lib/chart/map';
   import 'echarts/map/js/china.js'
+  import liquidfill from 'echarts-liquidfill'
   export default {
     name: "index",
     echarts,
+    liquidfill,
     data(){
       return{
         linpiechart: [],
         n:'',
         u:'',
         s:'',
-
-
+        pool_use:[0.32],
+        cpu:[{ip:'cpu1',network:'38.7%'},{ip:'cpu2',network:'38.7%'},{ip:'cpu3',network:'38.7%'}],
       }
     },
 
@@ -116,8 +176,9 @@
           _this.n=_this.linpiechart.net[0].nuse
           _this.u=_this.linpiechart.net[0].use
           _this.s=_this.linpiechart.status
-          _this.piechart();
-          _this.columnar();
+          // _this.piechart();
+          // _this.columnar();
+          _this.liquidFill();
           // _this.ws()
 
         }).catch(function (error) {
@@ -654,132 +715,40 @@
           ychart.setOption(option)
 
       },
-      columnar: function () {
+      liquidFill:function (){
+        var liquid = this.$echarts.init(document.getElementById('liquidFill'));
+        var option = {
 
-        var mycharts = this.$echarts.init(document.getElementById('mycharts'));
-        var options = {
-          title: {
-            text: '状态统计',
-            textStyle: {
-              color: 'white'
-            }
-          },
-          tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-              type: 'shadow'
-            },
-            formatter: "{a} <br/>{b} : {c} "
-          },
-          grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '0%',
-            containLabel: true
-          },
-          xAxis: [{
-            type: 'value',
-            boundaryGap: [0, 0.01],
-            lineStyle: {
-              color: 'white'
-            },
-            "axisLine": {
-              lineStyle: {
-                color: 'white'
+          series: [{
+            type: 'liquidFill',
+            radius: '90%',
+            itemStyle:{
+              normal:{
+                color:'#04b8da'
               }
             },
-          },
-          ],
-          yAxis: {
-            type: 'category',
-            data: ['存储空间', 'CPU利用率', '内存容量', '可用资源'],
-            lineStyle: {
-              color: 'white'
+            data: this.pool_use,
+            backgroundStyle:{
+              color:'#45355E',
+              borderColor:'#73668D'
             },
-            "axisLine": {
-              lineStyle: {
-                color: 'white'
+            outline: {
+              show: false
+            },
+            label: {
+              normal: {
+                textStyle: {
+                  color: 'white',
+                  insideColor: 'yellow',
+                  fontSize: 25
+                }
               }
-            },
-          },
-          series: [
-            {
-              name: '状态',
-              type: 'bar',
-              barWidth: 20,
-              data: this.s,
-              itemStyle: {
-                normal: {
-                  color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
-                    offset: 0,
-                    color: '#0394bb'
-                  },
-                    {
-                      offset: 1,
-                      color: '#aafaff'
-                    }]),//线条渐变色
-                }
-              },
             }
-          ]
+          }]
         };
-        mycharts.setOption(options);
+        liquid.setOption(option);
       },
-      piechart: function () {
-        var mychartss = this.$echarts.init(document.getElementById('mychartss'));
-        var optionss = {
-          title: {
-            text: '网络状态',
-            left: 'center',
-            textStyle: {
-              color: '#fff'
-            }
-          },
-          tooltip: {
-            trigger: 'item',
-            formatter: "{a} <br/>{b} :{d}%"
-          },
-          visualMap: {
-            show: false,
-            min: 80,
-            max: 600,
-            inRange: {
-              colorLightness: [1, 0]
-            }
-          },
-          series: [
-            {
-              name: '网络状态',
-              type: 'pie',
-              radius: '55%',
-              center: ['50%', '50%'],
-              data: [
-                {value: this.n, name: '可用'},
-                {value: this.u, name: '已用'},
-              ],
-              roseType: 'radius',
-              label: {
-                normal: {
-                  textStyle: {
-                    color: '#fff'
-                  }
-                }
-              },
-              itemStyle: {
-                normal: {
-                  color: '#244ac4',
-                  shadowBlur: 80,
-                  shadowColor: '#584371',
-                  textStyle: {
-                    color: '#fff'
-                  },
-                }
-              },
-            }
-          ]
-        };
-        mychartss.setOption(optionss);
-      },
+
 
 
     },
@@ -790,14 +759,80 @@
 </script>
 
 <style scoped>
-  .font{
+  .font,h4,table{
     color: white;
+  }
+  .grid{
+    width: 100%;height:8em;
+    margin: 0 auto;
+
   }
   #index{
     z-index: 999;
   }
   p{
     color: white;
+  }
+  .blockone{
+    background-color: #45355E;
+    width: 100%;
+    height: 100%;
+    border-radius: 1em;
+    margin-top: 4em;
+    padding: 0 0 .5em 0;
+
+  }
+  .blockthree{
+    width: 100%;
+    height: 100%;
+    margin-top: 1em;
+
+  }
+  .blocktwo{
+    background-color: #45355E;
+    /*width: 100%;*/
+    height: 100%;
+    border-radius: 1em;
+    /*margin-right: 2em;*/
+    padding-bottom: 1.5em;
+  }
+  .blockfour{
+    background-color: #45355E;
+    height: 100%;
+    border-radius: 1em;
+    padding-left:1em ;
+    margin-left:.2em ;
+    padding-bottom: 2em;
+    margin-bottom: 1em;
+  }
+  .blockfive{
+    background-color: #45355E;
+    height: 100%;
+    border-radius: 1em;
+    padding-left:1em ;
+    margin-left:.2em ;
+
+  }
+  .num{
+    font-size: 1.9em;line-height: 2em;padding: .5em;
+  }
+  .numtwo{
+    font-size: 2.5em;line-height: 1.5em;padding: .5em
+  }
+  .fontone{
+    font-size: 1.1em;
+  }
+  .fonttwo{
+    font-size: 1.1em;
+    vertical-align: bottom;
+    bottom: 0;
+  }
+  .blockbottom{
+    border-bottom: 1px solid #55466E;
+  }
+
+  .right{
+    border-right: 1px solid #55466E;
   }
   #health{
     width: 100%;word-wrap: break-word;font-size:1.6em
@@ -806,17 +841,12 @@
     width: 100%;word-wrap: break-word;font-size:1.2em
   }
   .chartfirst{
-    width: 100%;height:14em;margin-top: 5em;
+    width: 100%;height:15.5em;margin-top: 5em;
   }
   .chartsecond,.chartthird{
-    width: 100%;height:14em;
+    width: 100%;height:15.5em;
   }
-  .charttwo{
-    width: 100%;height:15em;margin-top: 5em;
-  }
-  .chartone{
-    width: 100%;height: 16em;margin-top: 7em
-  }
+
   .logprint{
     width: 100%;
     height: 10em;
@@ -833,7 +863,7 @@
     display: none;
   }
   .out{
-    margin: 2em 0 2em 0;
+    margin: 1em 0 1.5em 0;
     color: white;
   }
   .bg{

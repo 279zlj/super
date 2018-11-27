@@ -52,7 +52,7 @@
         <!--</router-link>-->
       <!--</div>-->
       <div class="col-lg-1 col-lg-offset-1 col-md-1 col-sm-2 col-xs-12 dropdown">
-      <a class="dropdown-toggle glyphicon glyphicon-user white" data-toggle="dropdown" style="cursor: pointer"><span class="jl">admin</span></a>
+      <a class="dropdown-toggle glyphicon glyphicon-user white" data-toggle="dropdown" style="cursor: pointer"><span class="j2">admin</span></a>
         <ul class="dropdown-menu">
           <li @click="us()"><router-link :to="{name:'User'}">{{$t('message.User-control')}}</router-link></li>
           <li><a style="cursor: pointer"><span @click="outlog">{{$t('message.Log-out')}}</span></a></li>
@@ -61,7 +61,7 @@
         </ul>
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 dropdown">
-      <a class="dropdown-toggle glyphicon glyphicon-cog white" data-toggle="dropdown" style="cursor: pointer"><span class="jl">{{$t('nav.Management')}}</span></a>
+      <a class="dropdown-toggle glyphicon glyphicon-cog white" data-toggle="dropdown" style="cursor: pointer"><span class="j2">{{$t('nav.Management')}}</span></a>
         <ul class="dropdown-menu">
           <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#bb" @click="bbm()">{{$t('message.Versioning')}}</span></a></li>
           <li><a ><span style="cursor: pointer" data-toggle="modal" data-target="#lisense" @click="lis()">{{$t('message.Lisense-management')}}</span></a></li>
