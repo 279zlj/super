@@ -230,16 +230,19 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
     </div>
+    <tips ref="tips" :content=tipscontent :dotitle=title :docontent=dosome v-on:respond="res"></tips>
   </div>
 </template>
 
 <script>
 
   import Vue from 'vue'
+  import tips from './tips'
   import echarts from 'echarts';
     export default {
         name: "Rosd",
       echarts,
+      components:{tips},
       Vue,
       data(){
         return{
@@ -295,14 +298,24 @@
           //   console.log(error)
           // })
         },
+        judgeuser(){
+
+        },
         editsend(){                      /*发送修改后iSCSI的ip*/
-          var _this=this
-          let ip=_this.$refs.modifyip.value
-          this.$axios.post(this.allurl+'manager/ioagent/iscsi_change',{ip:ip}).then(function (res) {
-            // console.log(res)
-          }).catch(function (error) {
-            console.log(error)
-          })
+          var permit=sessionStorage.getItem('islogin')
+          if (permit==250) {
+            this.tipscontent='普通用户无操作权限'
+            this.$refs.tips.usetips()
+          }
+          else {
+            var _this=this
+            let ip=_this.$refs.modifyip.value
+            this.$axios.post(this.allurl+'manager/ioagent/iscsi_change',{ip:ip}).then(function (res) {
+              // console.log(res)
+            }).catch(function (error) {
+              console.log(error)
+            })
+            }
         },
         clos(){                        /*列表显示为精简模式*/
 
@@ -401,6 +414,11 @@
           // console.log(_this.osdlist)
         },
         adddisk(){
+          var permit=sessionStorage.getItem('islogin')
+          if (permit==250){
+            this.tipscontent='普通用户无操作权限'
+            this.$refs.tips.usetips()
+          }
           $('#disk').modal('show')
         },
         addsend(){
@@ -428,7 +446,7 @@
         this.start()
       },
       mounted(){
-        $("[data-toggle='tooltip']").tooltip();
+        $("[data-toggle='tooltip']").tooltip({html:true});
         this.change(0,this.osdlist[0])
 
       },

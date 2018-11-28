@@ -77,6 +77,11 @@
                 sessionStorage.setItem('islogin','200')
                 _this.$router.push('/')
               }
+              else if (res.status=='200'&& res.data.status===2){
+                _this.$store.commit('islogin',250)
+                sessionStorage.setItem('islogin','250')
+                _this.$router.push('/')
+              }
             }).catch(function (error) {
               console.log(error)
             })
