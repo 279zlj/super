@@ -13,6 +13,7 @@
           </div>
         </div>
         <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" >
+          <div class="alert alert-danger " id="tipscontent" style="display: none;">普通用户无操作权限！</div>
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -83,20 +84,25 @@
             // console.log(this.urla)
           },
         editlist() {                       /*运维信息修改*/
-          var ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
-            return row.snapid;
-          });
-          if (ids.length !== 1) {
-            this.tipscontent='请选择其中一个设备进行修改'
-            this.$refs.tips.usetips()
-            // alert('请选择其中一个设备进行修改');
-            return;
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipscontent').show().delay (2000).fadeOut()
           }
-          else if(ids.length === 1){
-            this.edit = ids;
+          else {
+            var ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.snapid;
+            });
+            if (ids.length !== 1) {
+              this.tipscontent = '请选择其中一个设备进行修改'
+              this.$refs.tips.usetips()
+              // alert('请选择其中一个设备进行修改');
+              return;
+            }
+            else if (ids.length === 1) {
+              this.edit = ids;
 
               $('#editm').modal("show")
 
+            }
           }
         },
         editsend(){                      /*发送修改运维设置*/
@@ -122,19 +128,24 @@
           }
         },
         deletelist(){                 /*删除设置  */
-          let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
-            return row.snapid;
-          });
-          if (ids.length < 1) {
-            this.tipscontent='请选择删除项'
-            this.$refs.tips.usetips()
-            // alert('请选择删除项')
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipscontent').show().delay (2000).fadeOut()
           }
-          else if(ids.length >= 1) {
-            this.title='是否确认选择删除存储池'
-            this.dosome=ids
-            this.$refs.tips.dselect()
-            // console.log('delete')
+          else {
+            let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.snapid;
+            });
+            if (ids.length < 1) {
+              this.tipscontent = '请选择删除项'
+              this.$refs.tips.usetips()
+              // alert('请选择删除项')
+            }
+            else if (ids.length >= 1) {
+              this.title = '是否确认选择删除存储池'
+              this.dosome = ids
+              this.$refs.tips.dselect()
+              // console.log('delete')
+            }
           }
         },
         sentip(){                                  /*发送查找的ip*/

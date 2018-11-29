@@ -58,7 +58,7 @@
                 </tr>
               <tr>
                 <td colspan="2" class="last">
-                  <button  class="btn btn-success" @click="sure()" style="margin:.5em 2em " id="sureone" >{{$t('message.Confirm')}}</button>
+                  <button  class="btn btn-success " @click="sure()"  style="margin:.5em 2em " id="sureone" >{{$t('message.Confirm')}}</button>
                   <button  class="btn btn-info" @click="sure()" style="margin:.5em 2em" id="resetone" >{{$t('message.Reset')}}</button>
                   <!--<input type="button" class="btn btn-success" value="确认" id="sureone" @click="sure()" style="margin:.5em 2em "/>-->
                   <!--<input type="reset" class="btn btn-info" value="重置" id="resetone" style="margin:.5em 2em"/>-->
@@ -325,6 +325,11 @@
           this.btsele=event.target.value
 
         },
+      },
+      mounted(){
+          if(sessionStorage.getItem('islogin')==250){
+            $('.btn-success').addClass('disabled')
+          }
       }
     }
 </script>

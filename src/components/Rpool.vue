@@ -4,7 +4,9 @@
 
 
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
+
         <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-toggle="table" data-click-to-select="true" data-classes="table-no-bordered" >
+          <div class="alert alert-danger " id="tipscontent" style="display: none;">普通用户无操作权限！</div>
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -41,6 +43,7 @@
 
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive two">
         <table class="table table-responsive text-nowrap" id="table" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-click-to-select="true" data-classes="table-no-bordered">
+          <div class="alert alert-danger " id="tipsc" style="display: none;">普通用户无操作权限！</div>
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -128,7 +131,6 @@
           <div class="modal-body">
             <p>{{$t('message.Pool-name')}}：</p><input type="text" class="form-control" id="addname" ref="addname" />
             <p>{{$t('message.Storage-pool-capacity')}}：</p><input type="number" class="form-control" id="addsize" ref="addsize"/>
-            <p>pgs：</p><input type="number" class="form-control" id="addnum" ref="addnum"/>
             <p>{{$t('message.Storage-pool-type')}}：</p>
             <select class="form-control" v-on:change="sel($event)" v-model="unitsele">
               <option v-for="m in unit" :value="m.value">{{m.name}}</option>
@@ -183,45 +185,60 @@
           })
         },
         addnew(){
-          $('#addnew').modal("show")
+          // console.log(this.$store.state.islogin)
+          if (sessionStorage.getItem('islogin')==250){
+              $("#tipscontent").show().delay (2000).fadeOut ();;
+          }
+          else
+            $('#addnew').modal("show")
         },
         sel(event){                     /*选择自建启动延时单位*/
           this.unitsele=event.target.value
         },
         editlist() {                         /*pool设备的修改*/
-          var ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
-            return row.poolname;
-            this.ids=ids
-          });
-          if (ids.length !== 1) {
-            this.tipscontent='请选择其中一个设备进行修改'
-            this.$refs.tips.usetips()
-            // alert('请选择其中一个设备进行修改')
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipscontent').show().delay(2000).fadeOut()
           }
-          else if(ids.length === 1){
-            this.edit = ids;
+          else {
+            var ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.poolname;
+              this.ids = ids
+            });
+            if (ids.length !== 1) {
+              this.tipscontent = '请选择其中一个设备进行修改'
+              this.$refs.tips.usetips()
+              // alert('请选择其中一个设备进行修改')
+            }
+            else if (ids.length === 1) {
+              this.edit = ids;
 
               $('#editm').modal("show")
 
+            }
+            this.ids = ids
+            // console.log(this.ids)
           }
-          this.ids=ids
-          // console.log(this.ids)
         },
         dilatation(){                   /*存储池扩容大小修改*/
-          let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
-            return row.poolname;
-          });
-          if (ids.length !== 1) {
-            this.tipscontent='请选择其中一个设备进行扩容'
-            // console.log(this.tipscontent)
-            this.$refs.tips.usetips()
-            // alert('请选择其中一个设备进行扩容')
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipscontent').show().delay(2000).fadeOut()
           }
-          else if(ids.length === 1){
-            this.dilata = ids;
+          else {
+            let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.poolname;
+            });
+            if (ids.length !== 1) {
+              this.tipscontent = '请选择其中一个设备进行扩容'
+              // console.log(this.tipscontent)
+              this.$refs.tips.usetips()
+              // alert('请选择其中一个设备进行扩容')
+            }
+            else if (ids.length === 1) {
+              this.dilata = ids;
 
-            $('#dilatation').modal("show")
+              $('#dilatation').modal("show")
 
+            }
           }
         },
         sizesend(){                          /*发送扩容信息*/
@@ -236,12 +253,10 @@
         addsend(){
           let addname=this.$refs.addname.value
           let addsize=this.$refs.addsize.value
-          let addnum=this.$refs.addnum.value
           if (this.unitsele=='fb') {
             this.$axios.post(this.allurl + 'manager/tank/create_tank', {
               name: addname,
               size: addsize,
-              pgs: addnum,
               type: this.unitsele
             }).then(function (res) {
               console.log(res)
@@ -253,7 +268,6 @@
             this.$axios.post(this.allurl + 'manager/tank/create_tank', {
               name: addname,
               size: addsize,
-              pgs: addnum,
               type: this.unitsele,
               k: this.$refs.kvalue.value,
               m: this.$refs.mvalue.value
@@ -265,6 +279,10 @@
           }
         },
         addclient(){              /*添加iscsi客户端*/
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipscontent').show().delay(2000).fadeOut()
+          }
+          else
           $('#clientmodal').modal("show")
         },
         res(data){
@@ -340,19 +358,23 @@
           }
         },
         deletelist(){                         /*pool的删除*/
-          this.who='pool'
-          let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
-            return row.poolname;
-          });
-          if (ids.length < 1) {
-            this.tipscontent='请选择删除项'
-            this.$refs.tips.usetips()
-            // alert('请选择删除项')
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipscontent').show().delay(2000).fadeOut()
           }
-          else if(ids.length >= 1) {
-            this.title='是否确认选择删除存储池'
-            this.dosome=ids
-            this.$refs.tips.dselect()
+          else {
+            this.who = 'pool'
+            let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.poolname;
+            });
+            if (ids.length < 1) {
+              this.tipscontent = '请选择删除项'
+              this.$refs.tips.usetips()
+              // alert('请选择删除项')
+            }
+            else if (ids.length >= 1) {
+              this.title = '是否确认选择删除存储池'
+              this.dosome = ids
+              this.$refs.tips.dselect()
 
 
             }
@@ -360,22 +382,26 @@
               return
             }
 
-
+          }
         },
 
         deletel(){                             /*授权的删除*/
-          this.who='empower'
-          let ids = $.map( $('#table').bootstrapTable('getSelections'), function (row) {
-            return row.pname;
-          });
-          if (ids.length < 1) {
-            this.tipscontent='请选择删除项'
-            this.$refs.tips.usetips()
-            // alert('请选择删除项')
+          if (sessionStorage.getItem('islogin')==250){
+            $("#tipscontent").show().delay (2000).fadeOut ();;
           }
-          else if(ids.length >= 1) {
-              this.title='是否确认选择删除该授权记录'
-              this.some=ids
+          else {
+            this.who = 'empower'
+            let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
+              return row.pname;
+            });
+            if (ids.length < 1) {
+              this.tipscontent = '请选择删除项'
+              this.$refs.tips.usetips()
+              // alert('请选择删除项')
+            }
+            else if (ids.length >= 1) {
+              this.title = '是否确认选择删除该授权记录'
+              this.some = ids
               this.$refs.tips.dselect()
 
 
@@ -384,11 +410,11 @@
               return
             }
             // console.log('delete')
-
+          }
         },
         editsend(){                 /*发送修改后的存储池信息*/
           let poolname=this.$refs.name.value
-          this.$axios.post(this.allurl+'manager/tank/change_param',{name:poolname,ip:this.edit}).then(function (res) {
+          this.$axios.post(this.allurl+'manager/tank/rename_tank',{newname:poolname,tank_id:this.edit}).then(function (res) {
             // console.log(res)
           }).catch(function (error) {
             console.log(error)
@@ -403,40 +429,51 @@
           })
         },
         empower(){                      /*确认授权*/
-          this.who='getpower'
-          var ips = $.map( $('#table').bootstrapTable('getSelections'), function (row) {
-            return row.pname;
-          });
+          if (sessionStorage.getItem('islogin')==250){
+            $("#tipsc").show().delay (2000).fadeOut ();;
+          }
+          else {
+            this.who = 'getpower'
+            var ips = $.map($('#table').bootstrapTable('getSelections'), function (row) {
+              return row.pname;
+            });
 
-            if (ips.length!=1){
-              this.tipscontent='请选择其中一个进行授权'
+            if (ips.length != 1) {
+              this.tipscontent = '请选择其中一个进行授权'
               this.$refs.tips.usetips()
               // alert('请选择其中一个进行授权')
             }
             else {
-              this.title='是否确认进行授权操作'
-              this.dosome=ips
+              this.title = '是否确认进行授权操作'
+              this.dosome = ips
               this.$refs.tips.dselect()
 
             }
+          }
         },
         noempower(){                          /*取消授权*/
-          this.who='ngetpower'
-          var ips = $.map( $('#table').bootstrapTable('getSelections'), function (row) {
-            return row.pname;
-          });
-
-          if (ips.length!=1){
-            this.tipscontent='请选择其中一个取消授权'
-            this.$refs.tips.usetips()
-            // alert('请选择其中一个取消授权')
+          if (sessionStorage.getItem('islogin')==250){
+            $("#tipsc").show().delay (2000).fadeOut ();;
           }
           else {
-            this.title='是否确认进行取消授权操作'
-            this.dosome=ips
-            this.$refs.tips.dselect()
+            this.who = 'ngetpower'
+            var ips = $.map($('#table').bootstrapTable('getSelections'), function (row) {
+              return row.pname;
+            });
+
+            if (ips.length != 1) {
+              this.tipscontent = '请选择其中一个取消授权'
+              this.$refs.tips.usetips()
+              // alert('请选择其中一个取消授权')
+            }
+            else {
+              this.title = '是否确认进行取消授权操作'
+              this.dosome = ips
+              this.$refs.tips.dselect()
+            }
           }
         },
+
 
       },
       mounted(){
@@ -520,6 +557,7 @@
   .getpower{
     width: 45%;font-size: 1.5em ;margin-bottom: 1em
   }
+
   @media screen and (min-width: 769px) and (max-width: 1025px) {
     .kr,.adduser{
       width: 60% !important;

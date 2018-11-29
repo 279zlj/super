@@ -66,7 +66,6 @@
             this.user=this.$refs.user.value;
             this.pwd=this.$refs.pwd.value;
             this.$axios.post(this.allurl+'login',{user:this.user,pwd:this.pwd}).then(function (res) {
-              // console.log(res.data.status)
               if (res.data.status===0) {
                 _this.tips='账号/密码错误，请重新输入'
                 return(_this.$refs.pwd.value='')
@@ -77,10 +76,11 @@
                 sessionStorage.setItem('islogin','200')
                 _this.$router.push('/')
               }
-              else if (res.status=='200'&& res.data.status===2){
+              else if (res.status=='200'&& res.data.status==2){
                 _this.$store.commit('islogin',250)
                 sessionStorage.setItem('islogin','250')
                 _this.$router.push('/')
+
               }
             }).catch(function (error) {
               console.log(error)

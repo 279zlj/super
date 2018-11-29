@@ -84,5 +84,12 @@
   ::-moz-scrolled-content{
     background-color: #56466D;
   }
+  #tipscontent,#tipsc{
+    position: absolute;
+    z-index: 999;
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
 
+  }
 </style>

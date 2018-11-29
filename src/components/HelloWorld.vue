@@ -52,7 +52,7 @@
         <!--</router-link>-->
       <!--</div>-->
       <div class="col-lg-1 col-lg-offset-1 col-md-1 col-sm-2 col-xs-12 dropdown">
-      <a class="dropdown-toggle glyphicon glyphicon-user white" data-toggle="dropdown" style="cursor: pointer"><span class="j2">admin</span></a>
+      <a class="dropdown-toggle glyphicon glyphicon-user white" data-toggle="dropdown" style="cursor: pointer"><span class="j2">{{user}}</span></a>
         <ul class="dropdown-menu">
           <li @click="us()"><router-link :to="{name:'User'}">{{$t('message.User-control')}}</router-link></li>
           <li><a style="cursor: pointer"><span @click="outlog">{{$t('message.Log-out')}}</span></a></li>
@@ -90,7 +90,7 @@
                 <input type="file" class="form-control" value="请选择上传的安装包"/>
               </div>
               <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                <button class="btn btn-info">{{$t('message.Uploading')}}</button>
+                <button class="btn btn-info" id="upload">{{$t('message.Uploading')}}</button>
               </div>
             </div>
             <div class="row container-fluid" style="margin-top: 1em">
@@ -105,7 +105,7 @@
                 </tbody>
               </table>
               <div class="col-lg-2 col-lg-offset-10">
-                <input type="button" class="btn btn-info" value="一键升级" style="margin-top: 1em"/>
+                <button type="button" class="btn btn-info" id="rank" style="margin-top: 1em">一键升级</button>
               </div>
             </div>
 
@@ -160,7 +160,7 @@
                 <input type="text" class="form-control" placeholder="手机号码" autofocus="autofocus"/>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <input type="button" class="btn btn-info" value="添加"/>
+                <button class="btn btn-info" type="button" id="addno">添加</button>
               </div>
             </div>
 
@@ -205,7 +205,8 @@ export default {
       cy:0,
       outtitle:'',
       respond:'',
-      language:''
+      language:'',
+      user:''
 
     }
   },
@@ -300,19 +301,29 @@ export default {
     },
     bbm(){
       // console.log('bbm')
+      $('#upload').addClass('disabled')
+
+      $('#rank').addClass('disabled')
       $('#modalt').bootstrapTable({
         url:this.allurl+"manctl/versions"
       })
     },
     addnotice(){
       // console.log('bbm')
-
+      $('#addno').addClass('disabled')
     }
   },
 
   mounted(){
     // this.outlog()
     $("[data-toggle='tooltip']").tooltip();
+    // console.log(this.$store.state.islogin)
+    if (sessionStorage.getItem('islogin')==200){
+      this.user='Admin'
+    }
+    else {
+      this.user='User'
+    }
     this.warnall()
     if (sessionStorage.getItem('issele')==null){             /*最初状态设置为首页*/
       this.changenav('HelloWorld')

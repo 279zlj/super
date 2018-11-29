@@ -7,6 +7,7 @@
 
     <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
     <table class="table table-responsive table-condensed" id="logt" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered">
+      <div class="alert alert-danger " id="tipscontent" style="display: none;">普通用户无操作权限！</div>
       <thead>
       <tr>
         <th data-field="state" data-checkbox="true" ></th>
@@ -38,17 +39,22 @@
               url:this.allurl+"manctl/log_list"
             })
           },
-        sele(){               /*选择某一日志进行操作*/
-          var ids = $.map( $('#logt').bootstrapTable('getSelections'), function (row) {
-            return row.name;
+        sele() {               /*选择某一日志进行操作*/
+          if (sessionStorage.getItem('islogin') == 250) {
+            $('#tipscontent').show().delay(2000).fadeOut()
+          }
+          else {
+            var ids = $.map($('#logt').bootstrapTable('getSelections'), function (row) {
+              return row.name;
 
-          });
-          this.$axios.post(this.allurl+'manctl/log_exp',{select:ids}).then(function (res) {
-            // console.log(res)
-          }).catch(function (error) {
-            console.log(error)
-          })
-          // console.log(ids)
+            });
+            this.$axios.post(this.allurl + 'manctl/log_exp', {select: ids}).then(function (res) {
+              // console.log(res)
+            }).catch(function (error) {
+              console.log(error)
+            })
+            // console.log(ids)
+          }
         }
       },
       mounted(){

@@ -14,6 +14,7 @@
 
         <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
           <table class="table table-responsive table-condensed" id="usert" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered">
+            <div class="alert alert-danger " id="tipscontent" style="display: none;">普通用户无操作权限！</div>
             <thead>
             <tr>
               <th data-field="state" data-checkbox="true" ></th>
@@ -75,30 +76,34 @@
           })
         },
         editlist() {                   /*设备信息的修改*/
-
-          var ids = $.map($('#usert').bootstrapTable('getSelections'), function (row) {
-            return row.userid;
-          });
-          var rank = $.map($('#usert').bootstrapTable('getSelections'), function (row) {
-            return row.role;
-          });
-          // console.log(ids)
-          if (ids.length !== 1) {
-            this.tipscontent='请选择其中一个设备进行修改'
-            this.$refs.tips.usetips()
-            // alert('请选择其中一个设备进行修改')
-
-            return ('ok');
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipscontent').show().delay (2000).fadeOut()
           }
-
-          if(ids.length === 1){
-            this.edit = ids;
+          else {
+            var ids = $.map($('#usert').bootstrapTable('getSelections'), function (row) {
+              return row.userid;
+            });
+            var rank = $.map($('#usert').bootstrapTable('getSelections'), function (row) {
+              return row.role;
+            });
             // console.log(ids)
+            if (ids.length !== 1) {
+              this.tipscontent = '请选择其中一个设备进行修改'
+              this.$refs.tips.usetips()
+              // alert('请选择其中一个设备进行修改')
+
+              return ('ok');
+            }
+
+            if (ids.length === 1) {
+              this.edit = ids;
+              // console.log(ids)
 
               $('#editm').modal("show")
 
+            }
+            this.rolerank = rank
           }
-          this.rolerank=rank
         },
         editsend(){                      /*发送用户修改信息*/
           let userpwd=this.$refs.user.value
@@ -123,6 +128,10 @@
           }
         },
         deletelist(){                       /*用户的删除*/
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipscontent').show().delay (2000).fadeOut()
+          }
+          else {
           let ids = $.map( $('#usert').bootstrapTable('getSelections'), function (row) {
             return row.userid;
           });
@@ -138,7 +147,9 @@
 
             // console.log('delete')
           }
-        },
+
+        }
+          }
       },
       mounted(){
         this.start()

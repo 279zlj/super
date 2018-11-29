@@ -3,6 +3,7 @@
     <div class="row">
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
         <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-click-to-select="true" data-toggle="table"  data-classes="table-no-bordered" >
+          <div class="alert alert-danger " id="tipscontent" style="display: none;">普通用户无操作权限！</div>
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -36,6 +37,7 @@
 
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive two">
         <table class="table table-responsive text-nowrap" id="table" data-toolbar="#toolbar" data-click-to-select="true" data-height="350" data-toggle="table"  data-classes="table-no-bordered">
+          <div class="alert alert-danger " id="tipsc" style="display: none;">普通用户无操作权限！</div>
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -111,7 +113,7 @@
             <p>{{$t('message.Subordinate-storage-pool')}}：</p>
             <select @click="selec()" v-on:change="indexsel($event)" v-model="sele" class="form-control">
 
-              <option v-for="i in poollist" :value="i.val" >{{i.name}}</option>
+              <option v-for="i in poollist" :value="i.name" >{{i.name}}</option>
             </select>
             <p>{{$t('message.Snap-name')}}：</p><input type="text" class="form-control" id="snapname" ref="snapname"/>
             <p>{{$t('message.Description')}}：</p><input type="text" class="form-control" id="snapcontent" ref="snapcontent"/>
@@ -203,24 +205,29 @@
             })
           },
         editlist() {                         /*修改功能*/
-          var ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
-            return row.snapid;
-          });
-          var name = $.map($('#table').bootstrapTable('getSelections'), function (row) {
-            return row.snapname;
-          });
-          if (ids.length !== 1) {
-            this.tipscontent='请选择其中一个设备进行修改'
-            this.$refs.tips.usetips()
-            // alert('请选择其中一个设备进行修改')
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipsc').show().delay (2000).fadeOut()
           }
-          else if(ids.length === 1){
-            this.edit = ids;
+          else {
+            var ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
+              return row.snapid;
+            });
+            var name = $.map($('#table').bootstrapTable('getSelections'), function (row) {
+              return row.snapname;
+            });
+            if (ids.length !== 1) {
+              this.tipscontent = '请选择其中一个设备进行修改'
+              this.$refs.tips.usetips()
+              // alert('请选择其中一个设备进行修改')
+            }
+            else if (ids.length === 1) {
+              this.edit = ids;
 
               $('#editm').modal("show")
 
+            }
+            this.name = name
           }
-          this.name=name
         },
         editsend(){                                /*发送修改功能*/
             let name =this.$refs.name.value
@@ -259,7 +266,7 @@
             this.respond = data
             // console.log(data,this.respond)
             if (this.respond == 'ok') {
-              this.$axios.post(this.allurl + 'manager/client/block/del_snap', {ips: ips}).then(function (res) {
+              this.$axios.post(this.allurl + 'manager/client/block/del_snap', {id: ips}).then(function (res) {
                 // console.log(res,'post ok')
                 if (res.data = 'ok') {
                   $('#table').bootstrapTable('remove', {
@@ -274,57 +281,71 @@
           }
         },
         deletelist(){                       /*块设备删除功能*/
-            this.who='block'
-          let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
-            return row.blockname;
-          });
-          if (ids.length < 1) {
-            this.tipscontent='请选择删除项'
-            this.$refs.tips.usetips()
-            // alert('请选择删除项')
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipsc').show().delay (2000).fadeOut()
           }
-          else if(ids.length >= 1) {
-            this.title='是否确认选择删除块设备'
-            this.dosome=ids
-            this.$refs.tips.dselect()
+          else {
+            this.who = 'block'
+            let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.blockname;
+            });
+            if (ids.length < 1) {
+              this.tipscontent = '请选择删除项'
+              this.$refs.tips.usetips()
+              // alert('请选择删除项')
+            }
+            else if (ids.length >= 1) {
+              this.title = '是否确认选择删除块设备'
+              this.dosome = ids
+              this.$refs.tips.dselect()
 
+            }
           }
         },
         deletel(){                    /*快照删除功能*/
-            this.who='snap'
-          let ids = $.map( $('#table').bootstrapTable('getSelections'), function (row) {
-            return row.snapid;
-          });
-          if (ids.length < 1) {
-            this.tipscontent='请选择删除项'
-            this.$refs.tips.usetips()
-            // alert('请选择删除项')
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipscontent').show().delay (2000).fadeOut()
           }
-          else if(ids.length >= 1) {
-            this.title='是否确认选择删除块设备'
-            this.dosome=ids
-            this.$refs.tips.dselect()
+          else {
+            this.who = 'snap'
+            let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
+              return row.snapid;
+            });
+            if (ids.length < 1) {
+              this.tipscontent = '请选择删除项'
+              this.$refs.tips.usetips()
+              // alert('请选择删除项')
+            }
+            else if (ids.length >= 1) {
+              this.title = '是否确认选择删除块设备'
+              this.dosome = ids
+              this.$refs.tips.dselect()
 
-            // console.log('delete')
+              // console.log('delete')
+            }
           }
         },
         bdilata(){                        /*块设备扩容*/
-          var ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
-            return row.blockname;
-            this.ids=ids
-          });
-          if (ids.length !== 1) {
-            this.tipscontent='请选择其中一个设备进行修改'
-            this.$refs.tips.usetips()
-            // alert('请选择其中一个设备进行修改')
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipscontent').show().delay (2000).fadeOut()
           }
-          else if(ids.length === 1){
-            this.edit = ids;
+          else {
+            var ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.blockname;
+              this.ids = ids
+            });
+            if (ids.length !== 1) {
+              this.tipscontent = '请选择其中一个设备进行修改'
+              this.$refs.tips.usetips()
+              // alert('请选择其中一个设备进行修改')
+            }
+            else if (ids.length === 1) {
+              this.edit = ids;
 
-            $('#dilatation').modal("show")
+              $('#dilatation').modal("show")
 
+            }
           }
-
         },
         sizesend(){                    /*发送块设备扩容信息*/
 
@@ -336,22 +357,28 @@
             })
         },
         addsn(){                         /*块设备创建快照*/
-          let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
-            return row.blockname;
-          });
-          if (ids.length !== 1) {
-            this.tipscontent='请选择其中一个设备进行快照'
-            this.$refs.tips.usetips()
-            // alert('请选择其中一个设备进行快照')
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipscontent').show().delay (2000).fadeOut()
           }
-          else if(ids.length === 1){
-            this.snapi = ids;
+          else {
+            let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.blockname;
+            });
+            if (ids.length !== 1) {
+              this.tipscontent = '请选择其中一个设备进行快照'
+              this.$refs.tips.usetips()
+              // alert('请选择其中一个设备进行快照')
+            }
+            else if (ids.length === 1) {
+              this.snapi = ids;
 
-            $('#addsnap').modal("show")
+              $('#addsnap').modal("show")
 
+            }
           }
         },
         snapsend(){                            /*发送创建快照信息*/
+            // console.log(this.sele)
             let name=this.$refs.snapname.value
             let content=this.$refs.snapcontent.value
             this.$axios.post(this.allurl+'manager/client/block/cre_snap',{name:name,content:content,id:this.snapi,pool:this.sele}).then(function (res) {
@@ -361,22 +388,27 @@
             })
         },
         changetime(){                           /*更改时间*/
-          this.who='back'
-          let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
-            return row.snapid;
-          });
-          if (ids.length !== 1) {
-            this.tipscontent='请选择其中一个设备进行回滚'
-            this.$refs.tips.usetips()
-            // alert('请选择其中一个设备进行回滚')
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipsc').show().delay (2000).fadeOut()
           }
-          else if(ids.length === 1){
-            this.title='此操作不可逆，确认进行回滚'
-            this.dosome=ids
-            this.$refs.tips.dselect()
-            this.aback = ids;
+          else {
+            this.who = 'back'
+            let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
+              return row.snapid;
+            });
+            if (ids.length !== 1) {
+              this.tipscontent = '请选择其中一个设备进行回滚'
+              this.$refs.tips.usetips()
+              // alert('请选择其中一个设备进行回滚')
+            }
+            else if (ids.length === 1) {
+              this.title = '此操作不可逆，确认进行回滚'
+              this.dosome = ids
+              this.$refs.tips.dselect()
+              this.aback = ids;
 
 
+            }
           }
         },
         changet(){                                 /*发送更改时间*/
@@ -388,23 +420,32 @@
             })
         },
         clonesnap(){                            /*快照克隆*/
-          let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
-            return row.snapid;
-          });
-          if (ids.length !== 1) {
-            this.tipscontent='请选择其中一个设备进行克隆'
-            this.$refs.tips.usetips()
-            // alert('请选择其中一个设备进行克隆')
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipsc').show().delay (2000).fadeOut()
           }
-          else if(ids.length === 1){
-            this.clone = ids;
+          else {
+            let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
+              return row.snapid;
+            });
+            if (ids.length !== 1) {
+              this.tipscontent = '请选择其中一个设备进行克隆'
+              this.$refs.tips.usetips()
+              // alert('请选择其中一个设备进行克隆')
+            }
+            else if (ids.length === 1) {
+              this.clone = ids;
 
-            $('#clonesn').modal("show")
+              $('#clonesn').modal("show")
 
+            }
           }
         },
         addnew(){
-          $('#addnew').modal("show")
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipscontent').show().delay (2000).fadeOut()
+          }
+          else
+            $('#addnew').modal("show")
         },
         addsend(){
           let addname=this.$refs.addname.value
@@ -412,7 +453,7 @@
             this.$axios.post(this.allurl + 'manager/client/block/create_block', {
               name: addname,
               size: addsize,
-              type: this.bsele
+              pool: this.bsele
             }).then(function (res) {
               console.log(res)
             }).catch(function (error) {
@@ -439,6 +480,7 @@
           var _this=this
           this.$axios.get(this.allurl+'manager/tank/list').then(function (res) {
             _this.poollist=res.data
+            console.log(_this.poollist)
           }).catch(function (error) {
             console.log(error)
           })

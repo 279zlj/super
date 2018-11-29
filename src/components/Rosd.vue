@@ -67,6 +67,7 @@
     <!--<input type="button" class="btn btn-default all" value="添加磁盘" style="margin-bottom: 1em;float: right" @click="adddisk()"/>-->
     <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12 bgdown " v-if="content.all!=null && content.netcard!=null && content.diskall!=null">
       <div class="row">
+        <div class="alert alert-danger " id="tipscontent" style="display: none;">普通用户无操作权限！</div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
           <div class=" bor container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.The-machine-information')}}</span></p>
@@ -230,19 +231,16 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
     </div>
-    <tips ref="tips" :content=tipscontent :dotitle=title :docontent=dosome v-on:respond="res"></tips>
   </div>
 </template>
 
 <script>
 
   import Vue from 'vue'
-  import tips from './tips'
   import echarts from 'echarts';
     export default {
         name: "Rosd",
       echarts,
-      components:{tips},
       Vue,
       data(){
         return{
@@ -302,12 +300,7 @@
 
         },
         editsend(){                      /*发送修改后iSCSI的ip*/
-          var permit=sessionStorage.getItem('islogin')
-          if (permit==250) {
-            this.tipscontent='普通用户无操作权限'
-            this.$refs.tips.usetips()
-          }
-          else {
+
             var _this=this
             let ip=_this.$refs.modifyip.value
             this.$axios.post(this.allurl+'manager/ioagent/iscsi_change',{ip:ip}).then(function (res) {
@@ -315,7 +308,7 @@
             }).catch(function (error) {
               console.log(error)
             })
-            }
+
         },
         clos(){                        /*列表显示为精简模式*/
 
@@ -333,9 +326,13 @@
 
         },
         edit(){                       /*编辑更改iscsi*/
-          $('#edit').click(function () {
-            $('#editm').modal("show")
-          })
+
+            if (sessionStorage.getItem('islogin')==250){
+              $('#tipscontent').show().delay (2000).fadeOut()
+            }
+            else
+              $('#editm').modal("show")
+
         },
         piechart() {                        /*cpu使用率饼状图*/
           var _this=this
@@ -414,12 +411,11 @@
           // console.log(_this.osdlist)
         },
         adddisk(){
-          var permit=sessionStorage.getItem('islogin')
-          if (permit==250){
-            this.tipscontent='普通用户无操作权限'
-            this.$refs.tips.usetips()
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipscontent').show().delay (2000).fadeOut()
           }
-          $('#disk').modal('show')
+          else
+           $('#disk').modal('show')
         },
         addsend(){
           var ip=this.$refs.addip.value
@@ -494,6 +490,7 @@
   margin-bottom: 2em;
 
 }
+
 .datamoreone{
   height: 17em;
 }

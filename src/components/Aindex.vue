@@ -5,6 +5,7 @@
 
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive">
         <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-toggle="table"  data-click-to-select="true" data-classes="table-no-bordered" data-pagination="true" data-page-number="1"  data-page-size="10" data-search="true" data-show-refresh="true">
+          <div class="alert alert-danger " id="tipscontent" style="display: none;">普通用户无操作权限！</div>
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -188,41 +189,51 @@
           }
         },
         deletelist(){               /*删除快照功能*/
-          this.who='snap'
-          let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
-            return row.snapid;
-          });
-          if (ids.length < 1) {
-            this.tipscontent='请选择删除项'
-            this.$refs.tips.usetips()
-            // alert('请选择删除项')
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipscontent').show().delay (2000).fadeOut()
           }
-          else if(ids.length >= 1) {
-            this.title='是否确认选择删除快照'
-            this.dosome=ids
-            this.$refs.tips.dselect()
-            // console.log('delete')
+          else {
+            this.who = 'snap'
+            let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.snapid;
+            });
+            if (ids.length < 1) {
+              this.tipscontent = '请选择删除项'
+              this.$refs.tips.usetips()
+              // alert('请选择删除项')
+            }
+            else if (ids.length >= 1) {
+              this.title = '是否确认选择删除快照'
+              this.dosome = ids
+              this.$refs.tips.dselect()
+              // console.log('delete')
+            }
           }
         },
         editlist() {              /*快照修改功能*/
-          var ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
-            return row.snapid;
-          });
-          var name = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
-            return row.snapname;
-          });
-          if (ids.length != 1) {
-            this.tipscontent='请选择其中一个设备进行修改'
-            this.$refs.tips.usetips()
-            // alert('请选择其中一个设备进行修改')
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipscontent').show().delay (2000).fadeOut()
           }
-          else if(ids.length === 1){
-            this.edit = ids;
+          else {
+            var ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.snapid;
+            });
+            var name = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.snapname;
+            });
+            if (ids.length != 1) {
+              this.tipscontent = '请选择其中一个设备进行修改'
+              this.$refs.tips.usetips()
+              // alert('请选择其中一个设备进行修改')
+            }
+            else if (ids.length === 1) {
+              this.edit = ids;
 
               $('#editm').modal("show")
 
+            }
+            this.ids = name
           }
-          this.ids=name
         },
         editsend(){                             /*发送快照修改信息 */
           let name =this.$refs.saname.value
@@ -234,19 +245,24 @@
           })
         },
         snclone(){                            /*块设备克隆*/
-          let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
-            return row.snapid;
-          });
-          if (ids.length !== 1) {
-            this.tipscontent='请选择其中一个设备进行克隆'
-            this.$refs.tips.usetips()
-            // alert('请选择其中一个设备进行克隆')
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipscontent').show().delay (2000).fadeOut()
           }
-          else if(ids.length === 1){
-            this.clone = ids;
+          else {
+            let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.snapid;
+            });
+            if (ids.length !== 1) {
+              this.tipscontent = '请选择其中一个设备进行克隆'
+              this.$refs.tips.usetips()
+              // alert('请选择其中一个设备进行克隆')
+            }
+            else if (ids.length === 1) {
+              this.clone = ids;
 
-            $('#clonesna').modal("show")
+              $('#clonesna').modal("show")
 
+            }
           }
         },
         sendclone(){                       /*发送快照克隆信息*/
@@ -258,25 +274,30 @@
             console.log(error)
           })
         },
-        goback(){                      /*快照回滚*/
-          this.who='back'
-          let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
-            return row.snapid;
-          });
-          if (ids.length !== 1) {
-            this.tipscontent='请选择其中一个设备进行回滚'
-            this.$refs.tips.usetips()
-            // alert('请选择其中一个设备进行回滚')
+        goback() {                      /*快照回滚*/
+          if (sessionStorage.getItem('islogin') == 250) {
+            $('#tipscontent').show().delay(2000).fadeOut()
           }
-          else if(ids.length === 1){
-            this.title='此操作不可逆，确认进行回滚'
-            this.dosome=ids
-            this.$refs.tips.dselect()
-            this.aback = ids;
+          else {
+            this.who = 'back'
+            let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.snapid;
+            });
+            if (ids.length !== 1) {
+              this.tipscontent = '请选择其中一个设备进行回滚'
+              this.$refs.tips.usetips()
+              // alert('请选择其中一个设备进行回滚')
+            }
+            else if (ids.length === 1) {
+              this.title = '此操作不可逆，确认进行回滚'
+              this.dosome = ids
+              this.$refs.tips.dselect()
+              this.aback = ids;
 
+
+            }
 
           }
-
         }
       }
     }

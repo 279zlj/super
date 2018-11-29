@@ -59,7 +59,7 @@ const i18n = new VueI18n({
 
 router.beforeEach((to,from,next)=>{                          /*路由守卫，禁止直接通过url访问页面内容*/
     if (to.meta.requiresAuth) {
-      if (store.state.islogin=='200'||sessionStorage.getItem('islogin')=='200'){
+      if (store.state.islogin=='200'||store.state.islogin=='250'||sessionStorage.getItem('islogin')=='200'||sessionStorage.getItem('islogin')=='250'){
         next();
         window.document.body.style.backgroundColor = '#2E2245';
       }
