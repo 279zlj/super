@@ -4,6 +4,7 @@
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
         <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-click-to-select="true" data-toggle="table"  data-classes="table-no-bordered" >
           <div class="alert alert-danger " id="tipscontent" style="display: none;">普通用户无操作权限！</div>
+          <div class="alert alert-danger " id="fromtips" style="display: none;">块设备没有依赖！</div>
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -20,16 +21,18 @@
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
         <div id="y">
-          <p @click="addnew()" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" class="img-responsive add" title="<h5>添加</h5>" data-toggle="tooltip" data-placement="right"/></p>
-          <p @click="bdilata()" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" class="img-responsive kr" title="<h5>扩容</h5>" data-toggle="tooltip" data-placement="right"/></p>
-          <p @click="addsn()" data-toggle="addsnap" style="cursor: pointer"><span class="glyphicon glyphicon-camera create" title="<h5>创建快照</h5>" data-toggle="tooltip" data-placement="right"></span></p>
-          <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="addnew()" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" class="img-responsive add" title="添加" data-toggle="tooltip" data-placement="right"/></p>
+          <p @click="bdilata()" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" class="img-responsive kr" title="扩容" data-toggle="tooltip" data-placement="right"/></p>
+          <p @click="addsn()" data-toggle="addsnap" style="cursor: pointer"><span class="glyphicon glyphicon-camera create" title="创建快照" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="independent()" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/combine.png" class="img-responsive kr" title="块设备独立" data-toggle="tooltip" data-placement="right"/></p>
+          <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
         </div>
         <div style="width: 300px" id="h">
-          <div @click="addnew()" data-toggle="addnew" style="float: left"><img src="../../static/image/add.svg" class="img-responsive addh" title="<h5>添加</h5>" data-toggle="tooltip" data-placement="right"/></div>
-          <div @click="bdilata()" style="float: left" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive kr" title="<h5>扩容</h5>" data-toggle="tooltip" data-placement="right"/></div>
-          <div @click="addsn()" style="float: left" data-toggle="addsnap"><span class="glyphicon glyphicon-camera createh" title="<h5>创建快照</h5>" data-toggle="tooltip" data-placement="right"></span></div>
-          <div @click="deletelist()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></div>
+          <div @click="addnew()" data-toggle="addnew" style="float: left"><img src="../../static/image/add.svg" class="img-responsive addh" title="添加" data-toggle="tooltip" data-placement="right"/></div>
+          <div @click="bdilata()" style="float: left" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive kr" title="扩容" data-toggle="tooltip" data-placement="right"/></div>
+          <div @click="addsn()" style="float: left" data-toggle="addsnap"><span class="glyphicon glyphicon-camera createh" title="创建快照" data-toggle="tooltip" data-placement="right"></span></div>
+          <div @click="bdilata()" style="float: left" data-toggle="dilatation"><img src="../../static/image/combine.png" class="img-responsive kr" title="块设备独立" data-toggle="tooltip" data-placement="right"/></div>
+          <div @click="deletelist()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></div>
         </div>
       </div>
     </div>
@@ -54,16 +57,16 @@
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 b" >
         <div id="y">
-          <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="<h5>编辑</h5>" data-toggle="tooltip" data-placement="right"></span></p>
-          <p @click="changetime()"  style="cursor: pointer"><span class="glyphicon glyphicon-backward verticalimg edit" title="<h5>回滚</h5>" data-toggle="tooltip" data-placement="right"></span></p>
-          <p @click="clonesnap()" data-toggle="clonesn" style="cursor: pointer" ><span class="glyphicon glyphicon glyphicon-th-list clone" title="<h5>克隆快照</h5>" data-toggle="tooltip" data-placement="right"></span></p>
-          <p @click="deletel()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="changetime()"  style="cursor: pointer"><span class="glyphicon glyphicon-backward verticalimg edit" title="回滚" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="clonesnap()" data-toggle="clonesn" style="cursor: pointer" ><span class="glyphicon glyphicon glyphicon-th-list clone" title="克隆快照" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="deletel()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
         </div>
         <div id="h" style="width: 300px">
-          <span @click="editlist()" data-toggle="editmodal" ><span class="glyphicon glyphicon-edit edith" title="<h5>编辑</h5>" data-toggle="tooltip" data-placement="right"></span></span>
-          <span @click="changetime()"><span class="glyphicon glyphicon-backward verticalimg edith" title="<h5>回滚</h5>" data-toggle="tooltip" data-placement="right"></span></span>
-          <span @click="clonesnap()" data-toggle="clonesn" ><span class="glyphicon glyphicon glyphicon-th-list edith" title="<h5>克隆快照</h5>" data-toggle="tooltip" data-placement="right"></span></span>
-          <span @click="deletel()" ><span class="glyphicon glyphicon-remove-circle edith" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></span>
+          <span @click="editlist()" data-toggle="editmodal" ><span class="glyphicon glyphicon-edit edith" title="编辑" data-toggle="tooltip" data-placement="right"></span></span>
+          <span @click="changetime()"><span class="glyphicon glyphicon-backward verticalimg edith" title="回滚" data-toggle="tooltip" data-placement="right"></span></span>
+          <span @click="clonesnap()" data-toggle="clonesn" ><span class="glyphicon glyphicon glyphicon-th-list edith" title="克隆快照" data-toggle="tooltip" data-placement="right"></span></span>
+          <span @click="deletel()" ><span class="glyphicon glyphicon-remove-circle edith" title="删除" data-toggle="tooltip" data-placement="right"></span></span>
         </div>
       </div>
     </div>
@@ -110,11 +113,11 @@
             <h4 class="modal-title" id="bsnap">{{$t('message.Create-Snapshot')}}</h4>
           </div>
           <div class="modal-body">
-            <p>{{$t('message.Subordinate-storage-pool')}}：</p>
-            <select @click="selec()" v-on:change="indexsel($event)" v-model="sele" class="form-control">
+            <!--<p>{{$t('message.Subordinate-storage-pool')}}：</p>-->
+            <!--<select @click="selec()" v-on:change="indexsel($event)" v-model="sele" class="form-control">-->
 
-              <option v-for="i in poollist" :value="i.name" >{{i.name}}</option>
-            </select>
+              <!--<option v-for="i in poollist" :value="i.name" >{{i.name}}</option>-->
+            <!--</select>-->
             <p>{{$t('message.Snap-name')}}：</p><input type="text" class="form-control" id="snapname" ref="snapname"/>
             <p>{{$t('message.Description')}}：</p><input type="text" class="form-control" id="snapcontent" ref="snapcontent"/>
           </div>
@@ -182,6 +185,7 @@
           ips:'',
           name:'',
           snapi:'',
+          spool:'',
           clone:'',
           poolsele:'',
           sele:'',
@@ -279,6 +283,17 @@
               })
             }
           }
+          else if (this.who=='comb') {
+            this.respond = data
+            // console.log('comb',this.respond)
+            if (this.respond == 'ok') {
+              this.$axios.post(this.allurl + 'block/snap/flatten', {name: this.snapi, pool: this.spool}).then(function (res) {
+
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+          }
         },
         deletelist(){                       /*块设备删除功能*/
           if (sessionStorage.getItem('islogin')==250){
@@ -364,6 +379,9 @@
             let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
               return row.blockname;
             });
+            let ipool = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.bpool;
+            });
             if (ids.length !== 1) {
               this.tipscontent = '请选择其中一个设备进行快照'
               this.$refs.tips.usetips()
@@ -371,7 +389,7 @@
             }
             else if (ids.length === 1) {
               this.snapi = ids;
-
+              this.spool=ipool
               $('#addsnap').modal("show")
 
             }
@@ -381,7 +399,7 @@
             // console.log(this.sele)
             let name=this.$refs.snapname.value
             let content=this.$refs.snapcontent.value
-            this.$axios.post(this.allurl+'manager/client/block/cre_snap',{name:name,content:content,id:this.snapi,pool:this.sele}).then(function (res) {
+            this.$axios.post(this.allurl+'manager/client/block/cre_snap',{name:name,content:content,id:this.snapi,pool:this.spool}).then(function (res) {
               // console.log(res)
             }).catch(function (error) {
               console.log(error)
@@ -484,12 +502,52 @@
           }).catch(function (error) {
             console.log(error)
           })
+        },
+        independent(){
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipscontent').show().delay (2000).fadeOut()
+          }
+          else {
+            this.who = 'comb'
+            let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.blockname;
+            });
+            let ipool = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.bpool;
+            });
+            let ifrom = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.bfrom;
+            });
+            this.snapi = ids;
+            this.spool=ipool
+            if (ids.length !== 1) {
+              this.tipscontent = '请选择其中一个设备进行快照分离'
+              this.$refs.tips.usetips()
+              // alert('请选择其中一个设备进行回滚')
+            }
+            else if (ids.length === 1) {
+
+              if (ifrom=='用户创建'){
+                $('#fromtips').show().delay(2000).fadeOut()
+              }
+              else {
+                this.title = '此操作不可逆，确认进行分离'
+                this.dosome = ids
+                this.$refs.tips.dselect()
+                this.aback = ids;
+              }
+
+            }
+
+          }
         }
       },
       mounted(){
-          this.start()
         $("[data-toggle='tooltip']").tooltip({html:true});
-      }
+          this.start()
+
+      },
+
     }
 </script>
 
@@ -498,6 +556,7 @@
     color:white;
 
   }
+
   thead{
     background-color: #372B51;
   }
@@ -526,7 +585,7 @@
 
   }
   .create{
-    color: white;font-size: 1.5em ;margin-bottom: 1em
+    color: white;font-size: 1.5em ;margin-bottom: .5em
 
   }
   .createh{

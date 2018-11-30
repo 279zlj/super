@@ -24,18 +24,18 @@
 
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
         <div id="y" disabled="disabled">
-          <p @click="addnew()" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" class="img-responsive add" title="<h5>添加</h5>" data-toggle="tooltip" data-placement="right" /></p>
-          <p @click="dilatation()" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" class="img-responsive kr" title="<h5>扩容</h5>" data-toggle="tooltip" data-placement="right"/></p>
-          <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="<h5>编辑</h5>" data-toggle="tooltip" data-placement="right"></span></p>
-          <p @click="addclient()"  data-toggle="clientmodal" style="cursor: pointer"><img src="../../static/image/user.png" class="img-responsive adduser" title="<h5>新增客户端</h5>" data-toggle="tooltip" data-placement="right"/></p>
-          <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="addnew()" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" class="img-responsive add" title="添加" data-toggle="tooltip" data-placement="right" /></p>
+          <p @click="dilatation()" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" class="img-responsive kr" title="扩容" data-toggle="tooltip" data-placement="right"/></p>
+          <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="addclient()"  data-toggle="clientmodal" style="cursor: pointer"><img src="../../static/image/user.png" class="img-responsive adduser" title="新增客户端" data-toggle="tooltip" data-placement="right"/></p>
+          <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
         </div>
         <div style="width: 300px" id="h">
-          <div @click="addnew()" data-toggle="addnew" style="float: left"><img src="../../static/image/add.svg" class="img-responsive addh" title="<h5>添加</h5>" data-toggle="tooltip" data-placement="right"/></div>
-          <div @click="dilatation()" style="float: left" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive krh" title="<h5>扩容</h5>" data-toggle="tooltip" data-placement="right"/></div>
-          <div @click="editlist()" data-toggle="editmodal" style="float: left"><span class="glyphicon glyphicon-edit edith" title="<h5>编辑</h5>" data-toggle="tooltip" data-placement="right"></span></div>
-          <div @click="addclient()"   style="float: left" data-toggle="clientmodal"><img src="../../static/image/user.png" class="img-responsive adduserh" style="" title="<h5>新增用户</h5>" data-toggle="tooltip" data-placement="right"/></div>
-          <div @click="deletelist()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></div>
+          <div @click="addnew()" data-toggle="addnew" style="float: left"><img src="../../static/image/add.svg" class="img-responsive addh" title="添加" data-toggle="tooltip" data-placement="right"/></div>
+          <div @click="dilatation()" style="float: left" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive krh" title="扩容" data-toggle="tooltip" data-placement="right"/></div>
+          <div @click="editlist()" data-toggle="editmodal" style="float: left"><span class="glyphicon glyphicon-edit edith" title="编辑" data-toggle="tooltip" data-placement="right"></span></div>
+          <div @click="addclient()"   style="float: left" data-toggle="clientmodal"><img src="../../static/image/user.png" class="img-responsive adduserh" style="" title="新增用户" data-toggle="tooltip" data-placement="right"/></div>
+          <div @click="deletelist()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></div>
         </div>
       </div>
     </div>
@@ -59,14 +59,14 @@
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 b" >
         <div id="y">
-          <p id="get" @click="empower()" style="cursor: pointer"><img src="../../static/image/get.png" class="img-responsive getpower" title="<h5>授权</h5>" data-toggle="tooltip" data-placement="right"/></p>
-          <p  id="nget" @click="noempower()" style="cursor: pointer"><img src="../../static/image/nget.png" class="img-responsive getpower" title="<h5>取消授权</h5>" data-toggle="tooltip" data-placement="right"/></p>
-          <p @click="deletel()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+          <p id="get" @click="empower()" style="cursor: pointer"><img src="../../static/image/get.png" class="img-responsive getpower" title="授权" data-toggle="tooltip" data-placement="right"/></p>
+          <p  id="nget" @click="noempower()" style="cursor: pointer"><img src="../../static/image/nget.png" class="img-responsive getpower" title="取消授权" data-toggle="tooltip" data-placement="right"/></p>
+          <p @click="deletel()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
         </div>
         <div style="width: 300px" id="h">
-          <div @click="empower()" id="gett" style="float: left" ><img src="../../static/image/get.png" class="img-responsive getpower" title="<h5>授权</h5>" data-toggle="tooltip" data-placement="right"/></div>
-          <div @click="noempower()" id="ngett" style="float: left" ><img src="../../static/image/nget.png" class="img-responsive getpower" title="<h5>取消授权</h5>" data-toggle="tooltip" data-placement="right"/></div>
-          <div @click="deletel()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></div>
+          <div @click="empower()" id="gett" style="float: left" ><img src="../../static/image/get.png" class="img-responsive getpower" title="授权" data-toggle="tooltip" data-placement="right"/></div>
+          <div @click="noempower()" id="ngett" style="float: left" ><img src="../../static/image/nget.png" class="img-responsive getpower" title="取消授权" data-toggle="tooltip" data-placement="right"/></div>
+          <div @click="deletel()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></div>
         </div>
       </div>
     </div>
@@ -133,12 +133,12 @@
             <p>{{$t('message.Storage-pool-capacity')}}：</p><input type="number" class="form-control" id="addsize" ref="addsize"/>
             <p>{{$t('message.Storage-pool-type')}}：</p>
             <select class="form-control" v-on:change="sel($event)" v-model="unitsele">
-              <option v-for="m in unit" :value="m.value">{{m.name}}</option>
+              <option v-for="m in unit" :value="m.name">{{m.name}}</option>
             </select>
-            <div v-if="unitsele=='erasure'">
-              <p>k值：</p><input type="number" class="form-control" id="k" ref="kvalue"/>
-              <p>m值：</p><input type="number" class="form-control" id="m" ref="mvalue"/>
-            </div>
+            <!--<div v-if="unitsele=='erasure'">-->
+              <!--<p>k值：</p><input type="number" class="form-control" id="k" ref="kvalue"/>-->
+              <!--<p>m值：</p><input type="number" class="form-control" id="m" ref="mvalue"/>-->
+            <!--</div>-->
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
@@ -163,7 +163,7 @@
             dilata:'',
             unitsele:'',
             unit:[
-              {name:'副本策略',value:'fb'},
+              {name:'副本策略',value:'replicated'},
               {name:'纠删码',value:'erasure'},
 
             ],
@@ -253,7 +253,7 @@
         addsend(){
           let addname=this.$refs.addname.value
           let addsize=this.$refs.addsize.value
-          if (this.unitsele=='fb') {
+          // if (this.unitsele=='fb') {
             this.$axios.post(this.allurl + 'manager/tank/create_tank', {
               name: addname,
               size: addsize,
@@ -263,20 +263,20 @@
             }).catch(function (error) {
               console.log(error)
             })
-          }
-          else {
-            this.$axios.post(this.allurl + 'manager/tank/create_tank', {
-              name: addname,
-              size: addsize,
-              type: this.unitsele,
-              k: this.$refs.kvalue.value,
-              m: this.$refs.mvalue.value
-            }).then(function (res) {
-              console.log(res)
-            }).catch(function (error) {
-              console.log(error)
-            })
-          }
+          // }
+          // else {
+          //   this.$axios.post(this.allurl + 'manager/tank/create_tank', {
+          //     name: addname,
+          //     size: addsize,
+          //     type: this.unitsele,
+          //     k: this.$refs.kvalue.value,
+          //     m: this.$refs.mvalue.value
+          //   }).then(function (res) {
+          //     console.log(res)
+          //   }).catch(function (error) {
+          //     console.log(error)
+          //   })
+          // }
         },
         addclient(){              /*添加iscsi客户端*/
           if (sessionStorage.getItem('islogin')==250){

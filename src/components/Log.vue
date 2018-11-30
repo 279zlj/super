@@ -2,7 +2,7 @@
   <div id="Log" class="container">
     <div class="row container-fluid">
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
-        <p @click="sele()" id="deletelist" style="cursor: pointer"><span class="glyphicon glyphicon-download" style="color: white;font-size: 1.5em" title="<h5>下载</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+        <p @click="sele()" id="deletelist" style="cursor: pointer"><span class="glyphicon glyphicon-download" style="color: white;font-size: 1.5em" title="下载" data-toggle="tooltip" data-placement="right"></span></p>
       </div>
 
     <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">

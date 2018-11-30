@@ -3,12 +3,12 @@
       <div class="row container-fluid">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
           <div id="y">
-          <p @click="editlist()"  style="cursor: pointer" ><span class="glyphicon glyphicon-edit edit" title="<h5>编辑</h5>"  data-toggle="tooltip" data-placement="right"></span></p>
-          <p @click="deletelist()"  style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="editlist()"  style="cursor: pointer" ><span class="glyphicon glyphicon-edit edit" title="编辑"  data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="deletelist()"  style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
           </div>
           <div id="h" style="width: 300px">
-            <span @click="editlist()" ><span class="glyphicon glyphicon-edit edith"  title="<h5>编辑</h5>" data-toggle="tooltip" data-placement="right" ></span></span>
-            <span @click="deletelist()" ><span class="glyphicon glyphicon-remove-circle delete" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></span>
+            <span @click="editlist()" ><span class="glyphicon glyphicon-edit edith"  title="编辑" data-toggle="tooltip" data-placement="right" ></span></span>
+            <span @click="deletelist()" ><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></span>
           </div>
         </div>
 

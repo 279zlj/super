@@ -301,16 +301,19 @@ export default {
     },
     bbm(){
       // console.log('bbm')
-      $('#upload').addClass('disabled')
+      if (sessionStorage.getItem('islogin')==250) {
+        $('#upload').addClass('disabled')
 
-      $('#rank').addClass('disabled')
+        $('#rank').addClass('disabled')
+      }
       $('#modalt').bootstrapTable({
         url:this.allurl+"manctl/versions"
       })
     },
     addnotice(){
       // console.log('bbm')
-      $('#addno').addClass('disabled')
+      if (sessionStorage.getItem('islogin')==250)
+        $('#addno').addClass('disabled')
     }
   },
 

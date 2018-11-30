@@ -31,16 +31,16 @@
       </ul>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
         <div id="y">
-          <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit verticalimg"  title="<h5>编辑</h5>" data-toggle="tooltip" data-placement="right"></span></p>
-          <p data-toggle="back" @click="goback()" style="cursor: pointer"><span class="glyphicon glyphicon-backward verticalimg" title="<h5>回滚</h5>" data-toggle="tooltip" data-placement="right"></span></p>
-          <p data-toggle="snclone" @click="snclone()" style="cursor: pointer"><span class="glyphicon glyphicon-th-large verticalimg" title="<h5>克隆</h5>" data-toggle="tooltip" data-placement="right"></span></p>
-          <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle verticalimg-l" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit verticalimg"  title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
+          <p data-toggle="back" @click="goback()" style="cursor: pointer"><span class="glyphicon glyphicon-backward verticalimg" title="回滚" data-toggle="tooltip" data-placement="right"></span></p>
+          <p data-toggle="snclone" @click="snclone()" style="cursor: pointer"><span class="glyphicon glyphicon-th-large verticalimg" title="克隆" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle verticalimg-l" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
         </div>
         <div id="h">
-          <span @click="editlist()" data-toggle="editmodal"><span class="glyphicon glyphicon-edit infeed" title="<h5>编辑</h5>" data-toggle="tooltip" data-placement="right"></span></span>
-          <span data-toggle="back" @click="goback()"><span class="glyphicon glyphicon-backward infeed" title="<h5>回滚</h5>" data-toggle="tooltip" data-placement="right"></span></span>
-          <span data-toggle="snclone" @click="snclone"><span class="glyphicon glyphicon-th-large infeed" title="<h5>克隆</h5>" data-toggle="tooltip" data-placement="right"></span></span>
-          <span @click="deletelist()"><span class="glyphicon glyphicon-remove-circle infeed" title="<h5>删除</h5>" data-toggle="tooltip" data-placement="right"></span></span>
+          <span @click="editlist()" data-toggle="editmodal"><span class="glyphicon glyphicon-edit infeed" title="编辑" data-toggle="tooltip" data-placement="right"></span></span>
+          <span data-toggle="back" @click="goback()"><span class="glyphicon glyphicon-backward infeed" title="回滚" data-toggle="tooltip" data-placement="right"></span></span>
+          <span data-toggle="snclone" @click="snclone"><span class="glyphicon glyphicon-th-large infeed" title="克隆" data-toggle="tooltip" data-placement="right"></span></span>
+          <span @click="deletelist()"><span class="glyphicon glyphicon-remove-circle infeed" title="删除" data-toggle="tooltip" data-placement="right"></span></span>
         </div>
       </div>
     </div>

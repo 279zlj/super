@@ -117,7 +117,7 @@ new Vue({
 
     },
     checklogin(){
-      console.log("10秒检查一次是否过期"+window.location.href+"::"+new Date());
+      // console.log("10秒检查一次是否过期"+window.location.href+"::"+new Date());
       var getlastTime=sessionStorage.getItem('lastTime')?sessionStorage.getItem('lastTime'):-1;
       if (getlastTime==-1){
         clearInterval(this.handler);

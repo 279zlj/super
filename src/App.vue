@@ -84,7 +84,7 @@
   ::-moz-scrolled-content{
     background-color: #56466D;
   }
-  #tipscontent,#tipsc{
+  #tipscontent,#tipsc,#fromtips{
     position: absolute;
     z-index: 999;
     margin: 0 auto;
@@ -92,4 +92,6 @@
     text-align: center;
 
   }
+
+
 </style>

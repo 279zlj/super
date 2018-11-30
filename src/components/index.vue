@@ -88,8 +88,9 @@
             <p>Health Status</p>
           </div>
           <div class="col-lg-10 col-md-10 col-sm-6 col-xs-6 print">
-            <p id="health" >{{$store.state.health.status}}</p>
-            <p id="health_detail">{{$store.state.health.health_detail}}</p>
+            <p id="health" :class="{'wanning':$store.state.health.status=='HEALTH_WARN','ok':$store.state.health.status=='HEALTH_OK','error':$store.state.health.status=='HEALTH_ERROR'}">{{$store.state.health.status}}</p>
+            <p class="health_detail" v-for="i in $store.state.health.health_detail">{{i}}</p>
+            <!--<p class="health_detail" >{{$store.state.health.health_detail.length}}</p>-->
           </div>
         </div>
       </div>
@@ -115,6 +116,7 @@
         s:'',
         pool_use:[0.32],
         cpu:[{ip:'cpu1',network:'38.7%'},{ip:'cpu2',network:'38.7%'},{ip:'cpu3',network:'38.7%'}],
+        health_d:[]
       }
     },
 
@@ -135,7 +137,7 @@
     methods: {
       initWebSocket(){
         // var _this=this
-        const wsurl="ws://192.168.1.198:8000/ws/intime_data";
+        const wsurl="ws://192.168.2.64:8000/ws/intime_data";
         this.websock=new WebSocket(wsurl);
         this.websock.onmessage=this.websocketonmessage;
         // this.websock.onopen=this.websocketonopen;
@@ -150,12 +152,19 @@
         this.initWebSocket()
       },
       websocketonmessage(e){
-
+        // var a=e.data
+        // console.log(JSON.parse(a))
+        // var now=new Date()
+        // var h=now.getHours()
+        // var m=now.getMinutes()
+        // var s=now.getSeconds()
+        // var ntime=h.toString()+':'+m.toString()+':'+s.toString()
         const data=JSON.parse(e.data)
         this.$store.commit('lindraw',{iwrite:data.message.data.iops[0],iread:data.message.data.iops[1],mwrite:data.message.data.mbps[0],mread:data.message.data.mbps[1],delaytime:data.message.data.delay,ti:data.message.data.time,health:data.message.data.health})
         this.linechartone(this.$store.state.ti,this.$store.state.iwrite,this.$store.state.iread)
         this.lindecharttwo(this.$store.state.ti,this.$store.state.mwrite,this.$store.state.mread)
         this.linechartthree(this.$store.state.ti,this.$store.state.delaytime)
+        // console.log(data.message.data.health.length)
         // this.health=data.message.data.health
         // console.log(this.$store.state.ti,this.$store.state.iwrite,this.$store.state.iread,this.$store.state.mwrite,this.$store.state.mread,this.$store.state.delaytime)
       },
@@ -837,7 +846,7 @@
   #health{
     width: 100%;word-wrap: break-word;font-size:1.6em
   }
-  #health_detail{
+  .health_detail{
     width: 100%;word-wrap: break-word;font-size:1.2em
   }
   .chartfirst{
@@ -877,6 +886,15 @@
     margin-top:3.5%;
     line-height: 5px;
     border-right: 1px solid #534769;
+  }
+  .wanning{
+    color: orangered;
+  }
+  .ok{
+    color: green;
+  }
+  .error{
+    color:red;
   }
   @media screen and (min-width: 426px) and (max-width: 768px) {
     .charttwo{
