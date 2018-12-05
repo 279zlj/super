@@ -196,7 +196,8 @@
           tipscontent:'',
           title:'',
           who:'',
-          dosome:''
+          dosome:'',
+          timertip:null
         }
       },
       methods:{
@@ -208,6 +209,12 @@
               url:this.allurl+"manager/client/block/list_snap"
             })
           },
+        timer(){
+            var _this=this
+            _this.timertip=setInterval(function () {
+              _this.start()
+            },30000)
+        },
         editlist() {                         /*修改功能*/
           if (sessionStorage.getItem('islogin')==250){
             $('#tipsc').show().delay (2000).fadeOut()
@@ -545,9 +552,12 @@
       mounted(){
         $("[data-toggle='tooltip']").tooltip({html:true});
           this.start()
-
+          this.timer()
       },
-
+      destroyed(){
+          var _this=this
+        clearInterval(_this.timertip)
+      }
     }
 </script>
 

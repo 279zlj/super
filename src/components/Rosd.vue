@@ -27,7 +27,7 @@
 
               </div>
               <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 " :class="{'chan':ind===index}" >
-                <button  class="btn btn-sm b"  >{{$t('message.Console')}}</button>
+                <!--<button  class="btn btn-sm b"  >{{$t('message.Console')}}</button>-->
                 <!--<input type="button" class="btn btn-sm b" value="控制台" />-->
               </div>
             </div>
@@ -46,7 +46,7 @@
                 <div class="row font " :class="{'chan':ind===index}">
                   <p style="font-size: 1.2em;line-height: 1em">{{i.osdid}}</p>
                   <p style="line-height: 1em;font-size: 1em;">{{i.osdip}}</p>
-                  <button  class="btn btn-sm b"  >{{$t('message.Console')}}</button>
+                  <!--<button  class="btn btn-sm b"  >{{$t('message.Console')}}</button>-->
                   <!--<input type="button" class="btn btn-sm b" value="控制台" />-->
                 </div>
 
@@ -63,25 +63,25 @@
         </div>
       </div>
   </div>
-    <button  class="btn btn-default all" @click="adddisk()" style="margin-bottom: 1em;float: right" >{{$t('message.Add-a-disk')}}</button>
+    <!--<button  class="btn btn-default all" @click="adddisk()" style="margin-bottom: 1em;float: right" >{{$t('message.Add-a-disk')}}</button>-->
     <!--<input type="button" class="btn btn-default all" value="添加磁盘" style="margin-bottom: 1em;float: right" @click="adddisk()"/>-->
-    <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12 bgdown " v-if="content.all!=null && content.netcard!=null && content.diskall!=null">
+    <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12 bgdown " v-if="content!=null">
       <div class="row">
         <div class="alert alert-danger " id="tipscontent" style="display: none;">普通用户无操作权限！</div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
           <div class=" bor container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.The-machine-information')}}</span></p>
-            <p class="ff">{{$t('message.Model')}}：<span >{{content.all && content.all.sname}}</span></p>
-            <p class="ff">{{$t('message.Status')}}：<span :class="{'o':content.all.status==='ok','wa':content.all.status==='warning','err':content.all.status==='error'}">{{content.all && content.all.status}}</span></p>
-            <p class="ff">{{$t('message.OS')}}：<span>{{content.all.opsys}}</span></p>
+            <p class="ff">{{$t('message.Model')}}：<span >{{content&& content.sname}}</span></p>
+            <p class="ff">{{$t('message.Status')}}：<span :class="{'o':content.status==='ok','wa':content.status==='warning','err':content.status==='error'}">{{content&& content.status}}</span></p>
+            <p class="ff">{{$t('message.OS')}}：<span>{{content.opsys}}</span></p>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
           <div class="bora container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">CPU</span></p>
-            <span class="ff">{{content.all.cpu}}</span>
+            <span class="ff">{{content.cpu}}</span>
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.Memory')}}</span></p>
-            <span class="ff">{{content.all.nc}}</span>
+            <span class="ff">{{content.nc}}</span>
           </div>
         </div>
       </div>
@@ -90,11 +90,11 @@
           <div class="col-lg-11 container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.Data-Set')}}</span></p>
             <div class="datapstyle" >
-              <span v-for="q in content.all.datap"><img src="../../static/image/three.png" class="img-responsive im" :id="q" @click="disk(q)"  :title="q" data-toggle="tooltip" data-placement="bottom"></span>
+              <span v-for="q in content.datap"><img src="../../static/image/three.png" class="img-responsive im" :id="q" @click="disk(q)"  :title="q" data-toggle="tooltip" data-placement="bottom"></span>
             </div>
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.Cache-disk')}}</span></p>
             <div class="datapstyle" >
-              <span v-for="w in content.all.cachep"><img src="../../static/image/cachedata.png" class="img-responsive im" :id="w"  @click="disk(w)"  :title="w" data-toggle="tooltip" data-placement="bottom"></span>
+              <span v-for="w in content.cachep"><img src="../../static/image/cachedata.png" class="img-responsive im" :id="w"  @click="disk(w)"  :title="w" data-toggle="tooltip" data-placement="bottom"></span>
             </div>
           </div>
         </div>
@@ -103,10 +103,10 @@
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
           <div class=" container-fluid">
           <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">iSCSI {{$t('message.Service')}}/{{$t('message.Interior')}} {{$t('message.Network')}}</span></p>
-            <div class="datapstyle"><span v-for="w in content.all.cachep"><img src="../../static/image/four.png" class="img-responsive im" :id="w"  @click="net(w)"  :title="w" data-toggle="tooltip" data-placement="bottom"></span></div>
-          <span class="ff">{{content.all.iscsi}}</span><span class="glyphicon glyphicon-edit e" style="cursor: pointer"  data-toggle="editmodal" @click="edit()" id="edit"></span>
+            <div class="datapstyle"><span v-for="w in netcard"><img src="../../static/image/four.png" class="img-responsive im" :id="w.dname"  @click="net(w.dname)"  :title="w.dname" data-toggle="tooltip" data-placement="bottom"></span></div>
+          <span class="ff">{{content.iscsi}}</span><span class="glyphicon glyphicon-edit e" style="cursor: pointer"  data-toggle="editmodal" @click="edit()" id="edit"></span>
           <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.Interior')}} {{$t('message.Network')}}</span></p>
-          <span class="ff">{{content.all.netw}}</span>
+          <span class="ff">{{content.netw}}</span>
           </div>
         </div>
     </div>
@@ -122,36 +122,36 @@
             <tbody>
               <tr>
                 <td>{{$t('message.Device-Name')}}：</td>
-                <td>{{content.netcard.nname}}</td>
+                <td>{{diskdefalut.nname}}</td>
               </tr>
               <tr>
                 <td>{{$t('message.Type')}}：</td>
-                <td>{{content.netcard.type}}</td>
+                <td>{{diskdefalut.type}}</td>
               </tr>
               <tr>
                 <td>{{$t('message.Capacity')}}：</td>
-                <td>{{content.netcard.size}}</td>
+                <td>{{diskdefalut.size}}</td>
               </tr>
               <tr>
                 <td>WWID：</td>
-                  <td>{{content.netcard.wwid}}</td>
+                  <td>{{diskdefalut.wwid}}</td>
               </tr>
               <tr>
                 <td>{{$t('message.Purpose')}}：</td>
-                <td>{{content.netcard.used}}</td>
+                <td>{{diskdefalut.used}}</td>
               </tr>
               <tr>
                 <td>{{$t('message.Slow-disk')}}：</td>
-                <td>{{content.netcard.small}}</td>
+                <td>{{diskdefalut.small}}</td>
               </tr>
               <tr>
                 <td>{{$t('message.Health-degree')}}：</td>
-                <td>{{content.netcard.health}}</td>
+                <td>{{diskdefalut.health}}</td>
               </tr>
-              <tr>
-                <td>{{$t('message.Operation')}}：</td>
-                <td><button  class="btn btn-danger btn-xs"  >{{$t('message.Lighting-position-lamp')}}</button></td>
-              </tr>
+              <!--<tr>-->
+                <!--<td>{{$t('message.Operation')}}：</td>-->
+                <!--<td><button  class="btn btn-danger btn-xs"  >{{$t('message.Lighting-position-lamp')}}</button></td>-->
+              <!--</tr>-->
             </tbody>
           </table>
           </div>
@@ -167,27 +167,23 @@
             <tbody>
               <tr>
                 <td>{{$t('message.Device-Name')}}：</td>
-                <td>{{content.diskall.dname}}</td>
+                <td>{{netcarddefalut.dname}}</td>
               </tr>
               <tr>
                 <td>MAC：</td>
-                <td>{{content.diskall.mac}}</td>
+                <td>{{netcarddefalut.mac}}</td>
               </tr>
               <tr>
                 <td>{{$t('message.Rate')}}：</td>
-                <td>{{content.diskall.speed}}</td>
+                <td>{{netcarddefalut.speed}}</td>
               </tr>
               <tr>
                 <td>{{$t('message.Loss')}}：</td>
-                <td>{{content.diskall.pack}}</td>
-              </tr>
-              <tr>
-                <td>{{$t('message.Link-status')}}：</td>
-                <td>{{content.diskall.status}}</td>
+                <td>{{netcarddefalut.pack}}</td>
               </tr>
               <tr>
                 <td>MTU：</td>
-                <td>{{content.diskall.mtu}}</td>
+                <td>{{netcarddefalut.mtu}}</td>
               </tr>
             </tbody>
           </table>
@@ -254,8 +250,13 @@
           ],
           num:'',
           ind:'',
+          diskall:[],
+          diskdefalut:'',
+          netcard:[],
+          netcarddefalut:'',
           content:[],
-          xz:''
+          timertip:null
+          // xz:''
 
         }
 
@@ -263,38 +264,34 @@
       methods:{
         change(index,id) {
           var _this=this
+          // console.log(_this.id)
           this.ind=index
           this.$axios.post(this.allurl+'manager/ioagent/ioagent_de',{id:id}).then(function (res) {
-
-            _this.content.disk=res.content
+            _this.content=res.data.all
+            _this.diskall=res.data.diskall
+            _this.diskdefalut= _this.diskall[0]
+            _this.netcard=res.data.netcard
+            _this.netcarddefalut=_this.netcard[0]
+            // console.log(_this.netcard)
           }).catch(function (error) {
             console.log(error)
           })
 
         },
         disk(n){
-          var _this=this
-          this.xs=n;
-          // $('#'+n).animate({left:'1000px'},1000)
-          this.$axios.post(this.allurl+'manager/disk/detail',{id:n}).then(function (res) {
-            // console.log(res.data)
-            _this.content.netcard=res.data
-            // console.log(res)
-          }).catch(function (error) {
-            console.log(error)
-          })
+          for(let i=0;i<this.diskall.length;i++){
+            if (n==this.diskall[i].nname){
+              this.diskdefalut=this.diskall[i]
+            }
+          }
+
         },
         net(n){
-          var _this=this
-          this.xs=n;
-          // $('#'+n).animate({left:'1000px'},1000)
-          // this.$axios.post(this.allurl+'manager/disk/detail',{id:n}).then(function (res) {
-          //   // console.log(res.data)
-          //   _this.content.diskall=res.data
-          //   // console.log(res)
-          // }).catch(function (error) {
-          //   console.log(error)
-          // })
+          for(let i=0;i<this.netcard.length;i++){
+            if (n==this.netcard[i].dname){
+              this.netcarddefalut=this.netcard[i]
+            }
+          }
         },
         judgeuser(){
 
@@ -392,6 +389,7 @@
             var _this=this
             this.$axios.get(this.allurl+'manager/ioagent/list_ioagent').then(function (res) {
               _this.osdlist=res.data
+              // console.log(res.data)
               _this.piechart()
             }).catch(function (error) {
               console.log(error)
@@ -404,11 +402,20 @@
           var _this=this
           this.$axios.get(this.allurl+'manager/ioagent/list_ioagent').then(function (res) {
             _this.osdlist=res.data
+            _this.change(0,_this.osdlist[0].osdid)
           }).catch(function (error) {
             console.log(error)
           })
 
           // console.log(_this.osdlist)
+        },
+        timer(){
+          var _this=this
+          _this.timertip=setInterval(function () {
+            _this.start();
+            _this.start2();
+
+          },30000)
         },
         adddisk(){
           if (sessionStorage.getItem('islogin')==250){
@@ -428,26 +435,23 @@
         }
 
       },
-      beforeCreate(){
-        var _this=this
-        this.$axios.get(this.allurl+'manager/ioagent/ioagent_one').then(function (res) {
-          // console.log(res.data)
-          _this.content=res.data
-        }).catch(function (error) {
-          console.log(error)
-        })
-      },
       created(){
         this.start2()
         this.start()
       },
       mounted(){
         $("[data-toggle='tooltip']").tooltip({html:true});
-        this.change(0,this.osdlist[0])
+        // this.change(0,this.osdlist[0])
+        // console.log(this.osdlist)
+        this.timer();
 
       },
       activated(){
         this.piechart()
+      },
+      destroyed(){
+          var _this=this
+          clearInterval(_this.timertip)
       }
     }
 
@@ -488,6 +492,7 @@
   background-color: #11387B !important;
   border-radius: .5em;
   margin-bottom: 2em;
+  margin-top: 5em;
 
 }
 

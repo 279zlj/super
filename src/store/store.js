@@ -32,12 +32,12 @@ const store =new Vuex.Store({
       state.cy=stau.three;
     },
     lindraw(state,linemessages){
-      state.iwrite.push(linemessages.iwrite)
-      state.iread.push(linemessages.iread)
-      state.ti.push(linemessages.ti)
-      state.mwrite.push(linemessages.mwrite)
-      state.mread.push(linemessages.mread)
-      state.delaytime.push(linemessages.delaytime)
+      state.iwrite=linemessages.iwrite
+      state.iread=linemessages.iread
+      state.ti=linemessages.ti
+      state.mwrite=linemessages.mwrite
+      state.mread=linemessages.mread
+      state.delaytime=linemessages.delaytime
       state.health=linemessages.health
     }
   }

@@ -224,12 +224,14 @@
             pool_use:[],
             transmiturl:'',
             transmittitle:'',
+            timertip:null
 
           }
       },
       mounted(){
         this.allstatus()
         $("[data-toggle='tooltip']").tooltip({html:true});
+        this.timer()
       },
       computed:{            /*调用Vuex中的islogin值，有缓存左右*/
         countwarn(){
@@ -352,6 +354,7 @@
             _this.osd_use=res.data.osd_use
             _this.collect=res.data.collect
             _this.pool_use=res.data.pool_user
+            // console.log(res.data)
             _this.pictorialBar();              /*块设备的状态*/
             _this.liquidFill();                 /*osd使用率占比状态饼状图*/
             _this.pie();                       /*pool水球描绘*/
@@ -373,6 +376,7 @@
 
 
         },
+
         cputop(){
           this.transmiturl=this.allurl+''
           this.$refs.tips.cpuall()
@@ -386,7 +390,17 @@
           this.transmiturl=this.allurl+''
           this.transmittitle='节点MBPS信息'
           this.$refs.tips.iopsmbpsall()
+        },
+        timer(){
+          var _this=this
+          _this.timertip=setInterval(function () {
+            _this.allstatus();
+          },30000)
         }
+      },
+      destroyed(){
+          var _this=this
+        clearInterval(_this.timertip)
       }
     }
 </script>

@@ -172,7 +172,7 @@
             respond:'',
             who:'',
             dosome:'',
-
+            timertip:null
           }
       },
       methods:{
@@ -183,6 +183,12 @@
           $('#table').bootstrapTable({
             url:this.allurl+"manager/tank/list_auth"
           })
+        },
+        timer(){
+          var _this=this
+          _this.timertip=setInterval(function () {
+            _this.strat()
+          },30000)
         },
         addnew(){
           // console.log(this.$store.state.islogin)
@@ -479,6 +485,10 @@
       mounted(){
           this.strat()
         $("[data-toggle='tooltip']").tooltip({html:true});
+      },
+      destroyed(){
+          var _this=this
+        clearInterval(_this.timertip)
       }
     }
 </script>

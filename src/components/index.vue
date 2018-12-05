@@ -9,10 +9,10 @@
             <p style="text-align: center;line-height:1em">健康状态</p>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ">
-            <p class="fontone">问题网卡：<span style="font-size: 1.8em;padding: .5em">3</span>个</p>
+            <p class="fontone">问题网卡：<span style="font-size: 1.8em;padding: .5em">{{net.error}}</span>个</p>
             <div style="margin-top: 3em">
-              <p class="fonttwo">当前带宽：</p>
-              <p class="fonttwo">网卡模式是否匹配：是</p>
+              <p class="fonttwo">当前带宽：{{net.bandwidth}}</p>
+              <p class="fonttwo">网卡模式是否匹配：{{mode}}</p>
             </div>
           </div>
         </div>
@@ -21,15 +21,15 @@
             <div class="blockbottom">
             <h4 style="line-height: 3em">磁盘IO汇总</h4>
             <div style="text-align: center;padding-bottom: 1em">
-              <p>I：<span class="num">48</span>bps</p>
-              <p>O：<span class="num">48</span>bps</p>
+              <p>I：<span class="num">{{diskio.ips}}</span>bps</p>
+              <p>O：<span class="num">{{diskio.ops}}</span>bps</p>
             </div>
             </div>
             <div>
               <h4 style="line-height: 3em">Swap IO</h4>
               <div style="text-align: center">
-                <p>I：<span class="num">48</span>bps</p>
-                <p>O：<span class="num">48</span>bps</p>
+                <p>I：<span class="num">{{swap_io.ips}}</span>bps</p>
+                <p>O：<span class="num">{{swap_io.ops}}</span>bps</p>
               </div>
             </div>
           </div>
@@ -37,26 +37,28 @@
             <div class="row blockfour">
               <h4 style="line-height: 1.5em">内存</h4>
               <div style="text-align: center">
-                <p>已用：<span class="numtwo">62</span>%</p>
+                <p>已用：<span class="numtwo">{{memory}}</span>%</p>
               </div>
             </div>
           </div>
           <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 ">
             <div class="row blockfive">
             <div class="blockbottom">
-              <h4 style="line-height: 1.5em">CPU</h4>
+              <h4 style="line-height: 1.3em">CPU</h4>
               <div style="text-align: center">
-                <p>已用：<span class="numtwo">38</span>%</p>
+                <p>已用：<span class="numtwo">{{cpu.total}}</span>%</p>
               </div>
             </div>
             <div class="row">
-              <h4 style="margin: 1em">CPU使用率/TOP3</h4>
+              <h4 style="margin-left: 1em;margin-top: .5em">CPU使用率/TOP3</h4>
               <div class="container-fluid" style="width: 90%">
               <table class="table-condensed table-responsive table">
                 <tbody style="text-align: center">
-                <tr v-for="i in cpu">
-                  <td>{{i.ip}}</td>
-                  <td>{{i.network}}</td>
+                  <tr><td>USER</td>
+                  <td>%CPU</td></tr>
+                <tr v-for="i in cpulist">
+                  <td>{{i.name}}</td>
+                  <td>{{i.value}}%</td>
                 </tr>
                 </tbody>
               </table>
@@ -111,12 +113,22 @@
     data(){
       return{
         linpiechart: [],
-        n:'',
-        u:'',
-        s:'',
-        pool_use:[0.32],
+        cpu:'',
+        cpulist:'',
+        net:'',
+        diskio:'',
+        memory:'',
+        swap_io:'',
+        mode:'',
+        iwrite:[],
+        iread:[],
+        mwrite:[],
+        mread:[],
+        delaytime:[],
+        pool_use:[],
         cpu:[{ip:'cpu1',network:'38.7%'},{ip:'cpu2',network:'38.7%'},{ip:'cpu3',network:'38.7%'}],
-        health_d:[]
+        health_d:[],
+        timertip:null
       }
     },
 
@@ -125,7 +137,8 @@
       this.lindecharttwo(this.$store.state.ti,this.$store.state.mwrite,this.$store.state.mread)
       this.linechartthree(this.$store.state.ti,this.$store.state.delaytime)
       this.initWebSocket()
-      this.getall();
+      this.getall()
+      this.timer()
     },
 
 
@@ -138,6 +151,7 @@
       initWebSocket(){
         // var _this=this
         const wsurl="ws://192.168.2.64:8000/ws/intime_data";
+        // const wsurl='';
         this.websock=new WebSocket(wsurl);
         this.websock.onmessage=this.websocketonmessage;
         // this.websock.onopen=this.websocketonopen;
@@ -160,13 +174,12 @@
         // var s=now.getSeconds()
         // var ntime=h.toString()+':'+m.toString()+':'+s.toString()
         const data=JSON.parse(e.data)
+        console.log(data.message.data.iops.ips)
         this.$store.commit('lindraw',{iwrite:data.message.data.iops[0],iread:data.message.data.iops[1],mwrite:data.message.data.mbps[0],mread:data.message.data.mbps[1],delaytime:data.message.data.delay,ti:data.message.data.time,health:data.message.data.health})
+        // console.log(this.$store.state.delaytime)
         this.linechartone(this.$store.state.ti,this.$store.state.iwrite,this.$store.state.iread)
         this.lindecharttwo(this.$store.state.ti,this.$store.state.mwrite,this.$store.state.mread)
         this.linechartthree(this.$store.state.ti,this.$store.state.delaytime)
-        // console.log(data.message.data.health.length)
-        // this.health=data.message.data.health
-        // console.log(this.$store.state.ti,this.$store.state.iwrite,this.$store.state.iread,this.$store.state.mwrite,this.$store.state.mread,this.$store.state.delaytime)
       },
       websocketsend(Data){
         console.log(Data)
@@ -177,16 +190,20 @@
       },
       getall(){                         /*获取首页信息*/
         var _this=this
-        // console.log('start')
-        this.$axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-        this.$axios.get(this.allurl).then(function (res) {
-
-          _this.linpiechart=res.data
-          _this.n=_this.linpiechart.net[0].nuse
-          _this.u=_this.linpiechart.net[0].use
-          _this.s=_this.linpiechart.status
-          // _this.piechart();
-          // _this.columnar();
+        _this.$axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+        _this.$axios.get(this.allurl).then(function (res) {
+          _this.net=res.data.net
+          _this.diskio=res.data.disk_io
+          _this.memory=res.data.memory
+          _this.cpu=res.data.cpu
+          _this.swap_io=res.data.swap_io
+          // console.log(res.data)
+          if (res.data.net.is_mode==1){
+            _this.mode='是'
+          }
+          _this.pool_use=res.data.net.usage
+          _this.cpulist=res.data.cpu.detail
+          // console.log(_this.cpulist)
           _this.liquidFill();
           // _this.ws()
 
@@ -194,7 +211,15 @@
           console.log(error)
         })
       },
+      timer(){
+        var _this=this
+        _this.timertip=setInterval(function () {
+          _this.getall()
+
+        },20000)
+      },
       linechartone(time,write,read){
+        // console.log(time)
         var mychart = this.$echarts.init(document.getElementById('mychart'));
 
             var option = {
@@ -290,7 +315,7 @@
               },
               dataZoom: [
                 {
-                  start: 50,
+                  start: 0,
                   end: 100,
                   // startValue: '',
                   // endValue: '',
@@ -486,7 +511,7 @@
             },
             dataZoom: [
               {
-                start: 50,
+                start: 0,
                 end: 100,
                 show:false,
                 startValue: '00:00',
@@ -670,7 +695,7 @@
             },
             dataZoom: [
               {
-                start: 50,
+                start:0,
                 end: 100,
                 show:false,
                 lineStyle: {color: 'white'},
@@ -763,6 +788,8 @@
     },
     destroyed(){
       this.websocketclose()
+      var _this=this
+      clearInterval(_this.timertip)
     }
   }
 </script>

@@ -101,8 +101,8 @@
           title:'',
           who:'',
           dosome:'',
-          clone:''
-
+          clone:'',
+          timertip:null
       }
       },
       // tableDate,
@@ -153,7 +153,12 @@
           })
           $("[data-toggle='tooltip']").tooltip({html:true});
         },
-
+        timer(){
+          var _this=this
+          _this.timertip=setInterval(function () {
+            _this.strat()
+          },30000)
+        },
         res(data){
           if(this.data=='snap'){
             let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
@@ -299,6 +304,10 @@
 
           }
         }
+      },
+      destroyed(){
+        var _this=this
+        clearInterval(_this.timertip)
       }
     }
 </script>

@@ -24,7 +24,9 @@
     export default {
         name: "Mwarn",
       data(){
-        return{}
+        return{
+          timertip:null
+        }
       },
       methods:{
           start(){                    /*bootstrap-table初始化，server请求，server分页功能*/
@@ -32,10 +34,20 @@
               url:this.allurl+"manctl/err_ctl/get_err"
             })
 
-          }
+          },
+        timer(){
+          var _this=this
+          _this.timertip=setInterval(function () {
+            _this.strat()
+          },30000)
+        }
       },
       mounted(){
           this.start()
+      },
+      destroyed(){
+          var _this=this
+          clearInterval(_this.timertip)
       }
     }
 </script>
