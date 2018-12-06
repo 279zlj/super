@@ -13,9 +13,9 @@
           <div class="container-fluid" @keydown.enter="loginuser">
           <h2 class="t">登录</h2>
           <label class="l">用户名：</label>
-          <input type="text" class="form-control" placeholder="请输入用户名" ref="user" id="user" autofocus="autofocus"/>
+          <input type="text" class="form-control" placeholder="请输入用户名" ref="user" id="user" autofocus="autofocus" required="required"/>
           <label class="l">密码：</label>
-          <input type="password" class="form-control" placeholder="输入密码" ref="pwd" id="pwd"/>
+          <input type="password" class="form-control" placeholder="输入密码" ref="pwd" id="pwd" required="required"/>
             <div id="tips" style="color: red;margin-top: .5em;font-weight: 700;">{{tips}}</div>
           <input type="button" class="btn btn-info b" value="登录" @click="loginuser()" @keydown.enter="loginuser()"/>
           </div>

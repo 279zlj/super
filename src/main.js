@@ -43,6 +43,7 @@ Vue.prototype.$axios = axios;
 //   return html.join('');
 // }
 
+
 Vue.prototype.allurl='http://192.168.2.64:8000/'
 
 const i18n = new VueI18n({

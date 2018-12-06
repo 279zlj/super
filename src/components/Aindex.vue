@@ -5,7 +5,7 @@
 
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive">
         <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-toggle="table"  data-click-to-select="true" data-classes="table-no-bordered" data-pagination="true" data-page-number="1"  data-page-size="10" data-search="true" data-show-refresh="true">
-          <div class="alert alert-danger " id="tipscontent" style="display: none;">普通用户无操作权限！</div>
+          <div class="alert alert-danger " id="tipscontent" style="display: none;">{{cross}}</div>
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -55,10 +55,11 @@
           <div class="modal-body">
             <p>{{$t('message.Snap-name')}}：</p><input type="text" class="form-control" id="name" ref="saname" :placeholder=ids />
             <p>{{$t('message.Description')}}：</p><input type="text" class="form-control" id="content" ref="sacontent"/>
+            <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
-            <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
+            <button type="button" class="btn btn-primary" @click="editsend()">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -74,10 +75,11 @@
         </div>
         <div class="modal-body">
           <p>{{$t('message.Snapclone-name')}}：</p><input type="text" class="form-control" id="aclone" ref="aclone"/>
+          <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
-          <button type="button" class="btn btn-primary" @click="sendclone()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
+          <button type="button" class="btn btn-primary" @click="sendclone()" >{{$t('message.Confirm')}}</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal -->
@@ -102,7 +104,8 @@
           who:'',
           dosome:'',
           clone:'',
-          timertip:null
+          timertip:null,
+          cross:''
       }
       },
       // tableDate,
@@ -184,9 +187,20 @@
               return row.snapid;
             });
             this.respond = data
+            var _this=this
             if (this.respond == 'ok') {
               this.$axios.post(this.allurl + 'manager/client/block/roll_snap', {ids: ids}).then(function (res) {
                 // console.log(res)
+                if (res.data.status == 1) {
+                  _this.tipscontent = '操作成功'
+                  $('#tipscontent').show().delay(2000).fadeOut()
+                  $('#table_id').bootstrapTable('refresh')
+                }
+                else {
+                  _this.tipscontent = res.data.status
+                  $('#tipscontent').show().delay(2000).fadeOut()
+                  $('#table_id').bootstrapTable('refresh')
+                }
               }).catch(function (error) {
                 console.log(error)
               })
@@ -195,6 +209,7 @@
         },
         deletelist(){               /*删除快照功能*/
           if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay (2000).fadeOut()
           }
           else {
@@ -217,6 +232,7 @@
         },
         editlist() {              /*快照修改功能*/
           if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay (2000).fadeOut()
           }
           else {
@@ -243,14 +259,36 @@
         editsend(){                             /*发送快照修改信息 */
           let name =this.$refs.saname.value
           let content=this.$refs.sacontent.value
-          this.$axios.post(this.allurl+'manager/client/block/set_snap',{name:name,content:content,id:this.edit}).then(function (res) {
-            // console.log(res)
-          }).catch(function (error) {
-            console.log(error)
-          })
+          if (name==''||content==''){
+            this.cross='请填写完整'
+          }
+          else {
+            var _this=this
+            this.$axios.post(this.allurl + 'manager/client/block/set_snap', {
+              name: name,
+              content: content,
+              id: this.edit
+            }).then(function (res) {
+              // console.log(res)
+              if (res.data.status == 1) {
+                _this.tipscontent = '操作成功'
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
+              else {
+                _this.tipscontent = res.data.status
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
+            $('#editm').modal('hide')
+          }
         },
         snclone(){                            /*块设备克隆*/
           if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay (2000).fadeOut()
           }
           else {
@@ -272,15 +310,35 @@
         },
         sendclone(){                       /*发送快照克隆信息*/
           let name=this.$refs.aclone.value
-
-          this.$axios.post(this.allurl+'manager/client/block/clone_snap',{name:name,cloneid:this.clone,pool:this.sele}).then(function (res) {
-            // console.log(res)
-          }).catch(function (error) {
-            console.log(error)
-          })
+          if (name==''){
+            this.cross='请填写完整'
+          }
+          else {
+            var _this=this
+            this.$axios.post(this.allurl + 'manager/client/block/clone_snap', {
+              name: name,
+              cloneid: this.clone,
+              pool: this.sele
+            }).then(function (res) {
+              // console.log(res)
+              if (res.data.status == 1) {
+                _this.tipscontent = '操作成功'
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
+              else {
+                _this.tipscontent = res.data.status
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
         },
         goback() {                      /*快照回滚*/
           if (sessionStorage.getItem('islogin') == 250) {
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay(2000).fadeOut()
           }
           else {

@@ -5,12 +5,17 @@
         <div class="row blockone">
           <h4 style="margin: 1em 0 0.5em 1em">网络状态</h4>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 right">
-            <div id="liquidFill" class="grid"></div>
-            <p style="text-align: center;line-height:1em">健康状态</p>
+            <!--<div id="liquidFill" class="grid"></div>-->
+            <p style="margin-top: 1em">网速：<span class="numtwo">{{pool_use}}</span>mb/s</p>
+            <!--<p style="text-align: center;line-height:1em">健康状态</p>-->
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ">
-            <p class="fontone">问题网卡：<span style="font-size: 1.8em;padding: .5em">{{net.error}}</span>个</p>
-            <div style="margin-top: 3em">
+            <div class="fontone">问题网卡：<a style="font-size: 1.8em;padding: .5em;color: white;cursor: pointer"  class="dropdown-toggle" data-toggle="dropdown">{{net.error}}</a>个
+              <ul class="dropdown-menu">
+                <li><router-link :to="{name:''}">error:eno1</router-link></li>
+              </ul>
+            </div>
+            <div >
               <p class="fonttwo">当前带宽：{{net.bandwidth}}</p>
               <p class="fonttwo">网卡模式是否匹配：{{mode}}</p>
             </div>
@@ -19,14 +24,14 @@
         <div class="row blockthree">
           <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 blocktwo">
             <div class="blockbottom">
-            <h4 style="line-height: 3em">磁盘IO汇总</h4>
+            <h4 style="line-height: 3.5em">磁盘IO汇总</h4>
             <div style="text-align: center;padding-bottom: 1em">
               <p>I：<span class="num">{{diskio.ips}}</span>bps</p>
               <p>O：<span class="num">{{diskio.ops}}</span>bps</p>
             </div>
             </div>
             <div>
-              <h4 style="line-height: 3em">Swap IO</h4>
+              <h4 style="line-height: 3.5em;padding-bottom: .5em">Swap IO</h4>
               <div style="text-align: center">
                 <p>I：<span class="num">{{swap_io.ips}}</span>bps</p>
                 <p>O：<span class="num">{{swap_io.ops}}</span>bps</p>
@@ -35,9 +40,11 @@
           </div>
           <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 ">
             <div class="row blockfour">
-              <h4 style="line-height: 1.5em">内存</h4>
-              <div style="text-align: center">
-                <p>已用：<span class="numtwo">{{memory}}</span>%</p>
+              <h4 style="line-height: 1.3em">内存</h4>
+              <div style="text-align: center" >
+                <div id="liquidFill" class="grid"></div>
+                <p style="text-align: center;">使用状态</p>
+                <!--<p>已用：<span class="numtwo">{{memory}}</span>%</p>-->
               </div>
             </div>
           </div>
@@ -54,7 +61,7 @@
               <div class="container-fluid" style="width: 90%">
               <table class="table-condensed table-responsive table">
                 <tbody style="text-align: center">
-                  <tr><td>USER</td>
+                  <tr><td>HOST</td>
                   <td>%CPU</td></tr>
                 <tr v-for="i in cpulist">
                   <td>{{i.name}}</td>
@@ -201,9 +208,9 @@
           if (res.data.net.is_mode==1){
             _this.mode='是'
           }
-          _this.pool_use=res.data.net.usage
+          _this.pool_use=res.data.net.speed
           _this.cpulist=res.data.cpu.detail
-          // console.log(_this.cpulist)
+          console.log(_this.memory, _this.pool_use)
           _this.liquidFill();
           // _this.ws()
 
@@ -761,7 +768,7 @@
                 color:'#04b8da'
               }
             },
-            data: this.pool_use,
+            data: this.memory,
             backgroundStyle:{
               color:'#45355E',
               borderColor:'#73668D'
@@ -798,8 +805,13 @@
   .font,h4,table{
     color: white;
   }
+  .dropdown-menu{
+    top:10% !important;
+    left: 70% !important;
+  }
+  ul{color: black}
   .grid{
-    width: 100%;height:8em;
+    width: 100%;height:7em;
     margin: 0 auto;
 
   }
@@ -838,7 +850,7 @@
     border-radius: 1em;
     padding-left:1em ;
     margin-left:.2em ;
-    padding-bottom: 2em;
+    padding-bottom: .5em;
     margin-bottom: 1em;
   }
   .blockfive{
@@ -853,7 +865,7 @@
     font-size: 1.9em;line-height: 2em;padding: .5em;
   }
   .numtwo{
-    font-size: 2.5em;line-height: 1.5em;padding: .5em
+    font-size: 2.5em;line-height: 1em;padding: .5em
   }
   .fontone{
     font-size: 1.1em;

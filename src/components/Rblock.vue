@@ -3,8 +3,7 @@
     <div class="row">
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
         <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-click-to-select="true" data-toggle="table"  data-classes="table-no-bordered" >
-          <div class="alert alert-danger " id="tipscontent" style="display: none;">普通用户无操作权限！</div>
-          <div class="alert alert-danger " id="fromtips" style="display: none;">块设备没有依赖！</div>
+          <div class="alert alert-danger " id="tipscontent" style="display: none;">{{tipscontent}}</div>
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -31,7 +30,7 @@
           <div @click="addnew()" data-toggle="addnew" style="float: left"><img src="../../static/image/add.svg" class="img-responsive addh" title="添加" data-toggle="tooltip" data-placement="right"/></div>
           <div @click="bdilata()" style="float: left" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive kr" title="扩容" data-toggle="tooltip" data-placement="right"/></div>
           <div @click="addsn()" style="float: left" data-toggle="addsnap"><span class="glyphicon glyphicon-camera createh" title="创建快照" data-toggle="tooltip" data-placement="right"></span></div>
-          <div @click="bdilata()" style="float: left" data-toggle="dilatation"><img src="../../static/image/combine.png" class="img-responsive kr" title="块设备独立" data-toggle="tooltip" data-placement="right"/></div>
+          <div @click="independent()" style="float: left" data-toggle="dilatation"><img src="../../static/image/combine.png" class="img-responsive kr" title="块设备独立" data-toggle="tooltip" data-placement="right"/></div>
           <div @click="deletelist()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></div>
         </div>
       </div>
@@ -40,7 +39,7 @@
 
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive two">
         <table class="table table-responsive text-nowrap" id="table" data-toolbar="#toolbar" data-click-to-select="true" data-height="350" data-toggle="table"  data-classes="table-no-bordered">
-          <div class="alert alert-danger " id="tipsc" style="display: none;">普通用户无操作权限！</div>
+          <div class="alert alert-danger " id="tipsc" style="display: none;">{{tipsc}}</div>
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -71,22 +70,23 @@
       </div>
     </div>
     <div class="modal fade" id="editm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+      <form class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h4 class="modal-title" id="myModalLabel">{{$t('message.Modify-snapshot-information')}}</h4>
           </div>
           <div class="modal-body">
-            <p>{{$t('message.Snap-name')}}：</p><input type="text" class="form-control" id="name" ref="name" :placeholder=name />
-            <p>{{$t('message.Description')}}：</p><input type="text" class="form-control" id="content" ref="content"/>
+            <p>{{$t('message.Snap-name')}}：</p><input type="text" class="form-control" id="name" ref="name" :placeholder=name required="required"/>
+            <p>{{$t('message.Description')}}：</p><input type="text" class="form-control" id="content" ref="content" required="required"/>
+            <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
-            <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
+            <button type="button" class="btn btn-primary" @click="editsend()">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
-      </div><!-- /.modal -->
+      </form><!-- /.modal -->
     </div>
     <div class="modal fade" id="dilatation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -96,11 +96,12 @@
             <h4 class="modal-title" id="bdilata">{{$t('message.Block-capacity-expansion')}}</h4>
           </div>
           <div class="modal-body">
-            <p>{{$t('message.Block-device-size-modification')}}：</p><input type="number" class="form-control" id="poolsize" ref="blocksize"/>
+            <p>{{$t('message.Block-device-size-modification')}}：</p><input type="number" class="form-control" id="poolsize" ref="blocksize" required="required"/>
+            <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
-            <button type="button" class="btn btn-primary" @click="sizesend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
+            <button type="button" class="btn btn-primary" @click="sizesend()">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -118,12 +119,13 @@
 
               <!--<option v-for="i in poollist" :value="i.name" >{{i.name}}</option>-->
             <!--</select>-->
-            <p>{{$t('message.Snap-name')}}：</p><input type="text" class="form-control" id="snapname" ref="snapname"/>
-            <p>{{$t('message.Description')}}：</p><input type="text" class="form-control" id="snapcontent" ref="snapcontent"/>
+            <p>{{$t('message.Snap-name')}}：</p><input type="text" class="form-control" id="snapname" ref="snapname" required="required"/>
+            <p>{{$t('message.Description')}}：</p><input type="text" class="form-control" id="snapcontent" ref="snapcontent" required="required"/>
+            <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
-            <button type="button" class="btn btn-primary" @click="snapsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
+            <button type="button" class="btn btn-primary" @click="snapsend()">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -138,11 +140,12 @@
           </div>
           <div class="modal-body">
 
-            <p>{{$t('message.Snapclone-name')}}：</p><input type="text" class="form-control" id="bclone" ref="bclone"/>
+            <p>{{$t('message.Snapclone-name')}}：</p><input type="text" class="form-control" id="bclone" ref="bclone" required="required"/>
+            <div  style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
-            <button type="button" class="btn btn-primary" @click="sendclone()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
+            <button type="button" class="btn btn-primary" @click="sendclone()">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -155,17 +158,17 @@
             <h4 class="modal-title" id="addpool">{{$t('message.Add-block-device')}}</h4>
           </div>
           <div class="modal-body">
-            <p>{{$t('message.Block-name')}}：</p><input type="text" class="form-control" id="addname" ref="addname"/>
-            <p>{{$t('message.Block-capacity')}}：</p><input type="number" class="form-control" id="addsize" ref="addsize"/>
+            <p>{{$t('message.Block-name')}}：</p><input type="text" class="form-control" id="addname" ref="addname" required="required"/>
+            <p>{{$t('message.Block-capacity')}}：</p><input type="number" class="form-control" id="addsize" ref="addsize" required="required"/>
             <p>{{$t('message.Pool')}}：</p>
             <select @click="selec()" v-on:change="bindexsel($event)" v-model="bsele" class="form-control">
-              <option v-for="i in poollist" :value="i.val" >{{i.name}}</option>
+              <option v-for="i in poollist" :value="i.name" >{{i.name}}</option>
             </select>
-
+            <div id="tips" style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
-            <button type="button" class="btn btn-primary" @click="addsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
+            <button type="button" class="btn btn-primary" @click="addsend()" >{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -194,10 +197,12 @@
           snapt:'',
           poollist:[],
           tipscontent:'',
+          tipsc:'',
           title:'',
           who:'',
           dosome:'',
-          timertip:null
+          timertip:null,
+          cross:''
         }
       },
       methods:{
@@ -217,6 +222,7 @@
         },
         editlist() {                         /*修改功能*/
           if (sessionStorage.getItem('islogin')==250){
+            this.tipsc='普通用户无操作权限！'
             $('#tipsc').show().delay (2000).fadeOut()
           }
           else {
@@ -243,11 +249,32 @@
         editsend(){                                /*发送修改功能*/
             let name =this.$refs.name.value
             let content=this.$refs.content.value
-            this.$axios.post(this.allurl+'manager/client/block/set_snap',{name:name,content:content,id:this.edit}).then(function (res) {
+          if (name==''||content==''){
+            this.cross='请填写完整'
+          }
+          else {
+            var _this = this
+            this.$axios.post(this.allurl + 'manager/client/block/set_snap', {
+              name: name,
+              content: content,
+              id: this.edit
+            }).then(function (res) {
+              if (res.data.status == 1) {
+                _this.tipscontent = '操作成功'
+                $('#tipsc').show().delay(2000).fadeOut()
+                $('#table').bootstrapTable('refresh')
+              }
+              else {
+                _this.tipscontent = res.data.status
+                $('#tipsc').show().delay(2000).fadeOut()
+                $('#table').bootstrapTable('refresh')
+              }
               // console.log(res)
             }).catch(function (error) {
               console.log(error)
             })
+            $('#editm').modal('hide')
+          }
         },
         res(data){
           if (this.who=='block') {
@@ -259,6 +286,7 @@
             if (this.respond == 'ok') {
               this.$axios.post(this.allurl + 'manager/client/block/del_block', {ids: ids}).then(function (res) {
                 // console.log(res,'post ok')
+
                 if (res.data = 'ok') {
                   $('#table_id').bootstrapTable('remove', {
                     field: 'blockname',
@@ -290,12 +318,48 @@
               })
             }
           }
+          else if (this.who=='back') {
+            let ips = $.map( $('#table').bootstrapTable('getSelections'), function (row) {
+              return row.snapid;
+            });
+            this.respond = data
+            var _this=this
+            // console.log(data,this.respond)
+            if (this.respond == 'ok') {
+              this.$axios.post(this.allurl + 'manager/client/block/roll_snap', {id: ips}).then(function (res) {
+                // console.log(res,'post ok')
+                if(res.data.status==1){
+                  _this.tipscontent = '操作成功'
+                  $('#tipsc').show().delay (2000).fadeOut()
+                  $('#table').bootstrapTable('refresh')
+                }
+                else {
+                  _this.tipscontent =res.data.status
+                  $('#tipsc').show().delay (2000).fadeOut()
+                  $('#table').bootstrapTable('refresh')
+                }
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+          }
           else if (this.who=='comb') {
             this.respond = data
             // console.log('comb',this.respond)
             if (this.respond == 'ok') {
-              this.$axios.post(this.allurl + 'block/snap/flatten', {name: this.snapi, pool: this.spool}).then(function (res) {
-
+              this.$axios.post(this.allurl + 'manager/client/block/snap/flatten', {name: this.snapi, pool: this.spool}).then(function (res) {
+                // this.tipscontent = res.data
+                // this.$refs.tips.usetips()
+                if(res.data.status==1){
+                  _this.tipscontent = '操作成功'
+                  $('#tipscontent').show().delay (2000).fadeOut()
+                  $('#table_id').bootstrapTable('refresh')
+                }
+                else {
+                  _this.tipscontent =res.data.status
+                  $('#tipscontent').show().delay (2000).fadeOut()
+                  $('#table_id').bootstrapTable('refresh')
+                }
               }).catch(function (error) {
                 console.log(error)
               })
@@ -304,6 +368,7 @@
         },
         deletelist(){                       /*块设备删除功能*/
           if (sessionStorage.getItem('islogin')==250){
+            this.tipsc='普通用户无操作权限！'
             $('#tipsc').show().delay (2000).fadeOut()
           }
           else {
@@ -326,6 +391,7 @@
         },
         deletel(){                    /*快照删除功能*/
           if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay (2000).fadeOut()
           }
           else {
@@ -349,6 +415,7 @@
         },
         bdilata(){                        /*块设备扩容*/
           if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay (2000).fadeOut()
           }
           else {
@@ -372,14 +439,35 @@
         sizesend(){                    /*发送块设备扩容信息*/
 
             let size=this.$refs.blocksize.value
-            this.$axios.post(this.allurl+'manager/client/block/block_dilatate',{name:this.edit,size:size}).then(function (res) {
+          if (size==''){
+            this.cross='请填写完整'
+          }
+          else {
+            var _this = this
+            this.$axios.post(this.allurl + 'manager/client/block/block_dilatate', {
+              name: this.edit,
+              size: size
+            }).then(function (res) {
               // console.log(res)
+              if (res.data.status == 1) {
+                _this.tipscontent = '操作成功'
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
+              else {
+                _this.tipscontent = res.data.status
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
             }).catch(function (error) {
               console.log(error)
             })
+            $('#dilatation').modal('hide')
+          }
         },
         addsn(){                         /*块设备创建快照*/
           if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay (2000).fadeOut()
           }
           else {
@@ -406,14 +494,36 @@
             // console.log(this.sele)
             let name=this.$refs.snapname.value
             let content=this.$refs.snapcontent.value
-            this.$axios.post(this.allurl+'manager/client/block/cre_snap',{name:name,content:content,id:this.snapi,pool:this.spool}).then(function (res) {
+          if(name==''||content==''){
+            this.cross='请填写完整'
+          }
+          else {
+            this.$axios.post(this.allurl + 'manager/client/block/cre_snap', {
+              name: name,
+              content: content,
+              id: this.snapi,
+              pool: this.spool
+            }).then(function (res) {
               // console.log(res)
+              if (res.data.status == 1) {
+                _this.tipscontent = '操作成功'
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
+              else {
+                _this.tipscontent = res.data.status
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
             }).catch(function (error) {
               console.log(error)
             })
+            $('#addsnap').modal('hide')
+          }
         },
-        changetime(){                           /*更改时间*/
+        changetime(){                           /*回滚*/
           if (sessionStorage.getItem('islogin')==250){
+            this.tipsc='普通用户无操作权限！'
             $('#tipsc').show().delay (2000).fadeOut()
           }
           else {
@@ -446,6 +556,7 @@
         },
         clonesnap(){                            /*快照克隆*/
           if (sessionStorage.getItem('islogin')==250){
+            this.tipsc='普通用户无操作权限！'
             $('#tipsc').show().delay (2000).fadeOut()
           }
           else {
@@ -467,6 +578,7 @@
         },
         addnew(){
           if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay (2000).fadeOut()
           }
           else
@@ -475,23 +587,60 @@
         addsend(){
           let addname=this.$refs.addname.value
           let addsize=this.$refs.addsize.value
+          if (addname==''||addsize==''){
+            this.cross='请填写完整'
+          }
+          else {
+            var _this = this
             this.$axios.post(this.allurl + 'manager/client/block/create_block', {
               name: addname,
               size: addsize,
               pool: this.bsele
             }).then(function (res) {
-              console.log(res)
+              // console.log(res.data.status)
+              if (res.data.status == 1) {
+                _this.tipscontent = '操作成功'
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
+              else {
+                _this.tipscontent = res.data.status
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
             }).catch(function (error) {
               console.log(error)
             })
+            $('#addnew').modal('hide')
+          }
         },
         sendclone(){                       /*发送快照克隆信息*/
             let name=this.$refs.bclone.value
-            this.$axios.post(this.allurl+'manager/client/block/clone_snap',{name:name,cloneid:this.clone}).then(function (res) {
+          if (name==''){
+            this.cross='请填写完整'
+          }
+          else {
+            var _this = this
+            this.$axios.post(this.allurl + 'manager/client/block/clone_snap', {
+              name: name,
+              cloneid: this.clone
+            }).then(function (res) {
               // console.log(res)
+              if (res.data.status == 1) {
+                _this.tipsc = '操作成功'
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table').bootstrapTable('refresh')
+              }
+              else {
+                _this.tipsc = res.data.status
+                $('#tipsc').show().delay(2000).fadeOut()
+                $('#table').bootstrapTable('refresh')
+              }
             }).catch(function (error) {
               console.log(error)
             })
+            $('#clonesn').modal('hide')
+          }
         },
         indexsel(event){//下拉框选择
           this.sele=event.target.value
@@ -512,6 +661,7 @@
         },
         independent(){
           if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay (2000).fadeOut()
           }
           else {
@@ -535,7 +685,8 @@
             else if (ids.length === 1) {
 
               if (ifrom=='用户创建'){
-                $('#fromtips').show().delay(2000).fadeOut()
+                this.tipscontent = '请选择一个有快照依赖的块设备'
+                $('#tipscontent').show().delay(2000).fadeOut()
               }
               else {
                 this.title = '此操作不可逆，确认进行分离'

@@ -6,7 +6,7 @@
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
 
         <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-toggle="table" data-click-to-select="true" data-classes="table-no-bordered" >
-          <div class="alert alert-danger " id="tipscontent" style="display: none;">普通用户无操作权限！</div>
+          <div class="alert alert-danger " id="tipscontent" style="display: none;">{{tipscontent}}</div>
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -43,7 +43,7 @@
 
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive two">
         <table class="table table-responsive text-nowrap" id="table" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-click-to-select="true" data-classes="table-no-bordered">
-          <div class="alert alert-danger " id="tipsc" style="display: none;">普通用户无操作权限！</div>
+          <div class="alert alert-danger " id="tipsc" style="display: none;">{{tipsc}}</div>
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
@@ -78,11 +78,12 @@
             <h4 class="modal-title" id="myModalLabel">{{$t('message.Modify-storage-pool-information')}}</h4>
           </div>
           <div class="modal-body">
-            <p>{{$t('message.Pool-name')}}：</p><input type="text" class="form-control" id="name" ref="name" :placeholder=this.ids />
+            <p>{{$t('message.Pool-name')}}：</p><input type="text" class="form-control" id="name" ref="name" :placeholder=this.ids required="required" />
+            <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
-            <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
+            <button type="button" class="btn btn-primary" @click="editsend()" >{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -95,11 +96,12 @@
             <h4 class="modal-title" id="client">{{$t('message.Add-iSCSI-client')}}</h4>
           </div>
           <div class="modal-body">
-            <p>{{$t('message.Add-iSCSI-client')}}：</p><input type="text" class="form-control" id="clientname" ref="addclient"/>
+            <p>{{$t('message.Add-iSCSI-client')}}：</p><input type="text" class="form-control" id="clientname" ref="addclient" required="required"/>
+            <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
-            <button type="button" class="btn btn-primary" @click="clientsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
+            <button type="button" class="btn btn-primary" @click="clientsend()" >{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -112,11 +114,12 @@
             <h4 class="modal-title" id="dila">{{$t('message.Memory-pool-expansion')}}</h4>
           </div>
           <div class="modal-body">
-            <p>{{$t('message.Memory-pool-size-modification')}}：</p><input type="number" class="form-control" id="poolsize" ref="poolsize"/>
+            <p>{{$t('message.Memory-pool-size-modification')}}：</p><input type="number" class="form-control" id="poolsize" ref="poolsize" required="required"/>
+            <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
-            <button type="button" class="btn btn-primary" @click="sizesend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
+            <button type="button" class="btn btn-primary" @click="sizesend()">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -130,11 +133,12 @@
           </div>
           <div class="modal-body">
             <p>{{$t('message.Pool-name')}}：</p><input type="text" class="form-control" id="addname" ref="addname" />
-            <p>{{$t('message.Storage-pool-capacity')}}：</p><input type="number" class="form-control" id="addsize" ref="addsize"/>
+            <!--<p>{{$t('message.Storage-pool-capacity')}}：</p><input type="number" class="form-control" id="addsize" ref="addsize"/>-->
             <p>{{$t('message.Storage-pool-type')}}：</p>
             <select class="form-control" v-on:change="sel($event)" v-model="unitsele">
               <option v-for="m in unit" :value="m.name">{{m.name}}</option>
             </select>
+            <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
             <!--<div v-if="unitsele=='erasure'">-->
               <!--<p>k值：</p><input type="number" class="form-control" id="k" ref="kvalue"/>-->
               <!--<p>m值：</p><input type="number" class="form-control" id="m" ref="mvalue"/>-->
@@ -142,7 +146,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
-            <button type="button" class="btn btn-primary" @click="addsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
+            <button type="button" class="btn btn-primary" @click="addsend()">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -172,7 +176,9 @@
             respond:'',
             who:'',
             dosome:'',
-            timertip:null
+            timertip:null,
+            cross:'',
+            tipsc:''
           }
       },
       methods:{
@@ -193,6 +199,7 @@
         addnew(){
           // console.log(this.$store.state.islogin)
           if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
               $("#tipscontent").show().delay (2000).fadeOut ();;
           }
           else
@@ -203,6 +210,7 @@
         },
         editlist() {                         /*pool设备的修改*/
           if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay(2000).fadeOut()
           }
           else {
@@ -227,6 +235,7 @@
         },
         dilatation(){                   /*存储池扩容大小修改*/
           if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay(2000).fadeOut()
           }
           else {
@@ -250,25 +259,52 @@
         sizesend(){                          /*发送扩容信息*/
 
           let poolsize=this.$refs.poolsize.value
-          this.$axios.post(this.allurl+'manager/tank/tank_dilatate',{name:this.dilata,poolsize:poolsize}).then(function (res) {
-            // console.log(res)
-          }).catch(function (error) {
-            console.log(error)
-          })
+          var _this=this
+          if(poolsize==''){
+            _this.cross='请填写完整'
+          }
+          else {
+            this.$axios.post(this.allurl + 'manager/tank/tank_dilatate', {
+              name: this.dilata,
+              poolsize: poolsize
+            }).then(function (res) {
+              // console.log(res)
+              if (res.data.status == 1) {
+                _this.tipscontent = '操作成功'
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
+              else {
+                _this.tipscontent = res.data.status
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
+            $('#dilatation').modal('hide')
+          }
         },
         addsend(){
           let addname=this.$refs.addname.value
-          let addsize=this.$refs.addsize.value
-          // if (this.unitsele=='fb') {
+          // let addsize=this.$refs.addsize.value
+          var _this=this
+          if (addname==''||addsize==''){
+            _this.cross='请填写完整'
+          }
+          else {
+            // if (this.unitsele=='fb') {
             this.$axios.post(this.allurl + 'manager/tank/create_tank', {
               name: addname,
-              size: addsize,
+              // size: addsize,
               type: this.unitsele
             }).then(function (res) {
               console.log(res)
             }).catch(function (error) {
               console.log(error)
             })
+            $('#addnew').modal('hide')
+          }
           // }
           // else {
           //   this.$axios.post(this.allurl + 'manager/tank/create_tank', {
@@ -286,6 +322,7 @@
         },
         addclient(){              /*添加iscsi客户端*/
           if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay(2000).fadeOut()
           }
           else
@@ -337,11 +374,21 @@
               return row.pname;
             });
             this.respond = data
+            var _this=this
             // console.log(data,this.respond)
             if (this.respond == 'ok') {
               this.$axios.post(this.allurl + 'manager/client/man_authori', {ids: ids}).then(function (res) {
                 // console.log(res,'post ok')
-
+                if(res.data.status==1){
+                  _this.tipscontent = '操作成功'
+                  $('#tipsc').show().delay (2000).fadeOut()
+                  $('#table').bootstrapTable('refresh')
+                }
+                else {
+                  _this.tipscontent =res.data.status
+                  $('#tipsc').show().delay (2000).fadeOut()
+                  $('#table').bootstrapTable('refresh')
+                }
               }).catch(function (error) {
                 console.log(error)
               })
@@ -352,11 +399,21 @@
               return row.pname;
             });
             this.respond = data
+            var _this=this
             // console.log(data,this.respond)
             if (this.respond == 'ok') {
               this.$axios.post(this.allurl + 'manager/client/man_disauthori', {ids: ids}).then(function (res) {
                 // console.log(res,'post ok')
-
+                if(res.data.status==1){
+                  _this.tipscontent = '操作成功'
+                  $('#tipsc').show().delay (2000).fadeOut()
+                  $('#table').bootstrapTable('refresh')
+                }
+                else {
+                  _this.tipscontent =res.data.status
+                  $('#tipsc').show().delay (2000).fadeOut()
+                  $('#table').bootstrapTable('refresh')
+                }
               }).catch(function (error) {
                 console.log(error)
               })
@@ -365,6 +422,7 @@
         },
         deletelist(){                         /*pool的删除*/
           if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay(2000).fadeOut()
           }
           else {
@@ -393,7 +451,8 @@
 
         deletel(){                             /*授权的删除*/
           if (sessionStorage.getItem('islogin')==250){
-            $("#tipscontent").show().delay (2000).fadeOut ();;
+            this.tipsc='普通用户无操作权限！'
+            $("#tipsc").show().delay (2000).fadeOut ();;
           }
           else {
             this.who = 'empower'
@@ -420,22 +479,61 @@
         },
         editsend(){                 /*发送修改后的存储池信息*/
           let poolname=this.$refs.name.value
-          this.$axios.post(this.allurl+'manager/tank/rename_tank',{newname:poolname,tank_id:this.edit}).then(function (res) {
-            // console.log(res)
-          }).catch(function (error) {
-            console.log(error)
-          })
+          var _this=this
+          if (poolname==''){
+            _this.cross='请填写完整'
+          }
+          else {
+            this.$axios.post(this.allurl + 'manager/tank/rename_tank', {
+              newname: poolname,
+              tank_id: this.edit
+            }).then(function (res) {
+              // console.log(res)
+              if (res.data.status == 1) {
+                _this.tipscontent = '操作成功'
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
+              else {
+                _this.tipscontent = res.data.status
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
+            $('#editm').modal('hide')
+          }
         },
         clientsend(){                       /*发送添加的客户端信息*/
           let client=this.$refs.addclient.value
-          this.$axios.post(this.allurl+'manager/tank/client_add',{client:client}).then(function (res) {
-            // console.log(res)
-          }).catch(function (error) {
-            console.log(error)
-          })
+          var _this=this
+          if(client==''){
+            _this.cross='请填写完整'
+          }
+          else {
+            this.$axios.post(this.allurl + 'manager/tank/client_add', {client: client}).then(function (res) {
+              // console.log(res)
+              if (res.data.status == 1) {
+                _this.tipscontent = '操作成功'
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
+              else {
+                _this.tipscontent = res.data.status
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
+            $('#clientmodal').modal('hide')
+          }
+
         },
         empower(){                      /*确认授权*/
           if (sessionStorage.getItem('islogin')==250){
+            this.tipsc='普通用户无操作权限！'
             $("#tipsc").show().delay (2000).fadeOut ();;
           }
           else {
@@ -459,6 +557,7 @@
         },
         noempower(){                          /*取消授权*/
           if (sessionStorage.getItem('islogin')==250){
+            this.tipsc='普通用户无操作权限！'
             $("#tipsc").show().delay (2000).fadeOut ();;
           }
           else {

@@ -68,6 +68,7 @@
     <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12 bgdown " v-if="content!=null">
       <div class="row">
         <div class="alert alert-danger " id="tipscontent" style="display: none;">普通用户无操作权限！</div>
+        <div class="alert alert-danger " id="tipsc" style="display: none;">操作成功！</div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
           <div class=" bor container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.The-machine-information')}}</span></p>
@@ -200,11 +201,12 @@
             <h4 class="modal-title" id="myModalLabel">修改iSCSI信息</h4>
           </div>
           <div class="modal-body">
-            <p>{{$t('message.Modify')}} ip：</p><input type="text" class="form-control" id="ip" ref="modifyip"/>
+            <p>{{$t('message.Modify')}} ip：</p><input type="text" class="form-control" id="ip" ref="modifyip" required="required" />
+            <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
-            <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
+            <button type="button" class="btn btn-primary" @click="editsend()" >{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -217,12 +219,13 @@
             <h4 class="modal-title" id="diskdata">添加io-agent</h4>
           </div>
           <div class="modal-body">
-            <p>ip：</p><input type="text" class="form-control" id="addip" ref="addip"/>
-            <p>{{$t('message.Dirctory')}}：</p><input type="text" class="form-control" id="diskpath" ref="diskpath"/>
+            <p>ip：</p><input type="text" class="form-control" id="addip" ref="addip" required="required"/>
+            <p>{{$t('message.Dirctory')}}：</p><input type="text" class="form-control" id="diskpath" ref="diskpath" required="required"/>
+            <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
-            <button type="button" class="btn btn-primary" @click="addsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
+            <button type="button" class="btn btn-primary" @click="addsend()">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -255,9 +258,8 @@
           netcard:[],
           netcarddefalut:'',
           content:[],
-          timertip:null
-          // xz:''
-
+          timertip:null,
+          cross:''
         }
 
       },
@@ -298,14 +300,27 @@
         },
         editsend(){                      /*发送修改后iSCSI的ip*/
 
+            let ip=this.$refs.modifyip.value
+          if (ip==''){
+            this.cross='请填写完整'
+          }
+          else {
             var _this=this
-            let ip=_this.$refs.modifyip.value
-            this.$axios.post(this.allurl+'manager/ioagent/iscsi_change',{ip:ip}).then(function (res) {
+            this.$axios.post(this.allurl + 'manager/ioagent/iscsi_change', {ip: ip}).then(function (res) {
               // console.log(res)
+              if (res.data.status == 1) {
+                // _this.tipscontent = '操作成功'
+                $('#tipsc').show().delay(2000).fadeOut()
+              }
+              else {
+                _this.tipscontent = res.data.status
+                $('#tipscontent').show().delay(2000).fadeOut()
+              }
             }).catch(function (error) {
               console.log(error)
             })
-
+            $('#editm').modal('hide')
+          }
         },
         clos(){                        /*列表显示为精简模式*/
 

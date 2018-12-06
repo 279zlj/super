@@ -13,8 +13,8 @@
         </div>
 
         <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
-          <table class="table table-responsive table-condensed" id="usert" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered">
-            <div class="alert alert-danger " id="tipscontent" style="display: none;">普通用户无操作权限！</div>
+          <table class="table table-responsive table-condensed" id="usert" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered"  data-click-to-select="true">
+            <div class="alert alert-danger " id="tipscontent" style="display: none;">{{tipscontent}}</div>
             <thead>
             <tr>
               <th data-field="state" data-checkbox="true" ></th>
@@ -42,7 +42,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
-              <button type="button" class="btn btn-primary" @click="editsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
+              <button type="button" class="btn btn-primary" @click="editsend()" >{{$t('message.Confirm')}}</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal -->
@@ -77,6 +77,7 @@
         },
         editlist() {                   /*设备信息的修改*/
           if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay (2000).fadeOut()
           }
           else {
@@ -108,11 +109,31 @@
         editsend(){                      /*发送用户修改信息*/
           let userpwd=this.$refs.user.value
           let role=this.$refs.role.value
-          this.$axios.post(this.allurl+'manctl/user_edit',{user:userpwd,role:role,id:this.edit}).then(function (res) {
-            // console.log(res)
-          }).catch(function (error) {
-            console.log(error)
-          })
+          if (userpwd==''||role==''){
+            this.cross='请填写完整'
+          }
+          else {
+            var _this=this
+            this.$axios.post(this.allurl + 'manctl/user_edit', {
+              user: userpwd,
+              role: role,
+              id: this.edit
+            }).then(function (res) {
+              // console.log(res)
+              if (res.data.status == 1) {
+                _this.tipscontent = '操作成功'
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
+              else {
+                _this.tipscontent = res.data.status
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
         },
         res(data){
           let ids = $.map( $('#usert').bootstrapTable('getSelections'), function (row) {
@@ -129,6 +150,7 @@
         },
         deletelist(){                       /*用户的删除*/
           if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay (2000).fadeOut()
           }
           else {
