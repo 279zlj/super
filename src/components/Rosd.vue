@@ -1,7 +1,7 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 container-fluid" id="Rosd">
 
-  <div class="row" v-if="osdlist!=null">
+  <div class="row" v-if="$store.state.osdlist!=null">
 
   <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12 container allo">
     <button  class="btn btn-default b" @click="open()" id="open">{{$t('message.Unfold')}}</button>
@@ -10,7 +10,7 @@
     <!--<input type="button" class="btn btn-default b" value="极简" id="closed" @click="clos()"/>-->
 
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 container one" id="sample">
-      <div class="row san" v-for="(i,index) in osdlist"  @click="change(index,i.osdid)" >
+      <div class="row san" v-for="(i,index) in $store.state.osdlist"  @click="change(index,i.osdid)" >
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 container"></div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
@@ -37,7 +37,7 @@
       </div>
     </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 container one" id="detail" >
-      <div class="row san" v-for="(i,index) in osdlist"  @click="change(index)">
+      <div class="row san" v-for="(i,index) in $store.state.osdlist"  @click="change(index)">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 container"></div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="row block aa" :class="{'chan':ind===index}">
@@ -65,24 +65,24 @@
   </div>
     <!--<button  class="btn btn-default all" @click="adddisk()" style="margin-bottom: 1em;float: right" >{{$t('message.Add-a-disk')}}</button>-->
     <!--<input type="button" class="btn btn-default all" value="添加磁盘" style="margin-bottom: 1em;float: right" @click="adddisk()"/>-->
-    <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12 bgdown " v-if="content!=null">
+    <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12 bgdown " v-if="$store.state.content!=null">
       <div class="row">
         <div class="alert alert-danger " id="tipscontent" style="display: none;">普通用户无操作权限！</div>
         <div class="alert alert-danger " id="tipsc" style="display: none;">操作成功！</div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
           <div class=" bor container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.The-machine-information')}}</span></p>
-            <p class="ff">{{$t('message.Model')}}：<span >{{content&& content.sname}}</span></p>
-            <p class="ff">{{$t('message.Status')}}：<span :class="{'o':content.status==='ok','wa':content.status==='warning','err':content.status==='error'}">{{content&& content.status}}</span></p>
-            <p class="ff">{{$t('message.OS')}}：<span>{{content.opsys}}</span></p>
+            <p class="ff">{{$t('message.Model')}}：<span >{{$store.state.content&& $store.state.content.sname}}</span></p>
+            <p class="ff">{{$t('message.Status')}}：<span :class="{'o':$store.state.content.status==='ok','wa':$store.state.content.status==='warning','err':$store.state.content.status==='error'}">{{$store.state.content&& $store.state.content.status}}</span></p>
+            <p class="ff">{{$t('message.OS')}}：<span>{{$store.state.content.opsys}}</span></p>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
           <div class="bora container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">CPU</span></p>
-            <span class="ff">{{content.cpu}}</span>
+            <span class="ff">{{$store.state.content.cpu}}</span>
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.Memory')}}</span></p>
-            <span class="ff">{{content.nc}}</span>
+            <span class="ff">{{$store.state.content.nc}}</span>
           </div>
         </div>
       </div>
@@ -91,11 +91,11 @@
           <div class="col-lg-11 container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.Data-Set')}}</span></p>
             <div class="datapstyle" >
-              <span v-for="q in content.datap"><img src="../../static/image/three.png" class="img-responsive im" :id="q" @click="disk(q)"  :title="q" data-toggle="tooltip" data-placement="bottom"></span>
+              <span v-for="q in $store.state.content.datap"><img src="../../static/image/three.png" class="img-responsive im" :id="q" @click="disk(q)"  :title="q" data-toggle="tooltip" data-placement="bottom"></span>
             </div>
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.Cache-disk')}}</span></p>
             <div class="datapstyle" >
-              <span v-for="w in content.cachep"><img src="../../static/image/cachedata.png" class="img-responsive im" :id="w"  @click="disk(w)"  :title="w" data-toggle="tooltip" data-placement="bottom"></span>
+              <span v-for="w in $store.state.content.cachep"><img src="../../static/image/cachedata.png" class="img-responsive im" :id="w"  @click="disk(w)"  :title="w" data-toggle="tooltip" data-placement="bottom"></span>
             </div>
           </div>
         </div>
@@ -104,10 +104,10 @@
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
           <div class=" container-fluid">
           <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">iSCSI {{$t('message.Service')}}/{{$t('message.Interior')}} {{$t('message.Network')}}</span></p>
-            <div class="datapstyle"><span v-for="w in netcard"><img src="../../static/image/four.png" class="img-responsive im" :id="w.dname"  @click="net(w.dname)"  :title="w.dname" data-toggle="tooltip" data-placement="bottom"></span></div>
-          <span class="ff">{{content.iscsi}}</span><span class="glyphicon glyphicon-edit e" style="cursor: pointer"  data-toggle="editmodal" @click="edit()" id="edit"></span>
+            <div class="datapstyle"><span v-for="w in $store.state.netcard"><img src="../../static/image/four.png" class="img-responsive im" :id="w.dname"  @click="net(w.dname)"  :title="w.dname" data-toggle="tooltip" data-placement="bottom"></span></div>
+          <span class="ff">{{$store.state.content.iscsi}}</span><span class="glyphicon glyphicon-edit e" style="cursor: pointer"  data-toggle="editmodal" @click="edit()" id="edit"></span>
           <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.Interior')}} {{$t('message.Network')}}</span></p>
-          <span class="ff">{{content.netw}}</span>
+          <span class="ff">{{$store.state.content.netw}}</span>
           </div>
         </div>
     </div>
@@ -123,31 +123,31 @@
             <tbody>
               <tr>
                 <td>{{$t('message.Device-Name')}}：</td>
-                <td>{{diskdefalut.nname}}</td>
+                <td>{{$store.state.diskdefalut.nname}}</td>
               </tr>
               <tr>
                 <td>{{$t('message.Type')}}：</td>
-                <td>{{diskdefalut.type}}</td>
+                <td>{{$store.state.diskdefalut.type}}</td>
               </tr>
               <tr>
                 <td>{{$t('message.Capacity')}}：</td>
-                <td>{{diskdefalut.size}}</td>
+                <td>{{$store.state.diskdefalut.size}}</td>
               </tr>
               <tr>
                 <td>WWID：</td>
-                  <td>{{diskdefalut.wwid}}</td>
+                  <td>{{$store.state.diskdefalut.wwid}}</td>
               </tr>
               <tr>
                 <td>{{$t('message.Purpose')}}：</td>
-                <td>{{diskdefalut.used}}</td>
+                <td>{{$store.state.diskdefalut.used}}</td>
               </tr>
               <tr>
                 <td>{{$t('message.Slow-disk')}}：</td>
-                <td>{{diskdefalut.small}}</td>
+                <td>{{$store.state.diskdefalut.small}}</td>
               </tr>
               <tr>
                 <td>{{$t('message.Health-degree')}}：</td>
-                <td>{{diskdefalut.health}}</td>
+                <td>{{$store.state.diskdefalut.health}}</td>
               </tr>
               <!--<tr>-->
                 <!--<td>{{$t('message.Operation')}}：</td>-->
@@ -168,23 +168,23 @@
             <tbody>
               <tr>
                 <td>{{$t('message.Device-Name')}}：</td>
-                <td>{{netcarddefalut.dname}}</td>
+                <td>{{$store.state.netcarddefalut.dname}}</td>
               </tr>
               <tr>
                 <td>MAC：</td>
-                <td>{{netcarddefalut.mac}}</td>
+                <td>{{$store.state.netcarddefalut.mac}}</td>
               </tr>
               <tr>
                 <td>{{$t('message.Rate')}}：</td>
-                <td>{{netcarddefalut.speed}}</td>
+                <td>{{$store.state.netcarddefalut.speed}}</td>
               </tr>
               <tr>
                 <td>{{$t('message.Loss')}}：</td>
-                <td>{{netcarddefalut.pack}}</td>
+                <td>{{$store.state.netcarddefalut.pack}}</td>
               </tr>
               <tr>
                 <td>MTU：</td>
-                <td>{{netcarddefalut.mtu}}</td>
+                <td>{{$store.state.netcarddefalut.mtu}}</td>
               </tr>
             </tbody>
           </table>
@@ -253,11 +253,11 @@
           ],
           num:'',
           ind:'',
-          diskall:[],
-          diskdefalut:'',
-          netcard:[],
-          netcarddefalut:'',
-          content:[],
+          // diskall:[],
+          // diskdefalut:'',
+          // netcard:[],
+          // netcarddefalut:'',
+          // content:[],
           timertip:null,
           cross:''
         }
@@ -269,11 +269,13 @@
           // console.log(_this.id)
           this.ind=index
           this.$axios.post(this.allurl+'manager/ioagent/ioagent_de',{id:id}).then(function (res) {
-            _this.content=res.data.all
-            _this.diskall=res.data.diskall
-            _this.diskdefalut= _this.diskall[0]
-            _this.netcard=res.data.netcard
-            _this.netcarddefalut=_this.netcard[0]
+            // _this.content=res.data.all
+            // _this.diskall=res.data.diskall
+            // _this.diskdefalut= _this.diskall[0]
+            // _this.netcard=res.data.netcard
+            // _this.netcarddefalut=_this.netcard[0]
+            // const datac=JSON.parse(res.data)
+            _this.$store.commit('osdalone',{content:res.data.all,diskall:res.data.diskall,diskdefalut:res.data.diskall[0],netcard:res.data.netcard,netcarddefalut:res.data.netcard[0]})
             // console.log(_this.netcard)
           }).catch(function (error) {
             console.log(error)
@@ -281,22 +283,19 @@
 
         },
         disk(n){
-          for(let i=0;i<this.diskall.length;i++){
-            if (n==this.diskall[i].nname){
-              this.diskdefalut=this.diskall[i]
+          for(let i=0;i<this.$store.state.diskall.length;i++){
+            if (n==this.$store.state.diskall[i].nname){
+              this.$store.state.diskdefalut=this.$store.state.diskall[i]
             }
           }
 
         },
         net(n){
-          for(let i=0;i<this.netcard.length;i++){
-            if (n==this.netcard[i].dname){
-              this.netcarddefalut=this.netcard[i]
+          for(let i=0;i<this.$store.state.netcard.length;i++){
+            if (n==this.$store.state.netcard[i].dname){
+              this.$store.state.netcarddefalut=this.$store.state.netcard[i]
             }
           }
-        },
-        judgeuser(){
-
         },
         editsend(){                      /*发送修改后iSCSI的ip*/
 
@@ -400,35 +399,49 @@
             piec.setOption(option)
           }
         },
+        // start(){
+        //     var _this=this
+        //     this.$axios.get(this.allurl+'manager/ioagent/list_ioagent').then(function (res) {
+        //       _this.osdlist=res.data
+        //       // console.log(res.data)
+        //       _this.change(0,_this.osdlist[0].osdid)
+        //       _this.piechart()
+        //     }).catch(function (error) {
+        //       console.log(error)
+        //     })
+        //
+        //     // console.log(_this.osdlist)
+        // },
         start(){
-            var _this=this
-            this.$axios.get(this.allurl+'manager/ioagent/list_ioagent').then(function (res) {
-              _this.osdlist=res.data
-              // console.log(res.data)
-              _this.piechart()
-            }).catch(function (error) {
-              console.log(error)
-            })
-
-            // console.log(_this.osdlist)
-        },
-
-        start2(){
           var _this=this
           this.$axios.get(this.allurl+'manager/ioagent/list_ioagent').then(function (res) {
-            _this.osdlist=res.data
-            _this.change(0,_this.osdlist[0].osdid)
+            _this.$store.commit('gosd',res.data)
+            // console.log(_this.$store.state.osdlist[0].osdid)
+            _this.change(0,_this.$store.state.osdlist[0].osdid)
+            // console.log(res.data)
+            // _this.change(0,_this.osdlist[0].osdid)
+            // _this.piechart()
           }).catch(function (error) {
             console.log(error)
           })
 
-          // console.log(_this.osdlist)
         },
+        // start2(){
+        //   var _this=this
+        //   this.$axios.get(this.allurl+'manager/ioagent/list_ioagent').then(function (res) {
+        //     _this.osdlist=res.data
+        //     _this.change(0,_this.osdlist[0].osdid)
+        //   }).catch(function (error) {
+        //     console.log(error)
+        //   })
+        //
+        //   // console.log(_this.osdlist)
+        // },
         timer(){
           var _this=this
           _this.timertip=setInterval(function () {
             _this.start();
-            _this.start2();
+            // _this.start2();
 
           },30000)
         },
@@ -450,15 +463,17 @@
         }
 
       },
-      created(){
-        this.start2()
-        this.start()
-      },
       mounted(){
+        // this.change(0,this.$store.state.osdlist[0].osdid)
+        this.piechart()
+        this.ind=0
         $("[data-toggle='tooltip']").tooltip({html:true});
         // this.change(0,this.osdlist[0])
         // console.log(this.osdlist)
+        this.start();
+        console.log(this.$store.state.diskall,this.$store.state.diskdefalut,this.$store.state.netcard,this.$store.state.netcarddefalut,this.$store.state.content)
         this.timer();
+
 
       },
       activated(){

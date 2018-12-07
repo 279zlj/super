@@ -3,20 +3,41 @@
     <div class="row " id="one">
       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 container-fluid">
         <div class="row blockone">
-          <h4 style="margin: 1em 0 0.5em 1em">网络状态</h4>
+          <p style="margin: 1em 0 0.5em 1em;font-size: 1.1em">网络状态</p>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 right">
             <!--<div id="liquidFill" class="grid"></div>-->
-            <p style="margin-top: 1em">网速：<span class="numtwo">{{pool_use}}</span>mb/s</p>
+            <!--<p style="margin-top: 1em">网速：<span class="numtwo">{{pool_use}}</span>mb/s</p>-->
             <!--<p style="text-align: center;line-height:1em">健康状态</p>-->
+            <div>
+              <p>网段：</p>
+              <ol style="height: 2.5em;overflow-y: scroll">
+                <li v-for="i in net.lan">{{i}}</li>
+              </ol>
+            </div>
+            <p>网卡：</p>
+            <div style="overflow-y: scroll;height: 5em;overflow-x: hidden">
+
+              <div class="row" v-for="p in net.nics">
+                <div class="col-lg-4" >
+                  {{p.name}}
+                </div>
+                <div class="col-lg-4" >
+                  {{p.mode}}
+                </div>
+                <div class="col-lg-4" >
+                  {{p.hostname}}
+                </div>
+              </div>
+            </div>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ">
-            <div class="fontone">问题网卡：<a style="font-size: 1.8em;padding: .5em;color: white;cursor: pointer"  class="dropdown-toggle" data-toggle="dropdown">{{net.error}}</a>个
+            <div class="fontone">问题网卡：<a style="font-size: 2em;padding: .5em;color: white;cursor: pointer"  class="dropdown-toggle" data-toggle="dropdown">{{net.error}}</a>个
               <ul class="dropdown-menu">
                 <li><router-link :to="{name:''}">error:eno1</router-link></li>
               </ul>
             </div>
             <div >
-              <p class="fonttwo">当前带宽：{{net.bandwidth}}</p>
+              <p class="fonttwo">当前带宽：{{net.bandwidth}}Mbps/s</p>
               <p class="fonttwo">网卡模式是否匹配：{{mode}}</p>
             </div>
           </div>
@@ -24,23 +45,23 @@
         <div class="row blockthree">
           <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 blocktwo">
             <div class="blockbottom">
-            <h4 style="line-height: 3.5em">磁盘IO汇总</h4>
+            <p style="line-height: 2.5em;font-size: 1.1em">磁盘IO汇总</p>
             <div style="text-align: center;padding-bottom: 1em">
               <p>I：<span class="num">{{diskio.ips}}</span>bps</p>
               <p>O：<span class="num">{{diskio.ops}}</span>bps</p>
             </div>
             </div>
             <div>
-              <h4 style="line-height: 3.5em;padding-bottom: .5em">Swap IO</h4>
+              <h5 style="line-height: 2.5em;font-size: 1.1em;color: #FFFFFF">Swap IO</h5>
               <div style="text-align: center">
-                <p>I：<span class="num">{{swap_io.ips}}</span>bps</p>
-                <p>O：<span class="num">{{swap_io.ops}}</span>bps</p>
+                <p>I：<span class="num">{{swap_io.ips}}</span></p>
+                <p>O：<span class="num">{{swap_io.ops}}</span></p>
               </div>
             </div>
           </div>
           <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 ">
             <div class="row blockfour">
-              <h4 style="line-height: 1.3em">内存</h4>
+              <p style="line-height: 2.5em;font-size: 1.1em">内存</p>
               <div style="text-align: center" >
                 <div id="liquidFill" class="grid"></div>
                 <p style="text-align: center;">使用状态</p>
@@ -51,13 +72,13 @@
           <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 ">
             <div class="row blockfive">
             <div class="blockbottom">
-              <h4 style="line-height: 1.3em">CPU</h4>
+              <p style="line-height: 2.5em;font-size: 1.1em">CPU</p>
               <div style="text-align: center">
                 <p>已用：<span class="numtwo">{{cpu.total}}</span>%</p>
               </div>
             </div>
             <div class="row">
-              <h4 style="margin-left: 1em;margin-top: .5em">CPU使用率/TOP3</h4>
+              <p style="margin-left: 1em;margin-top: .5em;font-size: 1.1em">CPU使用率/TOP3</p>
               <div class="container-fluid" style="width: 90%">
               <table class="table-condensed table-responsive table">
                 <tbody style="text-align: center">
@@ -93,7 +114,7 @@
 
         <div id="log" class="logprint">
           <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 text">
-            <h4>健康状态</h4>
+            <h5>健康状态</h5>
             <p>Health Status</p>
           </div>
           <div class="col-lg-10 col-md-10 col-sm-6 col-xs-6 print">
@@ -123,6 +144,7 @@
         cpu:'',
         cpulist:'',
         net:'',
+        nics:'',
         diskio:'',
         memory:'',
         swap_io:'',
@@ -152,12 +174,15 @@
     computed:{            /*调用Vuex中的islogin值，有缓存左右*/
       lindraw(){
         return this.$store.state.iwrite,this.$store.state.iread,this.$store.state.ti,this.$store.state.mwrite,this.$store.state.mread,this.$store.state.delaytime
+      },
+      gnode(){
+        return this.$store.state.osd_use,this.$store.state.collect,this.$store.state.pool_use
       }
     },
     methods: {
       initWebSocket(){
         // var _this=this
-        const wsurl="ws://192.168.2.64:8000/ws/intime_data";
+        const wsurl="ws://192.168.9.43:8000/ws/intime_data";
         // const wsurl='';
         this.websock=new WebSocket(wsurl);
         this.websock.onmessage=this.websocketonmessage;
@@ -181,7 +206,7 @@
         // var s=now.getSeconds()
         // var ntime=h.toString()+':'+m.toString()+':'+s.toString()
         const data=JSON.parse(e.data)
-        console.log(data.message.data.iops.ips)
+        // console.log(data.message.data.iops.ips)
         this.$store.commit('lindraw',{iwrite:data.message.data.iops[0],iread:data.message.data.iops[1],mwrite:data.message.data.mbps[0],mread:data.message.data.mbps[1],delaytime:data.message.data.delay,ti:data.message.data.time,health:data.message.data.health})
         // console.log(this.$store.state.delaytime)
         this.linechartone(this.$store.state.ti,this.$store.state.iwrite,this.$store.state.iread)
@@ -205,6 +230,7 @@
           _this.cpu=res.data.cpu
           _this.swap_io=res.data.swap_io
           // console.log(res.data)
+          console.log(_this.net)
           if (res.data.net.is_mode==1){
             _this.mode='是'
           }
@@ -214,6 +240,8 @@
           _this.liquidFill();
           // _this.ws()
 
+        }).catch(function (error) {
+          console.log(error)
         }).catch(function (error) {
           console.log(error)
         })
@@ -762,7 +790,7 @@
 
           series: [{
             type: 'liquidFill',
-            radius: '90%',
+            radius: '100%',
             itemStyle:{
               normal:{
                 color:'#04b8da'
@@ -811,7 +839,7 @@
   }
   ul{color: black}
   .grid{
-    width: 100%;height:7em;
+    width: 100%;height:6em;
     margin: 0 auto;
 
   }
@@ -862,16 +890,18 @@
 
   }
   .num{
-    font-size: 1.9em;line-height: 2em;padding: .5em;
+    font-size: 2.4em;line-height: 2.05em;padding: .5em;
   }
   .numtwo{
-    font-size: 2.5em;line-height: 1em;padding: .5em
+    font-size: 2.2em;line-height: 1em;padding: .5em
   }
   .fontone{
-    font-size: 1.1em;
+    color: #FFFFFF;
+    font-size: 1em;
+    margin-bottom: 3em;
   }
   .fonttwo{
-    font-size: 1.1em;
+    font-size: 1em;
     vertical-align: bottom;
     bottom: 0;
   }
@@ -881,6 +911,7 @@
 
   .right{
     border-right: 1px solid #55466E;
+    color: #FFFFFF;
   }
   #health{
     width: 100%;word-wrap: break-word;font-size:1.6em

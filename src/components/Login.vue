@@ -45,7 +45,19 @@
       computed:{            /*调用Vuex中的islogin值，有缓存左右*/
           islogin(){
             return this.$store.state.islogin
-          }
+          },
+        gnode(){
+          return this.$store.state.osd_use,this.$store.state.collect,this.$store.state.pool_use
+        },
+        gcim(){
+          return this.$store.state.mbps,this.$store.state.log,this.$store.state.warn,this.$store.state.iops,this.$store.state.cpu
+        },
+        gosd(){
+            return this.$store.state.osdlist
+        },
+        osdalone(){
+            return this.$store.state.diskall,this.$store.state.diskdefalut,this.$store.state.netcard,this.$store.state.netcarddefalut,this.$store.state.content
+        }
       },
       data(){
           return{
@@ -69,40 +81,53 @@
               if (res.data.status===0) {
                 _this.tips='账号/密码错误，请重新输入'
                 return(_this.$refs.pwd.value='')
-                // $('#pwd').val
               }
               else if (res.status=='200'&& res.data.status===1){
                 _this.$store.commit('islogin',200)
                 sessionStorage.setItem('islogin','200')
+                _this.general()
+                _this.change(0,_this.$store.state.osdlist[0].osdid)
                 _this.$router.push('/')
               }
               else if (res.status=='200'&& res.data.status==2){
                 _this.$store.commit('islogin',250)
                 sessionStorage.setItem('islogin','250')
+                _this.general()
+                _this.change(0,_this.$store.state.osdlist[0].osdid)
                 _this.$router.push('/')
 
               }
             }).catch(function (error) {
               console.log(error)
             })
-            // jsonp(this.allurl+'login',{user:this.user,pwd:this.pwd},(err,data)=>{
-            //   if(err){
-            //     console.log(err)
-            //   }else{
-            //     if (res.data.status===0) {
-            //       _this.tips='账号/密码错误，请重新输入'
-            //       return(_this.$refs.pwd.value='')
-            //       // $('#pwd').val
-            //     }
-            //     else if (res.status=='200'&& res.data.status===1){
-            //       _this.$store.commit('islogin',200)
-            //       sessionStorage.setItem('islogin','200')
-            //       _this.$router.push('/')
-            //     }
-            //   }
-            // })
-
           }
+        },
+        change(index,id) {
+          var _this=this
+          this.ind=index
+          this.$axios.post(this.allurl+'manager/ioagent/ioagent_de',{id:id}).then(function (res) {
+            _this.$store.commit('osdalone',{content:res.data.all,diskall:res.data.diskall,diskdefalut:res.data.diskall[0],netcard:res.data.netcard,netcarddefalut:res.data.netcard[0]})
+          }).catch(function (error) {
+            console.log(error)
+          })
+        },
+        general(){
+          var _this=this
+          this.$axios.get(this.allurl+'overview').then(function (res) {
+            _this.$store.commit('gnode',{osd_use:res.data.osd_use,collect:res.data.collect,pool_use:res.data.pool_user})
+          }).catch(function (error) {
+            console.log(error)
+          })
+          this.$axios.get(this.allurl+'list_data').then(function (res) {
+            _this.$store.commit('gcim',{mbps:res.data.mbps,log:res.data.log,warn:res.data.warn,iops:res.data.iops,cpu:res.data.cpu})
+          }).catch(function (error) {
+            console.log(error)
+          })
+          this.$axios.get(this.allurl+'manager/ioagent/list_ioagent').then(function (res) {
+            _this.$store.commit('gosd',res.data)
+          }).catch(function (error) {
+            console.log(error)
+          })
         }
       }
     }

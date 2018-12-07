@@ -43,8 +43,7 @@ Vue.prototype.$axios = axios;
 //   return html.join('');
 // }
 
-
-Vue.prototype.allurl='http://192.168.2.64:8000/'
+Vue.prototype.allurl='http://192.168.9.43:8000/'
 
 const i18n = new VueI18n({
   locale:'zh',
@@ -53,10 +52,6 @@ const i18n = new VueI18n({
     'en': langen, // 英文
   }
 })
-
-
-
-
 
 router.beforeEach((to,from,next)=>{                          /*路由守卫，禁止直接通过url访问页面内容*/
     if (to.meta.requiresAuth) {

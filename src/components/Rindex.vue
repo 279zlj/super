@@ -1,15 +1,15 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" id="Rindex">
-    <div class="row " v-if="collect.osd_detail!=null && collect.pool!=null && collect.block_detail!=null">
+    <div class="row " v-if="$store.state.gcollect.osd_detail!=null && $store.state.gcollect.pool!=null && $store.state.gcollect.block_detail!=null">
       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
       <div class="row container-fluid">
         <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12 bgone" >
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
             <h4 class="h">{{$t('message.io-agent')}} 容量使用占比</h4>
             <div id="iocontent" class="content">
-              <p>{{$t('message.Total-Size')}}：<span v-if="collect.osd_detail.osize" class="keynote">{{collect.osd_detail.osize}}</span></p>
-              <p>{{$t('message.Used')}}：<span class="keynote">{{collect.osd_detail.ouse}}</span></p>
-              <p>{{$t('message.Percent-used')}}：<span class="keynote">{{collect.osd_detail.usepct}}%</span></p>
+              <p>{{$t('message.Total-Size')}}：<span v-if="$store.state.gcollect.osd_detail.osize" class="keynote">{{$store.state.gcollect.osd_detail.osize}}</span></p>
+              <p>{{$t('message.Used')}}：<span class="keynote">{{$store.state.gcollect.osd_detail.ouse}}</span></p>
+              <p>{{$t('message.Percent-used')}}：<span class="keynote">{{$store.state.gcollect.osd_detail.usepct}}%</span></p>
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 container-fluid">
@@ -25,8 +25,8 @@
                 <h4 class="h">{{$t('message.Tank')}} 存储使用占比</h4>
                 <div id="tankcontent" class="content">
 
-                  <p>{{$t('message.Used')}}：<span class="keynote">{{collect.pool.puse}}</span></p>
-                  <p>{{$t('message.Percent-used')}}：<span class="keynote">{{collect.pool.usepct}}%</span></p>
+                  <p>{{$t('message.Used')}}：<span class="keynote">{{$store.state.gcollect.pool.puse}}</span></p>
+                  <p>{{$t('message.Percent-used')}}：<span class="keynote">{{$store.state.gcollect.pool.usepct}}%</span></p>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -39,10 +39,10 @@
         <div class="row container-fluid">
           <div class="col-lg-11 col-md-11 col-sm-12 col-sm-offset-0 col-xs-12 bgone">
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="margin-left: -15px">
-              <h4 class="ho"><span style="font-size: 2.2em">{{collect.block_detail.block}}</span>个{{$t('message.Block')}}</h4>
+              <h4 class="ho"><span style="font-size: 2.2em">{{$store.state.gcollect.block_detail.block}}</span>个{{$t('message.Block')}}</h4>
               <div id="rbdcontent" class="content">
-                <p>{{$t('message.Total-Size')}}：<span class="keynote">{{collect.block_detail.bsize}}</span></p>
-                <p>{{$t('message.Client-Connections')}}：<span class="keynote">{{collect.block_detail.server_num}}</span></p>
+                <p>{{$t('message.Total-Size')}}：<span class="keynote">{{$store.state.gcollect.block_detail.bsize}}</span></p>
+                <p>{{$t('message.Client-Connections')}}：<span class="keynote">{{$store.state.gcollect.block_detail.server_num}}</span></p>
               </div>
             </div>
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
@@ -72,7 +72,7 @@
           <div class="row" style="margin-bottom: 1em">
             <table class="table-condensed table-responsive table">
               <tbody>
-              <tr v-for="i in cpu">
+              <tr v-for="i in $store.state.cpu">
                 <td>{{i.ip}}</td>
                 <td>{{i.network}}</td>
                 <td :class="{'successa':i.status==='正常','fail':i.status==='不健康'}">{{i.status}}</td>
@@ -98,7 +98,7 @@
           <div class="row">
             <table class="table-condensed table-responsive table">
               <tbody>
-              <tr v-for="i in iops">
+              <tr v-for="i in $store.state.iops">
                 <td>{{i.ip}}</td>
                 <td>{{i.network[0]}}/{{i.network[1]}}</td>
                 <td :class="{'successa':i.status==='正常','fail':i.status==='不健康'}">{{i.status}}</td>
@@ -125,7 +125,7 @@
           <div class="row">
             <table class="table-condensed table-responsive table">
               <tbody>
-              <tr v-for="i in mbps">
+              <tr v-for="i in $store.state.mbps">
                 <td>{{i.ip}}</td>
                 <td>{{i.network[0]}}/{{i.network[1]}}</td>
                 <td :class="{'successa':i.status==='正常','fail':i.status==='不健康'}">{{i.status}}</td>
@@ -166,7 +166,7 @@
               <div style="overflow-y: scroll;height: 12em">
               <table class="table-responsive table table-condensed">
                 <tbody>
-                  <tr v-for="p in warn">
+                  <tr v-for="p in $store.state.warn">
                     <td>{{p.ip}}</td>
                     <td>{{p.network}}</td>
                     <td :class="{'red':p.status==='紧急','or':p.status==='重要','yellow':p.status==='次要'}">{{p.status}}</td>
@@ -185,7 +185,7 @@
               <div style="overflow-y: scroll;height: 12em">
               <table class="table-condensed table-responsive table">
                 <tbody>
-                <tr v-for="m in log">
+                <tr v-for="m in $store.state.log">
                   <td>{{m.ip}}</td>
                   <td>{{m.network}}</td>
                   <td :class="{'successa':m.status==='成功','fail':m.status==='失败'}">{{m.status}}</td>
@@ -214,14 +214,14 @@
       components:{tips},
       data(){
           return{
-            cpu:[],
-            iops:[],
-            mbps:[],
-            warn:[],
-            log:[],
-            osd_use:[],
-            collect: {},
-            pool_use:[],
+            // cpu:[],
+            // iops:[],
+            // mbps:[],
+            // warn:[],
+            // log:[],
+            // osd_use:[],
+            // collect: {},
+            // pool_use:[],
             transmiturl:'',
             transmittitle:'',
             timertip:null
@@ -229,23 +229,38 @@
           }
       },
       mounted(){
-        this.allstatus()
+        // this.pictorialBar();              /*块设备的状态*/
+
+        var _this=this
+        _this.allstatus()
+        // console.log(_this.$store.state.gpool_use,_this.$store.state.gosd_use,'what')
+        _this.pictorialBar();
+        _this.liquidFill(_this.$store.state.gpool_use);
+        _this.pie(_this.$store.state.gosd_use);
         $("[data-toggle='tooltip']").tooltip({html:true});
-        this.timer()
+
+        _this.timer()
+        // console.log(this.$store.state.gcollect)
       },
       computed:{            /*调用Vuex中的islogin值，有缓存左右*/
         countwarn(){
           return this.$store.state.jj,this.$store.state.zy,this.$store.state.cy
+        },
+        gnode(){
+          return this.$store.state.gosd_use,this.$store.state.gcollect,this.$store.state.gpool_use
+        },
+        gcim(){
+          return this.$store.state.mbps,this.$store.state.log,this.$store.state.warn,this.$store.state.iops,this.$store.state.cpu
         }
       },
-      updated(){
-        this.liquidFill();
-        this.pie();
-        this.pictorialBar();
-
-      },
+      // updated(){
+      //   this.liquidFill(this.$store.state.gpool_use);
+      //   this.pie(this.$store.state.gosd_use);
+      //   this.pictorialBar();
+      //
+      // },
       methods:{
-        liquidFill:function (){
+        liquidFill(use){
           var liquid = this.$echarts.init(document.getElementById('liquidFill'));
           var option = {
 
@@ -257,7 +272,7 @@
                   color:'#04b8da'
                 }
               },
-              data: this.pool_use,
+              data: use,
               label: {
                 normal: {
                   textStyle: {
@@ -271,7 +286,7 @@
           };
           liquid.setOption(option);
         },
-        pie:function () {
+        pie(use) {
           var pie = this.$echarts.init(document.getElementById('piechart'));
           var options = {
             tooltip : {
@@ -305,13 +320,13 @@
                     show: false
                   }
                 },
-                data:this.osd_use,
+                data:use,
               }
             ]
           };
           pie.setOption(options);
         },
-        pictorialBar:function () {
+        pictorialBar() {
           var pictorial = this.$echarts.init(document.getElementById('pictorialBar'));
           var pathSymbols = {
             reindeer: 'path://M6.000,50.000 L6.000,6.000 L274.000,6.000 L274.000,50.000 L6.000,50.000 ZM40.000,18.000 L20.000,18.000 L20.000,38.000 L40.000,38.000 L40.000,18.000 Z'
@@ -350,31 +365,48 @@
 
         allstatus(){
           var _this=this
+          // this.$axios.get(this.allurl+'overview').then(function (res) {
+          //   _this.osd_use=res.data.osd_use
+          //   _this.collect=res.data.collect
+          //   _this.pool_use=res.data.pool_user
+          //   // console.log(res.data)
+          //   _this.pictorialBar();              /*块设备的状态*/
+          //   _this.liquidFill();                 /*osd使用率占比状态饼状图*/
+          //   _this.pie();                       /*pool水球描绘*/
+          //   // console.log(_this.collect.osd_detail.osize)
+          // }).catch(function (error) {
+          //   console.log(error)
+          // })
+          // this.$axios.get(this.allurl+'list_data').then(function (res) {
+          //   _this.mbps=res.data.mbps
+          //   _this.log=res.data.log
+          //   _this.warn=res.data.warn
+          //   _this.iops=res.data.iops
+          //   _this.cpu=res.data.cpu
+          //   // _this.count()                    /*警告事件的分类统计*/
+          //
+          // }).catch(function (error) {
+          //   console.log(error)
+          // })
           this.$axios.get(this.allurl+'overview').then(function (res) {
-            _this.osd_use=res.data.osd_use
-            _this.collect=res.data.collect
-            _this.pool_use=res.data.pool_user
-            // console.log(res.data)
-            _this.pictorialBar();              /*块设备的状态*/
-            _this.liquidFill();                 /*osd使用率占比状态饼状图*/
-            _this.pie();                       /*pool水球描绘*/
+            // const data=JSON.parse(res.data)
+            _this.$store.commit('gnode',{osd_use:res.data.osd_use,collect:res.data.collect,pool_use:res.data.pool_user})
+            // console.log(this.$store.state.gosd_use,this.$store.state.gcollect,this.$store.state.gpool_use)
+            _this.liquidFill(_this.$store.state.gpool_use);
+            _this.pie(_this.$store.state.gosd_use);
+            _this.pictorialBar();
+
             // console.log(_this.collect.osd_detail.osize)
           }).catch(function (error) {
             console.log(error)
           })
           this.$axios.get(this.allurl+'list_data').then(function (res) {
-            _this.mbps=res.data.mbps
-            _this.log=res.data.log
-            _this.warn=res.data.warn
-            _this.iops=res.data.iops
-            _this.cpu=res.data.cpu
+            // const data=JSON.parse(res.data)
+            _this.$store.commit('gcim',{mbps:res.data.mbps,log:res.data.log,warn:res.data.warn,iops:res.data.iops,cpu:res.data.cpu})
             // _this.count()                    /*警告事件的分类统计*/
-
           }).catch(function (error) {
             console.log(error)
           })
-
-
         },
 
         cputop(){
