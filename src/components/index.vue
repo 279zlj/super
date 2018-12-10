@@ -11,13 +11,15 @@
             <div>
               <p>网段：</p>
               <ol style="height: 2.5em;overflow-y: scroll">
-                <li v-for="i in net.lan">{{i}}</li>
+                <li v-for="i in $store.state.net.lan">{{i}}</li>
               </ol>
             </div>
             <p>网卡：</p>
             <div style="overflow-y: scroll;height: 5em;overflow-x: hidden">
-
-              <div class="row" v-for="p in net.nics">
+              <div class="col-lg-4" >网卡</div>
+              <div class="col-lg-4" >模式</div>
+              <div class="col-lg-4" >主机</div>
+              <div class="row" v-for="p in $store.state.net.nics">
                 <div class="col-lg-4" >
                   {{p.name}}
                 </div>
@@ -31,41 +33,79 @@
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ">
-            <div class="fontone">问题网卡：<a style="font-size: 2em;padding: .5em;color: white;cursor: pointer"  class="dropdown-toggle" data-toggle="dropdown">{{net.error}}</a>个
+            <div class="fontone">问题网卡：<a style="font-size: 2em;padding: .5em;color: white;cursor: pointer"  class="dropdown-toggle" data-toggle="dropdown">{{$store.state.net.error}}</a>个
               <ul class="dropdown-menu">
                 <li><router-link :to="{name:''}">error:eno1</router-link></li>
               </ul>
             </div>
             <div >
-              <p class="fonttwo">当前带宽：{{net.bandwidth}}Mbps/s</p>
-              <p class="fonttwo">网卡模式是否匹配：{{mode}}</p>
+              <p class="fonttwo">连接数：{{$store.state.net.net_socket_link_nall}}</p>
+              <p class="fonttwo">收总丢包：{{$store.state.net.net_drop_in_all}}</p>
+              <p class="fonttwo">发总丢包：{{$store.state.net.net_drop_out_all}}</p>
+              <p class="fonttwo">当前带宽：{{$store.state.net.bandwidth}}Mbps/s</p>
+              <p class="fonttwo">网卡最佳匹配：{{$store.state.mode}}</p>
             </div>
           </div>
         </div>
         <div class="row blockthree">
           <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 blocktwo">
             <div class="blockbottom">
-            <p style="line-height: 2.5em;font-size: 1.1em">磁盘IO汇总</p>
-            <div style="text-align: center;padding-bottom: 1em">
-              <p>I：<span class="num">{{diskio.ips}}</span>bps</p>
-              <p>O：<span class="num">{{diskio.ops}}</span>bps</p>
+            <p style="line-height: 2.5em;font-size: 1.1em;margin-top: .8em">磁盘IO汇总</p>
+            <div class="row" >
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="line-height: 3em;color: white">Input：</div>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 num">{{$store.state.diskips}}</div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="line-height: 3em;color: white">总读量：</div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 numa">{{$store.state.idisk.read_all}}</div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="line-height: 3em;color: white">总写量：</div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 numa">{{$store.state.idisk.write_all}}</div>
+            </div>
+            <div class="row" >
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="line-height: 3em;color: white">读耗时：</div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 numa">{{$store.state.idisk.write_all}}</div>
+            </div>
+              <div class="row" >
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="line-height: 3em;color: white">写耗时：</div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 numa">{{$store.state.idisk.write_all}}</div>
+              </div>
+            <div class="row" >
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="line-height:3em;color: white">Output：</div>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 num">{{$store.state.diskops}}</div>
             </div>
             </div>
             <div>
-              <h5 style="line-height: 2.5em;font-size: 1.1em;color: #FFFFFF">Swap IO</h5>
-              <div style="text-align: center">
-                <p>I：<span class="num">{{swap_io.ips}}</span></p>
-                <p>O：<span class="num">{{swap_io.ops}}</span></p>
+              <h5 style="line-height: 2.5em;font-size: 1.1em;color: #FFFFFF;margin-top: .8em">Swap IO</h5>
+              <div class="row" style="text-align: center">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="line-height: 3em"><p class="white">Input：</p></div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 num">{{$store.state.swap_io.ips}}</div>
+              </div>
+              <div class="row" style="text-align: center">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="line-height: 3em"><p class="white">Output：</p></div>
+                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 num">{{$store.state.swap_io.ops}}</div>
               </div>
             </div>
           </div>
           <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 ">
             <div class="row blockfour">
-              <p style="line-height: 2.5em;font-size: 1.1em">内存</p>
-              <div style="text-align: center" >
+              <p style="line-height: 2.5em;font-size: 1.1em">内存<span style="margin-left: 1em;">总内存：{{$store.state.memory.total}}</span></p>
+              <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                  <div><p class="white">共享内存：</p><p>{{$store.state.memory.share}}</p></div>
+                  <div><p class="white">cache：</p><p>{{$store.state.memory.cache}}</p></div>
+
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 ">
                 <div id="liquidFill" class="grid"></div>
                 <p style="text-align: center;">使用状态</p>
+                </div>
                 <!--<p>已用：<span class="numtwo">{{memory}}</span>%</p>-->
+              </div>
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" ><p class="white">交换内存：</p><p>{{$store.state.memory.totalSwap}}</p></div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" ><p class="white">已用交换：</p><p>{{$store.state.memory.usedSwap}}</p></div>
               </div>
             </div>
           </div>
@@ -74,7 +114,7 @@
             <div class="blockbottom">
               <p style="line-height: 2.5em;font-size: 1.1em">CPU</p>
               <div style="text-align: center">
-                <p>已用：<span class="numtwo">{{cpu.total}}</span>%</p>
+                <p>已用：<span class="numtwo">{{$store.state.icpu.total}}</span>%</p>
               </div>
             </div>
             <div class="row">
@@ -84,7 +124,7 @@
                 <tbody style="text-align: center">
                   <tr><td>HOST</td>
                   <td>%CPU</td></tr>
-                <tr v-for="i in cpulist">
+                <tr v-for="i in $store.state.cpulist">
                   <td>{{i.name}}</td>
                   <td>{{i.value}}%</td>
                 </tr>
@@ -141,21 +181,16 @@
     data(){
       return{
         linpiechart: [],
-        cpu:'',
-        cpulist:'',
-        net:'',
-        nics:'',
-        diskio:'',
-        memory:'',
-        swap_io:'',
-        mode:'',
+        diski:[0,0],
+        disko:[0,0],
+        diskips:0,
+        diskops:0,
+        num:0,
         iwrite:[],
         iread:[],
         mwrite:[],
         mread:[],
         delaytime:[],
-        pool_use:[],
-        cpu:[{ip:'cpu1',network:'38.7%'},{ip:'cpu2',network:'38.7%'},{ip:'cpu3',network:'38.7%'}],
         health_d:[],
         timertip:null
       }
@@ -177,6 +212,9 @@
       },
       gnode(){
         return this.$store.state.osd_use,this.$store.state.collect,this.$store.state.pool_use
+      },
+      indexmsg(){
+        return this.$store.state.net,this.$store.state.memory,this.$store.state.icpu,this.$store.state.swap_io,this.$store.state.mode,this.$store.state.pool_use,this.$store.state.cpulist,this.$store.state.diskips,this.$store.state.diskops
       }
     },
     methods: {
@@ -222,36 +260,71 @@
       },
       getall(){                         /*获取首页信息*/
         var _this=this
+        let dips,dops;
         _this.$axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
         _this.$axios.get(this.allurl).then(function (res) {
-          _this.net=res.data.net
-          _this.diskio=res.data.disk_io
-          _this.memory=res.data.memory
-          _this.cpu=res.data.cpu
-          _this.swap_io=res.data.swap_io
-          // console.log(res.data)
-          console.log(_this.net)
+          if (_this.num<2) {
+            _this.diski[1]=res.data.disk_io.ips
+            _this.disko[1]=res.data.disk_io.ops
+          }
           if (res.data.net.is_mode==1){
             _this.mode='是'
           }
-          _this.pool_use=res.data.net.speed
-          _this.cpulist=res.data.cpu.detail
-          console.log(_this.memory, _this.pool_use)
-          _this.liquidFill();
-          // _this.ws()
-
+          dips=(_this.diski[1]-_this.diski[0])/3
+          dops=(_this.disko[1]-_this.disko[0])/3
+          _this.diskips=_this.bytesToSize(dips)
+          _this.diskops=_this.bytesToSize(dops)
+          _this.num++
+          if (_this.num>2){
+            _this.diski[0]=_this.diski[1]
+            _this.diski[1]=0
+            _this.disko[0]=_this.disko[1]
+            _this.disko[1]=0
+            _this.num=0
+          }
+          _this.$store.commit('indexmsg',{net:res.data.net,memory:res.data.memory,icpu:res.data.cpu,swap_io:res.data.swap_io,mode:_this.mode,pool_use:res.data.net.speed,cpulist:res.data.cpu.detail,diskips:_this.diskips,diskops:_this.diskops,idisk:res.data.disk_io})
+          _this.liquidFill(_this.$store.state.memory.usage);
+          console.log(res.data)
         }).catch(function (error) {
           console.log(error)
         }).catch(function (error) {
           console.log(error)
         })
       },
+      bytesToSize(limit) {
+        // if (bytes === 0) return '0 B';
+        // var k = 1024, // or 1024
+        //   sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+        //   i = Math.floor(Math.log(bytes) / Math.log(k));
+        //
+        // return (bytes / Math.pow(k, i)).toPrecision(2) + ' ' + sizes[i];
+
+          var size = "";
+          if( limit < 0.1 * 1024 ){ //如果小于0.1KB转化成B
+            size = limit.toFixed(2) + "B";
+          }else if(limit < 0.1 * 1024 * 1024 ){//如果小于0.1MB转化成KB
+            size = (limit / 1024).toFixed(2) + "KB";
+          }else if(limit < 0.1 * 1024 * 1024 * 1024){ //如果小于0.1GB转化成MB
+            size = (limit / (1024 * 1024)).toFixed(2) + "MB";
+          }else{ //其他转化成GB
+            size = (limit / (1024 * 1024 * 1024)).toFixed(2) + "GB";
+          }
+
+          var sizestr = size + "";
+          var len = sizestr.indexOf("\.");
+          var dec = sizestr.substr(len + 1, 2);
+          if(dec == "00"){//当小数点后为00时 去掉小数部分
+            return sizestr.substring(0,len) + sizestr.substr(len + 3,2);
+          }
+          return sizestr;
+
+      },
       timer(){
         var _this=this
         _this.timertip=setInterval(function () {
           _this.getall()
 
-        },20000)
+        },3000)
       },
       linechartone(time,write,read){
         // console.log(time)
@@ -784,7 +857,7 @@
           ychart.setOption(option)
 
       },
-      liquidFill:function (){
+      liquidFill (num){
         var liquid = this.$echarts.init(document.getElementById('liquidFill'));
         var option = {
 
@@ -796,7 +869,7 @@
                 color:'#04b8da'
               }
             },
-            data: this.memory,
+            data: num,
             backgroundStyle:{
               color:'#45355E',
               borderColor:'#73668D'
@@ -833,6 +906,9 @@
   .font,h4,table{
     color: white;
   }
+  .white{
+    color: #FFFFFF;
+  }
   .dropdown-menu{
     top:10% !important;
     left: 70% !important;
@@ -841,7 +917,7 @@
   .grid{
     width: 100%;height:6em;
     margin: 0 auto;
-
+    right: 0;
   }
   #index{
     z-index: 999;
@@ -854,7 +930,7 @@
     width: 100%;
     height: 100%;
     border-radius: 1em;
-    margin-top: 4em;
+    margin-top: 2.8em;
     padding: 0 0 .5em 0;
 
   }
@@ -890,7 +966,10 @@
 
   }
   .num{
-    font-size: 2.4em;line-height: 2.05em;padding: .5em;
+    font-size: 1.6em;line-height:2em;text-align: center;color:white;
+  }
+  .numa{
+    font-size: 1.6em;line-height:2em;text-align: center;margin-left: -25px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 60%;color:white
   }
   .numtwo{
     font-size: 2.2em;line-height: 1em;padding: .5em
@@ -898,10 +977,9 @@
   .fontone{
     color: #FFFFFF;
     font-size: 1em;
-    margin-bottom: 3em;
   }
   .fonttwo{
-    font-size: 1em;
+    line-height: 1.2em;
     vertical-align: bottom;
     bottom: 0;
   }

@@ -45,7 +45,7 @@ module.exports={
     "Lighting-position-lamp":"点亮位置灯",
     "Unfold":"展开",
     "The-machine-information":"机器信息",
-    "Model":"型号",
+    "Model":"主板型号",
     "OS":"操作系统",
     "Memory":"内存",
     "Data-Set":"数据盘",

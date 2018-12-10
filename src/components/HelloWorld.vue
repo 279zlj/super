@@ -206,7 +206,8 @@ export default {
       outtitle:'',
       respond:'',
       language:'',
-      user:''
+      user:'',
+      timertip:null
 
     }
   },
@@ -276,6 +277,14 @@ export default {
         console.log(error)
       })
     },
+    timer(){
+      var _this=this
+
+      this.timertip=setInterval(function () {
+        _this.jj=0,_this.zy=0,_this.cy=0
+        _this.warnall()
+      },30000)
+    },
     count(){
       let i;
       for(i in this.warn){
@@ -328,6 +337,7 @@ export default {
       this.user='User'
     }
     this.warnall()
+    this.timer()
     if (sessionStorage.getItem('issele')==null){             /*最初状态设置为首页*/
       this.changenav('HelloWorld')
     }
@@ -342,6 +352,9 @@ export default {
     else this.changelanguage('zh')
     // this.$i18n.locale = this.$store.state.language
   },
+  destroyed(){
+    clearInterval(this.timertip)
+  }
 }
 </script>
 
@@ -442,7 +455,7 @@ export default {
   }
   .nav-color{
     background-color: #56466D;
-    margin-top: 5rem;
+    margin-top: 2.5rem;
     padding-left: 0;
     box-shadow: 10px 10px 50px #181123;
 

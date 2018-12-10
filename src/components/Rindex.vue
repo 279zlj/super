@@ -232,7 +232,7 @@
         // this.pictorialBar();              /*块设备的状态*/
 
         var _this=this
-        _this.allstatus()
+        // _this.allstatus()
         // console.log(_this.$store.state.gpool_use,_this.$store.state.gosd_use,'what')
         _this.pictorialBar();
         _this.liquidFill(_this.$store.state.gpool_use);

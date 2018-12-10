@@ -470,8 +470,8 @@
         $("[data-toggle='tooltip']").tooltip({html:true});
         // this.change(0,this.osdlist[0])
         // console.log(this.osdlist)
-        this.start();
-        console.log(this.$store.state.diskall,this.$store.state.diskdefalut,this.$store.state.netcard,this.$store.state.netcarddefalut,this.$store.state.content)
+        // this.start();
+        // console.log(this.$store.state.diskall,this.$store.state.diskdefalut,this.$store.state.netcard,this.$store.state.netcarddefalut,this.$store.state.content)
         this.timer();
 
 

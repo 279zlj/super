@@ -289,22 +289,31 @@
           let addname=this.$refs.addname.value
           // let addsize=this.$refs.addsize.value
           var _this=this
-          if (addname==''||addsize==''){
-            _this.cross='请填写完整'
-          }
-          else {
+          // if (addname==''||addsize==''){
+          //   _this.cross='请填写完整'
+          // }
+          // else {
             // if (this.unitsele=='fb') {
             this.$axios.post(this.allurl + 'manager/tank/create_tank', {
               name: addname,
               // size: addsize,
               type: this.unitsele
             }).then(function (res) {
-              console.log(res)
+              if (res.data.status == 1) {
+                _this.tipscontent = '操作成功'
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
+              else {
+                _this.tipscontent = res.data.status
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
             }).catch(function (error) {
               console.log(error)
             })
             $('#addnew').modal('hide')
-          }
+          // }
           // }
           // else {
           //   this.$axios.post(this.allurl + 'manager/tank/create_tank', {
