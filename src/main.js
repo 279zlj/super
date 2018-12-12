@@ -18,6 +18,8 @@ import '@/assets/dist/bootstrap-table.css'
 import '@/assets/dist/bootstrap-table.js'
 import '@/assets/dist/locale/bootstrap-table-zh-CN.min.js'
 import '@/assets/js/bootstrap-table-contextmenu.js'
+// import '@/assets/three/Three.js'
+import '@/assets/js/draw.js'
 import '@/assets/dist/ga.js'
 import '@/assets/js/base.js'
 import './mock/mock'
@@ -44,6 +46,7 @@ Vue.prototype.$axios = axios;
 // }
 
 Vue.prototype.allurl='http://192.168.2.64:8000/'
+// Vue.prototype.allurl=''
 
 const i18n = new VueI18n({
   locale:'zh',

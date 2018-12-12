@@ -37,9 +37,9 @@
         <div class="r-border" >
           <router-link :to="{name:'Management'}"><p class="font" @click="changenav('Management')">{{$t('nav.Risk')}}
 
-            <span class=" label label-danger" style="vertical-align: super" title="警告事件：紧急"  data-toggle="tooltip" data-placement="top">{{$store.state.jj}}</span>
-            <span class=" label label-warning" style="vertical-align: super" title="警告事件：重要" data-toggle="tooltip" data-placement="top">{{$store.state.zy}}</span>
-            <span class=" label label-info" style="vertical-align: super" title="警告事件：次要" data-toggle="tooltip" data-placement="top">{{$store.state.cy}}</span>
+            <span class=" label label-danger" style="vertical-align: super" title="警告事件：紧急"  data-toggle="tooltip" data-placement="bottom">{{$store.state.jj}}</span>
+            <span class=" label label-warning" style="vertical-align: super" title="警告事件：重要" data-toggle="tooltip" data-placement="bottom">{{$store.state.zy}}</span>
+            <span class=" label label-info" style="vertical-align: super" title="警告事件：次要" data-toggle="tooltip" data-placement="bottom">{{$store.state.cy}}</span>
 
           </p></router-link>
         </div>

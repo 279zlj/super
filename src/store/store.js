@@ -27,6 +27,9 @@ import '../assets/js/base'
   let diskips=''
   let diskops=''
   let idisk=[]
+  let rtime=''
+  let wtime=''
+  let btime=''
 try {
   if (localStorage.gosd_use)
     guse=JSON.parse(localStorage.gosd_use)
@@ -76,7 +79,12 @@ try {
     diskops=JSON.parse(localStorage.diskops)
   if (localStorage.idisk)
     idisk=JSON.parse(localStorage.idisk)
-
+  if (localStorage.rtime)
+    rtime=JSON.parse(localStorage.rtime)
+  if (localStorage.wtime)
+    wtime=JSON.parse(localStorage.wtime)
+  if (localStorage.btime)
+    wtime=JSON.parse(localStorage.btime)
 }
 catch (e) {
   
@@ -94,6 +102,9 @@ const store =new Vuex.Store({
     mread:[],
     delaytime:[],
     health:{},
+    ceph:{},
+    rqlite_info:[],
+    redis:{},
 
     gosd_use:guse,
     gcollect:gcoll,
@@ -118,7 +129,10 @@ const store =new Vuex.Store({
     cpulist:cpulist,
     diskips:diskips,
     diskops:diskops,
-    idisk:idisk
+    idisk:idisk,
+    rtime:rtime,
+    wtime:wtime,
+    btime:btime
     // language:''
   },
   mutations:{
@@ -141,6 +155,9 @@ const store =new Vuex.Store({
       state.mread=linemessages.mread
       state.delaytime=linemessages.delaytime
       state.health=linemessages.health
+      state.ceph=linemessages.ceph
+      state.rqlite_info=linemessages.rqlite_info
+      state.redis=linemessages.redis
     },
     gnode(state,msg){
       state.gosd_use=msg.osd_use
@@ -189,6 +206,9 @@ const store =new Vuex.Store({
       state.diskips=msg.diskips
       state.diskops=msg.diskops
       state.idisk=msg.idisk
+      state.rtime=msg.rtime
+      state.wtime=msg.wtime
+      state.btime=msg.btime
       localStorage.net=JSON.stringify(msg.net)
       localStorage.memory=JSON.stringify(msg.memory)
       localStorage.icpu=JSON.stringify(msg.icpu)

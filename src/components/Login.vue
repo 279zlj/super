@@ -63,7 +63,8 @@
           return{
             user:'',
             pwd:'',
-            tips:''
+            tips:'',
+            osdid:''
           }
       },
 
@@ -85,16 +86,15 @@
               else if (res.status=='200'&& res.data.status===1){
                 _this.$store.commit('islogin',200)
                 sessionStorage.setItem('islogin','200')
-                _this.general()
-                _this.change(0,_this.$store.state.osdlist[0].osdid)
                 _this.$router.push('/')
+                _this.general()
+                // _this.change(0,_this.$store.state.osdlist[0].osdid)
               }
               else if (res.status=='200'&& res.data.status==2){
                 _this.$store.commit('islogin',250)
                 sessionStorage.setItem('islogin','250')
-                _this.general()
-                _this.change(0,_this.$store.state.osdlist[0].osdid)
                 _this.$router.push('/')
+                _this.general()
 
               }
             }).catch(function (error) {
@@ -125,9 +125,13 @@
           })
           this.$axios.get(this.allurl+'manager/ioagent/list_ioagent').then(function (res) {
             _this.$store.commit('gosd',res.data)
+            _this.osdid=res.data[0].osdid
+            _this.change(0,_this.osdid)
+            // alert(_this.osdid)
           }).catch(function (error) {
             console.log(error)
           })
+          // alert(_this.osdid)
         }
       }
     }

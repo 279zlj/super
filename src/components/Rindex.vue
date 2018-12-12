@@ -38,14 +38,14 @@
       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <div class="row container-fluid">
           <div class="col-lg-11 col-md-11 col-sm-12 col-sm-offset-0 col-xs-12 bgone">
-            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="margin-left: -15px">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
               <h4 class="ho"><span style="font-size: 2.2em">{{$store.state.gcollect.block_detail.block}}</span>个{{$t('message.Block')}}</h4>
               <div id="rbdcontent" class="content">
                 <p>{{$t('message.Total-Size')}}：<span class="keynote">{{$store.state.gcollect.block_detail.bsize}}</span></p>
                 <p>{{$t('message.Client-Connections')}}：<span class="keynote">{{$store.state.gcollect.block_detail.server_num}}</span></p>
               </div>
             </div>
-            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
               <div id="pictorialBar" class="grid"></div>
             </div>
           </div>
@@ -531,6 +531,7 @@
   }
   .content p{
     font-size: 1em;
+    margin-right:-20px ;
   }
   h4{
     overflow: hidden;
