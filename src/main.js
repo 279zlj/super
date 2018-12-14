@@ -18,7 +18,7 @@ import '@/assets/dist/bootstrap-table.css'
 import '@/assets/dist/bootstrap-table.js'
 import '@/assets/dist/locale/bootstrap-table-zh-CN.min.js'
 import '@/assets/js/bootstrap-table-contextmenu.js'
-// import '@/assets/three/Three.js'
+
 import '@/assets/js/draw.js'
 import '@/assets/dist/ga.js'
 import '@/assets/js/base.js'
@@ -32,6 +32,7 @@ Vue.use(Vuex)
 Vue.use(router)
 Vue.use(VueResource)
 Vue.use(VueI18n)
+
 Vue.prototype.$qs=qs
 Vue.config.productionTip = false
 Vue.prototype.$echarts=echarts

@@ -1,22 +1,37 @@
-function draw() {
-  var object=document.getElementById('webgl')
-  var h=object.offsetHeight
-  var w=object.offsetWidth
-  var scence=new THREE.Scene();
-  var camera=new THREE.PerspectiveCamera(75,w/h,0.1,1000)
-  var renderer=new THREE.WebGLRenderer()
-  renderer.setSize(w,h)
-  object.appendChild(renderer.domElement)
-  var geometry=new THREE.BoxGeometry(1,1,1)
-  var materal=new THREE.MeshBasicMaterial({color:0x00ff00})
-  var cube=new THREE.Mesh(geometry,materal)
-  scence.add(cube)
-  camera.position.z=5
-  var animate=function () {
-    requestAnimationFrame(animate)
-    cube.rotation.x+=0.01
-    cube.rotation.y+=0.01
-  }
-  animate()
+
+import  'three/examples/js/controls/OrbitControls'
+
+function darw() {
+  var h=$('#gl').height()
+  var w=$('#gl').width()
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera( 100, w/h, 0.1, 1000 );
+
+  var renderer = new THREE.WebGLRenderer({ antialias: true,alpha:true });
+  renderer.setSize( w, h);
+  renderer.setClearColor(0xEEEEEE, 0.0);
+  $('#gl').append(renderer.domElement )
+  var geometry = new THREE.BoxGeometry( 5, 1, 5 );
+  let cubeEdges = new THREE.EdgesGeometry(geometry, 1);
+  let edgesMtl =  new THREE.LineBasicMaterial({color: 0x000000});
+  let cubeLine = new THREE.LineSegments(cubeEdges, edgesMtl);
+  var material = new THREE.MeshBasicMaterial( { color: '#C1C1C1' } );
+  var cube = new THREE.Mesh( geometry, material );
+
+  var light =  new THREE.DirectionalLight(0xff0000,1);
+  light.position.set(0,10,5);
+  scene.add(light);
+  cube.add(cubeLine)
+  scene.add( cube );
+
+  camera.position.z = 5
+  camera.position.y=1
+  var controls =new OrbitControls(camera)
+  controls.addEventListener('change', renderer);
+
+    renderer.render( scene, camera );
+
 
 }
+
+export {darw}

@@ -163,8 +163,8 @@
             <div id="ychart" class="chartthird" ></div>
           </div>
         </div>
-        <div class="item">
-          <canvas id="webgl" width="100%" height="100%"></canvas>
+        <div class="item" id="gl" style="width: 100%;height: 100%;">
+          <!--<canvas id="webgl"></canvas>-->
         </div>
         <div style="text-align: right">
         <input type="button" class="btn-xs btn-info pause-slide" @click="startcar()" value="Start" >
@@ -239,8 +239,9 @@
   import 'echarts/lib/echarts.js';
   import 'echarts/lib/chart/map';
   import 'echarts/map/js/china.js'
-  import {draw} from '../assets/js/draw'
-  // import '../assets/three/Three'
+  // import * as THREE from 'three'
+  import {darw} from "../assets/js/draw";
+
   import liquidfill from 'echarts-liquidfill'
   export default {
     name: "index",
@@ -279,7 +280,7 @@
       this.initWebSocket()
       this.getall()
       this.timer()
-      draw()
+      // darw()
       // $('.carousel').carousel('cycle')
 
     },
@@ -299,7 +300,7 @@
     methods: {
       initWebSocket(){
         // var _this=this
-        const wsurl="ws://192.168.2.64:8000/ws/intime_data";
+        const wsurl="ws://192.168.2.64:8000/";
         // const wsurl='';
         this.websock=new WebSocket(wsurl);
         this.websock.onmessage=this.websocketonmessage;
@@ -338,6 +339,10 @@
       websocketclose(e){
         console.log('断开连接',e);
         this.websock.close()
+      },
+      draw(){
+
+
       },
       getall(){                         /*获取首页信息*/
         var _this=this
