@@ -26,6 +26,7 @@ import Installthree from '@/components/Installthree'
 import Login from '@/components/Login'
 import Error from '@/components/Error'
 import tips from '@/components/tips'
+import server3d from '@/components/server3d'
 
 
 Vue.use(Router)
@@ -273,7 +274,13 @@ export default new Router({
       name:'tips',
       menuShow:true,
       component:tips
+    },
+    {
+      path:'/server',
+      name:'server',
+      menuShow:true,
     }
+
 
   ]
 })

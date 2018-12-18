@@ -165,6 +165,7 @@
         </div>
         <div class="item" id="gl" style="width: 100%;height: 100%;">
           <!--<canvas id="webgl"></canvas>-->
+          <server></server>
         </div>
         <div style="text-align: right">
         <input type="button" class="btn-xs btn-info pause-slide" @click="startcar()" value="Start" >
@@ -238,13 +239,15 @@
   import echarts from 'echarts';
   import 'echarts/lib/echarts.js';
   import 'echarts/lib/chart/map';
-  import 'echarts/map/js/china.js'
+  import 'echarts/map/js/china.js';
+  import server from './server3d'
   // import * as THREE from 'three'
-  import {darw} from "../assets/js/draw";
+  // import {darw} from "../assets/js/draw";
 
   import liquidfill from 'echarts-liquidfill'
   export default {
     name: "index",
+    components: {server},
     echarts,
     liquidfill,
     data(){
