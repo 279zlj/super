@@ -11,7 +11,14 @@
           <span class="icon-bar" data-toggle="collapse" data-target="#navbar-menu"></span>
         </button>
         <a href="#" class="navbar-brand nav-title bg">
-          <img src="../../static/image/logo.png" class="img-responsive imgg"/>
+          <!--<img src="../../static/image/logo.png" class="img-responsive imgg"/>-->
+          <div class="box" id="box" @mouseover="looksome()" @mouseleave="lookdo()">
+            <div class="first img-responsive"></div>
+            <div class="second img-responsive"></div>
+            <div class="three img-responsive"></div>
+            <div class="four img-responsive"></div>
+
+          </div>
         </a>
       </div>
     <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 collapse navbar-collapse navn" id="navbar-menu" >
@@ -44,13 +51,7 @@
           </p></router-link>
         </div>
       </div>
-      <!--<div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 warnstatus" >-->
-        <!--<router-link :to="{name:'Mwarn'}">-->
-          <!--<span class="jg" title="警告事件：紧急"  data-toggle="tooltip" data-placement="bottom">{{$store.state.jj}}</span>-->
-          <!--<span class="jgtw" title="警告事件：重要" data-toggle="tooltip" data-placement="bottom">{{$store.state.zy}}</span>-->
-          <!--<span class="jgth" title="警告事件：次要" data-toggle="tooltip" data-placement="bottom">{{$store.state.cy}}</span>-->
-        <!--</router-link>-->
-      <!--</div>-->
+
       <div class="col-lg-1 col-lg-offset-1 col-md-1 col-sm-2 col-xs-12 dropdown">
       <a class="dropdown-toggle glyphicon glyphicon-user white" data-toggle="dropdown" style="cursor: pointer"><span class="j2">{{user}}</span></a>
         <ul class="dropdown-menu">
@@ -323,7 +324,15 @@ export default {
       // console.log('bbm')
       if (sessionStorage.getItem('islogin')==250)
         $('#addno').addClass('disabled')
-    }
+    },
+    // looksome(){
+    //   $('#box').removeClass('box')
+    // },
+    // lookdo(){
+    //   $('#box').css({
+    //     "animation":"rotate 5s infinite linear"
+    //   })
+    // }
   },
 
   mounted(){
@@ -351,6 +360,7 @@ export default {
     }
     else this.changelanguage('zh')
     // this.$i18n.locale = this.$store.state.language
+    // this.looksome()
   },
   destroyed(){
     clearInterval(this.timertip)
@@ -450,8 +460,9 @@ export default {
     color: white !important;
   }
   .bg{
-    background-color: #0090ff;
+
     height: 2.8em;
+    width: 8em;
   }
   .nav-color{
     background-color: #56466D;
@@ -460,6 +471,62 @@ export default {
     box-shadow: 10px 10px 50px #181123;
 
   }
+  @keyframes rotate{
+    0%{
+      transform:rotateX(0deg) ;
+    }
+    100%{
+      transform:rotateX(360deg)
+    }
+  }
+  .box{
+    margin:0 auto;
+    width:100%;
+    height:100%;
+    position:relative;
+    transform-style: preserve-3d;
+    transform:rotateX(0deg);
+    animation:rotate 5s infinite linear;
+  }
+  .box>div{
+    width:100%;
+    height:100%;
+    /*border:1px solid #FFFFFF;*/
+    position:absolute;
+    /*  transition:transform 5s ease-in; */
+  }
+  .first{
+    height: 1em !important;
+    transform: translateY(2.3em) translateZ(0em) rotateX(90deg);
+    background-color:  #0090ff;
+  }
+  .second{
+    height: 1em !important;
+    transform: translateY(-.5em) translateZ(0em) rotateX(90deg);
+    background-color:  #0090ff;
+  }
+  .five{
+
+  }
+  .six{
+
+  }
+  .three{
+    transform:rotateX(0deg) translateZ(.4em);
+    background-color: #0090ff;
+    background-image: url("../../static/image/logo.png") ;
+    background-size: cover;
+    opacity:1;
+  }
+
+  .four{
+    transform:rotateX(180deg) translateZ(.4em);
+    background-color: #0090ff;
+    background-image: url("../../static/image/wuzhou.png") ;
+    background-size: cover;
+    opacity:1;
+  }
+
   .active{
     background-color: #3F3456;
 
@@ -467,15 +534,7 @@ export default {
   .warnstatus{
     line-height: 3.5em;display: table-cell;text-align: center;vertical-align: middle;
   }
-  .jg{
-    background-color: #AD1501;padding: 0 .3em;cursor:pointer;margin-top: 1em;color: white;width: 1.8em !important;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;display: inline-block;height: 1.5em;line-height: 1em;
-  }
-  .jgtw{
-    background-color: #DA4409;padding: 0 .3em;cursor:pointer;margin-top: 1em;color: white;width: 1.8em !important;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;display: inline-block;height: 1.5em;line-height: 1em;
-  }
-  .jgth{
-    background-color: #FF8A00;padding: 0 .3em;cursor:pointer;margin-top: 1em;color: white;width: 1.8em !important;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;display: inline-block;height: 1.5em;line-height: 1em;
-  }
+
   .lang {
     height: 3.5em;
     font-size: 1.2rem;
@@ -507,11 +566,7 @@ export default {
     .warnstatus{
       line-height: 0em;
     }
-    .jg,.jgtw,.jgth{
-      margin-top: 0em;
-      height: 1.2em;
-      line-height: 0.8em;
-    }
+
   }
   @media screen and (min-width: 769px) and (max-width: 1024px) {
     .imgg{
@@ -525,11 +580,7 @@ export default {
     .warnstatus{
      line-height: 0em;
     }
-   .jg,.jgtw,.jgth{
-     margin-top: 0em;
-     height: 1.2em;
-     line-height: 0.8em;
-   }
+
   }
   @media screen and (min-width: 1025px) and (max-width: 1199px) {
     .imgg{
@@ -543,11 +594,7 @@ export default {
     .warnstatus{
       line-height: 0em;
     }
-    .jg,.jgtw,.jgth{
-      margin-top: 0em;
-      height: 1.2em;
-      line-height: 0.8em;
-    }
+
   }
   @media screen and (min-width: 1200px) and (max-width: 1439px) {
     .imgg{
@@ -561,31 +608,19 @@ export default {
     .warnstatus{
       line-height: 0em;
     }
-    .jg,.jgtw,.jgth{
-      margin-top: 0.3em;
-      height: 1.2em;
-      line-height: 1em;
-    }
+
   }
   @media screen and (min-width: 1440px) and (max-width: 1599px) {
     .warnstatus{
       line-height: 1em;
     }
-    .jg,.jgtw,.jgth{
-      margin-top: 0em;
-      height: 1.5em;
-      line-height: 1.5em;
-    }
+
   }
   @media screen and (min-width:1600px ) and (max-width:1910px ) {
     .warnstatus{
       line-height: 1em;
     }
-    .jg,.jgtw,.jgth{
-      margin-top: 0.2em;
-      height: 1.5em;
-      line-height: 1.5em;
-    }
+
     .imgg{
       padding: .7rem .5rem .8rem 2rem;
       margin-left: .5em;

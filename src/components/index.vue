@@ -4,7 +4,7 @@
       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 container-fluid">
         <div class="row blockone">
           <p style="margin: 1em 0 0.5em 1em;">{{$t('message.Netstat')}}</p>
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 right">
+          <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 right">
             <!--<div id="liquidFill" class="grid"></div>-->
             <!--<p style="margin-top: 1em">网速：<span class="numtwo">{{pool_use}}</span>mb/s</p>-->
             <!--<p style="text-align: center;line-height:1em">健康状态</p>-->
@@ -15,32 +15,32 @@
               </ol>
             </div>
             <p  class="size" >{{$t('message.NetCard')}}：</p>
-            <div style="overflow-y: scroll;height: 5em;overflow-x: hidden" class="size" >
+            <div style="overflow-y: scroll;height: 5em;overflow-x: hidden;" class="size" >
               <div class="row" >
-              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" >{{$t('message.NetCard')}}</div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >{{$t('message.NetCard')}}</div>
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" >{{$t('message.Mode')}}</div>
-              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" >{{$t('message.Mainframe')}}</div>
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" >{{$t('message.Mainframe')}}</div>
               </div>
               <div class="row" v-for="p in $store.state.net.nics">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" >
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >
                   {{p.name}}
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" >
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" >
                   {{p.mode}}
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" >
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" >
                   {{p.hostname}}
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ">
+          <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 ">
             <div class="fontone">{{$t('message.Question-card')}}：<a style="font-size: 2em;padding: .5em;color: white;cursor: pointer"  class="dropdown-toggle" data-toggle="dropdown">{{$store.state.net.error}}</a>个
               <ul class="dropdown-menu">
                 <li><router-link :to="{name:''}"></router-link></li>
               </ul>
             </div>
-            <div >
+            <div style="margin-left: -1px">
               <p class="fonttwo">{{$t('message.link-number')}}：{{$store.state.net.net_socket_link_nall}}</p>
               <p class="fonttwo">{{$t('message.Receive-Discard-Packets')}}：{{$store.state.net.net_drop_in_all}}</p>
               <p class="fonttwo">{{$t('message.Send-Discard-Packets')}}：{{$store.state.net.net_drop_out_all}}</p>
@@ -148,7 +148,6 @@
         <ol class="carousel-indicators">
           <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
           <li data-target="#myCarousel" data-slide-to="1"></li>
-
         </ol>
 
       <div class="font bg carousel-inner">
@@ -1077,6 +1076,7 @@
     padding-right: .1em;
     /*margin-right: 2em;*/
     padding-bottom: 1.5em;
+    margin-bottom: 1em;
   }
   .blockfour{
     background-color: #45355E;
@@ -1130,6 +1130,8 @@
   .right{
     border-right: 1px solid #55466E;
     color: #FFFFFF;
+    margin-left: -5px;
+
   }
   #health{
     width: 100%;word-wrap: break-word;font-size: medium;

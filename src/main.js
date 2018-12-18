@@ -46,7 +46,7 @@ Vue.prototype.$axios = axios;
 //   return html.join('');
 // }
 
-Vue.prototype.allurl='http://192.168.2.64:8000/'
+Vue.prototype.allurl='http://192.168.9.43:8000/'
 // Vue.prototype.allurl=''
 
 const i18n = new VueI18n({
