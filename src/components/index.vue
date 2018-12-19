@@ -302,7 +302,7 @@
     methods: {
       initWebSocket(){
         // var _this=this
-        const wsurl="ws://192.168.2.64:8000/";
+        const wsurl="ws://192.168.2.64:8000/ws/intime_data";
         // const wsurl='';
         this.websock=new WebSocket(wsurl);
         this.websock.onmessage=this.websocketonmessage;

@@ -15,8 +15,8 @@
           <div class="box" id="box" @mouseover="looksome()" @mouseleave="lookdo()">
             <div class="first img-responsive"></div>
             <div class="second img-responsive"></div>
-            <div class="three img-responsive"></div>
-            <div class="four img-responsive"></div>
+            <div class="three img-responsive"><img src="../../static/image/logo.png" class="img-responsive"/></div>
+            <div class="four img-responsive"><img src="../../static/image/wuzhou.png" class="img-responsive"/></div>
 
           </div>
         </a>
@@ -378,6 +378,8 @@ export default {
   }
   .mp{
     margin: 0;padding: 0;
+
+    background-color: #2E2245;
   }
   a{
     text-decoration: none;
@@ -459,11 +461,7 @@ export default {
   .close{
     color: white !important;
   }
-  .bg{
 
-    height: 2.8em;
-    width: 8em;
-  }
   .nav-color{
     background-color: #56466D;
     margin-top: 2.5rem;
@@ -486,7 +484,7 @@ export default {
     position:relative;
     transform-style: preserve-3d;
     transform:rotateX(0deg);
-    animation:rotate 5s infinite linear;
+    animation:rotate 10s infinite linear;
   }
   .box>div{
     width:100%;
@@ -514,7 +512,7 @@ export default {
   .three{
     transform:rotateX(0deg) translateZ(.4em);
     background-color: #0090ff;
-    background-image: url("../../static/image/logo.png") ;
+    /*background-image: url("../../static/image/logo.png") ;*/
     background-size: cover;
     opacity:1;
   }
@@ -522,7 +520,7 @@ export default {
   .four{
     transform:rotateX(180deg) translateZ(.4em);
     background-color: #0090ff;
-    background-image: url("../../static/image/wuzhou.png") ;
+    /*background-image: url("../../static/image/wuzhou.png") ;*/
     background-size: cover;
     opacity:1;
   }
@@ -540,6 +538,11 @@ export default {
     font-size: 1.2rem;
     line-height: 4.5em
   }
+  .bg{
+
+    height: 2.8em;
+    width: 100%;
+  }
   @media screen and (max-width: 425px) {
     .imgg{
       padding: .7rem .5rem .8rem .5rem;
@@ -552,7 +555,9 @@ export default {
     .one{
       width: 100%;
     }
-
+    .bg{
+      width: 7em !important;
+    }
     .navn{
       height:100% !important;
     }
@@ -597,6 +602,7 @@ export default {
 
   }
   @media screen and (min-width: 1200px) and (max-width: 1439px) {
+
     .imgg{
       padding: .8rem .5rem .8rem .8rem;
       width: 90%;

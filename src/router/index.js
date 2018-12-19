@@ -26,6 +26,7 @@ import Installthree from '@/components/Installthree'
 import Login from '@/components/Login'
 import Error from '@/components/Error'
 import tips from '@/components/tips'
+import object from '@/components/object'
 import server3d from '@/components/server3d'
 
 
@@ -219,6 +220,17 @@ export default new Router({
       components: {
         default:HelloWorld,
         bottom: Rpara,
+        right:Rleft,
+      },
+      meta: { requiresAuth: true }
+    },
+    {
+      path:'/object',
+      name:'object',
+      menuShow:true,
+      components: {
+        default:HelloWorld,
+        bottom: object,
         right:Rleft,
       },
       meta: { requiresAuth: true }

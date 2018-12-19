@@ -27,7 +27,7 @@
     </div>
     <div class="one" :class="isse==='对象存储'?'two':''" @click="changenav('对象存储')">
       <div>
-        <router-link :to="{name:''}" ><p >{{$t('message.Object')}}</p></router-link>
+        <router-link :to="{name:'object'}" ><p >{{$t('message.Object')}}</p></router-link>
       </div>
     </div>
     <!--<div class="one" v-for="i in nav" :class="isse===i.name?'two':''" @click="changenav(i.name)">-->

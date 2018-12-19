@@ -289,10 +289,10 @@
           let addname=this.$refs.addname.value
           // let addsize=this.$refs.addsize.value
           var _this=this
-          // if (addname==''||addsize==''){
-          //   _this.cross='请填写完整'
-          // }
-          // else {
+          if (addname==''||_this.unitsele==''){
+            _this.cross='请填写完整'
+          }
+          else {
             // if (this.unitsele=='fb') {
             this.$axios.post(this.allurl + 'manager/tank/create_tank', {
               name: addname,
@@ -313,7 +313,7 @@
               console.log(error)
             })
             $('#addnew').modal('hide')
-          // }
+          }
           // }
           // else {
           //   this.$axios.post(this.allurl + 'manager/tank/create_tank', {
