@@ -1,11 +1,13 @@
 <template>
     <div id="Object" class="col-lg-10 col-md-10 col-sm-10 col-xs-12 container-fluid">
       <div class="row">
-        <div class="col-lg-5 col-md-5 col-sm-11 col-xs-11">
+        <div class="col-lg-6 col-md-6 col-sm-11 col-xs-11">
          <ul id="tab" class="nav nav-tabs">
-           <li id="target"  v-for="i in list" @click="father(i.id)"><a :href="['#'+i.id]" data-toggle="tab">{{i.name}}</a></li>
+           <li id="target"  v-for="i in list" @click="father(i.id,i.name)"><a :href="['#'+i.id]" data-toggle="tab">{{i.name}}</a></li>
          </ul>
+          <div class="alert alert-danger " id="tipsc" style="display: none;">{{tipsc}}</div>
           <div id="myTabContent" class="tab-content">
+
             <div class="tab-pane fade" :id="i.id"  v-for="i in list">
               <div class="panel panel-default">
                 <div class="panel-heading">
@@ -69,8 +71,9 @@
           </div>
 
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
           <div class="row subuser">
+            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11" >
           <ul id="tabt" class="nav nav-tabs">
             <li id="two2" v-for="a in one1"><a :href="['#'+a.id]" data-toggle="tab">{{a.id}}</a></li>
           </ul>
@@ -103,6 +106,14 @@
               </div>
             </div>
           </div>
+            </div>
+            <div col-lg-1 col-md-1 col-sm-1 col-sm-1>
+              <div id="funa" >
+                <p @click="subadd()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-plus add" title="添加" data-toggle="tooltip" data-placement="right"></span></p>
+                <p @click="subedit()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
+                <p @click="subdelete()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
+              </div>
+            </div>
           </div>
           <div class="row" style="margin-top: 2em">
             <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
@@ -135,8 +146,8 @@
             <table class="table table-responsive table-condensed" id="sear" data-toolbar="#toolbar" data-height="350"  data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toggle="table"  data-classes="table-no-bordered" >
               <thead>
               <tr>
-                <th data-field="entries" >{{$t('message.Node-name')}}</th>
-                <th data-field="summary">{{$t('message.IP-address')}}</th>
+                <th data-field="entries" >数据入口</th>
+                <th data-field="summary">数据总量</th>
               </tr>
               </thead>
               <tbody>
@@ -147,13 +158,54 @@
         </div>
 
     </div>
+      <div class="modal fade" id="addnew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="diskdata">添加用户</h4>
+            </div>
+            <div class="modal-body">
+              <p>ID：</p><input type="text" class="form-control" id="addid" ref="addid" required="required"/>
+              <p>名称：</p><input type="text" class="form-control" id="addname" ref="addname" required="required"/>
+              <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+              <button type="button" class="btn btn-primary" @click="addsend()" >{{$t('message.Confirm')}}</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+      </div>
+      <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="edituser">修改用户信息</h4>
+            </div>
+            <div class="modal-body">
+              <p>ID：<span>{{num}}</span></p>
+              <p>名称：</p><input type="text" class="form-control" id="name" :placeholder=name ref="name" required="required"/>
+              <p>访问级别：</p><input type="text" class="form-control" id="control" ref="control" required="required"/>
+              <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+              <button type="button" class="btn btn-primary" @click="editsend()">{{$t('message.Confirm')}}</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+      </div>
+      <tips ref="tips" :content=tipscontent :dotitle=title :docontent=dosome ></tips>
     </div>
 </template>
 
 <script>
-
+    import tips from './tips'
     export default {
         name: "Object",
+      components:{tips},
       data(){
           return{
             list:[
@@ -177,13 +229,20 @@
 
             ],
 
-            num:''
+            num:'',
+            name:'',
+            cross:'',
+            tipsc:'',
+            tipscontent:'',
+            dosome:'',
+            title:''
 
           }
       },
       methods:{
-        father(n){
+        father(n,m){
           this.num=n
+          this.name=m
           let i=0
           for ( i;i<this.list.length; i++){
             if (n==this.list[i].id){
@@ -197,7 +256,7 @@
           $('#target:first-child').addClass('active')
           // alert($('li:first'))
           $('#two2:first').addClass('active')
-          $('.tab-pane:first-child').addClass('active')
+          $('.tab-pane:first-child').addClass('active in')
           $('.tab-pane:first-child').addClass('in')
           $('.tab-pa:first-child').addClass('active')
           $('.tab-pa:first-child').addClass('in')
@@ -205,29 +264,82 @@
           $('.bg:even').css("background","#42345E");
           $("[data-toggle='tooltip']").tooltip({html:true});
           this.one1=this.list[0].subuser
+          this.num=this.list[0].id
+          this.name=this.list[0].name
           $('#sear').bootstrapTable({
             url:this.allurl+"manctl/"
           })
 
-          $('.switch').bootstrapSwitch('onText','开启').bootstrapSwitch('offText','关闭').bootstrapSwitch("onColor",'success')
+          // $('.switch').bootstrapSwitch('onText','开启').bootstrapSwitch('offText','关闭').bootstrapSwitch("onColor",'success')
 
         },
         add(){
+          if (sessionStorage.getItem('islogin')==250){
+            this.tipsc='普通用户无操作权限！'
+            $("#tipsc").show().delay (2000).fadeOut ();;
+          }
+          else
+          $('#addnew').modal('show')
+        },
+        addsend(){
+          var id=this.$refs.addid.value
+          var name=this.$refs.addname.value
+          if (id==''||name==''){
+            this.cross='请填写完整!'
+          }
+          else {
+            this.$axios.post(this.allurl+'object',{id:id,name:name}).then(function (res) {
 
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
+        },
+        editsend(){
+          var name=this.$refs.name.value
+          var control=this.$refs.contorl.value
+          if (control==''||name==''){
+            this.cross='请填写完整!'
+          }
+          else {
+            this.$axios.post(this.allurl+'object',{id:id,name:name}).then(function (res) {
+
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
         },
         editlist(){
-
+          if (sessionStorage.getItem('islogin')==250){
+            this.tipsc='普通用户无操作权限！'
+            $("#tipsc").show().delay (2000).fadeOut ();;
+          }
+          else
+          $('#edit').modal('show')
         },
         look(){
-
+          if (sessionStorage.getItem('islogin')==250){
+            this.tipsc='普通用户无操作权限！'
+            $("#tipsc").show().delay (2000).fadeOut ();;
+          }
+          else
+            $('#all').modal('show')
         },
         deletelist(){
-
+          if (sessionStorage.getItem('islogin')==250){
+            this.tipsc='普通用户无操作权限！'
+            $("#tipsc").show().delay (2000).fadeOut ();;
+          }
+          else {
+            this.title = '是否确认选择删除用户'
+            this.dosome = this.num
+            this.$refs.tips.dselect()
+          }
         }
 
       },
       created(){
-        $('.switch').bootstrapSwitch('onText','开启').bootstrapSwitch('offText','关闭').bootstrapSwitch("onColor",'success')
+        // $('.switch').bootstrapSwitch('onText','开启').bootstrapSwitch('offText','关闭').bootstrapSwitch("onColor",'success')
       },
       mounted(){
         this.start()
@@ -302,8 +414,11 @@
     height:8em;
     margin: 0 auto;
   }
-  #fun{
+  #fun,#funa{
     margin-top: 8em;
+  }
+  #funa{
+    float: right;
   }
     .edit,.add,.look,.delete{
       color: white;font-size: 1.5em ;
@@ -314,11 +429,15 @@
     }
   .subuser{
     height: 25em;
+
   }
     thead{
       background-color: #C17F00;
 
     }
-
+    .modal-content{
+      background-color:#3E324E ;
+      color: white;
+    }
 
 </style>
