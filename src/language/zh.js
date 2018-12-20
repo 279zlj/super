@@ -16,6 +16,7 @@ module.exports={
     "Net-segment":"网段",
     "NetCard":"网卡",
     "Mode":"模式",
+    "logpath":'日志路径',
     "Mainframe":"主机",
     "Question-card":"问题网卡",
     "link-number":"连接数",

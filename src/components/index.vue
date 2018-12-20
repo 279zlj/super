@@ -342,10 +342,7 @@
         console.log('断开连接',e);
         this.websock.close()
       },
-      draw(){
 
-
-      },
       getall(){                         /*获取首页信息*/
         var _this=this
         let dips,dops;

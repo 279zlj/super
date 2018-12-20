@@ -208,7 +208,7 @@
 }
 
 .fixed-table-loading {
-    display: none;
+    display: none !important;
     position: absolute;
     top: 42px;
     right: 0;

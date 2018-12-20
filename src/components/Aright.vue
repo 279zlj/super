@@ -5,11 +5,11 @@
         <router-link :to="{name:'Aindex'}" ><p >{{$t('message.Snapshot-Settings')}}</p></router-link>
       </div>
     </div>
-    <div class="one" :class="ind==='FS设置'?'two':''" @click="changenav('FS设置')">
-      <div>
-        <router-link :to="{name:''}"><p >{{$t('message.FS-Setting')}}</p></router-link>
-      </div>
-    </div>
+    <!--<div class="one" :class="ind==='FS设置'?'two':''" @click="changenav('FS设置')">-->
+      <!--<div>-->
+        <!--<router-link :to="{name:''}"><p >{{$t('message.FS-Setting')}}</p></router-link>-->
+      <!--</div>-->
+    <!--</div>-->
     <div class="one" :class="ind==='object设置'?'two':''" @click="changenav('object设置')">
       <div>
         <router-link  :to="{name:''}"><p >{{$t('message.object-Setting')}}</p></router-link>

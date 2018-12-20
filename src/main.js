@@ -11,20 +11,30 @@ import store from '../src/store/store'
 import router from './router'
 import '@/assets/js/jquery-3.3.1.min.js'
 import '@/assets/css/bootstrap.min.css'
+import '@/assets/css/bootstrap-switch.css'
+import '@/assets/bootdatetime/css/bootstrap-datetimepicker.css'
 import '@/assets/js/bootstrap.min.js'
+
+
+import '@/assets/js/bootstrap-switch.js'
+import '@/assets/bootdatetime/js/bootstrap-datetimepicker.js'
+import '@/assets/bootdatetime/js/locales/bootstrap-datetimepicker.zh-CN.js'
+
 import echarts from 'echarts'
 import axios from 'axios'
+
 import '@/assets/dist/bootstrap-table.css'
+
 import '@/assets/dist/bootstrap-table.js'
 import '@/assets/dist/locale/bootstrap-table-zh-CN.min.js'
 import '@/assets/js/bootstrap-table-contextmenu.js'
 
-import '@/assets/js/draw.js'
+
 import '@/assets/dist/ga.js'
-import '@/assets/js/base.js'
+
 import './mock/mock'
 import 'es6-promise/auto'
-import  '../src/assets/js/base'
+
 import langzh from './language/zh'
 import langen from './language/en'
 
@@ -46,7 +56,7 @@ Vue.prototype.$axios = axios;
 //   return html.join('');
 // }
 
-Vue.prototype.allurl='http://192.168.9.43:8000/'
+Vue.prototype.allurl='http://192.168.2.64:8000/'
 // Vue.prototype.allurl=''
 
 const i18n = new VueI18n({

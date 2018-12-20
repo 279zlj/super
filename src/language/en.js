@@ -16,6 +16,7 @@ module.exports = {
     "NetCard":"NetCard",
     "Mode":"Mode",
     "Mainframe":"Mainframe",
+    "logpath":'Log-path',
     "Question-card":"Question card",
     "link-number":"Link-number",
     "Receive-Discard-Packets":"Receive Discard Packets",
