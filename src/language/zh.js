@@ -172,7 +172,7 @@ module.exports={
     "Parameters-change":"参数修改",
     "Snapshot-Settings":"快照设置",
     "FS-Setting":"FS设置",
-    "object-Setting":"object设置",
+    "object-Setting":"对象参数设置",
     "Operational-Settings":"运维设置",
     "Solution":"解决方案",
     "Import-solution-package":"导入解决包",

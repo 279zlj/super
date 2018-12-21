@@ -11,12 +11,12 @@ import store from '../src/store/store'
 import router from './router'
 import '@/assets/js/jquery-3.3.1.min.js'
 import '@/assets/css/bootstrap.min.css'
-import '@/assets/css/bootstrap-switch.css'
+// import '@/assets/css/bootstrap-switch.css'
+// import '@/assets/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css'
 import '@/assets/bootdatetime/css/bootstrap-datetimepicker.css'
 import '@/assets/js/bootstrap.min.js'
-
-
-import '@/assets/js/bootstrap-switch.js'
+// import '@/assets/js/bootstrap-switch.js'
+// import '@/assets/bootstrap-switch/dist/js/bootstrap-switch.js'
 import '@/assets/bootdatetime/js/bootstrap-datetimepicker.js'
 import '@/assets/bootdatetime/js/locales/bootstrap-datetimepicker.zh-CN.js'
 

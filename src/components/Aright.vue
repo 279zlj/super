@@ -5,14 +5,14 @@
         <router-link :to="{name:'Aindex'}" ><p >{{$t('message.Snapshot-Settings')}}</p></router-link>
       </div>
     </div>
-    <!--<div class="one" :class="ind==='FS设置'?'two':''" @click="changenav('FS设置')">-->
-      <!--<div>-->
-        <!--<router-link :to="{name:''}"><p >{{$t('message.FS-Setting')}}</p></router-link>-->
-      <!--</div>-->
-    <!--</div>-->
-    <div class="one" :class="ind==='object设置'?'two':''" @click="changenav('object设置')">
+    <div class="one" :class="ind==='对象参数设置'?'two':''" @click="changenav('对象参数设置')">
       <div>
-        <router-link  :to="{name:''}"><p >{{$t('message.object-Setting')}}</p></router-link>
+        <router-link :to="{name:''}"><p >{{$t('message.object-Setting')}}</p></router-link>
+      </div>
+    </div>
+    <div class="one" :class="ind==='参数修改'?'two':''" @click="changenav('参数修改')">
+      <div>
+        <router-link  :to="{name:'Rpara'}"><p >{{$t('message.Parameters')}}</p></router-link>
       </div>
     </div>
     <div class="one"  :class="ind==='运维设置'?'two':''" @click="changenav('运维设置')">

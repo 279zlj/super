@@ -3,7 +3,7 @@
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-11 col-xs-11">
          <ul id="tab" class="nav nav-tabs">
-           <li id="target"  v-for="i in list" @click="father(i.id,i.name)"><a :href="['#'+i.id]" data-toggle="tab">{{i.name}}</a></li>
+           <li id="target"  v-for="i in list" @click="father(i.id,i.name,i.visit,i.Maxobj,i.Maxsize)"><a :href="['#'+i.id]" data-toggle="tab">{{i.name}}</a></li>
          </ul>
           <div class="alert alert-danger " id="tipsc" style="display: none;">{{tipsc}}</div>
           <div id="myTabContent" class="tab-content">
@@ -29,24 +29,32 @@
                   <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{i.type}}</div>
                   </div>
                   <div class="row all">
-                  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >管理权：</div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >访问级别：</div>
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{i.visit}}</div>
+                  </div>
+                  <div class="row all">
+                  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >管理权限：</div>
                   <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{i.power}}</div>
                   </div>
                   <div class="row all">
                   <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe">用户状态：</div>
-                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 switch" data-on="warning" data-off="danger">
-                    <input type="checkbox" checked />
+                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 " >
+                    <span>{{i.status}}</span>
+                    <span style="cursor: pointer" class="glyphicon glyphicon-stop sopr" title="停止" @click="stopuser()" data-toggle="tooltip" data-placement="top" v-show="i.status=='on'"></span>
+                    <span style="cursor: pointer" class="glyphicon glyphicon-off opr" title="启用" @click="startuser()" data-toggle="tooltip" data-placement="top" v-show="i.status=='off'"></span>
                   </div>
                   </div>
                   <div class="row all">
                   <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >配额参数：</div>
-                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">Max-objects：{{i.id}} / Max-size：{{i.quota}}</div>
+                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">Max-objects：{{i.Maxobj}} / Max-size：{{i.Maxsize}}</div>
                   </div>
                   <div class="row all">
-                  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >配额状态：</div>
-                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 switch" data-on="warning" data-off="danger">
-                    <input type="checkbox" checked />
-                  </div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >配额状态：</div>
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 " >
+                      <span>{{i.quotastatus}}</span>
+                      <span style="cursor: pointer" class="glyphicon glyphicon-stop sopr" title="停止" @click="stopquota()" data-toggle="tooltip" data-placement="top" v-show="i.quotastatus=='on'"></span>
+                      <span style="cursor: pointer" class="glyphicon glyphicon-off opr" title="启用" @click="startquota()" data-toggle="tooltip" data-placement="top" v-show="i.quotastatus=='off'"></span>
+                    </div>
                   </div>
                   <div class="row all">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 labe">
@@ -75,7 +83,7 @@
           <div class="row subuser">
             <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11" >
           <ul id="tabt" class="nav nav-tabs">
-            <li id="two2" v-for="a in one1"><a :href="['#'+a.id]" data-toggle="tab">{{a.id}}</a></li>
+            <li id="two2" v-for="a in one1"><a :href="['#'+a.id]" data-toggle="tab" @click="thissub(a.id)">{{a.id}}</a></li>
           </ul>
           <div id="myTab" class="tab-content">
             <div class="tab-pane fade tab-pa" :id="b.id"  v-for="b in one1">
@@ -122,13 +130,13 @@
                 <div class="row form-group">
                   <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 control-label"><label for="dtp_input2" >日期</label></div>
                   <div class="input-group date form_date col-lg-4 col-md-4 col-sm-4 col-xs-4" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                    <input class="form-control" size="13" style="color: black" type="text" value="" readonly>
+                    <input class="form-control" size="13" ref="startdate" style="color: black" type="text" value="" readonly>
                     <!--<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>-->
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                   </div>
                   <span style="float: left;margin: 0 1em">~</span>
                   <div class="input-group date form_date col-lg-4 col-md-4 col-sm-4 col-xs-4" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                    <input class="form-control" size="13" style="color: black" type="text" value="" readonly>
+                    <input class="form-control" size="13" style="color: black"  ref="enddate" type="text" value="" readonly>
                     <!--<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>-->
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                   </div>
@@ -139,7 +147,7 @@
             </form>
             </div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-              <button class="btn btn-info"><i class="glyphicon glyphicon-search"></i></button>
+              <button class="btn btn-info" @click="datesend()"><i class="glyphicon glyphicon-search"></i></button>
             </div>
           </div>
           <div class="row" >
@@ -187,12 +195,85 @@
             <div class="modal-body">
               <p>ID：<span>{{num}}</span></p>
               <p>名称：</p><input type="text" class="form-control" id="name" :placeholder=name ref="name" required="required"/>
-              <p>访问级别：</p><input type="text" class="form-control" id="control" ref="control" required="required"/>
+              <p>访问级别：</p>
+              <select class="form-control" v-on:change="sele($event)" v-model="visitold">
+                <option v-for="m in rank" :value="m.name">{{m.name}}</option>
+              </select>
               <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
               <button type="button" class="btn btn-primary" @click="editsend()">{{$t('message.Confirm')}}</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+      </div>
+      <div class="modal fade" id="all" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="look">查看用户信息</h4>
+            </div>
+            <div class="modal-body">
+              <p>ID：<span>{{num}}</span></p>
+              <p>名称：<span>{{name}}</span></p>
+              <p>Max_bucket：<span></span></p>
+              <p>Keys：</p>
+              <p>Swift_keys：</p>
+              <p>Bucket_quota：</p>
+              <p>User_quota：</p>
+              <p>Op_mask：</p>
+              <p>Type：</p>
+              <p></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+              <button type="button" class="btn btn-primary"  data-dismiss="modal">{{$t('message.Confirm')}}</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+      </div>
+      <div class="modal fade" id="addsub" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="subuser">添加子用户</h4>
+            </div>
+            <div class="modal-body">
+              <p>名称：</p><input type="text" class="form-control" id="subname" ref="addid" required="required"/>
+              <p>访问级别：</p>
+              <select class="form-control" v-on:change="sel($event)" v-model="rankselect">
+              <option v-for="m in rank" :value="m.name">{{m.name}}</option>
+              </select>
+              <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+              <button type="button" class="btn btn-primary" @click="subsend()" >{{$t('message.Confirm')}}</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+      </div>
+      <div class="modal fade" id="subedit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="editsub">修改子用户信息</h4>
+            </div>
+            <div class="modal-body">
+              <p>ID：</p><input type="text" class="form-control" id="subn" :placeholder=subnow ref="sname" required="required"/>
+              <p>访问级别：</p>
+              <select class="form-control" v-on:change="selec($event)" v-model="subvisit">
+                <option v-for="m in rank" :value="m.name">{{m.name}}</option>
+              </select>
+              <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+              <button type="button" class="btn btn-primary" @click="subeditsend()">{{$t('message.Confirm')}}</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal -->
@@ -203,54 +284,80 @@
 
 <script>
     import tips from './tips'
+
     export default {
         name: "Object",
       components:{tips},
       data(){
           return{
             list:[
-              {id:'one1',name:'one',type:'one',power:'r',quota:'',quotastatus:'off',status:'on',dosage:'278',subuser:[
+              {id:'one1',name:'one',type:'one',power:'r',quota:'',visit:'full',Maxobj:'-1',Maxsize:'-1',quotastatus:'off',status:'on',dosage:'278',subuser:[
                   {origin:'1',id:'sub1',contorls:'full',status:'on'},
                   {origin:'2',id:'sub3',contorls:'full',status:'on'}
                 ]},
-              {id:'two2',name:'two',type:'two',power:'r',quota:'',quotastatus:'off',status:'on',dosage:'1278',subuser:[
+              {id:'two2',name:'two',type:'two',power:'r',quota:'',visit:'full',quotastatus:'on',status:'off',dosage:'1278',subuser:[
                   {origin:'1',id:'sub1',contorls:'full',status:'on'},
                   {origin:'2',id:'sub2',contorls:'full',status:'off'}
                 ]},
-              {id:'3',name:'three',type:'three',power:'w',quota:'',quotastatus:'off',status:'on',dosage:'324'},
-              {id:'4',name:'four',type:'four',power:'w',quota:'',quotastatus:'off',status:'on',dosage:'4654'},
-              {id:'5',name:'five',type:'five',power:'full',quota:'',quotastatus:'off',status:'on',dosage:'2134'},
-              {id:'6',name:'six',type:'six',power:'w',quota:'',quotastatus:'off',status:'on',dosage:'2238'},
-              {id:'7',name:'seven',type:'seven',power:'r',quota:'',quotastatus:'off',status:'on',dosage:'1238'},
-              {id:'8',name:'eight',type:'eight',power:'r',quota:'',quotastatus:'off',status:'on',dosage:'378'},
+              {id:'3',name:'three',type:'three',power:'w',quota:'',visit:'full',quotastatus:'off',status:'on',dosage:'324'},
+              {id:'4',name:'four',type:'four',power:'w',quota:'',visit:'full',quotastatus:'off',status:'on',dosage:'4654'},
+              {id:'5',name:'five',type:'five',power:'full',quota:'',visit:'full',quotastatus:'off',status:'on',dosage:'2134'},
+              {id:'6',name:'six',type:'six',power:'w',quota:'',visit:'full',quotastatus:'off',status:'on',dosage:'2238'},
+              {id:'7',name:'seven',type:'seven',power:'r',quota:'',visit:'full',quotastatus:'off',status:'on',dosage:'1238'},
+              {id:'8',name:'eight',type:'eight',power:'r',quota:'',visit:'full',quotastatus:'off',status:'on',dosage:'378'},
 
             ],
             one1:[
 
             ],
-
+            rank:[
+              {name:'只读',value:'read'},
+              {name:'只写',value:'write'},
+              {name:'读写',value:'readwrite'},
+              {name:'Full',value:'full'},
+            ],
+            rankselect:'',
             num:'',
             name:'',
             cross:'',
             tipsc:'',
             tipscontent:'',
             dosome:'',
-            title:''
+            title:'',
+            visitold:'',
+            subnow:'',
+            subvisit:'',
+            searchurl:'',
+            Mobject:null,
+            Msize:null
 
           }
       },
       methods:{
-        father(n,m){
+        father(n,m,v,o,s){
           this.num=n
           this.name=m
+          this.visitold=v
+          this.Mobject=o
+          this.Msize=s
           let i=0
           for ( i;i<this.list.length; i++){
             if (n==this.list[i].id){
               this.one1=this.list[i].subuser
             }
           }
-
-
+        },
+        thissub(who){
+          this.subnow=who
+        },
+        sel(event){
+          this.rankselect=event.target.value
+        },
+        sele(event){
+          this.visitold=event.target.value
+        },
+        selec(event){
+          this.subvisit=event.target.value
         },
         start(){
           $('#target:first-child').addClass('active')
@@ -260,17 +367,21 @@
           $('.tab-pane:first-child').addClass('in')
           $('.tab-pa:first-child').addClass('active')
           $('.tab-pa:first-child').addClass('in')
-          $('.all:even').css("background","#42345E");
-          $('.bg:even').css("background","#42345E");
+          $('.all:odd').css("background","#42345E");
+          $('.bg:odd').css("background","#42345E");
           $("[data-toggle='tooltip']").tooltip({html:true});
           this.one1=this.list[0].subuser
           this.num=this.list[0].id
           this.name=this.list[0].name
+          this.visitold=this.list[0].visit
+          this.Msize=this.list[0].Maxsize
+          this.Mobject=this.list[0].Maxobj
           $('#sear').bootstrapTable({
-            url:this.allurl+"manctl/"
+            url:this.allurl+this.searchurl
           })
 
-          // $('.switch').bootstrapSwitch('onText','开启').bootstrapSwitch('offText','关闭').bootstrapSwitch("onColor",'success')
+          // $('#userstatus').bootstrapSwitch('state', false)
+          // $('#substatus').bootstrapSwitch('state', false)
 
         },
         add(){
@@ -295,14 +406,45 @@
             })
           }
         },
+        subadd(){
+          if (sessionStorage.getItem('islogin')==250){
+            this.tipsc='普通用户无操作权限！'
+            $("#tipsc").show().delay (2000).fadeOut ();;
+          }
+          else
+          $('#addsub').modal('show')
+        },
+        subsend(){
+          var subname=this.$refs.subname.value
+          if (subname==''||this.rankselect=='') {
+            this.cross='请填写完整!'
+          }
+          this.$axios.post(this.allurl+'object/edit',{subname:subname,rankselect:this.rankselect}).then(function (res) {
+
+          }).catch(function (error) {
+            console.log(error)
+          })
+        },
         editsend(){
           var name=this.$refs.name.value
-          var control=this.$refs.contorl.value
-          if (control==''||name==''){
+          if (this.visitold==''||name==''){
             this.cross='请填写完整!'
           }
           else {
-            this.$axios.post(this.allurl+'object',{id:id,name:name}).then(function (res) {
+            this.$axios.post(this.allurl+'object/edit',{control:this.visitold,name:name}).then(function (res) {
+
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
+        },
+        subeditsend(){
+          var sname=this.$refs.sname.value
+          if (this.subvisit==''||name==''){
+            this.cross='请填写完整!'
+          }
+          else {
+            this.$axios.post(this.allurl+'object/edit',{control:this.subvisit,name:sname}).then(function (res) {
 
             }).catch(function (error) {
               console.log(error)
@@ -316,6 +458,14 @@
           }
           else
           $('#edit').modal('show')
+        },
+        subedit(){
+          if (sessionStorage.getItem('islogin')==250){
+            this.tipsc='普通用户无操作权限！'
+            $("#tipsc").show().delay (2000).fadeOut ();;
+          }
+          else
+            $('#subedit').modal('show')
         },
         look(){
           if (sessionStorage.getItem('islogin')==250){
@@ -335,13 +485,84 @@
             this.dosome = this.num
             this.$refs.tips.dselect()
           }
+        },
+        subdelete(){
+          if (sessionStorage.getItem('islogin')==250){
+            this.tipsc='普通用户无操作权限！'
+            $("#tipsc").show().delay (2000).fadeOut ();
+          }
+          else {
+            this.title = '是否确认选择删除子用户'
+            this.dosome = this.subnow
+            this.$refs.tips.dselect()
+          }
+        },
+        stopuser(){
+          if (sessionStorage.getItem('islogin')==250){
+            this.tipsc='普通用户无操作权限！'
+            $("#tipsc").show().delay (2000).fadeOut ();
+          }
+          else {
+            this.title = '是否确认停用用户'
+            this.dosome = this.num
+            this.$refs.tips.dselect()
+          }
+        },
+        startuser(){
+          if (sessionStorage.getItem('islogin')==250){
+            this.tipsc='普通用户无操作权限！'
+            $("#tipsc").show().delay (2000).fadeOut ();
+          }
+          else {
+            this.title = '是否确认启用用户'
+            this.dosome = this.num
+            this.$refs.tips.dselect()
+          }
+        },
+        stopquota(){
+          if (sessionStorage.getItem('islogin')==250){
+            this.tipsc='普通用户无操作权限！'
+            $("#tipsc").show().delay (2000).fadeOut ();
+          }
+          else {
+            this.title = '是否确认停用配额'
+            // this.dosome = this.num
+            this.$refs.tips.dselect()
+          }
+        },
+        startquota(){
+          if (sessionStorage.getItem('islogin')==250){
+            this.tipsc='普通用户无操作权限！'
+            $("#tipsc").show().delay (2000).fadeOut ();
+          }
+          else {
+            if (this.Mobject<0||this.Msize<0){
+              this.tipsc='开启配额先要配置参数！'
+              $("#tipsc").show().delay (2000).fadeOut ();
+            }
+            else {
+              this.title = '是否确认启用配额'
+              // this.dosome = this.num
+              this.$refs.tips.dselect()
+            }
+
+          }
+        },
+        datesend(){
+          var start=this.$refs.startdate.value
+          var end=this.$refs.enddate.value
+          this.$axios.post(this.allurl+'object/edit',{start:start,end:end}).then(function (res) {
+              this.searchurl=res.data
+            $('#sear').bootstrapTable('refresh')
+          }).catch(function (error) {
+            console.log(error)
+          })
+
         }
 
       },
-      created(){
-        // $('.switch').bootstrapSwitch('onText','开启').bootstrapSwitch('offText','关闭').bootstrapSwitch("onColor",'success')
-      },
       mounted(){
+
         this.start()
         $('.form_date').datetimepicker({
           language:  'zh-CN',
@@ -439,5 +660,16 @@
       background-color:#3E324E ;
       color: white;
     }
+    .opr,.sopr{
+      float: right;
+      margin: 0 1em;
+      font-size: 1.3em;
+    }
+  .opr{
+    color: green;
 
+  }
+  .sopr{
+    color: #D9534F;
+  }
 </style>

@@ -220,7 +220,7 @@ export default new Router({
       components: {
         default:HelloWorld,
         bottom: Rpara,
-        right:Rleft,
+        right:Aright,
       },
       meta: { requiresAuth: true }
     },

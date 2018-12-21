@@ -91,7 +91,8 @@
           typesele:'',
           daysele:'',
           cross:'',
-          tips:''
+          tips:'',
+          lname:''
         }
       },
       methods:{
@@ -108,16 +109,13 @@
           else {
             var name = $.map($('#logt').bootstrapTable('getSelections'), function (row) {
               return row.name;
+
             });
-            var ip= $.map($('#logt').bootstrapTable('getSelections'), function (row) {
-              return row.ip;
-            });
-            var path = $.map($('#logt').bootstrapTable('getSelections'), function (row) {
-              return row.path;
-            });
+
             var logname = $.map($('#logt').bootstrapTable('getSelections'), function (row) {
               return row.logname;
             });
+            this.lname=logname
             if (name.length !== 1){
               this.tipscontent = '请选择其中一个节点进行下载'
               // alert(this.$refs.tips)
@@ -126,24 +124,44 @@
             }
             else {
               var _this=this
-              this.$axios.post(this.allurl + 'manctl/log_download', {host: name,ip:ip,path:path,logname:logname}).then(function (res) {
-                // console.log(res)
-                if (res.data.status == 1) {
-                  _this.tips = '操作成功'
-                  $('#tipscontent').show().delay(2000).fadeOut()
-                  $('#table_id').bootstrapTable('refresh')
-                }
-                else {
-                  _this.tips = res.data.status
-                  $('#tipscontent').show().delay(2000).fadeOut()
-                  $('#table_id').bootstrapTable('refresh')
-                }
-              }).catch(function (error) {
-                console.log(error)
-              })
+              // this.$axios.post(this.allurl + 'manctl/log_download', {host: name,ip:ip,path:path,logname:logname,responseType: 'arraybuffer'}).then(function (res) {
+              //   // console.log(res.data)
+              //   _this.download(res.data)
+              //   // console.log(res)
+              //   // alert(res.data)
+              //   if (res.data.status == 1) {
+              //     _this.tips = '操作成功'
+              //     $('#tipscontent').show().delay(2000).fadeOut()
+              //     $('#table_id').bootstrapTable('refresh')
+              //   }
+              //   else {
+              //     _this.tips = res.data.status
+              //     $('#tipscontent').show().delay(2000).fadeOut()
+              //     $('#table_id').bootstrapTable('refresh')
+              //   }
+              // }).catch(function (error) {
+              //   console.log(error)
+              // })
+              //先在服务器中做软连  到资源目录下的某个文件夹  ln -s 外部文件夹
+              _this.download('../static/logmanager'+_this.lname)
+
               // console.log(ids)
             }
           }
+        },
+        download (data) {
+          if (!data) {
+            return
+          }
+          // let url = window.URL.createObjectURL(new Blob([data],{type: "application/vnd.ms-excel"}))
+          let url=data
+          let link = document.createElement('a')
+          link.style.display = 'none'
+          link.href = url
+          link.setAttribute('download', this.lname)
+
+          document.body.appendChild(link)
+          link.click()
         },
         collect(){
 

@@ -35,11 +35,11 @@
         <!--<router-link :to="{name:i.href}" ><p >{{i.name}}</p></router-link>-->
       <!--</div>-->
     <!--</div>-->
-    <div class="one" :class="isse==='参数修改'?'two':''" @click="changenav('参数修改')">
-      <div>
-        <router-link :to="{name:'Rpara'}" ><p >{{$t('message.Parameters')}}</p></router-link>
-      </div>
-    </div>
+    <!--<div class="one" :class="isse==='参数修改'?'two':''" @click="changenav('参数修改')">-->
+      <!--<div>-->
+        <!--<router-link :to="{name:'Rpara'}" ><p >{{$t('message.Parameters')}}</p></router-link>-->
+      <!--</div>-->
+    <!--</div>-->
   </div>
 </template>
 
