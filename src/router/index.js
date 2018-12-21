@@ -28,6 +28,7 @@ import Error from '@/components/Error'
 import tips from '@/components/tips'
 import object from '@/components/object'
 import server3d from '@/components/server3d'
+import Aobj from '@/components/Aobj'
 
 
 Vue.use(Router)
@@ -93,6 +94,17 @@ export default new Router({
       components: {
         default:HelloWorld,
         bottom: Aindex,
+        right:Aright,
+      },
+      meta: { requiresAuth: true }
+    },
+    {
+      path:'/Aobj',
+      name:'Aobj',
+      menuShow:true,
+      components: {
+        default:HelloWorld,
+        bottom: Aobj,
         right:Aright,
       },
       meta: { requiresAuth: true }

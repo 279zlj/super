@@ -7,7 +7,7 @@
     </div>
     <div class="one" :class="ind==='对象参数设置'?'two':''" @click="changenav('对象参数设置')">
       <div>
-        <router-link :to="{name:''}"><p >{{$t('message.object-Setting')}}</p></router-link>
+        <router-link :to="{name:'Aobj'}"><p >{{$t('message.object-Setting')}}</p></router-link>
       </div>
     </div>
     <div class="one" :class="ind==='参数修改'?'two':''" @click="changenav('参数修改')">

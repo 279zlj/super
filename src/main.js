@@ -11,27 +11,21 @@ import store from '../src/store/store'
 import router from './router'
 import '@/assets/js/jquery-3.3.1.min.js'
 import '@/assets/css/bootstrap.min.css'
-// import '@/assets/css/bootstrap-switch.css'
-// import '@/assets/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css'
 import '@/assets/bootdatetime/css/bootstrap-datetimepicker.css'
 import '@/assets/js/bootstrap.min.js'
-// import '@/assets/js/bootstrap-switch.js'
-// import '@/assets/bootstrap-switch/dist/js/bootstrap-switch.js'
 import '@/assets/bootdatetime/js/bootstrap-datetimepicker.js'
 import '@/assets/bootdatetime/js/locales/bootstrap-datetimepicker.zh-CN.js'
-
 import echarts from 'echarts'
 import axios from 'axios'
-
+import 'jquery-treegrid/css/jquery.treegrid.css'
 import '@/assets/dist/bootstrap-table.css'
-
+import 'jquery-treegrid/js/jquery.treegrid.js'
 import '@/assets/dist/bootstrap-table.js'
+import '@/assets/dist/extensions/treegrid/bootstrap-table-treegrid.js'
+
 import '@/assets/dist/locale/bootstrap-table-zh-CN.min.js'
 import '@/assets/js/bootstrap-table-contextmenu.js'
-
-
 import '@/assets/dist/ga.js'
-
 import './mock/mock'
 import 'es6-promise/auto'
 
@@ -67,37 +61,39 @@ const i18n = new VueI18n({
   }
 })
 
-router.beforeEach((to,from,next)=>{                          /*路由守卫，禁止直接通过url访问页面内容*/
-    if (to.meta.requiresAuth) {
-      if (store.state.islogin=='200'||store.state.islogin=='250'||sessionStorage.getItem('islogin')=='200'||sessionStorage.getItem('islogin')=='250'){
-        next();
-        window.document.body.style.backgroundColor = '#2E2245';
-      }
-      else {
-        next({
-          path:'Login',
-          query:{
-            redirect:'/Login'
-          }
-        })
-      }
-    }
-    else {
-      next();
-      window.document.body.style.backgroundColor = '#2E2245';
-    }
-    if (to.name==='Installone'&& from.name=='Installthree'){
-      router.push({name:'Installtwo'})
-    }
-    if (to.name==='Login' || to.name==='Installone' || to.name==='Installtwo' || to.name==='Installthree'){
-      router.app.$store.state.islogin='0'
-      sessionStorage.removeItem('islogin');
-      localStorage.removeItem('islogin')
-    }
-    if (to.name==='Resources') {
-      sessionStorage.setItem('isse','概况')
-    }
-})
+// router.beforeEach((to,from,next)=>{                          /*路由守卫，禁止直接通过url访问页面内容*/
+//     if (to.meta.requiresAuth) {
+//       if (store.state.islogin=='200'||store.state.islogin=='250'||sessionStorage.getItem('islogin')=='200'||sessionStorage.getItem('islogin')=='250'){
+//         next();
+//         window.document.body.style.backgroundColor = '#2E2245';
+//       }
+//       else {
+//         next({
+//           path:'Login',
+//           query:{
+//             redirect:'/Login'
+//           },
+//
+//         })
+//         window.document.body.style.backgroundColor = '#242424'
+//       }
+//     }
+//     else {
+//       next();
+//       window.document.body.style.backgroundColor = '#2E2245';
+//     }
+//     if (to.name==='Installone'&& from.name=='Installthree'){
+//       router.push({name:'Installtwo'})
+//     }
+//     if (to.name==='Login' || to.name==='Installone' || to.name==='Installtwo' || to.name==='Installthree'){
+//       router.app.$store.state.islogin='0'
+//       sessionStorage.removeItem('islogin');
+//       localStorage.removeItem('islogin')
+//     }
+//     if (to.name==='Resources') {
+//       sessionStorage.setItem('isse','概况')
+//     }
+// })
 
 /* eslint-disable no-new */
 new Vue({
