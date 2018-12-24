@@ -1,39 +1,32 @@
 <template>
     <div class="row" id="server">
       <div class="row" id="allpanel">
+        <div id="alert" class="alert alert-success" style="display: none;float:top;width: 50%;margin-left: 5em;z-index: 999;position: absolute">
+          <a href="#" class="close" data-dismiss="alert">
+            &times;
+          </a>
+          <p>名称：</p>
+          <p>状态：</p>
+          <p>可用空间：</p>
+        </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" id="staticser">
-
-      </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" id="staticserver">
 
         </div>
       </div>
       <div class="row">
         <div ref="server3d"></div>
       </div>
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
-            </div>
-            <div class="modal-body">在这里添加一些文本</div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-              <button type="button" class="btn btn-primary">提交更改</button>
-            </div>
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
-      </div>
+      <!--<tips ref="tips" :content=tcontent :dotitle=ttitle :docontent=dosome></tips>-->
     </div>
 </template>
 
 <script>
   import * as THREE from 'three'
   import OrbitControls from 'three-orbitcontrols'
+  // import tips from './tips'
     export default {
         name: "server",
+      // components:{tips},
       data:()=>({
         control:{
           scene:null,
@@ -42,9 +35,12 @@
           controls:null,
           loader:null,
           raycas:null,
-          mouse:null
+          mouse:null,
           // rotationSpeed:0.02
-        }
+        },
+        tcontent:'',
+        ttitle:'',
+        dosome:''
       }),
       created(){
 
@@ -54,6 +50,7 @@
       },
       mounted(){
         this.drawserver()
+        this.show()
       },
       methods:{
         init(){
@@ -65,7 +62,7 @@
           var w=$('#gl').width()
           $('#allpanel').css('height',h/2)
           this.scene=new THREE.Scene()
-          this.camera = new THREE.PerspectiveCamera(10, w/(h/2), 0.1, 1000) // 相机.视场，长宽比，近面，远面
+          this.camera = new THREE.PerspectiveCamera(8, w/(h/2), 0.1, 1000) // 相机.视场，长宽比，近面，远面
           this.camera.position.x = -140
           this.camera.position.y = 12
           this.camera.position.z = 10
@@ -158,27 +155,32 @@
           renderer.render(scene, camera)
         },
         drawserver(){
-          $('#staticser').append("<div id=\"oneser\" style=\"background:url('../../static/image/panel.png') no-repeat;background-size: cover;\" class=\"img-responsive\"></div>")
-          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.2em 0em .2em 3.5em;display: inline-block;cursor: pointer"  data-toggle="modal" data-target="#myModal"/>')
-          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em .8em;display: inline-block;cursor: pointer"/>')
-          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em .8em;display: inline-block;cursor: pointer"/>')
-          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em .8em;display: inline-block;cursor: pointer"/>')
-          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.2em 0em .2em 3.5em;display: inline-block;cursor: pointer"/>')
-          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em .8em;display: inline-block;cursor: pointer"/>')
-          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em .8em;display: inline-block;cursor: pointer"/>')
-          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em .8em;display: inline-block;cursor: pointer"/>')
-          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.2em 0em .2em 3.5em;display: inline-block;cursor: pointer"/>')
-          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em .8em;display: inline-block;cursor: pointer"/>')
-          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em .8em;display: inline-block;cursor: pointer"/>')
-          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em .8em;display: inline-block;cursor: pointer"/>')
-          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.2em 0em .2em 3.5em;display: inline-block;cursor: pointer"/>')
-          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em .8em;display: inline-block;cursor: pointer"/>')
-          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em .8em;display: inline-block;cursor: pointer"/>')
-          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em .8em;display: inline-block;cursor: pointer"/>')
-          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.2em 0em .2em 3.5em;display: inline-block;cursor: pointer"/>')
-          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em .8em;display: inline-block;cursor: pointer"/>')
-          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em .8em;display: inline-block;cursor: pointer"/>')
-          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em .8em;display: inline-block;cursor: pointer"/>')
+          $('#staticser').append("<div id=\"oneser\" style=\"background:url('../../static/image/panel.png') no-repeat;background-size: contain;\" class=\"img-responsive\"></div>")
+          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em 3.5em;display: inline-block;cursor: pointer" />')
+          // $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em .8em;display: inline-block;cursor: pointer"/>')
+          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em 1em;display: inline-block;cursor: pointer"/>')
+          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em 1em;display: inline-block;cursor: pointer"/>')
+          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em 3.5em;display: inline-block;cursor: pointer"/>')
+          // $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em .8em;display: inline-block;cursor: pointer"/>')
+          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em 1em;display: inline-block;cursor: pointer"/>')
+          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em 1em;display: inline-block;cursor: pointer"/>')
+          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em 3.5em;display: inline-block;cursor: pointer"/>')
+          // $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em .8em;display: inline-block;cursor: pointer"/>')
+          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em 1em;display: inline-block;cursor: pointer"/>')
+          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em 1em;display: inline-block;cursor: pointer"/>')
+          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em 3.5em;display: inline-block;cursor: pointer"/>')
+          // $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em .8em;display: inline-block;cursor: pointer"/>')
+          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em 1em;display: inline-block;cursor: pointer"/>')
+          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em 1em;display: inline-block;cursor: pointer"/>')
+          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em 3.5em;display: inline-block;cursor: pointer"/>')
+          // $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em .8em;display: inline-block;cursor: pointer"/>')
+          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em 1em;display: inline-block;cursor: pointer"/>')
+          $('#oneser').append('<img src="../../static/image/cipan.png" class="img-responsive" style="width: 7%;margin:.1em 0em 0em 1em;display: inline-block;cursor: pointer"/>')
+        },
+        show(){
+          $('img').on('click',function () {
+            $('#alert').show()
+          })
         }
       }
     }
