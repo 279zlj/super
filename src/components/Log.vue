@@ -8,7 +8,7 @@
       </div>
 
     <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
-    <table class="table table-responsive table-condensed" id="logt" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered">
+    <table class="table table-responsive table-condensed" id="logt" data-toolbar="#toolbar" data-height="350" data-toggle="table" data-click-to-select="true"  data-classes="table-no-bordered">
       <div class="alert alert-danger " id="tipscontent" style="display: none;">{{tips}}</div>
       <thead>
       <tr>
@@ -17,7 +17,7 @@
         <th data-field="ip">{{$t('message.IP-address')}}</th>
         <th data-field="size">{{$t('message.Log-size')}}</th>
         <th data-field="logname">{{$t('message.Name-of-the-log')}}</th>
-        <th data-field="path">{{$t('message.logpath')}}</th>
+        <!--<th data-field="path">{{$t('message.logpath')}}</th>-->
       </tr>
       </thead>
       <tbody>
@@ -56,7 +56,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
-            <button type="button" class="btn btn-primary" @click="collectsend()" data-dismiss="modal">{{$t('message.Confirm')}}</button>
+            <button type="button" class="btn btn-primary" @click="collectsend()">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -83,9 +83,9 @@
 
           ],
           type:[
-            {name:'os',value:'os'},
-            {name:'cluster',value:'cluster'},
-            {name:'seabed',value:'seabed'},
+            {name:'操作系统',value:'os'},
+            {name:'集群日志',value:'cluster'},
+            {name:'管理平台',value:'seabed'},
 
           ],
           typesele:'',
@@ -176,8 +176,10 @@
               this.tipscontent = '请选择其中一个节点进行收集'
               this.$refs.tips.usetips()
             }
-            else
-            $('#addnew').modal('show')
+            else {
+              this.cross=''
+              $('#addnew').modal('show')
+            }
           }
         },
         collectsend(){
@@ -193,10 +195,20 @@
               return row.ip;
             });
             this.$axios.post(this.allurl + 'manctl/log_collect', {host: name,ip:ip,type:this.typesele,collect_time:this.daysele}).then(function (res) {
-              // console.log(res)
+              if (res.data.status == 1) {
+                _this.tipscontent = '操作成功'
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#logt').bootstrapTable('refresh')
+              }
+              else {
+                _this.tipscontent = res.data.status
+                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#logt').bootstrapTable('refresh')
+              }
             }).catch(function (error) {
               console.log(error)
             })
+            $('#addnew').modal('hide')
           }
         },
         seltype(event){

@@ -202,8 +202,11 @@
             this.tipscontent='普通用户无操作权限！'
               $("#tipscontent").show().delay (2000).fadeOut ();;
           }
-          else
+          else {
+            this.cross=''
             $('#addnew').modal("show")
+
+          }
         },
         sel(event){                     /*选择自建启动延时单位*/
           this.unitsele=event.target.value
@@ -225,7 +228,7 @@
             }
             else if (ids.length === 1) {
               this.edit = ids;
-
+              this.cross=''
               $('#editm').modal("show")
 
             }
@@ -250,7 +253,7 @@
             }
             else if (ids.length === 1) {
               this.dilata = ids;
-
+              this.cross=''
               $('#dilatation').modal("show")
 
             }
@@ -334,9 +337,11 @@
             this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay(2000).fadeOut()
           }
-          else
-          $('#clientmodal').modal("show")
-        },
+          else {
+            this.cross=''
+            $('#clientmodal').modal("show")
+
+          }},
         res(data){
           if (this.who=='pool') {
             let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {

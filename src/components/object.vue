@@ -85,6 +85,7 @@
           <ul id="tabt" class="nav nav-tabs">
             <li id="two2" v-for="a in one1"><a :href="['#'+a.id]" data-toggle="tab" @click="thissub(a.id)">{{a.id}}</a></li>
           </ul>
+          <div class="alert alert-danger " id="subtipsc" style="display: none;">{{subtipsc}}</div>
           <div id="myTab" class="tab-content">
             <div class="tab-pane fade tab-pa" :id="b.id"  v-for="b in one1">
               <div class="panel panel-default">
@@ -329,7 +330,8 @@
             subvisit:'',
             searchurl:'',
             Mobject:null,
-            Msize:null
+            Msize:null,
+            subtipsc:''
 
           }
       },
@@ -389,8 +391,10 @@
             this.tipsc='普通用户无操作权限！'
             $("#tipsc").show().delay (2000).fadeOut ();;
           }
-          else
-          $('#addnew').modal('show')
+          else {
+            this.cross=''
+            $('#addnew').modal('show')
+          }
         },
         addsend(){
           var id=this.$refs.addid.value
@@ -400,19 +404,31 @@
           }
           else {
             this.$axios.post(this.allurl+'object',{id:id,name:name}).then(function (res) {
+              if (res.data.status == 1) {
+                this.tipsc = '操作成功'
+                $('#tipsc').show().delay(2000).fadeOut()
 
+              }
+              else {
+                this.tipsc = res.data.status
+                $('#tipsc').show().delay(2000).fadeOut()
+
+              }
             }).catch(function (error) {
               console.log(error)
             })
+            $('#addnew').modal('hide')
           }
         },
         subadd(){
           if (sessionStorage.getItem('islogin')==250){
-            this.tipsc='普通用户无操作权限！'
+            this.subtipsc='普通用户无操作权限！'
             $("#tipsc").show().delay (2000).fadeOut ();;
           }
-          else
-          $('#addsub').modal('show')
+          else {
+            this.cross=''
+            $('#addsub').modal('show')
+          }
         },
         subsend(){
           var subname=this.$refs.subname.value
@@ -420,10 +436,18 @@
             this.cross='请填写完整!'
           }
           this.$axios.post(this.allurl+'object/edit',{subname:subname,rankselect:this.rankselect}).then(function (res) {
-
+            if (res.data.status == 1) {
+              this.subtipsc = '操作成功'
+              $('#subtipsc').show().delay(2000).fadeOut()
+            }
+            else {
+              this.subtipsc = res.data.status
+              $('#subtipsc').show().delay(2000).fadeOut()
+            }
           }).catch(function (error) {
             console.log(error)
           })
+          $('#addsub').modal('hide')
         },
         editsend(){
           var name=this.$refs.name.value
@@ -432,10 +456,18 @@
           }
           else {
             this.$axios.post(this.allurl+'object/edit',{control:this.visitold,name:name}).then(function (res) {
-
+              if (res.data.status == 1) {
+                this.tipsc = '操作成功'
+                $('#tipsc').show().delay(2000).fadeOut()
+              }
+              else {
+                this.tipsc = res.data.status
+                $('#tipsc').show().delay(2000).fadeOut()
+              }
             }).catch(function (error) {
               console.log(error)
             })
+            $('#edit').modal('hide')
           }
         },
         subeditsend(){
@@ -444,11 +476,21 @@
             this.cross='请填写完整!'
           }
           else {
-            this.$axios.post(this.allurl+'object/edit',{control:this.subvisit,name:sname}).then(function (res) {
+            this.$axios.post(this.allurl+'object/sub',{control:this.subvisit,name:sname}).then(function (res) {
+              if (res.data.status == 1) {
+                this.subtipsc = '操作成功'
+                $('#subtipsc').show().delay(2000).fadeOut()
 
+              }
+              else {
+                this.tipscontent = res.data.status
+                $('#subtipsc').show().delay(2000).fadeOut()
+
+              }
             }).catch(function (error) {
               console.log(error)
             })
+            $('#subedit').modal('hide')
           }
         },
         editlist(){
@@ -456,24 +498,30 @@
             this.tipsc='普通用户无操作权限！'
             $("#tipsc").show().delay (2000).fadeOut ();;
           }
-          else
-          $('#edit').modal('show')
+          else {
+            this.cross=''
+            $('#edit').modal('show')
+          }
         },
         subedit(){
           if (sessionStorage.getItem('islogin')==250){
-            this.tipsc='普通用户无操作权限！'
+            this.subtipsc='普通用户无操作权限！'
             $("#tipsc").show().delay (2000).fadeOut ();;
           }
-          else
+          else {
+            this.cross=''
             $('#subedit').modal('show')
+          }
         },
         look(){
           if (sessionStorage.getItem('islogin')==250){
             this.tipsc='普通用户无操作权限！'
             $("#tipsc").show().delay (2000).fadeOut ();;
           }
-          else
+          else {
+            this.cross=''
             $('#all').modal('show')
+          }
         },
         deletelist(){
           if (sessionStorage.getItem('islogin')==250){
@@ -488,7 +536,7 @@
         },
         subdelete(){
           if (sessionStorage.getItem('islogin')==250){
-            this.tipsc='普通用户无操作权限！'
+            this.subtipsc='普通用户无操作权限！'
             $("#tipsc").show().delay (2000).fadeOut ();
           }
           else {

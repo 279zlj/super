@@ -47,6 +47,26 @@
         </div>
       </div>
     </div>
+    <div class="modal fade" id="addkey" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="diskdata">新建新密钥</h4>
+          </div>
+          <div class="modal-body">
+            <select class="form-control" v-on:change="keysel($event)" v-model="keysele">
+              <option v-for="m in keys" :value="m.name">{{m.name}}</option>
+            </select>
+            <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+            <button type="button" class="btn btn-primary" @click="addsend()" >{{$t('message.Confirm')}}</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>
     <tips ref="tips" :content=tcontent :dotitle=title :docontent=dosome></tips>
   </div>
 </template>
@@ -62,7 +82,12 @@
           tipsc:'',
           tcontent:'',
           title:'',
-          dosome:''
+          dosome:'',
+          keys:[
+            {name:'access ',value:'access '},
+            {name:'secret ',value:'secret '}
+          ],
+          keysele:''
         }
       },
       methods: {
@@ -80,8 +105,70 @@
             this.tipscontent='普通用户无操作权限！'
             $("#tipscontent").show().delay (2000).fadeOut ();;
           }
-          else
-            $('#addkey').modal("show")
+          else {
+            var ids = $.map($('#objtable').bootstrapTable('getSelections'), function (row) {
+              return row.user;
+            });
+            if (ids.length !== 1) {
+              this.tcontent = '请选择其中一个用户新建密钥'
+              this.$refs.tips.usetips()
+              // alert('请选择其中一个设备进行修改')
+            }
+            else if (ids.length === 1) {
+              this.edit = ids;
+              this.cross=''
+              $('#addkey').modal("show")
+
+            }
+          }
+        },
+        subadd(){
+          if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
+            $("#tipscontent").show().delay (2000).fadeOut ();;
+          }
+          else {
+            var ids = $.map($('#subtable').bootstrapTable('getSelections'), function (row) {
+              return row.user;
+            });
+            if (ids.length !== 1) {
+              this.tcontent = '请选择其中一个子用户新建密钥'
+              this.$refs.tips.usetips()
+              // alert('请选择其中一个设备进行修改')
+            }
+            else if (ids.length === 1) {
+              this.tcontent = '确定为子项目新建密钥？'
+              this.$refs.tips.usetips()
+
+            }
+          }
+        },
+        keysel(event){
+          this.keysele=event.target.value
+        },
+        addsend(){
+          var _this=this
+            if (this.keysele==''){
+              _this.cross='请填写完整'
+            }
+            else {
+              // if (this.unitsele=='fb') {
+              this.$axios.post(this.allurl + 'objectkey', {keys: this.keysele}).then(function (res) {
+                if (res.data.status == 1) {
+                  _this.tipscontent = '操作成功'
+                  $('#tipscontent').show().delay(2000).fadeOut()
+                  $('#table_id').bootstrapTable('refresh')
+                }
+                else {
+                  _this.tipscontent = res.data.status
+                  $('#tipscontent').show().delay(2000).fadeOut()
+                  $('#table_id').bootstrapTable('refresh')
+                }
+              }).catch(function (error) {
+                console.log(error)
+              })
+              $('#addkey').modal('hide')
+            }
         },
         deletelist(){
           if (sessionStorage.getItem('islogin')==250){
@@ -94,7 +181,27 @@
               return row.user;
             });
             if (ids.length < 1) {
-              this.tipscontent = '请选择一个密钥删除项'
+              this.tcontent = '请选择一个用户删除密钥'
+              this.$refs.tips.usetips()
+              // alert('请选择删除项')
+            }
+            else if (ids.length = 1) {
+
+            }
+          }
+        },
+        subdelete(){
+          if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
+            $('#tipscontent').show().delay(2000).fadeOut()
+          }
+          else {
+            this.who = 'subdele'
+            let ids = $.map($('#subtable').bootstrapTable('getSelections'), function (row) {
+              return row.user;
+            });
+            if (ids.length < 1) {
+              this.tcontent = '请选择一个子用户删除密钥'
               this.$refs.tips.usetips()
               // alert('请选择删除项')
             }
@@ -113,6 +220,10 @@
 <style scoped>
   #Aobj{
     margin-top: 3.8em;
+  }
+  .modal-content{
+    background-color:#3E324E ;
+    color: white;
   }
   thead{
     background-color: #372B51;

@@ -239,7 +239,7 @@
             }
             else if (ids.length === 1) {
               this.edit = ids;
-
+              this.cross=''
               $('#editm').modal("show")
 
             }
@@ -430,7 +430,7 @@
             }
             else if (ids.length === 1) {
               this.edit = ids;
-
+              this.cross=''
               $('#dilatation').modal("show")
 
             }
@@ -485,6 +485,7 @@
             else if (ids.length === 1) {
               this.snapi = ids;
               this.spool=ipool
+              this.cross=''
               $('#addsnap').modal("show")
 
             }
@@ -570,7 +571,7 @@
             }
             else if (ids.length === 1) {
               this.clone = ids;
-
+              this.cross=''
               $('#clonesn').modal("show")
 
             }
@@ -581,9 +582,12 @@
             this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay (2000).fadeOut()
           }
-          else
+          else {
+            this.cross=''
             $('#addnew').modal("show")
-        },
+
+          }
+          },
         addsend(){
           let addname=this.$refs.addname.value
           let addsize=this.$refs.addsize.value

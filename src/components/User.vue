@@ -99,7 +99,7 @@
             if (ids.length === 1) {
               this.edit = ids;
               // console.log(ids)
-
+              this.cross=''
               $('#editm').modal("show")
 
             }

@@ -61,39 +61,39 @@ const i18n = new VueI18n({
   }
 })
 
-// router.beforeEach((to,from,next)=>{                          /*路由守卫，禁止直接通过url访问页面内容*/
-//     if (to.meta.requiresAuth) {
-//       if (store.state.islogin=='200'||store.state.islogin=='250'||sessionStorage.getItem('islogin')=='200'||sessionStorage.getItem('islogin')=='250'){
-//         next();
-//         window.document.body.style.backgroundColor = '#2E2245';
-//       }
-//       else {
-//         next({
-//           path:'Login',
-//           query:{
-//             redirect:'/Login'
-//           },
-//
-//         })
-//         window.document.body.style.backgroundColor = '#242424'
-//       }
-//     }
-//     else {
-//       next();
-//       window.document.body.style.backgroundColor = '#2E2245';
-//     }
-//     if (to.name==='Installone'&& from.name=='Installthree'){
-//       router.push({name:'Installtwo'})
-//     }
-//     if (to.name==='Login' || to.name==='Installone' || to.name==='Installtwo' || to.name==='Installthree'){
-//       router.app.$store.state.islogin='0'
-//       sessionStorage.removeItem('islogin');
-//       localStorage.removeItem('islogin')
-//     }
-//     if (to.name==='Resources') {
-//       sessionStorage.setItem('isse','概况')
-//     }
-// })
+router.beforeEach((to,from,next)=>{                          /*路由守卫，禁止直接通过url访问页面内容*/
+    if (to.meta.requiresAuth) {
+      if (store.state.islogin=='200'||store.state.islogin=='250'||sessionStorage.getItem('islogin')=='200'||sessionStorage.getItem('islogin')=='250'){
+        next();
+        window.document.body.style.backgroundColor = '#2E2245';
+      }
+      else {
+        next({
+          path:'Login',
+          query:{
+            redirect:'/Login'
+          },
+
+        })
+        window.document.body.style.backgroundColor = '#242424'
+      }
+    }
+    else {
+      next();
+      window.document.body.style.backgroundColor = '#2E2245';
+    }
+    if (to.name==='Installone'&& from.name=='Installthree'){
+      router.push({name:'Installtwo'})
+    }
+    if (to.name==='Login' || to.name==='Installone' || to.name==='Installtwo' || to.name==='Installthree'){
+      router.app.$store.state.islogin='0'
+      sessionStorage.removeItem('islogin');
+      localStorage.removeItem('islogin')
+    }
+    if (to.name==='Resources') {
+      sessionStorage.setItem('isse','概况')
+    }
+})
 
 /* eslint-disable no-new */
 new Vue({

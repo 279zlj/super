@@ -130,6 +130,7 @@
               if($el.data("item") == "edit"){
                 this.edit=row.snapname
                 // alert(this.ids)
+                this.cross=''
                 $('#editm').modal("show")
                 return this.edit
               }
@@ -143,7 +144,7 @@
               if($el.data("item") == "clone"){
                 var _this=this
                 _this.clone=row.snapid
-
+                this.cross=''
                 $('#clonesna').modal("show")
                 return _this.clone
             }
@@ -249,7 +250,7 @@
             }
             else if (ids.length === 1) {
               this.edit = ids;
-
+              this.cross=''
               $('#editm').modal("show")
 
             }
@@ -302,7 +303,7 @@
             }
             else if (ids.length === 1) {
               this.clone = ids;
-
+              this.cross=''
               $('#clonesna').modal("show")
 
             }

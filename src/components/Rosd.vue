@@ -341,9 +341,10 @@
             if (sessionStorage.getItem('islogin')==250){
               $('#tipscontent').show().delay (2000).fadeOut()
             }
-            else
+            else {
+              this.cross=''
               $('#editm').modal("show")
-
+            }
         },
         piechart() {                        /*cpu使用率饼状图*/
           var _this=this
