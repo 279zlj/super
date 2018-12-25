@@ -22,7 +22,6 @@ import '@/assets/dist/bootstrap-table.css'
 // import 'jquery-treegrid/js/jquery.treegrid.js'
 import '@/assets/dist/bootstrap-table.js'
 // import '@/assets/dist/extensions/treegrid/bootstrap-table-treegrid.js'
-
 import '@/assets/dist/locale/bootstrap-table-zh-CN.min.js'
 import '@/assets/js/bootstrap-table-contextmenu.js'
 import '@/assets/dist/ga.js'

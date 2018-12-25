@@ -144,7 +144,7 @@
         </div>
 
       </div>
-      <div id="myCarousel" class="col-lg-8 col-md-8 col-sm-12 col-xs-12 carousel slide" data-ride="carousel" data-interval="10000">
+      <div id="myCarousel" class="col-lg-8 col-md-8 col-sm-12 col-xs-12 carousel slide" data-ride="carousel" data-interval="15000">
         <ol class="carousel-indicators">
           <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
           <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -1093,7 +1093,7 @@
 
   }
   .num{
-    font-size: medium;line-height:2em;text-align: center;color:white;white-space: nowrap;text-overflow: ellipsis;margin-left: -5px;
+    font-size: medium;line-height:2em;text-align: center;color:white;white-space: nowrap;text-overflow: ellipsis;margin-left: -15px;
   }
   .numa{
     font-size: medium;line-height:2em;text-align: center;padding-right: -25px;white-space: nowrap;text-overflow: ellipsis;color:white;margin-left: -10px;

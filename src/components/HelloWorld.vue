@@ -13,11 +13,8 @@
         <a href="#" class="navbar-brand nav-title bg">
           <!--<img src="../../static/image/logo.png" class="img-responsive imgg"/>-->
           <div class="box" id="box" @mouseover="looksome()" @mouseleave="lookdo()">
-            <div class="first img-responsive"></div>
-            <div class="second img-responsive"></div>
-            <div class="three img-responsive"><img src="../../static/image/logo.png" class="img-responsive"/></div>
-            <div class="four img-responsive"><img src="../../static/image/wuzhou.png" class="img-responsive"/></div>
-
+            <div class="three img-responsive" id="three"><img src="../../static/image/logo.png" class="img-responsive"/></div>
+            <div class="four img-responsive" id="four" ><img src="../../static/image/wuzhou.png" class="img-responsive"/></div>
           </div>
         </a>
       </div>
@@ -325,6 +322,18 @@ export default {
       if (sessionStorage.getItem('islogin')==250)
         $('#addno').addClass('disabled')
     },
+    roate(){
+      setInterval(function () {
+        $('#three').fadeIn('slow')
+        $('#four').slideDown(5000)
+        $('#four').fadeOut('slow')
+        $('#three').slideDown(5000)
+        // $('#four').slideUp('slow')
+        // $('#three').slideUp('slow')
+
+      },5000)
+
+    }
     // looksome(){
     //   $('#box').removeClass('box')
     // },
@@ -338,6 +347,7 @@ export default {
   mounted(){
     // this.outlog()
     $("[data-toggle='tooltip']").tooltip();
+    this.roate()
     // console.log(this.$store.state.islogin)
     if (sessionStorage.getItem('islogin')==200){
       this.user='Admin'
@@ -379,7 +389,7 @@ export default {
   .mp{
     margin: 0;padding: 0;
 
-    background-color: #2E2245;
+    /*background-color: #2E2245;*/
   }
   a{
     text-decoration: none;
@@ -482,9 +492,9 @@ export default {
     width:100%;
     height:100%;
     position:relative;
-    transform-style: preserve-3d;
-    transform:rotateX(0deg);
-    animation:rotate 10s infinite linear;
+    /*transform-style: preserve-3d;*/
+    /*transform:rotateX(0deg);*/
+    /*animation:rotate 10s infinite linear;*/
   }
   .box>div{
     width:100%;
@@ -493,24 +503,9 @@ export default {
     position:absolute;
     /*  transition:transform 5s ease-in; */
   }
-  .first{
-    height: 1em !important;
-    transform: translateY(2.3em) translateZ(0em) rotateX(90deg);
-    background-color:  #0090ff;
-  }
-  .second{
-    height: 1em !important;
-    transform: translateY(-.5em) translateZ(0em) rotateX(90deg);
-    background-color:  #0090ff;
-  }
-  .five{
-
-  }
-  .six{
-
-  }
   .three{
-    transform:rotateX(0deg) translateZ(.4em);
+    /*transform:rotateX(0deg) translateZ(.4em);*/
+    /*display: none;*/
     background-color: #0090ff;
     /*background-image: url("../../static/image/logo.png") ;*/
     background-size: cover;
@@ -518,8 +513,9 @@ export default {
   }
 
   .four{
-    transform:rotateX(180deg) translateZ(.4em);
+    /*transform:rotateX(180deg) translateZ(.4em);*/
     background-color: #0090ff;
+    display: none;
     /*background-image: url("../../static/image/wuzhou.png") ;*/
     background-size: cover;
     opacity:1;
