@@ -11,10 +11,12 @@
           <span class="icon-bar" data-toggle="collapse" data-target="#navbar-menu"></span>
         </button>
         <a href="#" class="navbar-brand nav-title bg">
-          <!--<img src="../../static/image/logo.png" class="img-responsive imgg"/>-->
-          <div class="box" id="box" @mouseover="looksome()" @mouseleave="lookdo()">
-            <div class="three img-responsive" id="three"><img src="../../static/image/logo.png" class="img-responsive"/></div>
-            <div class="four img-responsive" id="four" ><img src="../../static/image/wuzhou.png" class="img-responsive"/></div>
+          <div class="box" id="box">
+            <div class="first img-responsive"></div>
+            <div class="second img-responsive"></div>
+            <div class="three img-responsive"><img src="../../static/image/logo.png" class="img-responsive"/></div>
+            <div class="four img-responsive"><img src="../../static/image/wuzhou.png" class="img-responsive"/></div>
+
           </div>
         </a>
       </div>
@@ -389,7 +391,7 @@ export default {
   .mp{
     margin: 0;padding: 0;
 
-    /*background-color: #2E2245;*/
+    background-color: #2E2245;
   }
   a{
     text-decoration: none;
@@ -492,34 +494,69 @@ export default {
     width:100%;
     height:100%;
     position:relative;
-    /*transform-style: preserve-3d;*/
+    transform-style: preserve-3d;
     /*transform:rotateX(0deg);*/
+    transform: perspective(180px) rotateX(0deg) rotateY(0deg);
     /*animation:rotate 10s infinite linear;*/
+    animation: xuanzhuan 10s cubic-bezier(0.0,0.0,0.0,0.0) infinite forwards;
   }
   .box>div{
     width:100%;
     height:100%;
     /*border:1px solid #FFFFFF;*/
     position:absolute;
+    top: 0;
+    left: 0;
     /*  transition:transform 5s ease-in; */
   }
+  .first{
+    height: 1em !important;
+    transform: translateY(2.25em) translateZ(0em) rotateX(90deg);
+    background-color:  #00b5FF;
+  }
+  .second{
+    height: 1em !important;
+    transform: translateY(-.5em) translateZ(0em) rotateX(90deg);
+    background-color:  #00b5FF;
+  }
   .three{
-    /*transform:rotateX(0deg) translateZ(.4em);*/
-    /*display: none;*/
-    background-color: #0090ff;
+    transform:rotateX(0deg) translateZ(.5em);
+    background-color: #0590FF;
     /*background-image: url("../../static/image/logo.png") ;*/
     background-size: cover;
     opacity:1;
   }
-
   .four{
-    /*transform:rotateX(180deg) translateZ(.4em);*/
-    background-color: #0090ff;
-    display: none;
+    transform:rotateX(180deg) translateZ(.5em);
+    background-color: #0590FF;
     /*background-image: url("../../static/image/wuzhou.png") ;*/
     background-size: cover;
     opacity:1;
   }
+  @keyframes xuanzhuan
+  {
+    from{
+      transform:perspective(180px) rotateX(0deg);
+    }
+    to{
+      transform:perspective(180px) rotateX(360deg);
+    }
+  }
+
+  @-webkit-keyframes xuanzhuan{
+    from{
+      transform:perspective(180px) rotateX(0deg);
+    }
+    to{
+      transform:perspective(180px) rotateX(360deg);
+    }
+  }
+  .box:hover{
+    transform: perspective(180px) scale(1.5);
+    animation: xuanzhuan 10s cubic-bezier(0.0,0.0,0.0,0.0) infinite paused forwards;
+    /*有hover事件是动画暂停*/
+  }
+
 
   .active{
     background-color: #3F3456;
