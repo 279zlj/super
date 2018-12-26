@@ -25,6 +25,7 @@ import {
     HemisphereLight,
     DirectionalLight
 } from 'three'
+import { SpriteText2D, textAlign } from 'three-text2d'
 import { getSize, getCenter } from './util'
 import { OrbitControls } from './controls/OrbitControls'
 
@@ -109,7 +110,11 @@ export default {
         gammaOutput: {
             type: Boolean,
             default: false
-        }
+        },
+      spritetext:{
+          type:String,
+        default: '服务器状态：CPU温度：30'
+      }
     },
     data() {
         return {
@@ -121,7 +126,7 @@ export default {
             object: null,
             raycaster: new Raycaster(),
             mouse: new Vector2(),
-            camera: new PerspectiveCamera( 45, 1, 0.01, 100000 ),
+            camera: new PerspectiveCamera( 100, 1, 0.1, 100 ),
             scene: new Scene(),
             wrapper: new Object3D(),
             renderer: null,
@@ -162,7 +167,10 @@ export default {
 
         this.load();
         this.update();
-
+        this.drawtext();
+        // var sprite = new SpriteText2D(this.spritetext, { align: textAlign.topLeft,  font: '2px', fillStyle: '#FFFFFF' , antialias: false })
+        // this.scene.add(sprite)
+        // alert(this.spritetext)
         this.$el.addEventListener( 'mousedown', this.onMouseDown, false );
         this.$el.addEventListener( 'mousemove', this.onMouseMove, false );
         this.$el.addEventListener( 'mouseup', this.onMouseUp, false );
@@ -194,6 +202,13 @@ export default {
                 this.object.rotation.set( val.x, val.y, val.z );
             }
         },
+      spritetext:{
+        deep: true,
+          handler( val) {
+          this.drawtext();
+        }
+        // this.drawtext()
+      },
         position: {
             deep: true,
             handler( val ) {
@@ -302,7 +317,7 @@ export default {
             this.updateCamera();
             this.updateLights();
             this.updateControls();
-
+            this.drawtext()
         },
         updateModel() {
 
@@ -454,6 +469,12 @@ export default {
             }
 
         },
+      drawtext(){
+        if ( !this.spritetext ) return;
+          var sprite = new SpriteText2D(this.spritetext, { align: textAlign.bottomLeft,  font: '0.5px', fillStyle: '#FFFFFF' , antialias: false })
+          this.scene.add(sprite)
+
+      },
         load() {
 
             if ( !this.src ) return;

@@ -17,7 +17,7 @@
             <p>阵列卡温度：</p>
           </div>
         </div>
-        <model-gltf :backgroundAlpha="bgAlpha" :rotation="rotation" @on-load="onLoad" @on-click="panelshow" :position="where" :backgroundColor="bgColor" src="../../static/server/server01.gltf" :cameraPosition="camera" :width="wid" :height="hei"></model-gltf>
+        <model-gltf :backgroundAlpha="bgAlpha" :drawtext="sprite"  @on-load="onLoad" :position="where" :backgroundColor="bgColor" src="../../static/server/server01.gltf" :cameraPosition="camera" :width="wid" :height="hei"></model-gltf>
         <!--<div ref="server3d"></div>-->
       </div>
     </div>
@@ -25,7 +25,8 @@
 
 <script>
   import ModelGltf from "../assets/vue-3d/model-gltf";
-    export default {
+
+  export default {
         name: "server",
       // components:{tips},
       components: {
@@ -33,7 +34,7 @@
         // ModelObj
       },
       data:()=>({
-        camera:{x:0, y:25, z:-75},
+        camera:{x:0, y:25, z:-70},
         bgAlpha:.3,
         bgColor:'#2E2245',
         wid:1000,
@@ -41,6 +42,7 @@
         tcontent:'',
         ttitle:'',
         dosome:'',
+        sprite:'Are you ok?',
         rotation: {
           x:0,
           y:0,

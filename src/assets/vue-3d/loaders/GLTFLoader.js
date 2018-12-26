@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { LoaderUtils } from './LoaderUtils.js'
-
+import { SpriteText2D, textAlign } from 'three-text2d'
 /**
 * @author Rich Tibbett / https://github.com/richtr
 * @author mrdoob / http://mrdoob.com/
@@ -2625,7 +2625,8 @@ GLTFParser.prototype.loadScene = ( function () {
                 scene.add( lights[ sceneDef.extensions[ EXTENSIONS.KHR_LIGHTS ].light ] );
 
             }
-
+          // var sprite = new SpriteText2D("SPRITE", { align: textAlign.top,  font: '10px Arial', fillStyle: '#000000' , antialias: false })
+          // scene.add(sprite)
             return scene;
 
         } );
