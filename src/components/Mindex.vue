@@ -121,7 +121,7 @@ tr{
   padding-bottom: 5em !important;
 }
 thead{
-  font-size: 1.2em;
+  font-size: 1em;
   background-color: #34284C;
   border-radius: 5px;
 }

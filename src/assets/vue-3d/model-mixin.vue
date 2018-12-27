@@ -25,6 +25,7 @@ import {
     HemisphereLight,
     DirectionalLight
 } from 'three'
+import * as THREE from 'three'
 import { SpriteText2D, textAlign } from 'three-text2d'
 import { getSize, getCenter } from './util'
 import { OrbitControls } from './controls/OrbitControls'
@@ -113,7 +114,7 @@ export default {
         },
       spritetext:{
           type:String,
-        default: '服务器状态：CPU温度：30'
+        default: '[]'
       }
     },
     data() {
@@ -126,7 +127,7 @@ export default {
             object: null,
             raycaster: new Raycaster(),
             mouse: new Vector2(),
-            camera: new PerspectiveCamera( 100, 1, 0.1, 100 ),
+            camera: new PerspectiveCamera( 70, 1, 0.01, 10000 ),
             scene: new Scene(),
             wrapper: new Object3D(),
             renderer: null,
@@ -168,9 +169,8 @@ export default {
         this.load();
         this.update();
         this.drawtext();
-        // var sprite = new SpriteText2D(this.spritetext, { align: textAlign.topLeft,  font: '2px', fillStyle: '#FFFFFF' , antialias: false })
-        // this.scene.add(sprite)
-        // alert(this.spritetext)
+        this.drawtext()
+      // alert(this.spritetext)
         this.$el.addEventListener( 'mousedown', this.onMouseDown, false );
         this.$el.addEventListener( 'mousemove', this.onMouseMove, false );
         this.$el.addEventListener( 'mouseup', this.onMouseUp, false );
@@ -470,9 +470,18 @@ export default {
 
         },
       drawtext(){
-        if ( !this.spritetext ) return;
-          var sprite = new SpriteText2D(this.spritetext, { align: textAlign.bottomLeft,  font: '0.5px', fillStyle: '#FFFFFF' , antialias: false })
-          this.scene.add(sprite)
+        var sprite = new SpriteText2D(this.spritetext, { align: textAlign.bottomLeft, fillStyle: '#FFFFFF' , antialias: true })
+        this.scene.add(sprite)
+        var geometry = new THREE.CubeGeometry(1, 60, 1);//创建一个立方体
+        var material = new THREE.MeshBasicMaterial({color: '#FFFFFF'});//填充的材质
+        var cube = new THREE.Mesh(geometry, material);//网格绘制
+        cube.position.x=0
+        cube.position.y=38
+        cube.position.z=0
+        this.scene.add(cube);//场景添加网格
+        // if ( !this.spritetext ) return;
+        //   var sprite = new SpriteText2D(this.spritetext, { align: textAlign.bottomLeft,fillStyle: '#FFFFFF' , antialias: false })
+        //   this.scene.add(sprite)
 
       },
         load() {

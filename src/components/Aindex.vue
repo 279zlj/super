@@ -441,7 +441,7 @@
     border-radius: 5px;
   }
   thead{
-    font-size: 1.2em;
+    font-size: 1em;
     background-color: #3F3456;
     border-radius: 5px;
   }

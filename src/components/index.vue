@@ -164,7 +164,7 @@
         </div>
         <div class="item" id="gl" style="width: 100%;height: 100%;">
           <!--<canvas id="webgl"></canvas>-->
-          <server></server>
+          <server :sstatic="staticall"></server>
         </div>
         <div style="text-align: right">
         <input type="button" class="btn-xs btn-info pause-slide" @click="startcar()" value="Start" >
@@ -235,18 +235,23 @@
 </template>
 
 <script>
+  import Vue from 'vue';
   import echarts from 'echarts';
   import 'echarts/lib/echarts.js';
   import 'echarts/lib/chart/map';
   import 'echarts/map/js/china.js';
-  import server from './server3d'
+  // import server from './server3d'
   // import * as THREE from 'three'
   // import {darw} from "../assets/js/draw";
-
-  import liquidfill from 'echarts-liquidfill'
+  import liquidfill from 'echarts-liquidfill';
+  const later = Vue.component('server', function (resolve) {
+    setTimeout(function () {
+      require(['./server3d.vue'], resolve)
+    }, 3000);
+  });
   export default {
     name: "index",
-    components: {server},
+    components: {later},
     echarts,
     liquidfill,
     data(){
@@ -268,7 +273,8 @@
         write_time:'',
         busy_time:'',
         activate_node:'',
-        standby_node:{}
+        standby_node:{},
+        staticall:''
       }
     },
 
@@ -282,6 +288,7 @@
       this.initWebSocket()
       this.getall()
       this.timer()
+      this.staticall='CPU温度：30°C,风扇转速：300转,显卡温度：25°C'
       // darw()
       // $('.carousel').carousel('cycle')
 
@@ -520,7 +527,7 @@
             lineStyle: {
               color: 'white'
             },
-            max: 100,
+            max: 300,
             "axisLine": {
               lineStyle: {
                 color: 'white'
@@ -712,7 +719,7 @@
           },
           ],
           yAxis: {
-            name: 'b/s',
+            name: '',
             lineStyle: {
               color: 'white'
             },
@@ -751,7 +758,7 @@
             },
           ],
           series: [ {
-            name: 'MBPS-Write',
+            name: 'MBPS-Read',
             smooth: true,
             type: 'line',
             symbol: 'none',
@@ -790,7 +797,7 @@
             },
           },
             {
-              name: 'MBPS-Read',
+              name: 'MBPS-Write',
               smooth: true,
               type: 'line',
               symbol: 'none',

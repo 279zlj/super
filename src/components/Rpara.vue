@@ -10,7 +10,6 @@
                 <col style="width:35%" />
               </colgroup>
               <thead>
-
                 <th>{{$t('message.Config-Options')}}</th>
                 <th>{{$t('message.Parameter')}}</th>
               </thead>
@@ -344,14 +343,18 @@
   border-radius: 6px;
 }
   th{
-    font-size: 1.2em;
+    font-size: 1.1em;
     text-align: center;
     line-height: 3em;
+  }
+  td{
+    font-size: 1em !important;
   }
   .bg{
     background-color: #392C53;
     margin-top: 4.9em;
   }
+
 @media screen and (max-width: 425px) {
   .bg{
     margin-top: 1.5em;

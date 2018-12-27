@@ -17,7 +17,7 @@
             <p>阵列卡温度：</p>
           </div>
         </div>
-        <model-gltf :backgroundAlpha="bgAlpha" :drawtext="sprite"  @on-load="onLoad" :position="where" :backgroundColor="bgColor" src="../../static/server/server01.gltf" :cameraPosition="camera" :width="wid" :height="hei"></model-gltf>
+        <model-gltf :backgroundAlpha="bgAlpha" :spritetext="sstatic" @on-load="onLoad"  :position="where" :backgroundColor="bgColor" src="../../static/server/server.gltf" :cameraPosition="camera" :width="wid" :height="hei"></model-gltf>
         <!--<div ref="server3d"></div>-->
       </div>
     </div>
@@ -25,7 +25,6 @@
 
 <script>
   import ModelGltf from "../assets/vue-3d/model-gltf";
-
   export default {
         name: "server",
       // components:{tips},
@@ -33,8 +32,15 @@
         ModelGltf,
         // ModelObj
       },
+
+    props:['sstatic'],
+    watch:{
+      staticall(){
+        return this.staticall
+      }
+    },
       data:()=>({
-        camera:{x:0, y:25, z:-70},
+        camera:{x:0, y:70, z:-260},
         bgAlpha:.3,
         bgColor:'#2E2245',
         wid:1000,
@@ -42,13 +48,13 @@
         tcontent:'',
         ttitle:'',
         dosome:'',
-        sprite:'Are you ok?',
+        sstatic:'',
         rotation: {
           x:0,
           y:0,
           z:0
         },
-        where:{ x: 0, y: 0, z: 20 },
+        where:{ x: 0, y: 0, z: -10 },
         server:[
           {name:'node1',osd:['ada','adb','adv'],static:['ok','error','ok'],row:6,cloumn:3},
           {name:'node2',osd:['ada','adb','adv'],static:['ok','ok','ok'],row:6,cloumn:3},
@@ -59,11 +65,13 @@
           this.$nextTick(()=>{
             this.init()
           })
+        // this.sprite='CPU温度：30°C,风扇转速：300转,显卡温度：20°C'
       },
       mounted(){
         this.init()
         this.drawserver(this.server)
         $("[data-toggle='tooltip']").tooltip({html:true});
+
 
       },
       methods: {
@@ -74,6 +82,7 @@
             $('#alert').hide()
           })
           $('#allpanel').css({'width':w,'height':h*0.5})
+
         },
         onLoad () {
           this.rotate();

@@ -130,6 +130,7 @@
                 $('#tipscontent').show().delay(2000).fadeOut()
                 $('#table_id').bootstrapTable('refresh')
               }
+              $('#table_id').bootstrapTable('refresh')
             }).catch(function (error) {
               console.log(error)
             })

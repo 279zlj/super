@@ -498,7 +498,8 @@ export default {
     /*transform:rotateX(0deg);*/
     transform: perspective(180px) rotateX(0deg) rotateY(0deg);
     /*animation:rotate 10s infinite linear;*/
-    animation: xuanzhuan 10s cubic-bezier(0.0,0.0,0.0,0.0) infinite forwards;
+    animation: xuanzhuan 20s infinite;
+
   }
   .box>div{
     width:100%;
@@ -535,19 +536,37 @@ export default {
   }
   @keyframes xuanzhuan
   {
-    from{
+    0%{
       transform:perspective(180px) rotateX(0deg);
     }
-    to{
+    10%,20%,30%,40%{
+      transform:perspective(180px) rotateX(180deg);
+    }
+    50%{
+      transform:perspective(180px) rotateX(180deg);
+    }
+    60%,70%,80%,90%{
+      transform:perspective(180px) rotateX(360deg);
+    }
+    100%{
       transform:perspective(180px) rotateX(360deg);
     }
   }
 
   @-webkit-keyframes xuanzhuan{
-    from{
+    0%{
       transform:perspective(180px) rotateX(0deg);
     }
-    to{
+    10%,20%,30%,40%{
+      transform:perspective(180px) rotateX(180deg);
+    }
+    50%{
+      transform:perspective(180px) rotateX(180deg);
+    }
+    60%,70%,80%,90%{
+      transform:perspective(180px) rotateX(360deg);
+    }
+    100%{
       transform:perspective(180px) rotateX(360deg);
     }
   }

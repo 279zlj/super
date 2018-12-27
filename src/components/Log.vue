@@ -205,6 +205,7 @@
                 $('#tipscontent').show().delay(2000).fadeOut()
                 $('#logt').bootstrapTable('refresh')
               }
+              $('#logt').bootstrapTable('refresh')
             }).catch(function (error) {
               console.log(error)
             })

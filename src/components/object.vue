@@ -647,15 +647,15 @@
     /*width: 75%;*/
   }
   .panel-heading{
-    background-color: #C17F00;
-    color: white;
-    text-align: center;
+    background-color: #C17F00 !important;
+    color: white !important;
+    text-align: center !important;
 
   }
   .panel-default{
-    border-color: #372B51;
-    margin-top: 2em;
-    background-color: #3E285A;
+    border-color: #372B51 !important;
+    margin-top: 2em !important;
+    background-color: #3E285A !important;
   }
     .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover{
       color: white;
@@ -694,7 +694,7 @@
 
     }
     .input-group{
-      float: left;
+      float: left !important;
     }
   .subuser{
     height: 25em;

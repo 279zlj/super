@@ -30,7 +30,7 @@
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <div id="liquidFill" class="grid"></div>
+                <div id="RliquidFill" class="grid"></div>
               </div>
             </div>
           </div>
@@ -58,12 +58,12 @@
         <div class="row two container-fluid">
         <div class="row container-fluid" >
           <div class="row">
-            <div class="col-lg-3 col-md-6 col-md-6 col-xs-6">
-              <h4>
+            <div class="col-lg-5 col-md-6 col-md-6 col-xs-6">
+              <p style="font-size: 1.15em">
                 {{$t('message.Node')}} CPU {{$t('message.Usage')}}/TOP3
-              </h4>
+              </p>
             </div>
-            <div class="col-lg-3 col-lg-offset-6 col-md-6 col-md-6 col-xs-6">
+            <div class="col-lg-3 col-lg-offset-4 col-md-6 col-md-6 col-xs-6">
               <button  class="btn btn-default btn-sm bi" @click="cputop()">{{$t('message.View-All')}}</button>
               <!--<input type="button" class="btn btn-default btn-sm bi" value="查看全部" @click="cputop()"/>-->
             </div>
@@ -85,12 +85,12 @@
         </div>
         <div class="row container-fluid" style="margin-bottom: 2em">
           <div class="row">
-            <div class="col-lg-3 col-md-6 col-md-6 col-xs-6">
-              <h4>
+            <div class="col-lg-5 col-md-6 col-md-6 col-xs-6">
+              <p style="font-size: 1.15em">
                 {{$t('message.Node')}} IOPS/TOP3
-              </h4>
+              </p>
             </div>
-            <div class="col-lg-3 col-lg-offset-6 col-md-6 col-md-6 col-xs-6">
+            <div class="col-lg-3 col-lg-offset-4 col-md-6 col-md-6 col-xs-6">
               <button  class="btn btn-default btn-sm bi" @click="iopstop()">{{$t('message.View-All')}}</button>
               <!--<input type="button" class="btn btn-default btn-sm bi" value="查看全部" @click="iopstop()"/>-->
             </div>
@@ -111,41 +111,41 @@
         </div>
         <div class="row container-fluid" style="margin-bottom: 1em">
           <div class="row">
-            <div class="col-lg-3 col-md-6 col-md-6 col-xs-6">
-              <h4>
+            <div class="col-lg-5 col-md-6 col-md-6 col-xs-6">
+              <p style="font-size: 1.15em">
                 {{$t('message.Node')}} MBPS/TOP3
-              </h4>
+              </p>
             </div>
-            <div class="col-lg-3 col-lg-offset-6 col-md-6 col-md-6 col-xs-6">
-              <button  class="btn btn-default btn-sm bi" @click="mbpstop()">{{$t('message.View-All')}}</button>
-              <!--<input type="button" class="btn btn-default btn-sm bi" value="查看全部" @click="mbpstop()"/>-->
-            </div>
-          </div>
+            <div class="col-lg-3 col-lg-offset-4      col-md-6 col-md-6 col-xs-6">
+      <button  class="btn btn-default btn-sm bi" @click="mbpstop()">{{$t('message.View-All')}}</button>
+      <!--<input type="button" class="btn btn-default btn-sm bi" value="查看全部" @click="mbpstop()"/>-->
+    </div>
+  </div>
 
-          <div class="row">
-            <table class="table-condensed table-responsive table">
-              <tbody>
-              <tr v-for="i in $store.state.mbps">
-                <td>{{i.ip}}</td>
-                <td>{{i.network[0]}}/{{i.network[1]}}</td>
-                <td :class="{'successa':i.status==='正常','fail':i.status==='不健康'}">{{i.status}}</td>
-                <td>{{i.time}}</td>
-              </tr>
-              </tbody>
-            </table>
+  <div class="row">
+    <table class="table-condensed table-responsive table">
+      <tbody>
+      <tr v-for="i in $store.state.mbps">
+        <td>{{i.ip}}</td>
+        <td>{{i.network[0]}}/{{i.network[1]}}</td>
+        <td :class="{'successa':i.status==='正常','fail':i.status==='不健康'}">{{i.status}}</td>
+        <td>{{i.time}}</td>
+      </tr>
+      </tbody>
+    </table>
 
-          </div>
-        </div>
-        </div>
-        </div>
-      </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
 
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="row container-fluid">
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bbone">
             <div class="warn">
               <div class="row container-fluid">
-                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="font-size: 18px;height: 2em">
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="font-size: 17px;height: 2em">
                   {{$t('message.Warning-Event')}}
                   <span class=" label label-danger" style="vertical-align: super" title="紧急"  data-toggle="tooltip" data-placement="top">{{$store.state.jj}}</span>
                   <span class=" label label-warning" style="vertical-align: super" title="重要" data-toggle="tooltip" data-placement="top">{{$store.state.zy}}</span>
@@ -261,7 +261,7 @@
       // },
       methods:{
         liquidFill(use){
-          var liquid = this.$echarts.init(document.getElementById('liquidFill'));
+          var Rliquid = this.$echarts.init(document.getElementById('RliquidFill'));
           var option = {
 
             series: [{
@@ -284,7 +284,7 @@
               }
             }]
           };
-          liquid.setOption(option);
+          Rliquid.setOption(option);
         },
         pie(use) {
           var pie = this.$echarts.init(document.getElementById('piechart'));
@@ -540,6 +540,6 @@
     width: 11em;
   }
 .bi{
-  margin-top: .3em;background-color: #6B6DAE;color: white
+  margin-bottom: 0.5em;background-color: #6B6DAE;color: white
 }
 </style>
