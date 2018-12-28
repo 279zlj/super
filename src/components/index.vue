@@ -164,7 +164,7 @@
         </div>
         <div class="item" id="gl" style="width: 100%;height: 100%;">
           <!--<canvas id="webgl"></canvas>-->
-          <server :sstatic="staticall"></server>
+          <server :sstatic="staticall" :sfan="ssfan" :scard="sscard"></server>
         </div>
         <div style="text-align: right">
         <input type="button" class="btn-xs btn-info pause-slide" @click="startcar()" value="Start" >
@@ -274,7 +274,9 @@
         busy_time:'',
         activate_node:'',
         standby_node:{},
-        staticall:''
+        staticall:'',
+        ssfan:'',
+        sscard:''
       }
     },
 
@@ -288,7 +290,10 @@
       this.initWebSocket()
       this.getall()
       this.timer()
-      this.staticall='CPU温度：30°C,风扇转速：300转,显卡温度：25°C'
+      this.staticall='CPU温度：30°C'
+      this.ssfan='风扇转速：300转'
+      this.sscard='显卡温度：25°C'
+      // alert(this.fan)
       // darw()
       // $('.carousel').carousel('cycle')
 

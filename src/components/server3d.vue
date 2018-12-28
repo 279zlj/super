@@ -17,7 +17,7 @@
             <p>阵列卡温度：</p>
           </div>
         </div>
-        <model-gltf :backgroundAlpha="bgAlpha" :spritetext="sstatic" @on-load="onLoad"  :position="where" :backgroundColor="bgColor" src="../../static/server/server.gltf" :cameraPosition="camera" :width="wid" :height="hei"></model-gltf>
+        <model-gltf :backgroundAlpha="bgAlpha" :spritetext="sastatic" :spritefun="safun" :spritecard="sacard" @on-load="onLoad"  :position="where" :backgroundColor="bgColor" src="../../static/server/server2801.gltf" :cameraPosition="camera" :width="wid" :height="hei"></model-gltf>
         <!--<div ref="server3d"></div>-->
       </div>
     </div>
@@ -33,34 +33,44 @@
         // ModelObj
       },
 
-    props:['sstatic'],
+    props:['sstatic','sfun','scard'],
     watch:{
-      staticall(){
-        return this.staticall
+      sstatic(){
+        return this.sastatic=this.sstatic
+      },
+      sfun(){
+        return this.safun=this.sfun
+      },
+      scard(){
+        return this.sacard=this.scard
       }
     },
-      data:()=>({
-        camera:{x:0, y:70, z:-260},
-        bgAlpha:.3,
-        bgColor:'#2E2245',
-        wid:1000,
-        hei:443,
-        tcontent:'',
-        ttitle:'',
-        dosome:'',
-        sstatic:'',
-        rotation: {
-          x:0,
-          y:0,
-          z:0
-        },
-        where:{ x: 0, y: 0, z: -10 },
-        server:[
-          {name:'node1',osd:['ada','adb','adv'],static:['ok','error','ok'],row:6,cloumn:3},
-          {name:'node2',osd:['ada','adb','adv'],static:['ok','ok','ok'],row:6,cloumn:3},
-          {name:'node3',osd:['ada','adb','adv'],static:['ok','ok','ok'],row:6,cloumn:3}
-        ]
-      }),
+      data(){
+          return {
+            camera: {x: 0, y: 70, z: -260},
+            bgAlpha: .3,
+            bgColor: '#2E2245',
+            wid: 1000,
+            hei: 443,
+            tcontent: '',
+            ttitle: '',
+            dosome: '',
+            sastatic:this.sstatic,
+            safun: this.sfun,
+            sacard: this.scard,
+            rotation: {
+              x: 0,
+              y: 0,
+              z: 0
+            },
+            where: {x: 0, y: 0, z: -10},
+            server: [
+              {name: 'node1', osd: ['ada', 'adb', 'adv'], static: ['ok', 'error', 'ok'], row: 6, cloumn: 3},
+              {name: 'node2', osd: ['ada', 'adb', 'adv'], static: ['ok', 'ok', 'ok'], row: 6, cloumn: 3},
+              {name: 'node3', osd: ['ada', 'adb', 'adv'], static: ['ok', 'ok', 'ok'], row: 6, cloumn: 3}
+            ],
+          }
+      },
       created(){
           this.$nextTick(()=>{
             this.init()
@@ -71,7 +81,7 @@
         this.init()
         this.drawserver(this.server)
         $("[data-toggle='tooltip']").tooltip({html:true});
-
+        // alert(this.safun)
 
       },
       methods: {
@@ -111,9 +121,9 @@
               "</div>")
             for (let i=0;i<server[a].osd.length;i++) {
               if (server[a].static[i]=='ok')
-                $('#'+server[a].name).append('<img src="../../static/image/cipan.png" class="img-responsive"  data-toggle="tooltip" title="Name：'+server[a].osd[i]+'<br>Static：'+server[a].static[i]+'" data-placement="bottom" style="width: 10%;margin:.1em 0em 0em 1.2em;display: inline-block;cursor: pointer" />')
+                $('#'+server[a].name).append('<img src="../../static/image/cipan.png" class="img-responsive"  data-toggle="tooltip" title="Name：'+server[a].osd[i]+'<br>Static：'+server[a].static[i]+'" data-placement="bottom" style="width: 14%;margin:.1em 0em 0em .5em;display: inline-block;cursor: pointer" />')
               else
-                $('#'+server[a].name).append('<img src="../../static/image/cipanerror.png" class="img-responsive"  data-toggle="tooltip" title="Name：'+server[a].osd[i]+'<br>Static：'+server[a].static[i]+'" data-placement="bottom" style="width: 10%;margin:.1em 0em 0em 1.2em;display: inline-block;cursor: pointer" />')
+                $('#'+server[a].name).append('<img src="../../static/image/cipanerror.png" class="img-responsive"  data-toggle="tooltip" title="Name：'+server[a].osd[i]+'<br>Static：'+server[a].static[i]+'" data-placement="bottom" style="width: 14%;margin:.1em 0em 0em .5em;display: inline-block;cursor: pointer" />')
             }
           }
         },

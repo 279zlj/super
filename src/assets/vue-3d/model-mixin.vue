@@ -115,6 +115,14 @@ export default {
       spritetext:{
           type:String,
         default: '[]'
+      },
+      spritefun:{
+        type:String,
+        default: '[]'
+      },
+      spritefun:{
+        type:String,
+        default: '[]'
       }
     },
     data() {
@@ -169,7 +177,7 @@ export default {
         this.load();
         this.update();
         this.drawtext();
-        this.drawtext()
+
       // alert(this.spritetext)
         this.$el.addEventListener( 'mousedown', this.onMouseDown, false );
         this.$el.addEventListener( 'mousemove', this.onMouseMove, false );
@@ -205,6 +213,20 @@ export default {
       spritetext:{
         deep: true,
           handler( val) {
+          this.drawtext();
+        }
+        // this.drawtext()
+      },
+      spritefun:{
+        deep: true,
+        handler( val) {
+          this.drawtext();
+        }
+        // this.drawtext()
+      },
+      spritecard:{
+        deep: true,
+        handler( val) {
           this.drawtext();
         }
         // this.drawtext()
@@ -317,7 +339,8 @@ export default {
             this.updateCamera();
             this.updateLights();
             this.updateControls();
-            this.drawtext()
+            this.drawtext();
+
         },
         updateModel() {
 
@@ -470,8 +493,12 @@ export default {
 
         },
       drawtext(){
-        var sprite = new SpriteText2D(this.spritetext, { align: textAlign.bottomLeft, fillStyle: '#FFFFFF' , antialias: true })
-        this.scene.add(sprite)
+        // var sprite = new SpriteText2D(this.spritetext, { align: textAlign.bottomLeft, fillStyle: '#FFFFFF' , antialias: false })
+        // this.scene.add(sprite)
+        var spritetwo = new SpriteText2D(this.spritetext, { align: textAlign.bottomRight, fillStyle: '#FFFFFF' , antialias: false })
+        this.scene.add(spritetwo)
+        // var spritethree = new SpriteText2D(this.spritecard, { align: textAlign.right, fillStyle: '#FFFFFF' , antialias: false })
+        // this.scene.add(spritethree)
         var geometry = new THREE.CubeGeometry(1, 60, 1);//创建一个立方体
         var material = new THREE.MeshBasicMaterial({color: '#FFFFFF'});//填充的材质
         var cube = new THREE.Mesh(geometry, material);//网格绘制
@@ -484,6 +511,7 @@ export default {
         //   this.scene.add(sprite)
 
       },
+
         load() {
 
             if ( !this.src ) return;

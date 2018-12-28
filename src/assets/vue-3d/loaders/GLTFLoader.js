@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { LoaderUtils } from './LoaderUtils.js'
-import { SpriteText2D, textAlign } from 'three-text2d'
+// import { SpriteText2D, textAlign } from 'three-text2d'
 /**
 * @author Rich Tibbett / https://github.com/richtr
 * @author mrdoob / http://mrdoob.com/

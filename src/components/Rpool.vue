@@ -27,14 +27,14 @@
           <p @click="addnew()" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" class="img-responsive add" title="添加" data-toggle="tooltip" data-placement="right" /></p>
           <p @click="dilatation()" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" class="img-responsive kr" title="扩容" data-toggle="tooltip" data-placement="right"/></p>
           <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
-          <p @click="addclient()"  data-toggle="clientmodal" style="cursor: pointer"><img src="../../static/image/user.png" class="img-responsive adduser" title="新增客户端" data-toggle="tooltip" data-placement="right"/></p>
+
           <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
         </div>
         <div style="width: 300px" id="h">
           <div @click="addnew()" data-toggle="addnew" style="float: left"><img src="../../static/image/add.svg" class="img-responsive addh" title="添加" data-toggle="tooltip" data-placement="right"/></div>
           <div @click="dilatation()" style="float: left" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive krh" title="扩容" data-toggle="tooltip" data-placement="right"/></div>
           <div @click="editlist()" data-toggle="editmodal" style="float: left"><span class="glyphicon glyphicon-edit edith" title="编辑" data-toggle="tooltip" data-placement="right"></span></div>
-          <div @click="addclient()"   style="float: left" data-toggle="clientmodal"><img src="../../static/image/user.png" class="img-responsive adduserh" style="" title="新增用户" data-toggle="tooltip" data-placement="right"/></div>
+
           <div @click="deletelist()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></div>
         </div>
       </div>
@@ -47,10 +47,10 @@
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
-            <th data-field="pname">{{$t('message.Initiator-name')}}</th>
-            <th data-field="ip">IP</th>
-            <th data-field="isempower">{{$t('message.Authorized')}}</th>
-            <th data-field="isconnect">{{$t('message.Connection')}}</th>
+            <th data-field="name">{{$t('message.Initiator-name')}}</th>
+            <th data-field="created">{{$t('message.Authorized')}}</th>
+            <th data-field="luns">Luns</th>
+            <th data-field="link">{{$t('message.Connection')}}</th>
           </tr>
           </thead>
           <tbody>
@@ -59,13 +59,15 @@
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 b" >
         <div id="y">
-          <p id="get" @click="empower()" style="cursor: pointer"><img src="../../static/image/get.png" class="img-responsive getpower" title="授权" data-toggle="tooltip" data-placement="right"/></p>
-          <p  id="nget" @click="noempower()" style="cursor: pointer"><img src="../../static/image/nget.png" class="img-responsive getpower" title="取消授权" data-toggle="tooltip" data-placement="right"/></p>
+          <p @click="addclient()"  data-toggle="clientmodal" style="cursor: pointer"><img src="../../static/image/user.png" class="img-responsive adduser" title="新增客户端" data-toggle="tooltip" data-placement="right"/></p>
+          <p id="get" @click="empower()" style="cursor: pointer"><img src="../../static/image/get.png" class="img-responsive getpower" title="分配lun" data-toggle="tooltip" data-placement="right"/></p>
+          <p  id="nget" @click="noempower()" style="cursor: pointer"><img src="../../static/image/nget.png" class="img-responsive getpower" title="删除lun" data-toggle="tooltip" data-placement="right"/></p>
           <p @click="deletel()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
         </div>
         <div style="width: 300px" id="h">
-          <div @click="empower()" id="gett" style="float: left" ><img src="../../static/image/get.png" class="img-responsive getpower" title="授权" data-toggle="tooltip" data-placement="right"/></div>
-          <div @click="noempower()" id="ngett" style="float: left" ><img src="../../static/image/nget.png" class="img-responsive getpower" title="取消授权" data-toggle="tooltip" data-placement="right"/></div>
+          <div @click="addclient()"   style="float: left" data-toggle="clientmodal"><img src="../../static/image/user.png" class="img-responsive adduserh" style="" title="新增客户端" data-toggle="tooltip" data-placement="right"/></div>
+          <div @click="empower()" id="gett" style="float: left" ><img src="../../static/image/get.png" class="img-responsive getpower" title="分配lun" data-toggle="tooltip" data-placement="right"/></div>
+          <div @click="noempower()" id="ngett" style="float: left" ><img src="../../static/image/nget.png" class="img-responsive getpower" title="删除lun" data-toggle="tooltip" data-placement="right"/></div>
           <div @click="deletel()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></div>
         </div>
       </div>
@@ -96,7 +98,12 @@
             <h4 class="modal-title" id="client">{{$t('message.Add-iSCSI-client')}}</h4>
           </div>
           <div class="modal-body">
-            <p>{{$t('message.Add-iSCSI-client')}}：</p><input type="text" class="form-control" id="clientname" ref="addclient" required="required"/>
+            <p>{{$t('message.Add-iSCSI-client')}}：</p>
+            <div class="input-group input-group-sm">
+              <span class="input-group-addon">iqn.2018-12.com.wz:</span>
+              <input type="text" class="form-control" id="clientname" ref="addclient" required="required"/>
+            </div>
+
             <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
           </div>
           <div class="modal-footer">
@@ -135,6 +142,7 @@
             <p>{{$t('message.Pool-name')}}：</p><input type="text" class="form-control" id="addname" ref="addname" />
             <!--<p>{{$t('message.Storage-pool-capacity')}}：</p><input type="number" class="form-control" id="addsize" ref="addsize"/>-->
             <p>{{$t('message.Storage-pool-type')}}：</p>
+
             <select class="form-control" v-on:change="sel($event)" v-model="unitsele">
               <option v-for="m in unit" :value="m.name">{{m.name}}</option>
             </select>
@@ -147,6 +155,48 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
             <button type="button" class="btn btn-primary" @click="addsend()">{{$t('message.Confirm')}}</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>
+    <div class="modal fade" id="getlun" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="lunname">分配lun</h4>
+          </div>
+          <div class="modal-body">
+            <p>块设备列表：</p>
+            <select class="form-control" v-on:change="bsel($event)" v-model="bsele">
+              <option v-for="m in blocklist" :value="m">{{m}}</option>
+            </select>
+            <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+            <button type="button" class="btn btn-primary" @click="addlun()">{{$t('message.Confirm')}}</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>
+    <div class="modal fade" id="nolun" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" >删除lun</h4>
+          </div>
+          <div class="modal-body">
+            <p>Lun列表：</p>
+            <select class="form-control" v-on:change="lsel($event)" v-model="lsele">
+              <option v-for="l in luns" :value="l">{{l}}</option>
+            </select>
+            <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+            <button type="button" class="btn btn-primary" @click="cancellun()">{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -178,7 +228,16 @@
             dosome:'',
             timertip:null,
             cross:'',
-            tipsc:''
+            tipsc:'',
+            blocklist:[],
+            blockall:[],
+            bsele:'',
+            bselenum:'',
+            clientsele:'',
+            luns:[],
+            lsele:'',
+            lunsele:'',
+            lselenum:''
           }
       },
       methods:{
@@ -187,14 +246,26 @@
             url:this.allurl+"manager/tank/list_tank"
           })
           $('#table').bootstrapTable({
-            url:this.allurl+"manager/tank/list_auth"
+            url:this.allurl+"manctl/client_list"
           })
+
         },
         timer(){
           var _this=this
           _this.timertip=setInterval(function () {
             _this.strat()
           },30000)
+        },
+        bsel(event){//下拉框选择
+          this.bsele=event.target.value
+          for(let i=0;i<this.blocklist.length;i++){
+            if (this.bsele==this.blocklist[i])
+              this.bselenum=i
+          }
+
+        },
+        lsel(event){//下拉框选择
+          this.lsele=event.target.value
         },
         addnew(){
           // console.log(this.$store.state.islogin)
@@ -288,6 +359,62 @@
             $('#dilatation').modal('hide')
           }
         },
+        addlun(){
+          var _this=this
+          if(_this.bsele==''){
+            _this.cross='请填写完整'
+          }
+          else {
+            this.$axios.post(this.allurl + 'manctl/lun_add', {
+              pool:this.blockall[this.bselenum].bpool,
+              image:this.bsele,
+              iqn:this.clientsele,
+              size:this.blockall[this.bselenum].bsize
+            }).then(function (res) {
+              // console.log(res)
+              if (res.data.status == 1) {
+                _this.tipscontent = '操作成功'
+                $('#tipsc').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
+              else {
+                _this.tipscontent = res.data.status
+                $('#tipsc').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
+            $('#getlun').modal('hide')
+          }
+        },
+        cancellun(){
+          var _this=this
+          if(_this.lsele==''){
+            _this.cross='请填写完整'
+          }
+          else {
+            this.$axios.post(this.allurl + 'manctl/lun_del', {
+              iqn:this.lunsele,
+              lun:this.lsele
+            }).then(function (res) {
+              // console.log(res)
+              if (res.data.status == 1) {
+                _this.tipscontent = '操作成功'
+                $('#tipsc').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
+              else {
+                _this.tipscontent = res.data.status
+                $('#tipsc').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
+            $('#nolun').modal('hide')
+          }
+        },
         addsend(){
           let addname=this.$refs.addname.value
           // let addsize=this.$refs.addsize.value
@@ -334,8 +461,8 @@
         },
         addclient(){              /*添加iscsi客户端*/
           if (sessionStorage.getItem('islogin')==250){
-            this.tipscontent='普通用户无操作权限！'
-            $('#tipscontent').show().delay(2000).fadeOut()
+            this.tipsc='普通用户无操作权限！'
+            $('#tipsc').show().delay(2000).fadeOut()
           }
           else {
             this.cross=''
@@ -344,17 +471,17 @@
           }},
         res(data){
           if (this.who=='pool') {
-            let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
-              return row.poolname;
+            let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
+              return row.name;
             });
             this.respond = data
             // console.log(data,this.respond)
             if (this.respond == 'ok') {
-              this.$axios.post(this.allurl + 'manager/tank/remove_tank', {ids: ids}).then(function (res) {
+              this.$axios.post(this.allurl + 'manctl/client_rm', {iqn: ids}).then(function (res) {
                 // console.log(res,'post ok')
                 if (res.data = 'ok') {
-                  $('#table_id').bootstrapTable('remove', {
-                    field: 'poolname',
+                  $('#table').bootstrapTable('remove', {
+                    field: 'name',
                     values: ids
                   });
                 }
@@ -365,7 +492,7 @@
           }
           else if (this.who=='empower'){
             let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
-              return row.pname;
+              return row.name;
             });
             this.respond = data
             // console.log(data,this.respond)
@@ -377,56 +504,6 @@
                     field: 'pname',
                     values: ids
                   });
-                }
-              }).catch(function (error) {
-                console.log(error)
-              })
-            }
-          }
-          else if(this.who=='getpower'){
-            let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
-              return row.pname;
-            });
-            this.respond = data
-            var _this=this
-            // console.log(data,this.respond)
-            if (this.respond == 'ok') {
-              this.$axios.post(this.allurl + 'manager/client/man_authori', {ids: ids}).then(function (res) {
-                // console.log(res,'post ok')
-                if(res.data.status==1){
-                  _this.tipscontent = '操作成功'
-                  $('#tipsc').show().delay (2000).fadeOut()
-                  $('#table').bootstrapTable('refresh')
-                }
-                else {
-                  _this.tipscontent =res.data.status
-                  $('#tipsc').show().delay (2000).fadeOut()
-                  $('#table').bootstrapTable('refresh')
-                }
-              }).catch(function (error) {
-                console.log(error)
-              })
-            }
-          }
-          else if (this.who='ngetpower'){
-            let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
-              return row.pname;
-            });
-            this.respond = data
-            var _this=this
-            // console.log(data,this.respond)
-            if (this.respond == 'ok') {
-              this.$axios.post(this.allurl + 'manager/client/man_disauthori', {ids: ids}).then(function (res) {
-                // console.log(res,'post ok')
-                if(res.data.status==1){
-                  _this.tipscontent = '操作成功'
-                  $('#tipsc').show().delay (2000).fadeOut()
-                  $('#table').bootstrapTable('refresh')
-                }
-                else {
-                  _this.tipscontent =res.data.status
-                  $('#tipsc').show().delay (2000).fadeOut()
-                  $('#table').bootstrapTable('refresh')
                 }
               }).catch(function (error) {
                 console.log(error)
@@ -519,14 +596,18 @@
             $('#editm').modal('hide')
           }
         },
-        clientsend(){                       /*发送添加的客户端信息*/
+        clientsend(){                       /*发送添加的iscsi信息*/
           let client=this.$refs.addclient.value
+          var reg=/^[0-9a-zA-Z]{1,7}$/
           var _this=this
           if(client==''){
             _this.cross='请填写完整'
           }
+          else if(!reg.test(client)){
+            _this.cross='请输入只有数字和字母且长度不超过7'
+          }
           else {
-            this.$axios.post(this.allurl + 'manager/tank/client_add', {client: client}).then(function (res) {
+            this.$axios.post(this.allurl + 'manctl/client_add', {iqn: "iqn.2018-12.com.wz:"+client}).then(function (res) {
               // console.log(res)
               if (res.data.status == 1) {
                 _this.tipscontent = '操作成功'
@@ -553,23 +634,21 @@
           else {
             this.who = 'getpower'
             var ips = $.map($('#table').bootstrapTable('getSelections'), function (row) {
-              return row.pname;
+              return row.name;
             });
-
+            this.clientsele=ips
             if (ips.length != 1) {
-              this.tipscontent = '请选择其中一个进行授权'
+              this.tipscontent = '请选择其中一个分配lun'
               this.$refs.tips.usetips()
               // alert('请选择其中一个进行授权')
             }
             else {
-              this.title = '是否确认进行授权操作'
-              this.dosome = ips
-              this.$refs.tips.dselect()
+              $('#getlun').modal('show')
 
             }
           }
         },
-        noempower(){                          /*取消授权*/
+        noempower(){                          /*取消*/
           if (sessionStorage.getItem('islogin')==250){
             this.tipsc='普通用户无操作权限！'
             $("#tipsc").show().delay (2000).fadeOut ();;
@@ -577,18 +656,19 @@
           else {
             this.who = 'ngetpower'
             var ips = $.map($('#table').bootstrapTable('getSelections'), function (row) {
-              return row.pname;
+              return row.name;
             });
-
+            this.lunsele=ips
+            this.luns=$.map($('#table').bootstrapTable('getSelections'), function (row) {
+              return row.luns;
+            });
             if (ips.length != 1) {
-              this.tipscontent = '请选择其中一个取消授权'
+              this.tipscontent = '请选择其中一个删除其中的lun'
               this.$refs.tips.usetips()
               // alert('请选择其中一个取消授权')
             }
             else {
-              this.title = '是否确认进行取消授权操作'
-              this.dosome = ips
-              this.$refs.tips.dselect()
+              $('#nolun').modal('show')
             }
           }
         },
@@ -598,11 +678,25 @@
       mounted(){
           this.strat()
         $("[data-toggle='tooltip']").tooltip({html:true});
+          var _this=this
+        this.$axios.get(this.allurl+"manager/tank/block/get_blocks").then(function (res) {
+
+
+            _this.blockall=res.data
+            for (let i=0;i<_this.blockall.length;i++)
+              _this.blocklist.push(_this.blockall[i].blockname)
+
+          // console.log(_this.blocklist)
+
+        }).catch(function (error) {
+          return error
+        })
       },
       destroyed(){
           var _this=this
         clearInterval(_this.timertip)
       }
+
     }
 </script>
 

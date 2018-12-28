@@ -95,9 +95,17 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h4 class="modal-title" id="bdilata">{{$t('message.Block-capacity-expansion')}}</h4>
           </div>
-          <div class="modal-body">
-            <p>{{$t('message.Block-device-size-modification')}}：</p><input type="number" class="form-control" id="poolsize" ref="blocksize" required="required"/>
-            <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
+          <div class="modal-body row">
+            <p style='margin-left: 1em'>{{$t('message.Block-device-size-modification')}}：</p>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <input type="number" class="form-control" id="poolsize" ref="blocksize" required="required"/>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <select class="form-control" v-on:change="bselect($event)" v-model="bselectsize">
+              <option v-for="b in units" :value="b.name">{{b.name}}</option>
+            </select>
+            </div>
+            <div style="color: red;margin-top: .5em; margin-left:1em;font-weight: 700;">{{cross}}</div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
@@ -202,7 +210,14 @@
           who:'',
           dosome:'',
           timertip:null,
-          cross:''
+          cross:'',
+          units:[
+            {name:'byte',value:'byte'},
+            {name:'MB',value:'mb'},
+            {name:'GB',value:'GB'},
+            {name:'TB',value:'TB'}
+          ],
+          bselectsize:''
         }
       },
       methods:{
@@ -245,6 +260,10 @@
             }
             this.name = name
           }
+        },
+        bselect(event){//下拉框选择
+          this.bselectsize=event.target.value
+
         },
         editsend(){                                /*发送修改功能*/
             let name =this.$refs.name.value
@@ -438,15 +457,20 @@
         },
         sizesend(){                    /*发送块设备扩容信息*/
 
-            let size=this.$refs.blocksize.value
-          if (size==''){
+          let size=this.$refs.blocksize.value
+          var reg=/^[0-9]*$/;
+          if (size==''||this.bselectsize==''){
             this.cross='请填写完整'
+          }
+          else if (!reg.test(size)){
+            this.cross='请输入整数'
           }
           else {
             var _this = this
             this.$axios.post(this.allurl + 'manager/client/block/block_dilatate', {
               name: this.edit,
-              size: size
+              size: size,
+              selectuint:this.bselectsize
             }).then(function (res) {
               // console.log(res)
               if (res.data.status == 1) {
