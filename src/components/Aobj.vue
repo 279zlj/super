@@ -2,7 +2,7 @@
   <div id="Aobj" class="col-lg-10 col-md-10 col-sm-10 col-xs-12 container-fluid">
     <div class="row">
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
-        <table class="table table-responsive text-nowrap" id="objtable" data-toolbar="#toolbar" data-height="350" data-toggle="table" data-click-to-select="true" data-classes="table-no-bordered" >
+        <table class="table table-responsive text-nowrap" id="objtable" data-toolbar="#toolbar" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-height="350" data-toggle="table" data-click-to-select="true" data-classes="table-no-bordered" >
           <div class="alert alert-danger " id="tipscontent" style="display: none;">{{tipscontent}}</div>
           <thead>
           <tr>
@@ -26,7 +26,7 @@
     </div>
     <div class="rwo two">
     <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
-      <table class="table table-responsive text-nowrap" id="subtable" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-click-to-select="true" data-classes="table-no-bordered">
+      <table class="table table-responsive text-nowrap" id="subtable" data-toolbar="#toolbar" data-height="350" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toggle="table"  data-click-to-select="true" data-classes="table-no-bordered">
         <div class="alert alert-danger " id="tipsc" style="display: none;">{{tipsc}}</div>
         <thead>
         <tr>
@@ -220,6 +220,7 @@
 <style scoped>
   #Aobj{
     margin-top: 3.8em;
+    color:white !important;
   }
   .modal-content{
     background-color:#3E324E ;

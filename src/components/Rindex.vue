@@ -7,9 +7,9 @@
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
             <h4 class="h">{{$t('message.io-agent')}} 容量使用占比</h4>
             <div id="iocontent" class="content">
-              <p>{{$t('message.Total-Size')}}：<span v-if="$store.state.gcollect.osd_detail.osize" class="keynote">{{$store.state.gcollect.osd_detail.osize}}</span></p>
-              <p>{{$t('message.Used')}}：<span class="keynote">{{$store.state.gcollect.osd_detail.ouse}}</span></p>
-              <p>{{$t('message.Percent-used')}}：<span class="keynote">{{$store.state.gcollect.osd_detail.usepct}}%</span></p>
+              <p><span class="titlecolor">{{$t('message.Total-Size')}}：</span><span v-if="$store.state.gcollect.osd_detail.osize" class="keynote">{{$store.state.gcollect.osd_detail.osize}}</span></p>
+              <p><span class="titlecolor">{{$t('message.Used')}}：</span><span class="keynote">{{$store.state.gcollect.osd_detail.ouse}}</span></p>
+              <p><span class="titlecolor">{{$t('message.Percent-used')}}：</span><span class="keynote">{{$store.state.gcollect.osd_detail.usepct}}%</span></p>
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 container-fluid">
@@ -25,8 +25,8 @@
                 <h4 class="h">{{$t('message.Tank')}} 存储使用占比</h4>
                 <div id="tankcontent" class="content">
 
-                  <p>{{$t('message.Used')}}：<span class="keynote">{{$store.state.gcollect.pool.puse}}</span></p>
-                  <p>{{$t('message.Percent-used')}}：<span class="keynote">{{$store.state.gcollect.pool.usepct}}%</span></p>
+                  <p><span class="titlecolor">{{$t('message.Used')}}：</span><span class="keynote">{{$store.state.gcollect.pool.puse}}</span></p>
+                  <p><span class="titlecolor">{{$t('message.Percent-used')}}：</span><span class="keynote">{{$store.state.gcollect.pool.usepct}}%</span></p>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -41,8 +41,8 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
               <h4 class="ho"><span style="font-size: 2.2em">{{$store.state.gcollect.block_detail.block}}</span>个{{$t('message.Block')}}</h4>
               <div id="rbdcontent" class="content">
-                <p>{{$t('message.Total-Size')}}：<span class="keynote">{{$store.state.gcollect.block_detail.bsize}}</span></p>
-                <p>{{$t('message.Client-Connections')}}：<span class="keynote">{{$store.state.gcollect.block_detail.server_num}}</span></p>
+                <p><span class="titlecolor">{{$t('message.Total-Size')}}：</span><span class="keynote">{{$store.state.gcollect.block_detail.bsize}}</span></p>
+                <p><span class="titlecolor">{{$t('message.Client-Connections')}}：</span><span class="keynote">{{$store.state.gcollect.block_detail.server_num}}</span></p>
               </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -184,7 +184,14 @@
               <h4 style="margin: 1em">{{$t('message.Operational-Events')}}</h4>
               <div style="overflow-y: scroll;height: 12em">
               <table class="table-condensed table-responsive table">
+                <colgroup>
+                  <col width="15%"/>
+                  <col width="40%"/>
+                  <col width="10%"/>
+                  <col width="35%"/>
+                </colgroup>
                 <tbody>
+
                 <tr v-for="m in $store.state.log">
                   <td>{{m.ip}}</td>
                   <td>{{m.network}}</td>
@@ -453,11 +460,14 @@
     font-size: 1.2em;
     font-weight: 700;
   }
-  .bb{
+  .bb {
     background-color: #362655;
     border-radius: 5px;
     margin-top: 1em;
     height: 38em;
+  }
+  .titlecolor{
+    color: #9584b2;
   }
   .red{
     color:#AD1501 ;

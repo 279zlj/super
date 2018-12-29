@@ -1,11 +1,11 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" id="Mwarn" >
     <div class="row a">
-      <table class="table table-responsive text-nowrap" id="table_id" data-height="550" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toggle="table"  data-classes="table-no-bordered" >
+      <table class="table table-responsive text-nowrap" id="table_id" data-filter-control="true" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toggle="table"  data-classes="table-bordered" >
         <thead>
         <tr>
-          <th data-field="rank" >{{$t('message.Rank')}}</th>
-          <th data-field="status" >{{$t('message.Status')}}</th>
+          <th data-field="rank" data-filter-control="select">{{$t('message.Rank')}}</th>
+          <th data-field="status" data-filter-control="select">{{$t('message.Status')}}</th>
           <th data-field="warnid">{{$t('message.Alert-ID')}}</th>
           <th data-field="warnname">{{$t('message.Alert-name')}}</th>
           <th data-field="warnindex">{{$t('message.An-object')}}</th>

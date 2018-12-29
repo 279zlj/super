@@ -13,7 +13,7 @@
         </div>
 
         <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
-          <table class="table table-responsive table-condensed" id="usert" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered"  data-click-to-select="true">
+          <table class="table table-responsive table-condensed" id="usert" data-toolbar="#toolbar" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-height="500" data-toggle="table"  data-classes="table-no-bordered"  data-click-to-select="true">
             <div class="alert alert-danger " id="tipscontent" style="display: none;">{{tipscontent}}</div>
             <thead>
             <tr>

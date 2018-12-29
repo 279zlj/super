@@ -17,7 +17,7 @@
             <p>阵列卡温度：</p>
           </div>
         </div>
-        <model-gltf :backgroundAlpha="bgAlpha" :spritetext="sastatic" :spritefun="safun" :spritecard="sacard" @on-load="onLoad"  :position="where" :backgroundColor="bgColor" src="../../static/server/server2801.gltf" :cameraPosition="camera" :width="wid" :height="hei"></model-gltf>
+        <model-gltf :backgroundAlpha="bgAlpha"  :rotation="rotation" @on-load="onLoad" :spritecard="sacard" :spritetext="sastatic"  :position="where" :backgroundColor="bgColor" src="../../static/server/server2801.gltf" :cameraPosition="camera" :width="wid" :height="hei"></model-gltf>
         <!--<div ref="server3d"></div>-->
       </div>
     </div>
@@ -33,16 +33,21 @@
         // ModelObj
       },
 
-    props:['sstatic','sfun','scard'],
-    watch:{
+    // props:['sstatic','sfun','scard'],
+    // watch:{
+    //   sstatic(){
+    //     return this.sastatic=this.sstatic
+    //   },
+    //   sfun(){
+    //     return this.safun=this.sfun
+    //   },
+    //   scard(){
+    //     return this.sacard=this.scard
+    //   }
+    // },
+    computed:{
       sstatic(){
-        return this.sastatic=this.sstatic
-      },
-      sfun(){
-        return this.safun=this.sfun
-      },
-      scard(){
-        return this.sacard=this.scard
+        return this.$store.state.cputem,this.$store.state.funspeed,this.$store.state.cardtem
       }
     },
       data(){
@@ -55,9 +60,9 @@
             tcontent: '',
             ttitle: '',
             dosome: '',
-            sastatic:this.sstatic,
-            safun: this.sfun,
-            sacard: this.scard,
+            sastatic:this.$store.state.cputem,
+            safun: this.$store.state.funspeed,
+            sacard: this.$store.state.cardtem,
             rotation: {
               x: 0,
               y: 0,
@@ -80,8 +85,9 @@
       mounted(){
         this.init()
         this.drawserver(this.server)
+        // this.onLoad()
         $("[data-toggle='tooltip']").tooltip({html:true});
-        // alert(this.safun)
+        // alert(this.sacard)
 
       },
       methods: {
@@ -99,7 +105,7 @@
         },
         rotate () {
           // this.rotation.x+= 0.01;
-          this.rotation.y+= 0.01;
+          this.rotation.y += 0.01;
           requestAnimationFrame( this.rotate );
         },
         panelshow(){

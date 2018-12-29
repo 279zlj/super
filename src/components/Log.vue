@@ -8,7 +8,7 @@
       </div>
 
     <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
-    <table class="table table-responsive table-condensed" id="logt" data-toolbar="#toolbar" data-height="350" data-toggle="table" data-click-to-select="true"  data-classes="table-no-bordered">
+    <table class="table table-responsive table-condensed" id="logt" data-toolbar="#toolbar" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-height="500" data-toggle="table" data-click-to-select="true"  data-classes="table-no-bordered">
       <div class="alert alert-danger " id="tipscontent" style="display: none;">{{tips}}</div>
       <thead>
       <tr>
@@ -104,6 +104,7 @@
         sele() {               /*选择某一日志进行操作*/
           // var _this=this
           if (sessionStorage.getItem('islogin') == 250) {
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay(2000).fadeOut()
           }
           else {
@@ -166,6 +167,7 @@
         collect(){
 
           if (sessionStorage.getItem('islogin') == 250) {
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay(2000).fadeOut()
           }
           else {

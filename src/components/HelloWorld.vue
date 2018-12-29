@@ -56,8 +56,8 @@
         <ul class="dropdown-menu">
           <li @click="us()"><router-link :to="{name:'User'}">{{$t('message.User-control')}}</router-link></li>
           <li><a style="cursor: pointer"><span @click="outlog">{{$t('message.Log-out')}}</span></a></li>
-          <li><a style="cursor: pointer"><span  v-on:click="changeone()" style="color: black;">简约风格</span></a></li>
-          <li><a style="cursor: pointer"><span  v-on:click="changetwo()" style="color: black;">原始主题</span></a></li>
+          <!--<li><a style="cursor: pointer"><span  v-on:click="changeone()" style="color: black;">简约风格</span></a></li>-->
+          <!--<li><a style="cursor: pointer"><span  v-on:click="changetwo()" style="color: black;">原始主题</span></a></li>-->
         </ul>
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 dropdown">

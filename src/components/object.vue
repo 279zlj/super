@@ -423,7 +423,7 @@
         subadd(){
           if (sessionStorage.getItem('islogin')==250){
             this.subtipsc='普通用户无操作权限！'
-            $("#tipsc").show().delay (2000).fadeOut ();;
+            $("#subtipsc").show().delay (2000).fadeOut ();;
           }
           else {
             this.cross=''
@@ -506,7 +506,7 @@
         subedit(){
           if (sessionStorage.getItem('islogin')==250){
             this.subtipsc='普通用户无操作权限！'
-            $("#tipsc").show().delay (2000).fadeOut ();;
+            $("#subtipsc").show().delay (2000).fadeOut ();;
           }
           else {
             this.cross=''
@@ -537,7 +537,7 @@
         subdelete(){
           if (sessionStorage.getItem('islogin')==250){
             this.subtipsc='普通用户无操作权限！'
-            $("#tipsc").show().delay (2000).fadeOut ();
+            $("#subtipsc").show().delay (2000).fadeOut ();
           }
           else {
             this.title = '是否确认选择删除子用户'

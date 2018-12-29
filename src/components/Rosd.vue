@@ -72,9 +72,9 @@
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
           <div class=" bor container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.The-machine-information')}}</span></p>
-            <p class="ff">{{$t('message.Model')}}：<span >{{$store.state.content&& $store.state.content.sname}}</span></p>
-            <p class="ff">{{$t('message.Status')}}：<span :class="{'o':$store.state.content.status==='ok','wa':$store.state.content.status==='warning','err':$store.state.content.status==='error'}">{{$store.state.content&& $store.state.content.status}}</span></p>
-            <p class="ff">{{$t('message.OS')}}：<span>{{$store.state.content.opsys}}</span></p>
+            <p class="ff"><span class="titlecolor">{{$t('message.Model')}}：</span><span >{{$store.state.content&& $store.state.content.sname}}</span></p>
+            <p class="ff"><span class="titlecolor">{{$t('message.Status')}}：</span><span :class="{'o':$store.state.content.status==='ok','wa':$store.state.content.status==='warning','err':$store.state.content.status==='error'}">{{$store.state.content&& $store.state.content.status}}</span></p>
+            <p class="ff"><sapn class="titlecolor">{{$t('message.OS')}}：</sapn><span>{{$store.state.content.opsys}}</span></p>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
@@ -308,8 +308,8 @@
             this.$axios.post(this.allurl + 'manager/ioagent/iscsi_change', {ip: ip}).then(function (res) {
               // console.log(res)
               if (res.data.status == 1) {
-                // _this.tipscontent = '操作成功'
-                $('#tipsc').show().delay(2000).fadeOut()
+                _this.tipscontent = '操作成功'
+                $('#tipscontent').show().delay(2000).fadeOut()
               }
               else {
                 _this.tipscontent = res.data.status
@@ -339,6 +339,7 @@
         edit(){                       /*编辑更改iscsi*/
 
             if (sessionStorage.getItem('islogin')==250){
+              this.tipscontent='普通用户无操作权限！'
               $('#tipscontent').show().delay (2000).fadeOut()
             }
             else {
@@ -448,6 +449,7 @@
         },
         adddisk(){
           if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay (2000).fadeOut()
           }
           else
@@ -576,6 +578,9 @@
   }
   #closed{
     margin-bottom: 1em;float: right
+  }
+  .titlecolor{
+    /*color: #9584b2;*/
   }
   @media screen and (min-width: 426px) and (max-width: 768px) {
     .font p{

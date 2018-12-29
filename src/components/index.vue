@@ -9,14 +9,14 @@
             <!--<p style="margin-top: 1em">网速：<span class="numtwo">{{pool_use}}</span>mb/s</p>-->
             <!--<p style="text-align: center;line-height:1em">健康状态</p>-->
             <div>
-              <p class="size" >{{$t('message.Net-segment')}}：</p>
+              <p class="size titlecolor" >{{$t('message.Net-segment')}}：</p>
               <ol class="size"  style="height: 2.5em;overflow-y: scroll">
                 <li v-for="i in $store.state.net.lan">{{i}}</li>
               </ol>
             </div>
-            <p  class="size" >{{$t('message.NetCard')}}：</p>
+            <p  class="size titlecolor" >{{$t('message.NetCard')}}：</p>
             <div style="overflow-y: scroll;height: 5em;overflow-x: hidden;" class="size" >
-              <div class="row" >
+              <div class="row titlecolor" >
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >{{$t('message.NetCard')}}</div>
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" >{{$t('message.Mode')}}</div>
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" >{{$t('message.Mainframe')}}</div>
@@ -35,17 +35,17 @@
             </div>
           </div>
           <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 ">
-            <div class="fontone">{{$t('message.Question-card')}}：<a style="font-size: 2em;padding: .5em;color: white;cursor: pointer"  class="dropdown-toggle" data-toggle="dropdown">{{$store.state.net.error}}</a>个
+            <div class="fontone "><span class="titlecolor">{{$t('message.Question-card')}}：</span><a style="font-size: 2em;padding: .5em;color: white;cursor: pointer"  class="dropdown-toggle" data-toggle="dropdown">{{$store.state.net.error}}</a>个
               <ul class="dropdown-menu">
                 <li><router-link :to="{name:''}"></router-link></li>
               </ul>
             </div>
             <div style="margin-left: -1px">
-              <p class="fonttwo">{{$t('message.link-number')}}：{{$store.state.net.net_socket_link_nall}}</p>
-              <p class="fonttwo">{{$t('message.Receive-Discard-Packets')}}：{{$store.state.net.net_drop_in_all}}</p>
-              <p class="fonttwo">{{$t('message.Send-Discard-Packets')}}：{{$store.state.net.net_drop_out_all}}</p>
-              <p class="fonttwo">{{$t('message.Bandwidth')}}：{{$store.state.net.bandwidth}}Mbps/s</p>
-              <p class="fonttwo">{{$t('message.Best-Match')}}：{{$store.state.mode}}</p>
+              <p class="fonttwo "><span class="titlecolor">{{$t('message.link-number')}}：</span>{{$store.state.net.net_socket_link_nall}}</p>
+              <p class="fonttwo "><span class="titlecolor">{{$t('message.Receive-Discard-Packets')}}：</span>{{$store.state.net.net_drop_in_all}}</p>
+              <p class="fonttwo "><span class="titlecolor">{{$t('message.Send-Discard-Packets')}}：</span>{{$store.state.net.net_drop_out_all}}</p>
+              <p class="fonttwo "><span class="titlecolor">{{$t('message.Bandwidth')}}：</span>{{$store.state.net.bandwidth}}Mbps/s</p>
+              <p class="fonttwo "><span class="titlecolor">{{$t('message.Best-Match')}}：</span>{{$store.state.mode}}</p>
             </div>
           </div>
         </div>
@@ -85,22 +85,22 @@
             <div>
               <h5 style="line-height: 2.5em;font-size: 1.1em;color: #FFFFFF;margin-top: .8em">Swap IO</h5>
               <div class="row" style="text-align: center">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 diskfont" ><p class="white">{{$t('message.Writing-rate')}}：</p></div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 diskfont" ><p class="titlecolor">{{$t('message.Writing-rate')}}：</p></div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 num" title="写速度">{{$store.state.swap_io.ips}}</div>
               </div>
               <div class="row" style="text-align: center">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 diskfont" ><p class="white">{{$t('message.Reading-rate')}}：</p></div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 diskfont" ><p class="titlecolor">{{$t('message.Reading-rate')}}：</p></div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 num" title="读速度">{{$store.state.swap_io.ops}}</div>
               </div>
             </div>
           </div>
           <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 ">
             <div class="row blockfour">
-              <p style="line-height: 2em;">{{$t('message.Memory')}}<span style="margin-left: 1em;">{{$t('message.Total-memory')}}：{{$store.state.memory.total}}</span></p>
+              <p style="line-height: 2em;">{{$t('message.Memory')}}<span style="margin-left: 1em;"><span class="titlecolor">{{$t('message.Total-memory')}}：</span>{{$store.state.memory.total}}</span></p>
               <div class="row">
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 memory">
-                  <div><p class="white">{{$t('message.Shared-memory')}}：</p><p>{{$store.state.memory.share}}</p></div>
-                  <div><p class="white">cache：</p><p>{{$store.state.memory.cache}}</p></div>
+                  <div><p class="titlecolor">{{$t('message.Shared-memory')}}：</p><p>{{$store.state.memory.share}}</p></div>
+                  <div><p class="titlecolor">cache：</p><p>{{$store.state.memory.cache}}</p></div>
 
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 ">
@@ -110,8 +110,8 @@
                 <!--<p>已用：<span class="numtwo">{{memory}}</span>%</p>-->
               </div>
               <div class="row memory">
-                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6" ><p class="white">{{$t('message.Swap-memory')}}：</p><p>{{$store.state.memory.totalSwap}}</p></div>
-                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6" ><p class="white">{{$t('message.Swap-used')}}：</p><p>{{$store.state.memory.usedSwap}}</p></div>
+                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6" ><p class="titlecolor">{{$t('message.Swap-memory')}}：</p><p>{{$store.state.memory.totalSwap}}</p></div>
+                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6" ><p class="titlecolor">{{$t('message.Swap-used')}}：</p><p>{{$store.state.memory.usedSwap}}</p></div>
               </div>
             </div>
           </div>
@@ -120,7 +120,7 @@
               <div class="blockbottom">
                 <p style="line-height: 2em;">CPU</p>
                 <div class="row size">
-                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="text-align: right;line-height: 2em;color: white">{{$t('message.Used')}}：</div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 titlecolor" style="text-align: right;line-height: 2em;">{{$t('message.Used')}}：</div>
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 numtwo">{{$store.state.icpu.total}}%</div>
                 </div>
               </div>
@@ -129,9 +129,9 @@
                 <div class="container-fluid" style="width: 90%">
                   <table class="table-condensed table-responsive table size">
                     <tbody style="text-align: center;">
-                    <tr style="font-size: 10px"><td>HOST</td>
+                    <tr style="font-size: smaller" class="titlecolor"><td>HOST</td>
                       <td>%CPU</td></tr>
-                    <tr style="font-size: 10px" v-for="i in $store.state.cpulist">
+                    <tr style="font-size: smaller" v-for="i in $store.state.cpulist">
                       <td>{{i.name}}</td>
                       <td>{{i.value}}%</td>
                     </tr>
@@ -164,7 +164,7 @@
         </div>
         <div class="item" id="gl" style="width: 100%;height: 100%;">
           <!--<canvas id="webgl"></canvas>-->
-          <server :sstatic="staticall" :sfan="ssfan" :scard="sscard"></server>
+          <server></server>
         </div>
         <div style="text-align: right">
         <input type="button" class="btn-xs btn-info pause-slide" @click="startcar()" value="Start" >
@@ -187,45 +187,46 @@
           <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 print">
             <p style="font-size: medium">集群(Cluster)</p>
             <div class="row">
+              <p style="margin: 0em 0 0 1em" class="titlecolor">{{$t('message.Resource-pool-state')}}</p>
               <div v-for="p in $store.state.ceph.pools">
-              <p style="margin: 0em 0 0 1em">{{$t('message.Resource-pool-state')}}</p>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">{{$t('message.Name')}}：{{p.name}}</div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">{{$t('message.Status')}}：<span :class="{'wanning':p.stats=='warn','ok':p.stats=='ok','error':p.stats=='error'}">{{p.stats}}</span></div>
-              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">{{$t('message.Percent-used')}}：{{p.percent_used}}%</div>
-              <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7" style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis">{{$t('message.Max-available')}}：{{p.max_avail}}</div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="titlecolor">{{$t('message.Name')}}：</span>{{p.name}}</div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="titlecolor">{{$t('message.Status')}}：</span><span :class="{'wanning':p.stats=='warn','ok':p.stats=='ok','error':p.stats=='error'}">{{p.stats}}</span></div>
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5"><span class="titlecolor">{{$t('message.Percent-used')}}：</span>{{p.percent_used}}%</div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7" style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis"><span class="titlecolor">{{$t('message.Max-available')}}：</span>{{p.max_avail}}</div>
               </div>
             </div>
 
             <div class="row">
-              <p style="margin: .5em 0 0 1em">{{$t('message.Manager')}}</p>
-              <div class="col-lg-12">{{$t('message.Activate-node')}}：<span >{{ activate_node}}</span></div>
-              <p class="col-lg-12">{{$t('message.Standby-node')}}：<span v-for="r in standby_node">{{r}}   </span></p>
+              <p style="margin: .5em 0 0 1em" class="titlecolor">{{$t('message.Manager')}}</p>
+              <div class="col-lg-12"><span class="titlecolor">{{$t('message.Activate-node')}}：</span><span >{{ activate_node}}</span></div>
+              <p class="col-lg-12"><span class="titlecolor">{{$t('message.Standby-node')}}：</span><span v-for="r in standby_node">{{r}}   </span></p>
             </div>
             <div class="row">
-              <p style="margin: 0em 0 0 1em">{{$t('message.Clock-consistency')}}：</p>
+              <p style="margin: 0em 0 0 1em" class="titlecolor">{{$t('message.Clock-consistency')}}：</p>
               <p class="col-lg-12"><span v-for="s in $store.state.ceph.clock">{{s}} </span>
               <span>{{$t('message.Clock-inconsistency')}}</span></p>
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 print">
-            <p  style="font-size: medium">{{$t('message.Memory-disk-state')}}</p>
+            <p  style="font-size: medium" class="titlecolor">{{$t('message.Memory-disk-state')}}</p>
             <div v-for="q in $store.state.ceph.osds" >
-              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="border-bottom: 1px solid #392C48">{{$t('message.Name')}}：{{q.name}}</div>
-              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="border-bottom: 1px solid #392C48">{{$t('message.Status')}}：<span :class="{'wanning':q.stats=='warn','ok':q.stats=='ok','error':q.stats=='error'}">{{q.stats}}</span></div>
-              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="border-bottom: 1px solid #392C48">{{$t('message.Max-available')}}：{{q.kb_avail}}</div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="border-bottom: 1px solid #392C48"><span class="titlecolor">{{$t('message.Name')}}：</span>{{q.name}}</div>
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="border-bottom: 1px solid #392C48"><span class="titlecolor">{{$t('message.Status')}}：</span><span :class="{'wanning':q.stats=='warn','ok':q.stats=='ok','error':q.stats=='error'}">{{q.stats}}</span></div>
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="border-bottom: 1px solid #392C48"><span class="titlecolor">{{$t('message.Max-available')}}：</span>{{q.kb_avail}}</div>
               <!--<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="border-bottom: 1px solid black">PGS：{{q.pgs}}</div>-->
 
             </div>
           </div>
           <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 print">
             <p style="font-size: medium">数据集合(Data Set)</p>
-            <p>{{$t('message.Used-capacity')}}：{{$store.state.rqlite_info.volume}}</p>
-            <p>{{$t('message.Status')}}：<span :class="{'wanning':$store.state.rqlite_info.stats=='warn','ok':$store.state.rqlite_info.stats=='ok','error':$store.state.rqlite_info.stats=='error'}">{{$store.state.rqlite_info.stats}}</span></p>
+            <p><span class="titlecolor">{{$t('message.Used-capacity')}}：</span>{{$store.state.rqlite_info.volume}}</p>
+            <p><span class="titlecolor">{{$t('message.Status')}}：</span><span :class="{'wanning':$store.state.rqlite_info.stats=='warn','ok':$store.state.rqlite_info.stats=='ok','error':$store.state.rqlite_info.stats=='error'}">{{$store.state.rqlite_info.stats}}</span></p>
             <p style="font-size: medium">消息进程(Message Process)</p>
             <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">{{$t('message.Nodes')}}：{{$store.state.redis.nodes}}</div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">{{$t('message.Used')}}：{{$store.state.redis.used}}</div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">{{$t('message.Status')}}：<span :class="{'wanning':$store.state.redis.stats=='warn','ok':$store.state.redis.stats=='ok','error':$store.state.redis.stats=='error'}">{{$store.state.redis.stats}}</span></div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="titlecolor">{{$t('message.Nodes')}}：</span>{{$store.state.redis.nodes}}</div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="titlecolor">{{$t('message.Used')}}：</span>{{$store.state.redis.used}}</div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="titlecolor">{{$t('message.Status')}}：</span><span :class="{'wanning':$store.state.redis.stats=='warn','ok':$store.state.redis.stats=='ok','error':$store.state.redis.stats=='error'}">{{$store.state.redis.stats}}</span></div>
             </div>
           </div>
         </div>
@@ -290,9 +291,10 @@
       this.initWebSocket()
       this.getall()
       this.timer()
-      this.staticall='CPU温度：30°C'
-      this.ssfan='风扇转速：300转'
-      this.sscard='显卡温度：25°C'
+      this.staticall='CPU温度：30°C，风扇转速：300转'
+      this.ssfan='显卡温度：25°C，阵列卡温度：28°C'
+      this.sscard=''
+      this.$store.commit('sstatic',{cputem:this.staticall,funspeed:this.ssfan,cardtem:this.sscard})
       // alert(this.fan)
       // darw()
       // $('.carousel').carousel('cycle')
@@ -455,7 +457,7 @@
         _this.timertip=setInterval(function () {
           _this.getall()
 
-        },3000)
+        },5000)
       },
       linechartone(time,write,read){
         // console.log(time)
@@ -465,7 +467,7 @@
           color: ['#1a58cc','#DEED00'],
           legend:{
             data:['IOPS-Write','IOPS-Read'],
-            x:'right',
+            x:'85%',
             textStyle:{
               color:'#FFF'
             },
@@ -532,7 +534,7 @@
             lineStyle: {
               color: 'white'
             },
-            max: 300,
+            max: 500,
             "axisLine": {
               lineStyle: {
                 color: 'white'
@@ -667,7 +669,7 @@
           }],
           legend:{
             data:['MBPS-Write','MBPS-Read'],
-            x:'right',
+            x:'85%',
             textStyle:{
               color:'#FFF'
             },
@@ -1037,10 +1039,7 @@
   .font,h4,table{
     color: white;
   }
-  .white{
-    color: white;
 
-  }
   table{
     margin-bottom: .1em;
   }
@@ -1116,15 +1115,18 @@
   .size{
     font-size: small;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 100%;
   }
+  .titlecolor{
+    color: #9584b2;
+  }
   .fontone{
     color: #FFFFFF;
     font-size: small;
   }
   .diskfont{
-    line-height: 2.5em;color: white;font-size: small;white-space: nowrap;text-overflow: ellipsis;color:white;
+    line-height: 2.5em;font-size: small;white-space: nowrap;text-overflow: ellipsis;color:#9584b2 !important;
   }
   .memory{
-    font-size: x-small;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+    font-size: small;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
   }
   .fonttwo{
     line-height: 1.2em;

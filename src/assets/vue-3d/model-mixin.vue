@@ -493,11 +493,17 @@ export default {
 
         },
       drawtext(){
-        // var sprite = new SpriteText2D(this.spritetext, { align: textAlign.bottomLeft, fillStyle: '#FFFFFF' , antialias: false })
-        // this.scene.add(sprite)
-        var spritetwo = new SpriteText2D(this.spritetext, { align: textAlign.bottomRight, fillStyle: '#FFFFFF' , antialias: false })
+        var sprite = new SpriteText2D(this.spritetext, { align: textAlign.bottomLeft, fillStyle: '#FFFFFF'  })
+        sprite.position.set(0, 5, 0)
+        sprite.material.alphaTest = 0.1
+        this.scene.add(sprite)
+        var spritetwo = new SpriteText2D(this.spritefun, { align: textAlign.bottomRight, fillStyle: '#FFFFFF'  })
+        spritetwo.position.set(0,7, 0)
+        spritetwo.material.alphaTest = 0.1
         this.scene.add(spritetwo)
-        // var spritethree = new SpriteText2D(this.spritecard, { align: textAlign.right, fillStyle: '#FFFFFF' , antialias: false })
+        // var spritethree = new SpriteText2D(this.spritecard, { align: textAlign.topRight, fillStyle: '#FFFFFF'  })
+        // spritethree.position.set(0, 9, 0)
+        // spritethree.material.alphaTest = 0.1
         // this.scene.add(spritethree)
         var geometry = new THREE.CubeGeometry(1, 60, 1);//创建一个立方体
         var material = new THREE.MeshBasicMaterial({color: '#FFFFFF'});//填充的材质

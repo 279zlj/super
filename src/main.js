@@ -19,8 +19,10 @@ import echarts from 'echarts'
 import axios from 'axios'
 // import 'jquery-treegrid/css/jquery.treegrid.css'
 import '@/assets/dist/bootstrap-table.css'
+import '@/assets/dist/extensions/filter-control/bootstrap-table-filter-control.css'
 // import 'jquery-treegrid/js/jquery.treegrid.js'
 import '@/assets/dist/bootstrap-table.js'
+import '@/assets/dist/extensions/filter-control/bootstrap-table-filter-control.js'
 // import '@/assets/dist/extensions/treegrid/bootstrap-table-treegrid.js'
 import '@/assets/dist/locale/bootstrap-table-zh-CN.min.js'
 import '@/assets/js/bootstrap-table-contextmenu.js'
@@ -40,6 +42,7 @@ Vue.prototype.$qs=qs
 Vue.config.productionTip = false
 Vue.prototype.$echarts=echarts
 Vue.prototype.$axios = axios;
+this.$axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
 
 // Vue.prototype.detailFormatter=function(index,row){
 //   var html=[];
@@ -52,6 +55,7 @@ Vue.prototype.$axios = axios;
 Vue.prototype.allurl='http://192.168.2.64:8000/'
 // Vue.prototype.allurl=''
 
+
 const i18n = new VueI18n({
   locale:'zh',
   messages: {
@@ -59,6 +63,9 @@ const i18n = new VueI18n({
     'en': langen, // 英文
   }
 })
+
+
+
 
 router.beforeEach((to,from,next)=>{                          /*路由守卫，禁止直接通过url访问页面内容*/
     if (to.meta.requiresAuth) {
@@ -69,9 +76,6 @@ router.beforeEach((to,from,next)=>{                          /*路由守卫，�
       else {
         next({
           path:'Login',
-          query:{
-            redirect:'/Login'
-          },
 
         })
         window.document.body.style.backgroundColor = '#242424'
@@ -116,27 +120,27 @@ new Vue({
       var already=sessionStorage.getItem('issele');
       if (already){
         sessionStorage.setItem('lastTime',new Date().getTime());
-        this.handler=setInterval(this.checklogin(),10*1000)
+        // this.handler=setInterval(this.checklogin(),10*1000)
       }
 
 
     },
-    checklogin(){
-      // console.log("10秒检查一次是否过期"+window.location.href+"::"+new Date());
-      var getlastTime=sessionStorage.getItem('lastTime')?sessionStorage.getItem('lastTime'):-1;
-      if (getlastTime==-1){
-        clearInterval(this.handler);
-      }
-      else {
-        if ((new Date().getTime()-getlastTime)>this.time){
-          alert('由于您长时间未进行操作，系统已为您自动退出登录');
-          sessionStorage.removeItem('islogin');
-          sessionStorage.removeItem('issele')
-          localStorage.removeItem('islogin')
-          this.$router.push({path:'/Login'})
-        }
-      }
-    }
+    // checklogin(){
+    //   // console.log("10秒检查一次是否过期"+window.location.href+"::"+new Date());
+    //   var getlastTime=sessionStorage.getItem('lastTime')?sessionStorage.getItem('lastTime'):-1;
+    //   if (getlastTime==-1){
+    //     clearInterval(this.handler);
+    //   }
+    //   else {
+    //     if ((new Date().getTime()-getlastTime)>this.time){
+    //       alert('由于您长时间未进行操作，系统已为您自动退出登录');
+    //       sessionStorage.removeItem('islogin');
+    //       sessionStorage.removeItem('issele')
+    //       localStorage.removeItem('islogin')
+    //       this.$router.push({path:'/Login'})
+    //     }
+    //   }
+    // }
   },
   mounted(){
     this.$nextTick(function () {

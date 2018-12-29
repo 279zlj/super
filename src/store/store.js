@@ -29,6 +29,9 @@ import Vuex from 'vuex'
   let rtime=''
   let wtime=''
   let btime=''
+  let cputem=''
+  let funspeed=''
+  let cardtem=''
 try {
   if (localStorage.gosd_use)
     guse=JSON.parse(localStorage.gosd_use)
@@ -83,7 +86,13 @@ try {
   if (localStorage.wtime)
     wtime=JSON.parse(localStorage.wtime)
   if (localStorage.btime)
-    wtime=JSON.parse(localStorage.btime)
+    btime=JSON.parse(localStorage.btime)
+  if (localStorage.cputem)
+    cputem=JSON.parse(localStorage.cputem)
+  if (localStorage.funspeed)
+    funspeed=JSON.parse(localStorage.funspeed)
+  if (localStorage.cardtem)
+    cardtem=JSON.parse(localStorage.cardtem)
 }
 catch (e) {
   
@@ -131,7 +140,10 @@ const store =new Vuex.Store({
     idisk:idisk,
     rtime:rtime,
     wtime:wtime,
-    btime:btime
+    btime:btime,
+    cputem:cputem,
+    funspeed:funspeed,
+    cardtem:cardtem
     // language:''
   },
   mutations:{
@@ -181,6 +193,14 @@ const store =new Vuex.Store({
     gosd(state,msg){
       state.osdlist=msg
       localStorage.osdlist=JSON.stringify(msg)
+    },
+    sstatic(state,msg){
+      state.cputem=msg.cputem
+      state.funspeed=msg.funspeed
+      state.cardtem=msg.cardtem
+      localStorage.cputem=JSON.stringify(msg.cputem)
+      localStorage.funspeed=JSON.stringify(msg.funspeed)
+      localStorage.cardtem=JSON.stringify(msg.cardtem)
     },
     osdalone(state,msg){
       state.diskall=msg.diskall

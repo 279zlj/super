@@ -2,7 +2,7 @@
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 container-fluid" id="Rblock">
     <div class="row">
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
-        <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-click-to-select="true" data-toggle="table"  data-classes="table-no-bordered" >
+        <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-click-to-select="true" data-toggle="table"  data-classes="table-no-bordered" >
           <div class="alert alert-danger " id="tipscontent" style="display: none;">{{tipscontent}}</div>
           <thead>
           <tr>
@@ -38,7 +38,7 @@
     <div class="row">
 
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive two">
-        <table class="table table-responsive text-nowrap" id="table" data-toolbar="#toolbar" data-click-to-select="true" data-height="350" data-toggle="table"  data-classes="table-no-bordered">
+        <table class="table table-responsive text-nowrap" id="table" data-toolbar="#toolbar" data-click-to-select="true" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-height="350" data-toggle="table"  data-classes="table-no-bordered">
           <div class="alert alert-danger " id="tipsc" style="display: none;">{{tipsc}}</div>
           <thead>
           <tr>
