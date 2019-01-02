@@ -183,7 +183,7 @@
   import 'vuex'
   import '../store/store'
   import tips from './tips'
-  import Vue from 'vue'
+  import {delCookie} from '../assets/js/base'
 
 export default {
   name: 'HelloWorld',
@@ -231,6 +231,7 @@ export default {
         sessionStorage.removeItem('islogin');
         sessionStorage.removeItem('issele')
         localStorage.removeItem('islogin')
+        delCookie('username');
         this.$router.push({path:'/Login'})
         window.document.body.style.backgroundColor = '#242424';
       }

@@ -17,18 +17,18 @@
             <p  class="size titlecolor" >{{$t('message.NetCard')}}：</p>
             <div style="overflow-y: scroll;height: 5em;overflow-x: hidden;" class="size" >
               <div class="row titlecolor" >
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >{{$t('message.NetCard')}}</div>
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" >{{$t('message.NetCard')}}</div>
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" >{{$t('message.Mode')}}</div>
-              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" >{{$t('message.Mainframe')}}</div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" >{{$t('message.Mainframe')}}</div>
               </div>
               <div class="row" v-for="p in $store.state.net.nics">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" >
                   {{p.name}}
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" >
                   {{p.mode}}
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" >
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" >
                   {{p.hostname}}
                 </div>
               </div>

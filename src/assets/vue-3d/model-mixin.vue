@@ -120,9 +120,14 @@ export default {
         type:String,
         default: '[]'
       },
-      spritefun:{
+      tonealgin:{
         type:String,
-        default: '[]'
+      },
+      ttwoalgin:{
+          type:String
+      },
+      tcolor:{
+          type:String
       }
     },
     data() {
@@ -224,6 +229,24 @@ export default {
         }
         // this.drawtext()
       },
+      tcolor:{
+          deep:true,
+        handler(val){
+            this.drawtext()
+        }
+      },
+      // tonealgin:{
+      //     deep:true,
+      //   handler(val){
+      //       this.drawtext()
+      //   }
+      // },
+      // ttwoalgin:{
+      //     deep:true,
+      //   handler(val){
+      //       this.drawtext()
+      //   }
+      // },
       spritecard:{
         deep: true,
         handler( val) {
@@ -493,14 +516,29 @@ export default {
 
         },
       drawtext(){
-        var sprite = new SpriteText2D(this.spritetext, { align: textAlign.bottomLeft, fillStyle: '#FFFFFF'  })
-        sprite.position.set(0, 5, 0)
-        sprite.material.alphaTest = 0.1
-        this.scene.add(sprite)
-        var spritetwo = new SpriteText2D(this.spritefun, { align: textAlign.bottomRight, fillStyle: '#FFFFFF'  })
-        spritetwo.position.set(0,7, 0)
-        spritetwo.material.alphaTest = 0.1
-        this.scene.add(spritetwo)
+        switch (this.tonealgin) {
+          case('bottomLeft'):
+            var sprite = new SpriteText2D(this.spritetext, { align: textAlign.bottomLeft, fillStyle:this.tcolor  })
+            break
+          case ('bottomRight'):
+            var sprite = new SpriteText2D(this.spritetext, { align: textAlign.bottomRight, fillStyle:this.tcolor  })
+            break
+        }
+        // sprite.position.set(0, 5, 0)
+        // sprite.material.alphaTest = 0.1
+        this.wrapper.add(sprite)
+        switch (this.ttwoalgin) {
+          case('bottomLeft'):
+            var spritetwo = new SpriteText2D(this.spritefun, { align: textAlign.bottomLeft, fillStyle:this.tcolor  })
+            break
+          case ('bottomRight'):
+            var spritetwo = new SpriteText2D(this.spritefun, { align: textAlign.bottomRight, fillStyle:this.tcolor  })
+            break
+        }
+
+        // spritetwo.position.set(0,7, 0)
+        // spritetwo.material.alphaTest = 0.1
+        this.wrapper.add(spritetwo)
         // var spritethree = new SpriteText2D(this.spritecard, { align: textAlign.topRight, fillStyle: '#FFFFFF'  })
         // spritethree.position.set(0, 9, 0)
         // spritethree.material.alphaTest = 0.1
@@ -508,10 +546,10 @@ export default {
         var geometry = new THREE.CubeGeometry(1, 60, 1);//创建一个立方体
         var material = new THREE.MeshBasicMaterial({color: '#FFFFFF'});//填充的材质
         var cube = new THREE.Mesh(geometry, material);//网格绘制
-        cube.position.x=0
+        cube.position.x=50
         cube.position.y=38
         cube.position.z=0
-        this.scene.add(cube);//场景添加网格
+        this.wrapper.add(cube);//场景添加网格
         // if ( !this.spritetext ) return;
         //   var sprite = new SpriteText2D(this.spritetext, { align: textAlign.bottomLeft,fillStyle: '#FFFFFF' , antialias: false })
         //   this.scene.add(sprite)

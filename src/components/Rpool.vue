@@ -575,7 +575,7 @@
             _this.cross='请填写完整'
           }
           else {
-            this.axios.defaults.headers.post['Content-Type']='application/json;charse=UTF-8'
+            // this.axios.defaults.headers.post['Content-Type']='application/json;charse=UTF-8'
             this.$axios.post(this.allurl + 'manager/tank/rename_tank', {
               newname: poolname,
               tank_id: this.edit,}

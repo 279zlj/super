@@ -37,6 +37,9 @@
   import '../store/store'
   import jsonp from 'jsonp'
   import qs from 'qs'
+  import {setCookie} from "../assets/js/base";
+
+  '../assets/js/base'
 
     export default {
         name: "Login",
@@ -79,6 +82,7 @@
           else {
             this.user=this.$refs.user.value;
             this.pwd=this.$refs.pwd.value;
+            setCookie('username',this.$refs.user.value,1000*60)
             this.$axios.post(this.allurl+'login',{user:this.user,pwd:this.pwd}).then(function (res) {
               if (res.data.status===0) {
                 _this.tips='账号/密码错误，请重新输入'

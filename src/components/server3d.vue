@@ -11,13 +11,13 @@
             <h3 class="panel-title" style="display: inline-block;margin: .7em">机箱当前状态</h3>
             <span style="right:1em;position: absolute"><i class="glyphicon glyphicon-remove" style="cursor: pointer;margin:.8em .5em" @click="panelhide"></i></span>
           </div>
-          <div style="width: 10em;height: 7em;margin: .7em">
-            <p>硬盘温度：</p>
-            <p>CPU温度：</p>
-            <p>阵列卡温度：</p>
-          </div>
+          <!--<div style="width: 10em;height: 7em;margin: .7em">-->
+            <!--<p>硬盘温度：</p>-->
+            <!--<p>CPU温度：</p>-->
+            <!--<p>阵列卡温度：</p>-->
+          <!--</div>-->
         </div>
-        <model-gltf :backgroundAlpha="bgAlpha"  :rotation="rotation" @on-load="onLoad" :spritecard="sacard" :spritetext="sastatic"  :position="where" :backgroundColor="bgColor" src="../../static/server/server2801.gltf" :cameraPosition="camera" :width="wid" :height="hei"></model-gltf>
+        <model-gltf :backgroundAlpha="bgAlpha"  :rotation="rotation"  @on-load="onLoad" :spritefun="safun" :spritetext="sastatic" :tonealgin="tonealgin"  :ttwoalgin="ttwoalgin" :tcolor="tcolor"  :position="where" :backgroundColor="bgColor" src="../../static/server/server2801.gltf" :cameraPosition="camera" :width="wid" :height="hei"></model-gltf>
         <!--<div ref="server3d"></div>-->
       </div>
     </div>
@@ -52,10 +52,10 @@
     },
       data(){
           return {
-            camera: {x: 0, y: 70, z: -260},
+            camera: {x: 0, y: 70, z: -280},
             bgAlpha: .3,
             bgColor: '#2E2245',
-            wid: 1000,
+            wid: 950,
             hei: 443,
             tcontent: '',
             ttitle: '',
@@ -63,12 +63,15 @@
             sastatic:this.$store.state.cputem,
             safun: this.$store.state.funspeed,
             sacard: this.$store.state.cardtem,
+            tonealgin:'bottomLeft',
+            ttwoalgin:'bottomRight',
+            tcolor:'#FFFFFF',
             rotation: {
               x: 0,
               y: 0,
               z: 0
             },
-            where: {x: 0, y: 0, z: -10},
+            where: {x: 0, y: 0, z: -20},
             server: [
               {name: 'node1', osd: ['ada', 'adb', 'adv'], static: ['ok', 'error', 'ok'], row: 6, cloumn: 3},
               {name: 'node2', osd: ['ada', 'adb', 'adv'], static: ['ok', 'ok', 'ok'], row: 6, cloumn: 3},
@@ -104,8 +107,11 @@
           this.rotate();
         },
         rotate () {
+          // for (let i=0;i<10;i++)
           // this.rotation.x+= 0.01;
-          this.rotation.y += 0.01;
+            this.rotation.y += 0.0003;
+          // for (let p=0;p<10;p++)
+          //   this.rotation.y -= 0.05;
           requestAnimationFrame( this.rotate );
         },
         panelshow(){

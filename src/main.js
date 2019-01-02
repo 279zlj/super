@@ -17,13 +17,10 @@ import '@/assets/bootdatetime/js/bootstrap-datetimepicker.js'
 import '@/assets/bootdatetime/js/locales/bootstrap-datetimepicker.zh-CN.js'
 import echarts from 'echarts'
 import axios from 'axios'
-// import 'jquery-treegrid/css/jquery.treegrid.css'
 import '@/assets/dist/bootstrap-table.css'
 import '@/assets/dist/extensions/filter-control/bootstrap-table-filter-control.css'
-// import 'jquery-treegrid/js/jquery.treegrid.js'
 import '@/assets/dist/bootstrap-table.js'
 import '@/assets/dist/extensions/filter-control/bootstrap-table-filter-control.js'
-// import '@/assets/dist/extensions/treegrid/bootstrap-table-treegrid.js'
 import '@/assets/dist/locale/bootstrap-table-zh-CN.min.js'
 import '@/assets/js/bootstrap-table-contextmenu.js'
 import '@/assets/dist/ga.js'
@@ -42,7 +39,7 @@ Vue.prototype.$qs=qs
 Vue.config.productionTip = false
 Vue.prototype.$echarts=echarts
 Vue.prototype.$axios = axios;
-this.$axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
+// axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8'
 
 // Vue.prototype.detailFormatter=function(index,row){
 //   var html=[];
