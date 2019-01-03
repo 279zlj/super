@@ -302,7 +302,7 @@
     },
 
 
-    computed:{            /*调用Vuex中的islogin值，有缓存左右*/
+    computed:{
       lindraw(){
         return this.$store.state.iwrite,this.$store.state.iread,this.$store.state.ti,this.$store.state.mwrite,this.$store.state.mread,this.$store.state.delaytime
       },

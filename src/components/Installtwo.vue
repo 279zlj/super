@@ -14,20 +14,36 @@
           </div>
           <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
             <div class="cont" >
-              <div class="container-fluid " >
 
-                <div>
 
+                <div class="allselected">
+                  <p style="margin-top: 1em">已选择监控节点：</p>
+                  <span v-for="jk in jkselected" style="font-size: 1.2em">
+                    {{jk}}
+                  </span>
+                  <p>共：<span style="font-size: 1.4em">{{jknum}} </span>个</p>
+                  <p>已选择集群节点：</p>
+                  <span v-for="jq in jqselected" style="font-size: 1.2em">
+                    {{jq}}
+                  </span>
+                  <p>共：<span style="font-size: 1.4em">{{jqnum}} </span>个</p>
                 </div>
-              </div>
+
 
             </div>
             <div class="g">
-
+              <h3 style="margin-left: 1em">Monitor：</h3>
+              <div style="width:30%;border: 1px solid black; border-radius: 1em;margin: 2em">
+                <p v-for="aa in jkselected" style="text-align: center;line-height: 2em">{{aa}}</p>
+              </div>
+              <h3 style="margin-left: 1em">Nodes：</h3>
+              <div style="width:50%;border: 1px solid black; border-radius: 1em;margin: 2em">
+                <p v-for="bb in jqselected" style="text-align: center;line-height: 2em">{{bb}}</p>
+              </div>
             </div>
             <div class="r" @keydown="keyd" >
               <router-link :to="{name:'Installone'}"><span style="margin-right: 1em" ><span class="glyphicon glyphicon-chevron-left"></span>上一步</span></router-link>
-              <router-link :to="{name:'Installthree'}"><span >下一步<span class="glyphicon glyphicon-chevron-right"></span></span></router-link>
+              <router-link :to="{name:'Installthree'}"><span @click="myselect">下一步<span class="glyphicon glyphicon-chevron-right"></span></span></router-link>
             </div>
           </div>
         </div>
@@ -42,6 +58,19 @@
 <script>
     export default {
         name: "Installtwo",
+      computed:{
+        jjselect(){
+            return this.$store.state.jkselect,this.$store.state.jqselect
+          }
+      },
+      data(){
+          return{
+            jqselected:'',
+            jkselected:'',
+            jqnum:'',
+            jknum:''
+          }
+      },
       methods:{
         keyd(){                          /*键盘事件监听*/
           // console.log(this.$route.path)
@@ -62,11 +91,23 @@
             e.cancelBubble=true;
           }
 
+        },
+        myselect(){
+          this.$axios.post(this.allurl+'',{monitor:this.jkselected,node:this.jqselected},function (res) {
+
+          }).catch(function (error) {
+            console.log(error)
+          })
         }
       },
 
       mounted(){
         this.keyd()
+        this.jqselected=this.$store.state.jqselect
+        this.jkselected=this.$store.state.jkselect
+        this.jqnum=this.jqselected.length
+        this.jknum=this.jkselected.length
+        // alert(this.$store.state.jkselect)
       },
 
 
@@ -86,13 +127,19 @@
   width: 100%;
 }
 .g{
-  background-color: #9AA3B0;width: 45em;height: 30em;position: relative;z-index: 999;margin-top: 1em;border-radius: 5px
+  background-color: #9AA3B0;width: 45em;height: 30em;position: relative;z-index: 999;margin-top: 1em;border-radius: 5px;overflow-y: scroll;
 }
 .font1{
-  text-align: center;margin: 6em 0 0 0;font-size: 3.5em
+  text-align: center;margin: 6em 0 0 0;font-size: 3.5em;color:black;
 }
 .font2{
   text-align: center;font-size: 2em;color: gray;
+}
+.allselected{
+  color: black;
+  height: 12em;
+  overflow-y: scroll;
+  margin-left: 1em;
 }
 .left{
   background-color: #C4D4EB;

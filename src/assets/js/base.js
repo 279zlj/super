@@ -2,9 +2,9 @@
 function setCookie(c_name,value,expire) {
   var date=new Date()
   date.setSeconds(date.getSeconds()+expire)
-  document.cookie=c_name+ "="+escape(value)+"; expires="+date.toUTCString()
+  document.cookie=c_name+ "="+encodeURI('    '+value+'   ')+"expires="+date.toUTCString()
   // alert('setCookie')
-  // console.log(encodeURI('12324324535hjdgssjhfsdkf'))
+  // console.log(encodeURI('http://baidu.com/?123=234'))
 }
 /*获取cookie*/
 function getCookie(c_name){

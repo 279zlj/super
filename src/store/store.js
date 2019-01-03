@@ -32,6 +32,8 @@ import Vuex from 'vuex'
   let cputem=''
   let funspeed=''
   let cardtem=''
+  let jqselect=[]
+  let jkselect=[]
 try {
   if (localStorage.gosd_use)
     guse=JSON.parse(localStorage.gosd_use)
@@ -93,6 +95,10 @@ try {
     funspeed=JSON.parse(localStorage.funspeed)
   if (localStorage.cardtem)
     cardtem=JSON.parse(localStorage.cardtem)
+  if (localStorage.jqselect)
+    jqselect=JSON.parse(localStorage.jqselect)
+  if (localStorage.jkselect)
+    jkselect=JSON.parse(localStorage.jkselect)
 }
 catch (e) {
   
@@ -143,7 +149,9 @@ const store =new Vuex.Store({
     btime:btime,
     cputem:cputem,
     funspeed:funspeed,
-    cardtem:cardtem
+    cardtem:cardtem,
+    jqselect:jqselect,
+    jkselect:jkselect
     // language:''
   },
   mutations:{
@@ -238,6 +246,12 @@ const store =new Vuex.Store({
       localStorage.diskips=JSON.stringify(msg.diskips)
       localStorage.diskops=JSON.stringify(msg.diskops)
       localStorage.idisk=JSON.stringify(msg.idisk)
+    },
+    jjselect(state,msg){
+      state.jkselect=msg.jkselect
+      state.jqselect=msg.jqselect
+      localStorage.jqselect=JSON.stringify(msg.jqselect)
+      localStorage.jkselect=JSON.stringify(msg.jkselect)
     }
   }
 })

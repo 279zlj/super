@@ -9,7 +9,33 @@
         <div class="col-lg-5 col-md-4 col-sm-5 col-xs-5">
 
           <p class="font1" >请选择服务器</p>
-          <p class="font2">Plese select your servers.</p>
+          <p class="font2"> Plese click the server to select as a monitoring node or cluster</p>
+          <div class="disk-info container">
+            <h3>Server List:</h3>
+            <div class="row" style="text-align: center">
+            <div  class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              Server Name
+            </div>
+            <div  class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+              Server Id
+            </div>
+            <div  class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+              Server Detail
+            </div>
+            </div>
+            <div class="row rowstyle" v-for="s in servernum">
+
+              <div  class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                {{s.name}}
+              </div>
+              <div  class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                {{s.num}}
+              </div>
+              <div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                {{s.content}}
+              </div>
+            </div>
+          </div>
           <img src="../../static/image/install/oneleftdown.png" class="img-responsive yun"/>
         </div>
           <div class="col-lg-7 col-md-6 col-sm-7 col-xs-7">
@@ -19,7 +45,7 @@
                 <div class="jq" id="jk">
                   <div class="row" id="one">
                     <div class='col-lg-2 col-md-2 col-sm-3 col-xs-6'  v-for="p in jklist" v-if="jklist!=0" :id=p>
-                      <img src='../../static/image/install/selected.png' class='img-responsive'  data-toggle='dropdown' >
+                      <img src='../../static/image/install/selected.png' class='img-responsive' style="cursor: pointer" data-toggle='dropdown' >
                       <p>{{p}}</p>
                       <ul class='dropdown-menu'>
                         <li ><a style='cursor: pointer' v-on:click='jkdele(p)' >移除节点</a></li>
@@ -33,7 +59,7 @@
                 <div class="jq" id="jq">
                   <div class="row" id="two">
                     <div class='col-lg-2 col-md-2 col-sm-3 col-xs-6'  v-for="q in jqlist" v-if="jqlist!=0" :id=q >
-                      <img src='../../static/image/install/selected.png' class='img-responsive'  data-toggle='dropdown' >
+                      <img src='../../static/image/install/selected.png' class='img-responsive' style="cursor: pointer" data-toggle='dropdown' >
                       <p>{{q}}</p>
                       <ul class='dropdown-menu'>
                         <li ><a style='cursor: pointer' v-on:click='jqdele(q)' >移除节点</a></li>
@@ -43,10 +69,10 @@
                 </div>
               </div>
               <div class="container-fluid" style="margin-top: 3em;margin-left: 2em">
-                <div class="row ser" >
+                <div class="row ser" id="ser">
                   <div v-for="i in servernum" class="col-lg-2 col-md-2 col-sm-3 col-xs-6" :id="i.name">
-                    <img src="../../static/image/install/select.png" class="img-responsive" :title="i.content"  data-toggle="dropdown"/>
-                    <ul class="dropdown-menu">
+                    <img src="../../static/image/install/select.png" class="img-responsive" style="cursor: pointer" :title="i.content" data-toogle="tooltip" data-placement="bottom" data-toggle="dropdown"/>
+                    <ul class="dropdown-menu" style="z-index: 999">
                       <li ><a style="cursor: pointer" @click="jkjd(i.num,i.name)">监控节点</a></li>
                       <li><a style="cursor: pointer" @click="jqjd(i.num,i.name)">集群节点</a></li>
                     </ul>
@@ -57,7 +83,7 @@
             </div>
             <div class="r" @keydown="keyd">
               <router-link :to="{}" ><span style="margin-right: 1em"  ><span class="glyphicon glyphicon-chevron-left"></span>上一步</span></router-link>
-              <router-link :to="{name:'Installtwo'}" ><span  >下一步<span class="glyphicon glyphicon-chevron-right"></span></span></router-link>
+              <router-link :to="{name:'Installtwo'}" ><span @click="selectwhat" >下一步<span class="glyphicon glyphicon-chevron-right"></span></span></router-link>
             </div>
           </div>
         </div>
@@ -79,20 +105,20 @@
           return{
             servernum:[
               {num:'1',name:'server1',content:'1 disk,2 memory,3 cpu'},
-              {num:'2',name:'server2'},
-              {num:'3',name:'server3'},
-              {num:'4',name:'server4'},
-              {num:'5',name:'server5'},
-              {num:'6',name:'server6'},
-              {num:'7',name:'server7'},
-              {num:'8',name:'server8'},
-              {num:'9',name:'server9'},
-              {num:'10',name:'server10'},
-              {num:'11',name:'server11'},
-              {num:'12',name:'server12'},
-              {num:'13',name:'server13'},
-              {num:'14',name:'server14'},
-              {num:'15',name:'server15'},
+              {num:'2',name:'server2',content:'2 disk,2 memory,3 cpu'},
+              {num:'3',name:'server3',content:'3 disk,2 memory,3 cpu'},
+              {num:'4',name:'server4',content:'4 disk,2 memory,3 cpu'},
+              {num:'5',name:'server5',content:'5 disk,2 memory,3 cpu'},
+              {num:'6',name:'server6',content:'6 disk,2 memory,3 cpu'},
+              {num:'7',name:'server7',content:'7 disk,2 memory,3 cpu'},
+              {num:'8',name:'server8',content:'8 disk,2 memory,3 cpu'},
+              {num:'9',name:'server9',content:'9 disk,2 memory,3 cpu'},
+              {num:'10',name:'server10',content:'10 disk,2 memory,3 cpu'},
+              {num:'11',name:'server11',content:'11 disk,2 memory,3 cpu'},
+              {num:'12',name:'server12',content:'12 disk,2 memory,3 cpu'},
+              {num:'13',name:'server13',content:'13 disk,2 memory,3 cpu'},
+              {num:'14',name:'server14',content:'14 disk,2 memory,3 cpu'},
+              {num:'15',name:'server15',content:'15 disk,2 memory,3 cpu'},
             ],
             jklist:[],
 
@@ -117,8 +143,9 @@
         },
         jkjd(num,name){                /*选择服务器添加到监控节点，选择后追加到相应的div下*/
           let c=0;
-          let o=$("#"+name+" "+"p").text()
+          let o=$(".ser #"+name+" "+"p").text()
           let p=$("#jk #"+name+" "+"p").text()
+          console.log(o)
           if (this.jklist.length==0){
             this.jklist.push(o)
             $("#" + name).css('color', 'red')
@@ -169,7 +196,7 @@
           }
           else {
             for (let i in this.jqlist) {
-              console.log(this.jqlist[i],p,2)
+              console.log(this.jqlist[i])
               if (this.jqlist[i] == p) {
                 continue
               }
@@ -185,7 +212,11 @@
           }
 
         },
-
+        selectwhat(){
+          // alert(this.jklist)
+          // alert(this.jqlist)
+          this.$store.commit('jjselect',{jkselect:this.jklist,jqselect:this.jqlist})
+        }
         // drag(ev){
         //
         //     ev.dataTransfer.setData("Text",ev.target.id);
@@ -203,6 +234,7 @@
 
       mounted(){
         this.keyd()
+        $("[data-toggle]").tooltip()
         // this.drag()
         // this.allowDrop()
         // this.drop()
@@ -238,7 +270,13 @@ body{
   text-align: center;margin: 6em 0 0 0;font-size: 3.5em
 }
 .font2{
-  text-align: center;font-size: 2em;color: gray;
+  text-align: center;font-size: 1.5em;color: gray;
+}
+.disk-info{
+  background-color: #E3F5F3;height: 25em;width: 100%;margin-left: 4em;overflow-y: scroll;border-radius: 1em;
+}
+.rowstyle{
+  line-height: 2em;text-align: center;
 }
   .left{
     background-color: #C8E5E2;
@@ -284,6 +322,7 @@ body{
       width: 50em;
     }
     .font1{
+
       margin-left: 2em;
     }
     .font2{
@@ -304,6 +343,9 @@ body{
   }
   .font2{
     margin-left: 0em;
+  }
+  .disk-info{
+    margin-left: 1em;
   }
   .r{
     margin-left: 0em;

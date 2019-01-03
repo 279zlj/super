@@ -55,7 +55,7 @@
   width: 150px;
 }
 .font1{
-  text-align: center;margin: 6em 0 0 0;font-size: 3.5em
+  text-align: center;margin: 6em 0 0 0;font-size: 3.5em;color:black
 }
 progress::-webkit-progress-bar
 {
@@ -72,7 +72,7 @@ progress::-webkit-progress-value
   width: 100%;background: #DDA22E !important;color: #DDA22E !important;height: 8px;border-radius: 1em;position: relative;z-index: 999
 }
 .c{
-  background-color: #9AA3B0 !important;width: 45em;height: 30em;position: relative;z-index: 999;margin-top: 1em;border-radius: 5px;
+  background-color: #9AA3B0 !important;width: 45em;height: 30em;position: relative;z-index: 999;margin-top: 1em;border-radius: 5px;overflow-y: scroll;
 }
 .font2{
   text-align: center;font-size: 2em;color: gray;
