@@ -24,6 +24,7 @@ import '@/assets/dist/extensions/filter-control/bootstrap-table-filter-control.j
 import '@/assets/dist/locale/bootstrap-table-zh-CN.min.js'
 import '@/assets/js/bootstrap-table-contextmenu.js'
 import '@/assets/dist/ga.js'
+import jsplumb from 'jsplumb'
 import './mock/mock'
 import 'es6-promise/auto'
 
@@ -34,7 +35,7 @@ Vue.use(Vuex)
 Vue.use(router)
 Vue.use(VueResource)
 Vue.use(VueI18n)
-
+Vue.prototype.$jsplumb = jsplumb.jsplumb
 Vue.prototype.$qs=qs
 Vue.config.productionTip = false
 Vue.prototype.$echarts=echarts

@@ -14,8 +14,6 @@
           </div>
           <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
             <div class="cont" >
-
-
                 <div class="allselected">
                   <p style="margin-top: 1em">已选择监控节点：</p>
                   <span v-for="jk in jkselected" style="font-size: 1.2em">
@@ -27,18 +25,27 @@
                     {{jq}}
                   </span>
                   <p>共：<span style="font-size: 1.4em">{{jqnum}} </span>个</p>
+
                 </div>
-
-
             </div>
             <div class="g">
-              <h3 style="margin-left: 1em">Monitor：</h3>
-              <div style="width:30%;border: 1px solid black; border-radius: 1em;margin: 2em">
-                <p v-for="aa in jkselected" style="text-align: center;line-height: 2em">{{aa}}</p>
-              </div>
-              <h3 style="margin-left: 1em">Nodes：</h3>
-              <div style="width:50%;border: 1px solid black; border-radius: 1em;margin: 2em">
-                <p v-for="bb in jqselected" style="text-align: center;line-height: 2em">{{bb}}</p>
+              <!--<h3 style="margin-left: 1em">Monitor：</h3>-->
+              <!--<div style="width:30%;border: 1px solid black; border-radius: 1em;margin: 2em">-->
+                <!--<p v-for="aa in jkselected" style="text-align: center;line-height: 2em">{{aa}}</p>-->
+              <!--</div>-->
+              <!--<h3 style="margin-left: 1em">Nodes：</h3>-->
+              <!--<div style="width:50%;border: 1px solid black; border-radius: 1em;margin: 2em">-->
+                <!--<p v-for="bb in jqselected" style="text-align: center;line-height: 2em">{{bb}}</p>-->
+              <!--</div>-->
+              <div class="flowchart-demo" id="flowchart-demo">
+                <div class="window" id="flowchartWindowone">{{jkselected}}
+                </div>
+                <div class="window" :id=bb v-for="(i,bb) in jqselected">{{i}}
+                </div>
+                <!--<div class="window" id="flowchartWindow3">3-->
+                <!--</div>-->
+                <!--<div class="window" id="flowchartWindow4">4-->
+                <!--</div>-->
               </div>
             </div>
             <div class="r" @keydown="keyd" >
@@ -56,8 +63,10 @@
 </template>
 
 <script>
+  import jsplumb from 'jsplumb'
     export default {
         name: "Installtwo",
+      // jsplumb,
       computed:{
         jjselect(){
             return this.$store.state.jkselect,this.$store.state.jqselect
@@ -98,6 +107,15 @@
           }).catch(function (error) {
             console.log(error)
           })
+        },
+        jsPlumb(){
+          jsPlumb.ready(function () {
+            jsPlumb.connect({
+              source: 'flowchartWindow2',
+              target: 'flowchartWindow3',
+              endpoint: 'Rectangle'
+            })
+          })
         }
       },
 
@@ -107,6 +125,7 @@
         this.jkselected=this.$store.state.jkselect
         this.jqnum=this.jqselected.length
         this.jknum=this.jkselected.length
+        this.jsPlumb()
         // alert(this.$store.state.jkselect)
       },
 
@@ -176,6 +195,43 @@
 
   font-size: 1.5em;
 }
+
+.flowchart-demo .window {
+  border: 1px solid #346789;
+  box-shadow: 2px 2px 19px #aaa;
+  -o-box-shadow: 2px 2px 19px #aaa;
+  -webkit-box-shadow: 2px 2px 19px #aaa;
+  -moz-box-shadow: 2px 2px 19px #aaa;
+  -moz-border-radius: 0.5em;
+  border-radius: 0.5em;
+  opacity: 0.5;
+  filter: alpha(opacity=80);
+  text-align: center;
+  position: absolute;
+  background-color: #eeeeef;
+  color: black;
+  font-size: 0.9em;
+  line-height: 60px;
+
+}
+
+#flowchartWindowone {
+  top: 4em;
+  left: 40%;
+}
+#flowchartWindow2 {
+  top: 7em;
+  left: 36em;
+}
+#flowchartWindow3 {
+  top: 27em;
+  left: 48em;
+}
+#flowchartWindow4 {
+  top: 23em;
+  left: 22em;
+}
+
 @media screen and (min-width: 1440px){
   .cont,.g{
     margin-left: 13em;
