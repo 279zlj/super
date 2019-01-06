@@ -37,16 +37,12 @@
               <!--<div style="width:50%;border: 1px solid black; border-radius: 1em;margin: 2em">-->
                 <!--<p v-for="bb in jqselected" style="text-align: center;line-height: 2em">{{bb}}</p>-->
               <!--</div>-->
-              <div class="flowchart-demo" id="flowchart-demo">
-                <div class="window" id="flowchartWindowone">{{jkselected}}
-                </div>
-                <div class="window" :id=bb v-for="(i,bb) in jqselected">{{i}}
-                </div>
-                <!--<div class="window" id="flowchartWindow3">3-->
+              <!--<div class="flowchart-demo" id="flowchart-demo" v-show="jqselected.length!=0||jkselected.length!=0">-->
+                <!--<div class="window" id="flowchartWindowone">{{jkselected}}-->
                 <!--</div>-->
-                <!--<div class="window" id="flowchartWindow4">4-->
-                <!--</div>-->
-              </div>
+                <!--<div class="window child" :id=i v-for="i in jqselected">{{i}}</div>-->
+              <!--</div>-->
+              <Iplumb :jkselect="jkselected" :jqselect="jqselected"></Iplumb>
             </div>
             <div class="r" @keydown="keyd" >
               <router-link :to="{name:'Installone'}"><span style="margin-right: 1em" ><span class="glyphicon glyphicon-chevron-left"></span>上一步</span></router-link>
@@ -64,9 +60,16 @@
 
 <script>
   import jsplumb from 'jsplumb'
+  import Vue from 'vue'
+  const later = Vue.component('Iplumb', function (resolve) {
+    setTimeout(function () {
+      require(['./Iplumb.vue'], resolve)
+    }, 2000);
+  });
     export default {
         name: "Installtwo",
       // jsplumb,
+      components:{later},
       computed:{
         jjselect(){
             return this.$store.state.jkselect,this.$store.state.jqselect
@@ -108,24 +111,38 @@
             console.log(error)
           })
         },
-        jsPlumb(){
+        jsPlumb(tar){
           jsPlumb.ready(function () {
+            for (let i=0;i<tar.length;i++)
             jsPlumb.connect({
-              source: 'flowchartWindow2',
-              target: 'flowchartWindow3',
+              source: 'flowchartWindowone',
+              target: tar[i],
               endpoint: 'Rectangle'
             })
+            // jsplumb.draggable('server8')
           })
-        }
-      },
 
+        },
+
+      },
+      watch:{
+        '$route': 'jsPlumb'
+      },
+      // create(){
+      //   this.jsPlumb(this.jqselected)
+      //
+      // },
       mounted(){
+        // this.jsPlumb(this.$store.state.jqselect)
         this.keyd()
         this.jqselected=this.$store.state.jqselect
         this.jkselected=this.$store.state.jkselect
         this.jqnum=this.jqselected.length
         this.jknum=this.jkselected.length
-        this.jsPlumb()
+
+
+
+
         // alert(this.$store.state.jkselect)
       },
 
@@ -193,44 +210,9 @@
   text-align: center;
   line-height: 3.5em;
 
-  font-size: 1.5em;
+  font-size: 1.4em;
 }
 
-.flowchart-demo .window {
-  border: 1px solid #346789;
-  box-shadow: 2px 2px 19px #aaa;
-  -o-box-shadow: 2px 2px 19px #aaa;
-  -webkit-box-shadow: 2px 2px 19px #aaa;
-  -moz-box-shadow: 2px 2px 19px #aaa;
-  -moz-border-radius: 0.5em;
-  border-radius: 0.5em;
-  opacity: 0.5;
-  filter: alpha(opacity=80);
-  text-align: center;
-  position: absolute;
-  background-color: #eeeeef;
-  color: black;
-  font-size: 0.9em;
-  line-height: 60px;
-
-}
-
-#flowchartWindowone {
-  top: 4em;
-  left: 40%;
-}
-#flowchartWindow2 {
-  top: 7em;
-  left: 36em;
-}
-#flowchartWindow3 {
-  top: 27em;
-  left: 48em;
-}
-#flowchartWindow4 {
-  top: 23em;
-  left: 22em;
-}
 
 @media screen and (min-width: 1440px){
   .cont,.g{
@@ -252,8 +234,21 @@
     margin-left: 0em;
     width: 45em;
   }
+  .g{
+    height: 25em;
+  }
+  .cont{
+    margin-top: 4em;
+  }
+  .right{
+    width: 20em;
+  }
+  .yun{
+    width: 20em;
+  }
   .font1{
     margin-left: 0em;
+    margin-top: 3em;
   }
   .font2{
     margin-left: 0em;

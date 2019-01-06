@@ -29,7 +29,7 @@ import tips from '@/components/tips'
 import object from '@/components/object'
 import server3d from '@/components/server3d'
 import Aobj from '@/components/Aobj'
-
+import Iplumb from '@/components/Iplumb'
 
 Vue.use(Router)
 
@@ -298,6 +298,12 @@ export default new Router({
       name:'tips',
       menuShow:true,
       component:tips
+    },
+    {
+      path:'/Iplumb',
+      name:'Iplumb',
+      menuShow:true,
+      component:Iplumb
     },
     {
       path:'/server',

@@ -118,9 +118,11 @@ progress::-webkit-progress-value
   .pr,.p{
     margin-left:0em;
     width: 40em;
+    margin-top: 5em;
   }
   .font1{
     margin-left: 0em;
+    margin-top:3em
   }
   .font2{
     margin-left: 0em;

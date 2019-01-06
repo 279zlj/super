@@ -99,8 +99,10 @@
 </template>
 
 <script>
+  import jsplumb from 'jsplumb'
     export default {
         name: "Installone",
+
       data(){
           return{
             servernum:[
@@ -145,7 +147,7 @@
           let c=0;
           let o=$(".ser #"+name+" "+"p").text()
           let p=$("#jk #"+name+" "+"p").text()
-          console.log(o)
+          // console.log(o)
           if (this.jklist.length==0){
             this.jklist.push(o)
             $("#" + name).css('color', 'red')
@@ -189,14 +191,14 @@
           let o=$(".ser #"+name+" "+"p").text()
           let p=$("#jq #"+name+" "+"p").text()
           if (this.jqlist.length==0){
-            console.log(o)
+            // console.log(o)
             this.jqlist.push(o)
 
             $(".ser #" + name).css('color', 'red')
           }
           else {
             for (let i in this.jqlist) {
-              console.log(this.jqlist[i])
+              // console.log(this.jqlist[i])
               if (this.jqlist[i] == p) {
                 continue
               }
@@ -216,7 +218,10 @@
           // alert(this.jklist)
           // alert(this.jqlist)
           this.$store.commit('jjselect',{jkselect:this.jklist,jqselect:this.jqlist})
-        }
+        },
+
+
+
         // drag(ev){
         //
         //     ev.dataTransfer.setData("Text",ev.target.id);
@@ -304,13 +309,13 @@ body{
     z-index: 100;
   }
   .cont{
-    width: 45em;height: 40em;background-color: #DCF2F0;z-index: 999;position: relative;opacity: .8;margin-top: 15em
+    width: 45em;height: 100%;background-color: #DCF2F0;z-index: 999;position: relative;opacity: .8;margin-top: 15em
   }
   .r{
     text-align: center;
     line-height: 3.5em;
 
-    font-size: 1.5em;
+    font-size: 1.4em;
   }
   #one,#two{
     height: 7em;overflow-y: scroll;margin: .5em 0 0 .5em;width: 98%
@@ -336,10 +341,17 @@ body{
   .cont{
     margin-left: 0em;
     width: 45em;
+    margin-top: 5em;
+  }
+  .right{
+    width: 20em;
+  }
+  .yun{
+    width: 10em;
   }
   .font1{
     margin-left: 0em;
-    margin-top: 5em;
+    margin-top: 2em;
   }
   .font2{
     margin-left: 0em;
@@ -357,11 +369,12 @@ body{
   .cont{
     margin-left: 0em;
     width: 35em;
+    margin-top: 5em;
   }
   .font1{
     margin-left: 0em;
     font-size: 2em;
-    margin-top: 10em;
+    margin-top: 2em;
   }
   .font2{
     margin-left: 0em;
