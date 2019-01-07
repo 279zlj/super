@@ -624,6 +624,7 @@
               console.log(error)
             })
             $('#clientmodal').modal('hide')
+            _this.cross=''
           }
 
         },
