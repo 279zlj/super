@@ -185,7 +185,7 @@
             <!--<p class="health_detail" v-for="i in $store.state.health.health_detail">{{i}}</p>-->
           <!--</div>-->
           <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 print">
-            <p style="font-size: medium">集群(Cluster)</p>
+            <p style="font-size: medium">{{$t('message.Cluster')}}</p>
             <div class="row">
               <p style="margin: 0em 0 0 1em" class="titlecolor">{{$t('message.Resource-pool-state')}}</p>
               <div v-for="p in $store.state.ceph.pools">
@@ -219,10 +219,10 @@
             </div>
           </div>
           <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 print">
-            <p style="font-size: medium">数据集合(Data Set)</p>
+            <p style="font-size: medium">{{$t('message.iData-Set')}}</p>
             <p><span class="titlecolor">{{$t('message.Used-capacity')}}：</span>{{$store.state.rqlite_info.volume}}</p>
             <p><span class="titlecolor">{{$t('message.Status')}}：</span><span :class="{'wanning':$store.state.rqlite_info.stats=='warn','ok':$store.state.rqlite_info.stats=='ok','error':$store.state.rqlite_info.stats=='error'}">{{$store.state.rqlite_info.stats}}</span></p>
-            <p style="font-size: medium">消息进程(Message Process)</p>
+            <p style="font-size: medium">{{$t('message.Message-Process')}}</p>
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="titlecolor">{{$t('message.Nodes')}}：</span>{{$store.state.redis.nodes}}</div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="titlecolor">{{$t('message.Used')}}：</span>{{$store.state.redis.used}}</div>
@@ -512,7 +512,7 @@
             show: true
           },
           xAxis: [{
-            name: '时间',
+            name: 'Time',
             data:time,
             lineStyle: {
               color: 'white'
@@ -707,7 +707,7 @@
             show: true
           },
           xAxis: [{
-            name: '时间',
+            name: 'Time',
             data: time,
             lineStyle: {
               color: 'white'
@@ -892,7 +892,7 @@
             }
           },
           xAxis: [{
-            name: '时间',
+            name: 'Time',
             data: time,
             lineStyle: {
               color: 'white'

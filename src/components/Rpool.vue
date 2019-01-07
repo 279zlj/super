@@ -548,7 +548,7 @@
           else {
             this.who = 'empower'
             let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
-              return row.pname;
+              return row.name;
             });
             if (ids.length < 1) {
               this.tipscontent = '请选择删除项'
@@ -556,8 +556,8 @@
               // alert('请选择删除项')
             }
             else if (ids.length >= 1) {
-              this.title = '是否确认选择删除该授权记录'
-              this.some = ids
+              this.title = '是否确认选择删除客户端'
+              this.dosome = ids
               this.$refs.tips.dselect()
 
 
