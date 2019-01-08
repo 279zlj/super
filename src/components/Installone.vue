@@ -100,7 +100,7 @@
                   </div>
                 </div>
               </div>
-              <div class="container-fluid" style="margin-top: 3em;margin-left: 2em">
+              <div class="container-fluid" style="margin-top: 2em;margin-left: 2em">
                 <div class="row ser" id="ser">
                   <div v-for="i in servernum" class="col-lg-2 col-md-2 col-sm-3 col-xs-6" :id="i.name">
                     <img src="../../static/image/install/select.png" class="img-responsive imgsize" style="cursor: pointer" :title="i.content" data-toogle="tooltip" data-placement="bottom" data-toggle="dropdown"/>
@@ -476,7 +476,19 @@ body{
   .cont{
     margin-left: 0em;
     width: 45em;
-    margin-top: 5em;
+    margin-top: 1.5em;
+  }
+  .jq{
+    height: 5em;
+  }
+  #one,#two,#three,#four{
+    height: 4em;
+  }
+  .ser{
+    height: 6em;
+  }
+  .l-title{
+    margin-top: .2em;
   }
   .right{
     width: 20em;
@@ -496,7 +508,7 @@ body{
   }
   .r{
     margin-left: 0em;
-
+    font-size: 1.2em;
   }
 
 }

@@ -1,8 +1,8 @@
 <template>
     <div class="row" id="Installnet">
       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 left">
-        <span class="n-title">安装准备</span>
-        <img src="../../static/image/install/netleft.png" class="img-responsive" style="float: right;width: 2.5em"/>
+        <span class="n-title">网络配置</span>
+        <img src="../../static/image/install/netleft.png" class="img-responsive" style="float: right;width: 2.5em;height: 100%"/>
         <img src="../../static/image/install/install-logo.png" class="img-responsive logo"/>
       </div>
       <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 center">
@@ -14,31 +14,38 @@
           </div>
           <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
             <div class="cont">
-              <div class="bor-bottom  row" id="sora"><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 c-title">存储：</div>
-
-                <div style="display: inline-block;margin: .5em" class="col-lg-2 col-md-2 col-sm-2 col-xs-2" v-for="s in slist" :id=s><img src="../../static/image/install/netcard.png" class="img-responsive"  style="cursor: pointer" data-toggle='dropdown'/>
-                  <p style="color: #0F9052">{{s}}</p><ul class='dropdown-menu'>
-                  <li ><a style='cursor: pointer' v-on:click='sdelete(p)' >移除</a></li>
+              <div class="bor-bottom row" id="sora"><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 c-title">存储：</div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 sheight">
+                <div style="display: inline-block;margin: .5em" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 " v-for="s in sslist" :id=s.id>
+                  <img src="../../static/image/install/netcard.png" class="img-responsive"  style="cursor: pointer" data-toggle='dropdown' :title=s.id data-toogle="tooltip" data-placement="bottom"/>
+                  <p style="color: #0F9052">{{s.name}}</p><ul class='dropdown-menu'>
+                  <li ><a style='cursor: pointer' v-on:click='sdelete(s.name)' >移除</a></li>
                 </ul></div>
-
+                </div>
               </div>
-              <div class="bor-bottom"><span class="c-title">管理：</span>
-                <div style="display: inline-block;margin-right: .5em" v-for="m in mlist" :id=m><img src="../../static/image/install/netcard.png" class="img-responsive"  style="cursor: pointer" data-toggle='dropdown'/>
-                  <p style="color: #0F9052">{{m}}</p><ul class='dropdown-menu'>
-                    <li ><a style='cursor: pointer' v-on:click='mdelete(p)' >移除</a></li>
-                  </ul></div>
+              <div class="bor-bottom row"><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 c-title">管理：</div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 mheight">
+                <div style="display: inline-block;margin: .5em" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 " v-for="m in mmlist" :id=m.id>
+                  <img src="../../static/image/install/netcard.png" class="img-responsive"  style="cursor: pointer" data-toggle='dropdown' :title=m.id data-toogle="tooltip" data-placement="bottom"/>
+                  <p style="color: #0F9052">{{m.name}}</p><ul class='dropdown-menu'>
+                    <li ><a style='cursor: pointer' v-on:click='mdelete(m.name)' >移除</a></li>
+                  </ul>
+                </div>
+                </div>
               </div>
-              <div class="card">
+              <div class="row card">
                 <div class="row net" :id=c.name v-for="c in netlist">
-                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    {{c.name}}
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <img src="../../static/image/install/net_node.png" class="img-responsive" style="cursor: pointer;margin-top: 1em">
+                    <p style="color:blue;text-align: center">{{c.name}}</p>
                   </div>
-                  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" id="all" style="background-color: #BFDDF2;overflow: scroll">
-                    <div style="display: inline-block;margin: .5em" :id=n.name v-for="n in c.netcard"><img src="../../static/image/install/netcard.png" class="img-responsive"  style="cursor: pointer" data-toggle='dropdown'/>
+                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" id="all" style="background-color: #BFDDF2;overflow-y: scroll">
+                    <div style="display: inline-block;margin-top: .5em" class="col-lg-4 col-md-4 col-sm-4 col-xs-4" :id=n.name v-for="n in c.netcard">
+                      <img src="../../static/image/install/netcard.png" class="img-responsive"  style="cursor: pointer" data-toggle='dropdown'/>
                       <p style="color: #0F9052">{{n.a}}</p>
                     <ul class='dropdown-menu'>
-                      <li ><a style='cursor: pointer' v-on:click='stor(c.name,n.name)' >存储</a></li>
-                      <li ><a style='cursor: pointer' v-on:click='man(c.name,n.name)' >管理</a></li>
+                      <li ><a style='cursor: pointer' v-on:click='stor(c.name,n.name,c.id)' >存储</a></li>
+                      <li ><a style='cursor: pointer' v-on:click='man(c.name,n.name,c.id)' >管理</a></li>
                     </ul>
                     </div>
 
@@ -48,7 +55,7 @@
             </div>
             <div class="r" @keydown="keyd" >
               <!--<router-link :to="{name:'Installone'}"><span style="margin-right: 1em" ><span class="glyphicon glyphicon-chevron-left"></span>上一步</span></router-link>-->
-              <router-link :to="{name:'Installone'}"><span @click="netselect">下一步<span class="glyphicon glyphicon-chevron-right"></span></span></router-link>
+              <router-link :to="{name:''}"><span @click="netselect">下一步<span class="glyphicon glyphicon-chevron-right"></span></span></router-link>
             </div>
           </div>
         </div>
@@ -115,7 +122,13 @@
               }
             ],
             slist:[],
-            mlist:[]
+            mlist:[],
+            sid:[],
+            mid:[],
+            sslist:[],
+            mmlist:[],
+            salist:[],
+            malist:[]
           }
       },
       methods:{
@@ -144,16 +157,29 @@
           })
         },
         netselect(){
-
+          this.salist.splice(0)
+          for(let i=0;i<this.slist.length;i++){
+            var slist={}
+            slist.id=this.sid[i]
+            slist.stroage=this.slist[i]
+            for (let n=0;n<this.mid.length;n++){
+              if (this.sid[i]==this.mid[n])
+                slist.manager=this.mlist[n]
+            }
+            this.salist.push(slist)
+          }
+          console.log(this.salist)
         },
-        stor(cname,name){
+        stor(cname,name,id){
           let c=0;
           let o=$("#"+cname+" #all #"+name+" "+"p").text()
-          // let p=$("#sora #"+name+" "+"p").text()
-          // console.log(p)
+          var ss={}
           if (this.slist.length==0){
             this.slist.push(o)
-            // this.jkid.push(id)
+            this.sid.push(id)
+            ss.id=cname
+            ss.name=o
+            this.sslist.push(ss)
             $("#" + name).css('color', 'red')
           }
           else {
@@ -168,24 +194,71 @@
             }
             if ((c ) == this.slist.length) {
               this.slist.push(o)
-              // this.jkid.push(id)
-              console.log(this.slist)
+              this.sid.push(id)
+              ss.id=cname
+              ss.name=o
+              this.sslist.push(ss)
+              $("#all #" + name).css('color', 'red')
+            }
+          }
+          console.log(this.sslist)
+        },
+        man(cname,name,id){
+          let c=0;
+          let o=$("#"+cname+" #all #"+name+" "+"p").text()
+          var mm={}
+          if (this.mlist.length==0){
+            this.mlist.push(o)
+            this.mid.push(id)
+            mm.id=cname
+            mm.name=o
+            this.mmlist.push(mm)
+            $("#" + name).css('color', 'red')
+          }
+          else {
+            for (let i in this.mlist) {
+              if (this.mlist[i] == o) {
+                continue
+              }
+              else {
+                c++
+
+              }
+            }
+            if ((c ) == this.mlist.length) {
+              this.mlist.push(o)
+              this.mid.push(id)
+              mm.id=cname
+              mm.name=o
+              this.mmlist.push(mm)
               $("#all #" + name).css('color', 'red')
             }
           }
         },
-        man(name){
-
+        sdelete(n){
+          $('.sheight #'+n).remove();
+          for (let i in this.sslist){
+            if (this.sslist[i].name==n){
+              this.slist.splice(i,1)
+              this.sid.splice(i,1)
+              this.sslist.splice(i,1)
+            }
+          }
         },
-        sdelete(){
-
-        },
-        mdelete(){
-
+        mdelete(n){
+          $('.mheight #'+n).remove();
+          for (let i in this.mmlist){
+            if (this.mmlist[i].name==n){
+              this.mlist.splice(i,1)
+              this.mid.splice(i,1)
+              this.mmlist.splice(i,1)
+            }
+          }
         }
       },
       mounted(){
           this.keyd()
+        $('[data-toggle]').tooltip()
       }
     }
 </script>
@@ -254,13 +327,11 @@
   }
   .bor-bottom{
     border-bottom: 3px solid #2492B5;
-
-    width: 90%;
     margin: 0 auto;
     color:black ;
   }
   .c-title{
-    line-height: 4em;
+
     font-size: 1.4em;
     font-weight: 700;
     margin: 1em;
@@ -272,8 +343,13 @@
     overflow-y: scroll;
     overflow-x: hidden;
   }
+  .sheight,.mheight{
+    margin-top: .5em;
+    height: 4em;
+    overflow-y: scroll;
+  }
   @media screen and (min-width: 1440px){
-    .cont,.g{
+    .cont{
       margin-left: 13em;
       width: 50em;
     }
@@ -291,6 +367,7 @@
     .cont{
       margin-left: 0em;
       width: 45em;
+      height: 38em;
     }
     .cont{
       margin-top: 4em;
@@ -300,6 +377,10 @@
     }
     .yun{
       width: 20em;
+    }
+    .card{
+      margin:0.5em 0em;
+      height: 23em;
     }
     .font1{
       margin-left: 0em;
