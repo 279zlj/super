@@ -34,6 +34,13 @@ import Vuex from 'vuex'
   let cardtem=''
   let jqselect=[]
   let jkselect=[]
+  let mdsselect=[]
+  let rgwselect=[]
+  let cname=''
+  let jkid=[]
+  let jqid=[]
+  let mdsid=[]
+  let rgwid=[]
 try {
   if (localStorage.gosd_use)
     guse=JSON.parse(localStorage.gosd_use)
@@ -99,6 +106,20 @@ try {
     jqselect=JSON.parse(localStorage.jqselect)
   if (localStorage.jkselect)
     jkselect=JSON.parse(localStorage.jkselect)
+  if (localStorage.mdsselect)
+    mdsselect=JSON.parse(localStorage.mdsselect)
+  if (localStorage.rgwselect)
+    rgwselect=JSON.parse(localStorage.rgwselect)
+  if (localStorage.cname)
+    cname=JSON.parse(localStorage.cname)
+  if (localStorage.jkid)
+    jkid=JSON.parse(localStorage.jkid)
+  if (localStorage.jqid)
+    jqid=JSON.parse(localStorage.jqid)
+  if (localStorage.mdsid)
+    mdsid=JSON.parse(localStorage.mdsid)
+  if (localStorage.rgwid)
+    rgwid=JSON.parse(localStorage.rgwid)
 }
 catch (e) {
   
@@ -151,7 +172,14 @@ const store =new Vuex.Store({
     funspeed:funspeed,
     cardtem:cardtem,
     jqselect:jqselect,
-    jkselect:jkselect
+    jkselect:jkselect,
+    mdsselect:mdsselect,
+    rgwselect:rgwselect,
+    cname:cname,
+    jkid:jkid,
+    jqid:jqid,
+    mdsid:mdsid,
+    rgwid:rgwid
     // language:''
   },
   mutations:{
@@ -250,8 +278,22 @@ const store =new Vuex.Store({
     jjselect(state,msg){
       state.jkselect=msg.jkselect
       state.jqselect=msg.jqselect
+      state.mdsselect=msg.mdsselect
+      state.rgwselect=msg.rgwselect
+      state.cname=msg.clustername
+      state.jkid=msg.jkid
+      state.jqid=msg.jqid
+      state.mdsid=msg.mdsid
+      state.rgwid=msg.rgwid
       localStorage.jqselect=JSON.stringify(msg.jqselect)
       localStorage.jkselect=JSON.stringify(msg.jkselect)
+      localStorage.mdsselect=JSON.stringify(msg.mdsselect)
+      localStorage.rgwselect=JSON.stringify(msg.rgwselect)
+      localStorage.cname=JSON.stringify(msg.clustername)
+      localStorage.jkid=JSON.stringify(msg.jkid)
+      localStorage.jqid=JSON.stringify(msg.jqid)
+      localStorage.mdsid=JSON.stringify(msg.mdsid)
+      localStorage.rgwid=JSON.stringify(msg.rgwid)
     }
   }
 })

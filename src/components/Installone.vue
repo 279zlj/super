@@ -17,10 +17,10 @@
               Server Name
             </div>
             <div  class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-              Server Id
+              Server Disk
             </div>
             <div  class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-              Server Detail
+              Server Memory
             </div>
             </div>
             <div class="row rowstyle" v-for="s in servernum">
@@ -29,10 +29,10 @@
                 {{s.name}}
               </div>
               <div  class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                {{s.num}}
+                {{s.disk}}
               </div>
               <div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                {{s.content}}
+                {{s.mem}}
               </div>
             </div>
           </div>
@@ -40,12 +40,16 @@
         </div>
           <div class="col-lg-7 col-md-6 col-sm-7 col-xs-7">
             <div class="cont" >
+              <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-sm-6"><p class="l-title" style="margin-left: 1em">集群名称：</p></div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-sm-6"><input class="form-control" ref="clustername" style="margin-top: .5em;" autofocus="autofocus"/></div>
+              </div>
               <div class="container-fluid " >
-                <h3>监控节点：</h3>
+                <p class="l-title">监控节点：</p>
                 <div class="jq" id="jk">
                   <div class="row" id="one">
                     <div class='col-lg-2 col-md-2 col-sm-3 col-xs-6'  v-for="p in jklist" v-if="jklist!=0" :id=p>
-                      <img src='../../static/image/install/selected.png' class='img-responsive' style="cursor: pointer" data-toggle='dropdown' >
+                      <img src='../../static/image/install/selected.png' class='img-responsive imgsize' style="cursor: pointer" data-toggle='dropdown' >
                       <p>{{p}}</p>
                       <ul class='dropdown-menu'>
                         <li ><a style='cursor: pointer' v-on:click='jkdele(p)' >移除节点</a></li>
@@ -55,11 +59,11 @@
                 </div>
               </div>
               <div class="container-fluid">
-                <h3>集群节点：</h3>
+                <p class="l-title">集群节点：</p>
                 <div class="jq" id="jq">
                   <div class="row" id="two">
                     <div class='col-lg-2 col-md-2 col-sm-3 col-xs-6'  v-for="q in jqlist" v-if="jqlist!=0" :id=q >
-                      <img src='../../static/image/install/selected.png' class='img-responsive' style="cursor: pointer" data-toggle='dropdown' >
+                      <img src='../../static/image/install/selected.png' class='img-responsive imgsize' style="cursor: pointer" data-toggle='dropdown' >
                       <p>{{q}}</p>
                       <ul class='dropdown-menu'>
                         <li ><a style='cursor: pointer' v-on:click='jqdele(q)' >移除节点</a></li>
@@ -68,13 +72,43 @@
                   </div>
                 </div>
               </div>
+              <div class="container-fluid">
+                <p class="l-title">元数据服务器：</p>
+                <div class="jq" id="mds">
+                  <div class="row" id="three">
+                    <div class='col-lg-2 col-md-2 col-sm-3 col-xs-6'  v-for="m in mdslist" v-if="mdslist!=0"  :id=m>
+                      <img src='../../static/image/install/selected.png' class='img-responsive imgsize' style="cursor: pointer" data-toggle='dropdown' >
+                      <p>{{m}}</p>
+                      <ul class='dropdown-menu'>
+                        <li ><a style='cursor: pointer' v-on:click='mdsdele(m)' >移除节点</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="container-fluid">
+                <p class="l-title">对象存储网关：</p>
+                <div class="jq" id="rgw">
+                  <div class="row" id="four">
+                    <div class='col-lg-2 col-md-2 col-sm-3 col-xs-6'  v-for="r in rgwlist" v-if="rgwlist!=0"  :id=r>
+                      <img src='../../static/image/install/selected.png' class='img-responsive imgsize' style="cursor: pointer" data-toggle='dropdown' >
+                      <p>{{r}}</p>
+                      <ul class='dropdown-menu'>
+                        <li ><a style='cursor: pointer' v-on:click='rgwdele(r)' >移除节点</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="container-fluid" style="margin-top: 3em;margin-left: 2em">
                 <div class="row ser" id="ser">
                   <div v-for="i in servernum" class="col-lg-2 col-md-2 col-sm-3 col-xs-6" :id="i.name">
-                    <img src="../../static/image/install/select.png" class="img-responsive" style="cursor: pointer" :title="i.content" data-toogle="tooltip" data-placement="bottom" data-toggle="dropdown"/>
+                    <img src="../../static/image/install/select.png" class="img-responsive imgsize" style="cursor: pointer" :title="i.content" data-toogle="tooltip" data-placement="bottom" data-toggle="dropdown"/>
                     <ul class="dropdown-menu" style="z-index: 999">
-                      <li ><a style="cursor: pointer" @click="jkjd(i.num,i.name)">监控节点</a></li>
-                      <li><a style="cursor: pointer" @click="jqjd(i.num,i.name)">集群节点</a></li>
+                      <li ><a style="cursor: pointer" @click="jkjd(i.name,i.id)">监控节点</a></li>
+                      <li><a style="cursor: pointer" @click="jqjd(i.name,i.id)">集群节点</a></li>
+                      <li ><a style="cursor: pointer" @click="msdselect(i.name,i.id)">元数据服务器</a></li>
+                      <li><a style="cursor: pointer" @click="rgwselect(i.name,i.id)">对象存储网关</a></li>
                     </ul>
                     <p ><b>{{i.name}}</b></p>
                   </div>
@@ -82,7 +116,7 @@
               </div>
             </div>
             <div class="r" @keydown="keyd">
-              <router-link :to="{}" ><span style="margin-right: 1em"  ><span class="glyphicon glyphicon-chevron-left"></span>上一步</span></router-link>
+              <router-link :to="{name:'Installnet'}" ><span style="margin-right: 1em"  ><span class="glyphicon glyphicon-chevron-left"></span>上一步</span></router-link>
               <router-link :to="{name:'Installtwo'}" ><span @click="selectwhat" >下一步<span class="glyphicon glyphicon-chevron-right"></span></span></router-link>
             </div>
           </div>
@@ -106,25 +140,33 @@
       data(){
           return{
             servernum:[
-              {num:'1',name:'server1',content:'1 disk,2 memory,3 cpu'},
-              {num:'2',name:'server2',content:'2 disk,2 memory,3 cpu'},
-              {num:'3',name:'server3',content:'3 disk,2 memory,3 cpu'},
-              {num:'4',name:'server4',content:'4 disk,2 memory,3 cpu'},
-              {num:'5',name:'server5',content:'5 disk,2 memory,3 cpu'},
-              {num:'6',name:'server6',content:'6 disk,2 memory,3 cpu'},
-              {num:'7',name:'server7',content:'7 disk,2 memory,3 cpu'},
-              {num:'8',name:'server8',content:'8 disk,2 memory,3 cpu'},
-              {num:'9',name:'server9',content:'9 disk,2 memory,3 cpu'},
-              {num:'10',name:'server10',content:'10 disk,2 memory,3 cpu'},
-              {num:'11',name:'server11',content:'11 disk,2 memory,3 cpu'},
-              {num:'12',name:'server12',content:'12 disk,2 memory,3 cpu'},
-              {num:'13',name:'server13',content:'13 disk,2 memory,3 cpu'},
-              {num:'14',name:'server14',content:'14 disk,2 memory,3 cpu'},
-              {num:'15',name:'server15',content:'15 disk,2 memory,3 cpu'},
+              {
+                "id":"000000000000000000000025908A6EEC",
+                "name": "node3",
+                "disk":9,
+                "mem":"154800M"
+              },
+              {
+                "id":"00000000000000000000002590e479f2",
+                "name": "node2",
+                "disk":9,
+                "mem":"154800M"
+              },
+              {
+                "id":"b3a2b8ad2110e211a174001e673ba424",
+                "name": "node1",
+                "disk":9,
+                "mem":"154800M"
+              }
             ],
             jklist:[],
-
-            jqlist:[]
+            jqlist:[],
+            mdslist:[],
+            rgwlist:[],
+            jkid:[],
+            jqid:[],
+            mdsid:[],
+            rgwid:[]
           }
       },
       methods:{
@@ -136,6 +178,9 @@
             if (key == 39) {
               _this.$router.push({name: 'Installtwo'})
             }
+            else if(key==37){
+              _this.$router.push({name:'Installnet'})
+            }
             else{
               return ;
             }
@@ -143,13 +188,14 @@
           }
 
         },
-        jkjd(num,name){                /*选择服务器添加到监控节点，选择后追加到相应的div下*/
+        jkjd(name,id){                /*选择服务器添加到监控节点，选择后追加到相应的div下*/
           let c=0;
           let o=$(".ser #"+name+" "+"p").text()
           let p=$("#jk #"+name+" "+"p").text()
           // console.log(o)
           if (this.jklist.length==0){
             this.jklist.push(o)
+            this.jkid.push(id)
             $("#" + name).css('color', 'red')
           }
           else {
@@ -163,7 +209,60 @@
             }
             if ((c ) == this.jklist.length) {
               this.jklist.push(o)
-              $("#" + name).css('color', 'red')
+              this.jkid.push(id)
+              $(".ser " + name).css('color', 'red')
+            }
+          }
+        },
+        msdselect(name,id){
+          let c=0;
+          let o=$(".ser #"+name+" "+"p").text()
+          let p=$("#mds #"+name+" "+"p").text()
+          console.log(p)
+          if (this.mdslist.length==0){
+            this.mdslist.push(o)
+            this.mdsid.push(id)
+            $(".ser " + name).css('color', 'red')
+          }
+          else {
+            for (let i in this.mdslist) {
+              if (this.mdslist[i] == p) {
+                continue
+              }
+              else {
+                c++
+              }
+            }
+            if ((c ) == this.mdslist.length) {
+              this.mdslist.push(o)
+              this.mdsid.push(id)
+              $(".ser " + name).css('color', 'red')
+            }
+          }
+        },
+        rgwselect(name,id){
+          let c=0;
+          let o=$(".ser #"+name+" "+"p").text()
+          let p=$("#rgw #"+name+" "+"p").text()
+          // console.log(o)
+          if (this.rgwlist.length==0){
+            this.rgwlist.push(o)
+            this.rgwid.push(id)
+            $(".ser " + name).css('color', 'red')
+          }
+          else {
+            for (let i in this.rgwlist) {
+              if (this.rgwlist[i] == p) {
+                continue
+              }
+              else {
+                c++
+              }
+            }
+            if ((c ) == this.rgwlist.length) {
+              this.rgwlist.push(o)
+              this.rgwid.push(id)
+              $(".ser " + name).css('color', 'red')
             }
           }
         },
@@ -186,13 +285,32 @@
           $(".ser #" +n+" "+'p').css('color', 'black')
 
         },
-        jqjd(num,name){             /*选择服务器添加到集群节点，选择后追加到相应的div下*/
+        mdsdele(n){
+          $('#mds #'+n).remove();
+          for (let i in this.mdslist){
+            if (this.mdslist[i]==n){
+              this.mdslist.splice(i,1)
+            }
+          }
+          $(".ser #" +n+" "+'p').css('color', 'black')
+        },
+        rgwdele(n){
+          $('#rgw #'+n).remove();
+          for (let i in this.rgwlist){
+            if (this.rgwlist[i]==n){
+              this.rgwlist.splice(i,1)
+            }
+          }
+          $(".ser #" +n+" "+'p').css('color', 'black')
+        },
+        jqjd(name,id){             /*选择服务器添加到集群节点，选择后追加到相应的div下*/
           let c=0;
           let o=$(".ser #"+name+" "+"p").text()
           let p=$("#jq #"+name+" "+"p").text()
           if (this.jqlist.length==0){
             // console.log(o)
             this.jqlist.push(o)
+            this.jqid.push(id)
 
             $(".ser #" + name).css('color', 'red')
           }
@@ -209,6 +327,7 @@
 
             if ((c ) == this.jqlist.length) {
               this.jqlist.push(o)
+              this.jqid.push(id)
               $(".ser #" + name).css('color', 'red')
             }
           }
@@ -217,9 +336,16 @@
         selectwhat(){
           // alert(this.jklist)
           // alert(this.jqlist)
-          this.$store.commit('jjselect',{jkselect:this.jklist,jqselect:this.jqlist})
+          var clustername=this.$refs.clustername.value
+          this.$store.commit('jjselect',{jkselect:this.jklist,jqselect:this.jqlist,mdsselect:this.mdslist,rgwselect:this.rgwlist,clustername:clustername,jkid:this.jkid,jqid:this.jqid,mdsid:this.mdsid,rgwid:this.rgwid})
         },
-
+        start(){
+          this.$axios.get(this.allurl+'get_machine',function (res) {
+            this.servernum=res.data
+          }).catch(function (error) {
+            console.log(error)
+          })
+        }
 
 
         // drag(ev){
@@ -262,11 +388,17 @@
   width: 100%;
   color: black;
 }
+.imgsize{
+  width: 3em;
+}
 .jq{
-  height:8em;width: 100%;border: 1px solid #cccccc;border-radius: 5px;
+  height:6em;width: 100%;border: 1px solid #cccccc;border-radius: 5px;
 }
 .ser{
-  width: 100%;overflow-y:scroll;height: 10em
+  width: 100%;overflow-y:scroll;height: 9em
+}
+.l-title{
+  font-size: 1.2em;font-weight: 700;margin-top: .5em;
 }
 body{
   background-color: white !important;
@@ -278,7 +410,7 @@ body{
   text-align: center;font-size: 1.5em;color: gray;
 }
 .disk-info{
-  background-color: #E3F5F3;height: 25em;width: 100%;margin-left: 4em;overflow-y: scroll;border-radius: 1em;
+  background-color: #E3F5F3;height: 25em;width: 100%;margin-left: 4em;overflow-y: scroll;border-radius: 1em;margin-top: 2em;
 }
 .rowstyle{
   line-height: 2em;text-align: center;
@@ -309,7 +441,10 @@ body{
     z-index: 100;
   }
   .cont{
-    width: 45em;height: 100%;background-color: #DCF2F0;z-index: 999;position: relative;opacity: .8;margin-top: 15em
+    width: 45em;height: 100%;background-color: #DCF2F0;z-index: 999;position: relative;opacity: .8;margin-top: 8em
+  }
+  input{
+    background-color: #FFFFFF;color: black;border: 1px solid #8FC9C3;
   }
   .r{
     text-align: center;
@@ -317,8 +452,8 @@ body{
 
     font-size: 1.4em;
   }
-  #one,#two{
-    height: 7em;overflow-y: scroll;margin: .5em 0 0 .5em;width: 98%
+  #one,#two,#three,#four{
+    height: 5em;overflow-y: scroll;margin: .5em 0 0 .5em;width: 98%
   }
 
   @media screen and (min-width: 1440px){

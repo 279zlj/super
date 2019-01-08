@@ -1,0 +1,354 @@
+<template>
+    <div class="row" id="Installnet">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 left">
+        <span class="n-title">安装准备</span>
+        <img src="../../static/image/install/netleft.png" class="img-responsive" style="float: right;width: 2.5em"/>
+        <img src="../../static/image/install/install-logo.png" class="img-responsive logo"/>
+      </div>
+      <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 center">
+        <div class="row container">
+          <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+            <p class="font1" >请选择节点和网卡</p>
+              <p class="font2">Plese select your node & network card</p>
+            <img src="../../static/image/install/twoleftdown.png" class="img-responsive yun"/>
+          </div>
+          <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+            <div class="cont">
+              <div class="bor-bottom  row" id="sora"><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 c-title">存储：</div>
+
+                <div style="display: inline-block;margin: .5em" class="col-lg-2 col-md-2 col-sm-2 col-xs-2" v-for="s in slist" :id=s><img src="../../static/image/install/netcard.png" class="img-responsive"  style="cursor: pointer" data-toggle='dropdown'/>
+                  <p style="color: #0F9052">{{s}}</p><ul class='dropdown-menu'>
+                  <li ><a style='cursor: pointer' v-on:click='sdelete(p)' >移除</a></li>
+                </ul></div>
+
+              </div>
+              <div class="bor-bottom"><span class="c-title">管理：</span>
+                <div style="display: inline-block;margin-right: .5em" v-for="m in mlist" :id=m><img src="../../static/image/install/netcard.png" class="img-responsive"  style="cursor: pointer" data-toggle='dropdown'/>
+                  <p style="color: #0F9052">{{m}}</p><ul class='dropdown-menu'>
+                    <li ><a style='cursor: pointer' v-on:click='mdelete(p)' >移除</a></li>
+                  </ul></div>
+              </div>
+              <div class="card">
+                <div class="row net" :id=c.name v-for="c in netlist">
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    {{c.name}}
+                  </div>
+                  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" id="all" style="background-color: #BFDDF2;overflow: scroll">
+                    <div style="display: inline-block;margin: .5em" :id=n.name v-for="n in c.netcard"><img src="../../static/image/install/netcard.png" class="img-responsive"  style="cursor: pointer" data-toggle='dropdown'/>
+                      <p style="color: #0F9052">{{n.a}}</p>
+                    <ul class='dropdown-menu'>
+                      <li ><a style='cursor: pointer' v-on:click='stor(c.name,n.name)' >存储</a></li>
+                      <li ><a style='cursor: pointer' v-on:click='man(c.name,n.name)' >管理</a></li>
+                    </ul>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="r" @keydown="keyd" >
+              <!--<router-link :to="{name:'Installone'}"><span style="margin-right: 1em" ><span class="glyphicon glyphicon-chevron-left"></span>上一步</span></router-link>-->
+              <router-link :to="{name:'Installone'}"><span @click="netselect">下一步<span class="glyphicon glyphicon-chevron-right"></span></span></router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+        <img src="../../static/image/install/netrightup.png" class="img-responsive right"/>
+      </div>
+    </div>
+
+</template>
+
+<script>
+    export default {
+        name: "Installnet",
+      data(){
+          return{
+            netlist:[
+
+              {
+                "id":"000000000000000000000025908A6EEC",
+                "name": "node3",
+                "f": 1,
+                "netcard": [
+                  {
+                    "name":"eno1",
+                    "m": "y: 1000",
+                  "a": "192.168.9.43"},
+                  {
+                    "name":"eno2",
+                    "m": "n: 1000-",
+                  "a": "192.168.8.43"}
+                ]
+              },
+              {
+                "id":"00000000000000000000002590e479f2",
+                "name": "node2",
+                "f": 1,
+                "netcard":[{
+                  "name":"enp5s0",
+                  "m": "n: 1000-",
+                  "a": "192.168.9.42"
+                },
+                  {
+                    "name":"enp6s0",
+                    "m": "y: 1000",
+                    "a": "192.168.8.42"
+                  }
+                ],
+              },
+              {
+                "id":"b3a2b8ad2110e211a174001e673ba424",
+                "name": "node1",
+                "f": 1,
+                "netcard": [{
+                  "name":"enp5s0",
+                  "m": "y: 1000",
+                  "a": "192.168.9.41"
+                },
+                {
+                  "name":"enp6s0",
+                  "m": "n: 1000-",
+                  "a": "192.168.8.41"
+                }]
+              }
+            ],
+            slist:[],
+            mlist:[]
+          }
+      },
+      methods:{
+        keyd(){                          /*键盘事件监听*/
+          // console.log(this.$route.path)
+
+          var _this=this
+          document.onkeydown=function (e) {
+            var key=window.event.keyCode
+            // console.log(key)
+            if (key==39){
+              _this.$router.push({name:'Installone'})
+            }
+            else {
+              return;
+            }
+            e.cancelBubble=true;
+          }
+
+        },
+        start(){
+          this.$store.get(this.allurl+'get_net',function (res) {
+            this.netlist=res.data
+          }).catch(function (error) {
+            console.log(error)
+          })
+        },
+        netselect(){
+
+        },
+        stor(cname,name){
+          let c=0;
+          let o=$("#"+cname+" #all #"+name+" "+"p").text()
+          // let p=$("#sora #"+name+" "+"p").text()
+          // console.log(p)
+          if (this.slist.length==0){
+            this.slist.push(o)
+            // this.jkid.push(id)
+            $("#" + name).css('color', 'red')
+          }
+          else {
+            for (let i in this.slist) {
+              if (this.slist[i] == o) {
+                continue
+              }
+              else {
+                c++
+
+              }
+            }
+            if ((c ) == this.slist.length) {
+              this.slist.push(o)
+              // this.jkid.push(id)
+              console.log(this.slist)
+              $("#all #" + name).css('color', 'red')
+            }
+          }
+        },
+        man(name){
+
+        },
+        sdelete(){
+
+        },
+        mdelete(){
+
+        }
+      },
+      mounted(){
+          this.keyd()
+      }
+    }
+</script>
+
+<style scoped>
+  #Installnet{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position:absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background-color: white !important;
+    width: 100%;
+  }
+  .left{
+    background-color: #BBDBE9;
+    height: 100%;
+    margin: 0;
+    width: 150px;
+  }
+  .logo{
+    position: fixed;
+    bottom: 3em;
+    left: 3em;
+    width: 5em;
+  }
+  .n-title{
+    color: black;
+    font-size: 1.3em;
+    margin:2em 0 0 0.5em;
+    line-height: 6em;
+  }
+  .font1{
+    text-align: center;margin: 6em 0 0 0;font-size: 3.5em;color:black;
+  }
+  .font2{
+    text-align: center;font-size: 2em;color: gray;
+  }
+  .yun{
+    left: 150px;
+    position: fixed;
+    bottom: 0;
+    width: 20em;
+  }
+  .cont{
+    width: 45em;height: 45em;background-color: #D2E6F5;z-index: 999;position: relative;opacity: .8;margin-top: 12em;padding:3em 2.5em;
+    border-radius: 5px;
+  }
+  .net{
+    margin:1em 2em;
+  }
+  .r{
+    text-align: center;
+    line-height: 3.5em;
+
+    font-size: 1.4em;
+  }
+  .right{
+    top:0;
+    right: 0;
+    width: 35em;
+    position: fixed;
+    z-index: 100;
+  }
+  .bor-bottom{
+    border-bottom: 3px solid #2492B5;
+
+    width: 90%;
+    margin: 0 auto;
+    color:black ;
+  }
+  .c-title{
+    line-height: 4em;
+    font-size: 1.4em;
+    font-weight: 700;
+    margin: 1em;
+  }
+  .card{
+    width: 100%;
+    height: 25em;
+    margin: 2em 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  @media screen and (min-width: 1440px){
+    .cont,.g{
+      margin-left: 13em;
+      width: 50em;
+    }
+    .font1{
+      margin-left: 2em;
+    }
+    .font2{
+      margin-left: 4em;
+    }
+    .r{
+      margin-left: 20em;
+    }
+  }
+  @media screen and (max-width: 1440px) and (min-width: 1024px){
+    .cont{
+      margin-left: 0em;
+      width: 45em;
+    }
+    .cont{
+      margin-top: 4em;
+    }
+    .right{
+      width: 20em;
+    }
+    .yun{
+      width: 20em;
+    }
+    .font1{
+      margin-left: 0em;
+      margin-top: 3em;
+    }
+    .font2{
+      margin-left: 0em;
+    }
+    .r{
+      margin-left: 0em;
+    }
+  }
+  @media screen and (max-width: 1024px) and (min-width: 768px) {
+    .cont {
+      margin-left: 0em;
+      width: 35em;
+    }
+
+    .font1 {
+      margin-left: 0em;
+      font-size: 2em;
+      margin-top: 10em;
+    }
+
+    .font2 {
+      margin-left: 0em;
+      font-size: 1em;
+    }
+
+    .r {
+      margin-left: 0em;
+    }
+
+    .right {
+      width: 30em;
+    }
+
+    .left {
+      width: 100px;
+    }
+
+    .yun {
+      left: 100px;
+      width: 15em;
+    }
+
+    .logo {
+      left: 1em;
+
+    }
+  }
+</style>

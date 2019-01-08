@@ -22,10 +22,10 @@
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 two">
         <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive">
-          <h3>
-            {{detail}}
-          </h3>
           <div>
+            <h3 v-show="detail!=0">{{detail}}</h3>
+          </div>
+          <div v-show="detailc!=0">
             {{detailc}}
           </div>
         </div>

@@ -15,33 +15,34 @@
           <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
             <div class="cont" >
                 <div class="allselected">
+                  <p style="margin-top: 1em">集群名称：<span style="font-size: 1.3em">{{$store.state.cname}}</span></p>
                   <p style="margin-top: 1em">已选择监控节点：</p>
                   <span v-for="jk in jkselected" style="font-size: 1.2em">
                     {{jk}}
+
                   </span>
                   <p>共：<span style="font-size: 1.4em">{{jknum}} </span>个</p>
                   <p>已选择集群节点：</p>
                   <span v-for="jq in jqselected" style="font-size: 1.2em">
                     {{jq}}
+
                   </span>
                   <p>共：<span style="font-size: 1.4em">{{jqnum}} </span>个</p>
+                  <p>已选择元数据服务器：</p>
+                  <span v-for="m in mdsselected" style="font-size: 1.2em">
+                    {{m}}
 
+                  </span>
+                  <p>共：<span style="font-size: 1.4em">{{mnum}} </span>个</p>
+                  <p>已选择对象存储网关：</p>
+                  <span v-for="r in rgwselected" style="font-size: 1.2em">
+                    {{r}}
+
+                  </span>
+                  <p>共：<span style="font-size: 1.4em">{{rnum}} </span>个</p>
                 </div>
             </div>
             <div class="g">
-              <!--<h3 style="margin-left: 1em">Monitor：</h3>-->
-              <!--<div style="width:30%;border: 1px solid black; border-radius: 1em;margin: 2em">-->
-                <!--<p v-for="aa in jkselected" style="text-align: center;line-height: 2em">{{aa}}</p>-->
-              <!--</div>-->
-              <!--<h3 style="margin-left: 1em">Nodes：</h3>-->
-              <!--<div style="width:50%;border: 1px solid black; border-radius: 1em;margin: 2em">-->
-                <!--<p v-for="bb in jqselected" style="text-align: center;line-height: 2em">{{bb}}</p>-->
-              <!--</div>-->
-              <!--<div class="flowchart-demo" id="flowchart-demo" v-show="jqselected.length!=0||jkselected.length!=0">-->
-                <!--<div class="window" id="flowchartWindowone">{{jkselected}}-->
-                <!--</div>-->
-                <!--<div class="window child" :id=i v-for="i in jqselected">{{i}}</div>-->
-              <!--</div>-->
               <Iplumb :jkselect="jkselected" :jqselect="jqselected"></Iplumb>
             </div>
             <div class="r" @keydown="keyd" >
@@ -79,8 +80,13 @@
           return{
             jqselected:'',
             jkselected:'',
+            mdsselected:'',
+            rgwselected:'',
             jqnum:'',
-            jknum:''
+            jknum:'',
+            mnum:'',
+            rnum:''
+
           }
       },
       methods:{
@@ -105,7 +111,7 @@
 
         },
         myselect(){
-          this.$axios.post(this.allurl+'',{monitor:this.jkselected,node:this.jqselected},function (res) {
+          this.$axios.post(this.allurl+'post_node_select',{cluster_name:this.$store.state.cname,mon:this.$store.state.jqid,osd:this.$store.state.jqid,mds:this.$store.state.mdsid,rgw:this.$store.state.rgwid},function (res) {
 
           }).catch(function (error) {
             console.log(error)
@@ -137,12 +143,12 @@
         this.keyd()
         this.jqselected=this.$store.state.jqselect
         this.jkselected=this.$store.state.jkselect
+        this.mdsselected=this.$store.state.mdsselect
+        this.rgwselected=this.$store.state.rgwselect
         this.jqnum=this.jqselected.length
         this.jknum=this.jkselected.length
-
-
-
-
+        this.mnum=this.mdsselected.length
+        this.rnum=this.rgwselected.length
         // alert(this.$store.state.jkselect)
       },
 

@@ -30,6 +30,7 @@ import object from '@/components/object'
 import server3d from '@/components/server3d'
 import Aobj from '@/components/Aobj'
 import Iplumb from '@/components/Iplumb'
+import Installnet from '@/components/Installnet'
 
 Vue.use(Router)
 
@@ -278,6 +279,12 @@ export default new Router({
       menuShow:true,
       component: Installthree,
 
+    },
+    {
+      path:'/Installnet',
+      name:'Installnet',
+      menuShow:true,
+      component:Installnet
     },
     {
       path:'/Login',

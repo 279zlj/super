@@ -16,10 +16,12 @@
             <div class="pr">
               <progress value="30" max="100" class="p" ></progress>
             </div>
-            <div class="c" >
-
+            <div class="c">
+              <div v-show="pinfo!=0">{{pinfo}}</div>
             </div>
-
+            <div class="botn">
+              <input type="button" class="form-control btn btn-info" style="width: 10%;float: right" @click="gologin" value="Login"/>
+            </div>
           </div>
         </div>
       </div>
@@ -32,6 +34,38 @@
 <script>
     export default {
         name: "Installthree",
+      data(){
+          return{
+            pinfo:[]
+          }
+      },
+      methods:{
+          gprocess(){
+
+            this.$axios.get(this.allurl+'get_process',function (res) {
+              this.pinfo.push(res.data)
+            }).catch(function (error) {
+              console.log(error)
+            })
+          },
+        start(){
+            var _this=this
+            setInterval(function () {
+              _this.gprocess()
+            },1500)
+        },
+        gologin(){
+            this.$axios.post(this.allurl+'post_login_sys',{login:'yes'},function (res) {
+              if (res.data.status==200&&res.data=='ok')
+                this.router.push('/Login')
+            }).catch(function (error) {
+              console.log(error)
+            })
+        }
+      },
+      mounted(){
+        // this.start()
+      }
 
     }
 </script>
@@ -68,6 +102,7 @@ progress::-webkit-progress-value
 .pr{
   margin-top: 18em;width: 100%
 }
+.botn{margin:2em 0 0 13em ;width: 100%;}
 .p{
   width: 100%;background: #DDA22E !important;color: #DDA22E !important;height: 8px;border-radius: 1em;position: relative;z-index: 999
 }
