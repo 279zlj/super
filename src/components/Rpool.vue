@@ -271,7 +271,7 @@
           // console.log(this.$store.state.islogin)
           if (sessionStorage.getItem('islogin')==250){
             this.tipscontent='普通用户无操作权限！'
-              $("#tipscontent").show().delay (2000).fadeOut ();;
+              $("#tipscontent").show().delay (2000).fadeOut ();
           }
           else {
             this.cross=''

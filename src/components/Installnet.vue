@@ -12,12 +12,15 @@
               <p class="font2">Plese select your node & network card</p>
             <img src="../../static/image/install/twoleftdown.png" class="img-responsive yun"/>
           </div>
+
           <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+
             <div class="cont">
+              <div class="alert alert-danger " id="tipsnr"  style="position: absolute;width: 60%;margin-left: 15%;z-index: 999;display: none">{{tipsnr}}</div>
               <div class="bor-bottom row" id="sora"><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 c-title">存储：</div>
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 sheight">
                 <div style="display: inline-block;margin: .5em" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 " v-for="s in sslist" :id=s.id>
-                  <img src="../../static/image/install/netcard.png" class="img-responsive"  style="cursor: pointer" data-toggle='dropdown' :title=s.id data-toogle="tooltip" data-placement="bottom"/>
+                  <img src="../../static/image/install/netcard.png" class="img-responsive"  style="cursor: pointer" :title=s.id data-toogle="tooltip" data-placement="bottom" data-toggle="dropdown" />
                   <p style="color: #0F9052">{{s.name}}</p><ul class='dropdown-menu'>
                   <li ><a style='cursor: pointer' v-on:click='sdelete(s.name)' >移除</a></li>
                 </ul></div>
@@ -26,7 +29,7 @@
               <div class="bor-bottom row"><div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 c-title">管理：</div>
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 mheight">
                 <div style="display: inline-block;margin: .5em" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 " v-for="m in mmlist" :id=m.id>
-                  <img src="../../static/image/install/netcard.png" class="img-responsive"  style="cursor: pointer" data-toggle='dropdown' :title=m.id data-toogle="tooltip" data-placement="bottom"/>
+                  <img src="../../static/image/install/netcard.png" class="img-responsive"  style="cursor: pointer"  :title=m.id data-toogle="tooltip" data-placement="bottom" data-toggle="dropdown" />
                   <p style="color: #0F9052">{{m.name}}</p><ul class='dropdown-menu'>
                     <li ><a style='cursor: pointer' v-on:click='mdelete(m.name)' >移除</a></li>
                   </ul>
@@ -34,18 +37,19 @@
                 </div>
               </div>
               <div class="row card">
+
                 <div class="row net" :id=c.name v-for="c in netlist">
                   <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                     <img src="../../static/image/install/net_node.png" class="img-responsive" style="cursor: pointer;margin-top: 1em">
                     <p style="color:blue;text-align: center">{{c.name}}</p>
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" id="all" style="background-color: #BFDDF2;overflow-y: scroll">
-                    <div style="display: inline-block;margin-top: .5em" class="col-lg-4 col-md-4 col-sm-4 col-xs-4" :id=n.name v-for="n in c.netcard">
+                    <div style="display: inline-block;margin: .5em" class="col-lg-4 col-md-4 col-sm-4 col-xs-4" :id=n.name v-for="n in c.netcard">
                       <img src="../../static/image/install/netcard.png" class="img-responsive"  style="cursor: pointer" data-toggle='dropdown'/>
-                      <p style="color: #0F9052">{{n.a}}</p>
-                    <ul class='dropdown-menu'>
-                      <li ><a style='cursor: pointer' v-on:click='stor(c.name,n.name,c.id)' >存储</a></li>
-                      <li ><a style='cursor: pointer' v-on:click='man(c.name,n.name,c.id)' >管理</a></li>
+                      <p class="afont">{{n.a}}</p>
+                    <ul class='dropdown-menu' >
+                      <li ><a style='cursor: pointer' v-on:click='stor(c.name,n.name,c.id)' id="storage">存储</a></li>
+                      <li ><a style='cursor: pointer' v-on:click='man(c.name,n.name,c.id)' id="manager" >管理</a></li>
                     </ul>
                     </div>
 
@@ -128,7 +132,9 @@
             sslist:[],
             mmlist:[],
             salist:[],
-            malist:[]
+            malist:[],
+            tipsnr:''
+
           }
       },
       methods:{
@@ -158,17 +164,50 @@
         },
         netselect(){
           this.salist.splice(0)
-          for(let i=0;i<this.slist.length;i++){
-            var slist={}
-            slist.id=this.sid[i]
-            slist.stroage=this.slist[i]
-            for (let n=0;n<this.mid.length;n++){
-              if (this.sid[i]==this.mid[n])
-                slist.manager=this.mlist[n]
+          if(this.slist.length>0) {
+            for (let i = 0; i < this.slist.length; i++) {
+              var slist = {}
+              var alist = {}
+              slist.id = this.sid[i]
+              slist.stroage = this.slist[i]
+              for (let n = 0; n < this.mid.length; n++) {
+                if (this.sid[i] == this.mid[n]) {
+                  slist.manager = this.mlist[n]
+                  this.mlist.splice(n, 1)
+                  this.mid.splice(n,1)
+                }
+              }
+              this.salist.push(slist)
             }
-            this.salist.push(slist)
+            for (let b = 0; b < this.mlist.length; b++) {
+              alist.id = this.mid[b]
+              alist.manager = this.mlist[b]
+              // console.log(b)
+              // console.log
+              this.salist.push(alist)
+            }
+              this.$axios.post(this.allurl + 'post_net_conf', JSON.stringify(this.salist), function (res) {
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+
+          else if (this.slist.length==0){
+            for (let p =0;p<this.mlist.length;p++){
+              var mlist={}
+              mlist.id=this.mid[p]
+              mlist.manager=this.mlist[p]
+              this.malist.push(mlist)
+            }
+
+            this.$axios.post(this.allurl+'post_net_conf',this.malist,function (res) {
+
+            }).catch(function (error) {
+              console.log(error)
+            })
           }
-          console.log(this.salist)
+          // console.log(this.salist)
+
         },
         stor(cname,name,id){
           let c=0;
@@ -179,61 +218,93 @@
             this.sid.push(id)
             ss.id=cname
             ss.name=o
+            ss.card=name
             this.sslist.push(ss)
-            $("#" + name).css('color', 'red')
+            $("#"+cname+" #all #"+name).css('color', 'red')
           }
           else {
-            for (let i in this.slist) {
-              if (this.slist[i] == o) {
-                continue
-              }
-              else {
-                c++
+            // console.log(this.sid.length)
+            let a=0
+            for(let i=0;i<this.sid.length;i++){
+              if (this.sid==id)
+              { a=a+1}
+              // console.log(a)
+            }
+            if (a==0) {
+              for (let i in this.slist) {
+                if (this.slist[i] == o) {
+                  continue
+                }
+                else {
+                  c++
 
+                }
+              }
+              if ((c) == this.slist.length) {
+                this.slist.push(o)
+                this.sid.push(id)
+                ss.id = cname
+                ss.name = o
+                ss.card = name
+                this.sslist.push(ss)
+                $("#" + cname + " #all #" + name).css('color', 'red')
               }
             }
-            if ((c ) == this.slist.length) {
-              this.slist.push(o)
-              this.sid.push(id)
-              ss.id=cname
-              ss.name=o
-              this.sslist.push(ss)
-              $("#all #" + name).css('color', 'red')
+            else if (a==1){
+              this.tipsnr='所属主机已有网卡用作存储，请重新选择'
+              $("#tipsnr").show().delay (2000).fadeOut ();
             }
           }
-          console.log(this.sslist)
+
+
+          // console.log(this.sslist)
         },
         man(cname,name,id){
           let c=0;
           let o=$("#"+cname+" #all #"+name+" "+"p").text()
           var mm={}
+
           if (this.mlist.length==0){
             this.mlist.push(o)
             this.mid.push(id)
             mm.id=cname
             mm.name=o
+            mm.card=name
             this.mmlist.push(mm)
-            $("#" + name).css('color', 'red')
+            $("#"+cname+" #all #"+name).css('color', 'red')
           }
           else {
-            for (let i in this.mlist) {
-              if (this.mlist[i] == o) {
-                continue
-              }
-              else {
-                c++
+            let a=0
+            for(let i=0;i<this.mid.length;i++){
+              if (this.mid==id)
+                a=1
+            }
+            if (a==0) {
+              for (let i in this.mlist) {
+                if (this.mlist[i] == o) {
+                  continue
+                }
+                else {
+                  c++
 
+                }
+              }
+              if ((c) == this.mlist.length) {
+                this.mlist.push(o)
+                this.mid.push(id)
+                mm.id = cname
+                mm.name = o
+                mm.card = name
+                this.mmlist.push(mm)
+                $("#" + cname + " #all #" + name).css('color', 'red')
               }
             }
-            if ((c ) == this.mlist.length) {
-              this.mlist.push(o)
-              this.mid.push(id)
-              mm.id=cname
-              mm.name=o
-              this.mmlist.push(mm)
-              $("#all #" + name).css('color', 'red')
+            else  if (a==1){
+              this.tipsnr='所属主机已有网卡用作管理，请重新选择'
+              $("#tipsnr").show().delay (2000).fadeOut ();
             }
           }
+
         },
         sdelete(n){
           $('.sheight #'+n).remove();
@@ -258,7 +329,8 @@
       },
       mounted(){
           this.keyd()
-        $('[data-toggle]').tooltip()
+        $("[data-toggle]").tooltip()
+        // this.start()
       }
     }
 </script>
@@ -347,6 +419,9 @@
     margin-top: .5em;
     height: 4em;
     overflow-y: scroll;
+  }
+  .afont{
+    color:#0F9052
   }
   @media screen and (min-width: 1440px){
     .cont{

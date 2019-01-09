@@ -103,7 +103,7 @@
               <div class="container-fluid" style="margin-top: 2em;margin-left: 2em">
                 <div class="row ser" id="ser">
                   <div v-for="i in servernum" class="col-lg-2 col-md-2 col-sm-3 col-xs-6" :id="i.name">
-                    <img src="../../static/image/install/select.png" class="img-responsive imgsize" style="cursor: pointer" :title="i.content" data-toogle="tooltip" data-placement="bottom" data-toggle="dropdown"/>
+                    <img src="../../static/image/install/select.png" class="img-responsive imgsize" style="cursor: pointer" :title="i.name" data-toogle="tooltip" data-placement="bottom" data-toggle="dropdown"/>
                     <ul class="dropdown-menu" style="z-index: 999">
                       <li ><a style="cursor: pointer" @click="jkjd(i.name,i.id)">监控节点</a></li>
                       <li><a style="cursor: pointer" @click="jqjd(i.name,i.id)">集群节点</a></li>
