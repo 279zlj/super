@@ -166,8 +166,21 @@
             <h4 class="modal-title" id="addpool">{{$t('message.Add-block-device')}}</h4>
           </div>
           <div class="modal-body">
+
             <p>{{$t('message.Block-name')}}：</p><input type="text" class="form-control" id="addname" ref="addname" required="required"/>
-            <p>{{$t('message.Block-capacity')}}：</p><input type="number" class="form-control" id="addsize" ref="addsize" required="required"/>
+            <p>{{$t('message.Block-capacity')}}：</p>
+            <div class="row">
+
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+                <input type="number" class="form-control" id="addsize" ref="addsize" required="required"/>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <select class="form-control" v-on:change="addselect($event)" v-model="aselectsize">
+                  <option v-for="a in units" :value="a.name">{{a.name}}</option>
+                </select>
+              </div>
+            </div>
             <p>{{$t('message.Pool')}}：</p>
             <select @click="selec()" v-on:change="bindexsel($event)" v-model="bsele" class="form-control">
               <option v-for="i in poollist" :value="i.name" >{{i.name}}</option>
@@ -212,12 +225,12 @@
           timertip:null,
           cross:'',
           units:[
-            {name:'byte',value:'byte'},
             {name:'MB',value:'mb'},
             {name:'GB',value:'GB'},
             {name:'TB',value:'TB'}
           ],
-          bselectsize:''
+          bselectsize:'',
+          aselectsize:''
         }
       },
       methods:{
@@ -263,6 +276,10 @@
         },
         bselect(event){//下拉框选择
           this.bselectsize=event.target.value
+
+        },
+        addselect(event){//下拉框选择
+          this.aselectsize=event.target.value
 
         },
         editsend(){                                /*发送修改功能*/
@@ -615,14 +632,20 @@
         addsend(){
           let addname=this.$refs.addname.value
           let addsize=this.$refs.addsize.value
-          if (addname==''||addsize==''){
+          var reg=/^[0-9]*$/;
+
+          if (addname==''||addsize==''||this.aselectsize==''){
             this.cross='请填写完整'
+          }
+          else if (!reg.test(addsize)){
+            this.cross='请输入整数'
           }
           else {
             var _this = this
             this.$axios.post(this.allurl + 'manager/client/block/create_block', {
               name: addname,
               size: addsize,
+              selectuint:this.aselectsize,
               pool: this.bsele
             }).then(function (res) {
               // console.log(res.data.status)
@@ -682,7 +705,7 @@
           var _this=this
           this.$axios.get(this.allurl+'manager/tank/list').then(function (res) {
             _this.poollist=res.data
-            console.log(_this.poollist)
+            // console.log(_this.poollist)
           }).catch(function (error) {
             console.log(error)
           })

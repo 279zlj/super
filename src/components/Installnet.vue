@@ -201,7 +201,9 @@
             }
 
             this.$axios.post(this.allurl+'post_net_conf',this.malist,function (res) {
-
+              if (res.data.status==200){
+                this.$router.push('/Installone')
+              }
             }).catch(function (error) {
               console.log(error)
             })

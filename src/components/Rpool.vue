@@ -471,13 +471,13 @@
           }},
         res(data){
           if (this.who=='pool') {
-            let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
-              return row.name;
+            let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+              return row.poolname;
             });
             this.respond = data
             // console.log(data,this.respond)
             if (this.respond == 'ok') {
-              this.$axios.post(this.allurl + 'manctl/client_rm', {iqn: ids}).then(function (res) {
+              this.$axios.post(this.allurl + 'manager/tank/remove_tank', {ids: ids}).then(function (res) {
                 // console.log(res,'post ok')
                 if (res.data = 'ok') {
                   $('#table').bootstrapTable('remove', {
@@ -497,7 +497,7 @@
             this.respond = data
             // console.log(data,this.respond)
             if (this.respond == 'ok') {
-              this.$axios.post(this.allurl + 'manager/client/authori_delete', {ids: ids}).then(function (res) {
+              this.$axios.post(this.allurl + 'manctl/client_rm', {ids: ids}).then(function (res) {
                 // console.log(res,'post ok')
                 if (res.data = 'ok') {
                   $('#table').bootstrapTable('remove', {

@@ -535,6 +535,9 @@ export default {
     background-size: cover;
     opacity:1;
   }
+  .dropdown-menu{
+    top:100% !important;
+  }
   @keyframes xuanzhuan
   {
     0%{
