@@ -14,7 +14,7 @@
           </div>
           <div class="col-lg-7 col-md-6 col-sm-7 col-xs-7">
             <div class="pr">
-              <progress value="30" max="100" class="p" ></progress>
+              <progress :value=installnum max="100" class="p" ></progress>
             </div>
             <div class="c">
               <div v-show="pinfo!=0">{{pinfo}}</div>
@@ -36,35 +36,56 @@
         name: "Installthree",
       data(){
           return{
-            pinfo:[]
+            pinfo:[],
+            installnum:null
           }
       },
       methods:{
           gprocess(){
-
-            this.$axios.get(this.allurl+'get_process',function (res) {
-              this.pinfo.push(res.data)
-            }).catch(function (error) {
-              console.log(error)
-            })
-          },
-        start(){
             var _this=this
+            if (this.installnum!=100) {
+              this.$axios.get(this.installurl + 'get_process').then(function (res) {
+                _this.installnum = JSON.stringify(res.data.percent)
+                // console.log(res.data.process)
+                var content = res.data.process
+                _this.pinfo.push(content)
+                // console.log(JSON.stringify(_this.pinfo))
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+            if (this.installnum==100) {
+              this.stop()
+              _this.pinfo.push('Install Successfully')
+            }
+          },
+        stop(){
+            // var _this=this
+            if (this.installnum==100){
+              clearInterval(this.gprocess())
+            }
+
+        },
+        start(){
+
+            var _this = this
             setInterval(function () {
               _this.gprocess()
-            },1500)
+            }, 3000)
+
         },
         gologin(){
-            this.$axios.post(this.allurl+'post_login_sys',{login:'yes'},function (res) {
-              if (res.data.status==200&&res.data=='ok')
-                this.router.push('/Login')
+            var _this=this
+            this.$axios.post(this.installurl+'post_login_sys',{login:'yes'}).then(function (res) {
+              if (res.status==200)
+                _this.$router.push('/Login')
             }).catch(function (error) {
               console.log(error)
             })
         }
       },
       mounted(){
-        // this.start()
+        this.start()
       }
 
     }

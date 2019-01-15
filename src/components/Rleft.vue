@@ -20,11 +20,11 @@
         <router-link :to="{name:'Rblock'}" ><p >{{$t('message.Block')}}</p></router-link>
       </div>
     </div>
-    <!--<div class="one" :class="isse==='文件存储'?'two':''" @click="changenav('文件存储')">-->
-      <!--<div>-->
-        <!--<router-link :to="{name:''}" ><p >{{$t('message.FS')}}</p></router-link>-->
-      <!--</div>-->
-    <!--</div>-->
+    <div class="one" :class="isse==='文件存储'?'two':''" @click="changenav('文件存储')">
+      <div>
+        <router-link :to="{name:'Rfile'}" ><p >{{$t('message.FS')}}</p></router-link>
+      </div>
+    </div>
     <div class="one" :class="isse==='对象存储'?'two':''" @click="changenav('对象存储')">
       <div>
         <router-link :to="{name:'object'}" ><p >{{$t('message.Object')}}</p></router-link>

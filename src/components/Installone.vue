@@ -140,24 +140,24 @@
       data(){
           return{
             servernum:[
-              {
-                "id":"000000000000000000000025908A6EEC",
-                "name": "node3",
-                "disk":9,
-                "mem":"154800M"
-              },
-              {
-                "id":"00000000000000000000002590e479f2",
-                "name": "node2",
-                "disk":9,
-                "mem":"154800M"
-              },
-              {
-                "id":"b3a2b8ad2110e211a174001e673ba424",
-                "name": "node1",
-                "disk":9,
-                "mem":"154800M"
-              }
+              // {
+              //   "id":"000000000000000000000025908A6EEC",
+              //   "name": "node3",
+              //   "disk":9,
+              //   "mem":"154800M"
+              // },
+              // {
+              //   "id":"00000000000000000000002590e479f2",
+              //   "name": "node2",
+              //   "disk":9,
+              //   "mem":"154800M"
+              // },
+              // {
+              //   "id":"b3a2b8ad2110e211a174001e673ba424",
+              //   "name": "node1",
+              //   "disk":9,
+              //   "mem":"154800M"
+              // }
             ],
             jklist:[],
             jqlist:[],
@@ -340,8 +340,9 @@
           this.$store.commit('jjselect',{jkselect:this.jklist,jqselect:this.jqlist,mdsselect:this.mdslist,rgwselect:this.rgwlist,clustername:clustername,jkid:this.jkid,jqid:this.jqid,mdsid:this.mdsid,rgwid:this.rgwid})
         },
         start(){
-          this.$axios.get(this.allurl+'get_machine',function (res) {
-            this.servernum=res.data
+          var _this=this
+          this.$axios.get(this.installurl+'get_machine').then(function (res) {
+            _this.servernum=res.data
           }).catch(function (error) {
             console.log(error)
           })
@@ -365,6 +366,7 @@
 
       mounted(){
         this.keyd()
+        this.start()
         $("[data-toggle]").tooltip()
         // this.drag()
         // this.allowDrop()

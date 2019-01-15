@@ -31,6 +31,8 @@ import server3d from '@/components/server3d'
 import Aobj from '@/components/Aobj'
 import Iplumb from '@/components/Iplumb'
 import Installnet from '@/components/Installnet'
+import Rfile from '@/components/Rfile'
+import Afile from '@/components/Afile'
 
 Vue.use(Router)
 
@@ -109,6 +111,17 @@ export default new Router({
         right:Aright,
       },
       meta: { requiresAuth: true }
+    },
+    {
+      path:'/Afile',
+      name:'Afile',
+      menuShow:true,
+      components:{
+        default:HelloWorld,
+        bottom:Afile,
+        right:Aright,
+      },
+      meta:{requiresAuth:true}
     },
     {
       path:'/Management',
@@ -204,6 +217,18 @@ export default new Router({
       },
       meta: { requiresAuth: true }
     },
+    {
+      path:'/Rfile',
+      name:'Rfile',
+      menuShow:true,
+      components:{
+        default:HelloWorld,
+        bottom:Rfile,
+        right:Rleft
+      },
+      meta:{requiresAuth:true}
+      }
+    ,
     {
       path:'/Rpool',
       name:'Rpool',

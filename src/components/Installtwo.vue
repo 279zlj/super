@@ -111,7 +111,7 @@
 
         },
         myselect(){
-          this.$axios.post(this.allurl+'post_node_select',{cluster_name:this.$store.state.cname,mon:this.$store.state.jqid,osd:this.$store.state.jqid,mds:this.$store.state.mdsid,rgw:this.$store.state.rgwid},function (res) {
+          this.$axios.post(this.installurl+'post_node_select',{cluster_name:this.$store.state.cname,mon:this.$store.state.jqid,osd:this.$store.state.jqid,mds:this.$store.state.mdsid,rgw:this.$store.state.rgwid}).then(function (res) {
 
           }).catch(function (error) {
             console.log(error)

@@ -78,52 +78,52 @@
           return{
             netlist:[
 
-              {
-                "id":"000000000000000000000025908A6EEC",
-                "name": "node3",
-                "f": 1,
-                "netcard": [
-                  {
-                    "name":"eno1",
-                    "m": "y: 1000",
-                  "a": "192.168.9.43"},
-                  {
-                    "name":"eno2",
-                    "m": "n: 1000-",
-                  "a": "192.168.8.43"}
-                ]
-              },
-              {
-                "id":"00000000000000000000002590e479f2",
-                "name": "node2",
-                "f": 1,
-                "netcard":[{
-                  "name":"enp5s0",
-                  "m": "n: 1000-",
-                  "a": "192.168.9.42"
-                },
-                  {
-                    "name":"enp6s0",
-                    "m": "y: 1000",
-                    "a": "192.168.8.42"
-                  }
-                ],
-              },
-              {
-                "id":"b3a2b8ad2110e211a174001e673ba424",
-                "name": "node1",
-                "f": 1,
-                "netcard": [{
-                  "name":"enp5s0",
-                  "m": "y: 1000",
-                  "a": "192.168.9.41"
-                },
-                {
-                  "name":"enp6s0",
-                  "m": "n: 1000-",
-                  "a": "192.168.8.41"
-                }]
-              }
+              // {
+              //   "id":"000000000000000000000025908A6EEC",
+              //   "name": "node3",
+              //   "f": 1,
+              //   "netcard": [
+              //     {
+              //       "name":"eno1",
+              //       "m": "y: 1000",
+              //     "a": "192.168.9.43"},
+              //     {
+              //       "name":"eno2",
+              //       "m": "n: 1000-",
+              //     "a": "192.168.8.43"}
+              //   ]
+              // },
+              // {
+              //   "id":"00000000000000000000002590e479f2",
+              //   "name": "node2",
+              //   "f": 1,
+              //   "netcard":[{
+              //     "name":"enp5s0",
+              //     "m": "n: 1000-",
+              //     "a": "192.168.9.42"
+              //   },
+              //     {
+              //       "name":"enp6s0",
+              //       "m": "y: 1000",
+              //       "a": "192.168.8.42"
+              //     }
+              //   ],
+              // },
+              // {
+              //   "id":"b3a2b8ad2110e211a174001e673ba424",
+              //   "name": "node1",
+              //   "f": 1,
+              //   "netcard": [{
+              //     "name":"enp5s0",
+              //     "m": "y: 1000",
+              //     "a": "192.168.9.41"
+              //   },
+              //   {
+              //     "name":"enp6s0",
+              //     "m": "n: 1000-",
+              //     "a": "192.168.8.41"
+              //   }]
+              // }
             ],
             slist:[],
             mlist:[],
@@ -156,8 +156,10 @@
 
         },
         start(){
-          this.$store.get(this.allurl+'get_net',function (res) {
-            this.netlist=res.data
+          var _this=this
+          this.$axios.get(this.installurl+'get_net').then(function (res) {
+            _this.netlist=res.data
+
           }).catch(function (error) {
             console.log(error)
           })
@@ -186,7 +188,11 @@
               // console.log
               this.salist.push(alist)
             }
-              this.$axios.post(this.allurl + 'post_net_conf', JSON.stringify(this.salist), function (res) {
+            var _this=this
+              this.$axios.post(this.installurl + 'post_net_conf',this.salist).then(function (res) {
+                if (res.status==200){
+                  _this.$router.push('/Installone')
+                }
               }).catch(function (error) {
                 console.log(error)
               })
@@ -199,10 +205,10 @@
               mlist.manager=this.mlist[p]
               this.malist.push(mlist)
             }
-
-            this.$axios.post(this.allurl+'post_net_conf',this.malist,function (res) {
-              if (res.data.status==200){
-                this.$router.push('/Installone')
+            var _this=this
+            this.$axios.post(this.installurl+'post_net_conf',this.malist).then(function (res) {
+              if (res.status==200){
+                _this.$router.push('/Installone')
               }
             }).catch(function (error) {
               console.log(error)
@@ -331,6 +337,7 @@
       },
       mounted(){
           this.keyd()
+        this.start()
         $("[data-toggle]").tooltip()
         // this.start()
       }

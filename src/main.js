@@ -51,6 +51,7 @@ Vue.prototype.$axios = axios;
 // }
 
 Vue.prototype.allurl='http://192.168.2.64:8000/'
+Vue.prototype.installurl='http://192.168.2.71:8888/'
 // Vue.prototype.allurl=''
 
 
