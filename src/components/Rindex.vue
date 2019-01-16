@@ -151,18 +151,7 @@
                   <span class=" label label-warning" style="vertical-align: super" title="重要" data-toggle="tooltip" data-placement="top">{{$store.state.zy}}</span>
                   <span class=" label label-info" style="vertical-align: super" title="次要" data-toggle="tooltip" data-placement="top">{{$store.state.cy}}</span>
                 </div>
-
-                <!--<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">-->
-                  <!--<p><span>{{$store.state.jj}}</span><img src="../../static/image/jj.png" class="img-responsive" title="<h5>紧急</h5>" data-toggle="tooltip" data-placement="right"/></p>-->
-                <!--</div>-->
-                <!--<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">-->
-                <!--<span>{{$store.state.zy}}<img src="../../static/image/zy.png" class="img-responsive" title="<h5>重要</h5>" data-toggle="tooltip" data-placement="right"/></span>-->
-                <!--</div>-->
-                <!--<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">-->
-                <!--<span>{{$store.state.cy}}<img src="../../static/image/cy.png" class="img-responsive" title="<h5>次要</h5>" data-toggle="tooltip" data-placement="right"></span>-->
-                <!--</div>-->
               </div>
-
               <div style="overflow-y: scroll;height: 12em">
               <table class="table-responsive table table-condensed">
                 <tbody>
@@ -191,7 +180,6 @@
                   <col width="35%"/>
                 </colgroup>
                 <tbody>
-
                 <tr v-for="m in $store.state.log">
                   <td>{{m.ip}}</td>
                   <td>{{m.network}}</td>
@@ -221,14 +209,6 @@
       components:{tips},
       data(){
           return{
-            // cpu:[],
-            // iops:[],
-            // mbps:[],
-            // warn:[],
-            // log:[],
-            // osd_use:[],
-            // collect: {},
-            // pool_use:[],
             transmiturl:'',
             transmittitle:'',
             timertip:null

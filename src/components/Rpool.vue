@@ -444,20 +444,6 @@
             })
             $('#addnew').modal('hide')
           }
-          // }
-          // else {
-          //   this.$axios.post(this.allurl + 'manager/tank/create_tank', {
-          //     name: addname,
-          //     size: addsize,
-          //     type: this.unitsele,
-          //     k: this.$refs.kvalue.value,
-          //     m: this.$refs.mvalue.value
-          //   }).then(function (res) {
-          //     console.log(res)
-          //   }).catch(function (error) {
-          //     console.log(error)
-          //   })
-          // }
         },
         addclient(){              /*添加iscsi客户端*/
           if (sessionStorage.getItem('islogin')==250){

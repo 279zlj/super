@@ -205,7 +205,7 @@
             <div class="row">
               <p style="margin: 0em 0 0 1em" class="titlecolor">{{$t('message.Clock-consistency')}}：</p>
               <p class="col-lg-12"><span v-for="s in $store.state.ceph.clock">{{s}} </span>
-              <span>{{$t('message.Clock-inconsistency')}}</span></p>
+              <span v-if="$store.state.ceph.clock!=0">{{$t('message.Clock-inconsistency')}}</span></p>
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 print">

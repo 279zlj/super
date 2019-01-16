@@ -110,6 +110,36 @@
         </div><!-- /.modal -->
       </div>
 
+      <div class="modal fade" id="fsmountdetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" v-if="title">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
+              <h4 class="modal-title" >{{title}}</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table table-responsive table-condensed" id="fstable" data-toggle="table" data-url=content  data-toolbar="#toolbar" data-classes="table-no-bordered">
+                <thead class="o">
+                <tr>
+                  <th data-field="Filesystem" >Filesystem</th>
+                  <th data-field="Size" >Size</th>
+                  <th data-field="Used" >Used</th>
+                  <th data-field="Avail" >Avail</th>
+                  <th data-field="Use" >Use%</th>
+                  <th data-field="Mounted" >Mounted</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Close')}}</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">{{$t('message.Confirm')}}</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+      </div>
 
     </div>
 
@@ -167,6 +197,12 @@
         iopsmbpsall(){
           $('#iopsmbps').modal("show")
           $('#ibtable').bootstrapTable({
+
+          })
+        },
+        fsmount(){
+          $('#fsmountdetail').modal("show")
+          $('#fstable').bootstrapTable({
 
           })
         },
