@@ -17,7 +17,9 @@
               <progress :value=installnum max="100" class="p" ></progress>
             </div>
             <div class="c">
-              <div v-show="pinfo!=0">{{pinfo}}</div>
+              <div v-show="pinfo!=0" >
+                <p v-for="p in pinfo" style="margin-left: 1em">{{p}}</p>
+              </div>
             </div>
             <div class="botn">
               <input type="button" class="form-control btn btn-info" style="width: 10%;float: right" @click="gologin" value="Login"/>
@@ -86,6 +88,9 @@
       },
       mounted(){
         this.start()
+      },
+      destroyed(){
+        clearInterval(this.gprocess())
       }
 
     }

@@ -46,6 +46,7 @@ module.exports={
     "Activate-node":"活动节点",
     "Standby-node":"备用节点",
     "Clock-consistency":"时钟一致性",
+    "rule":"规则",
     "Memory-disk-state":"存储盘状态",
     "Nodes":"节点数",
     "Used-capacity":"已用容量",

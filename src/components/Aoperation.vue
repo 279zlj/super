@@ -1,26 +1,24 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 container-fluid" id="Aoperation">
     <div class="row">
-
-
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
-        <div class="row">
-          <div class="col-lg-3 col-lg-offset-8 col-md-3 col-md-offset-7 col-sm-4 col-sm-offset-6 col-xs-5 col-xs-offset-5">
-            <input type="search" class="form-control" id="key" placeholder="请输入ip地址" ref="inp"/>
-          </div>
-          <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">
-            <input type="submit" class="btn btn-success" id="search" @click="sentip()" />
-          </div>
-        </div>
+        <!--<div class="row">-->
+          <!--<div class="col-lg-3 col-lg-offset-8 col-md-3 col-md-offset-7 col-sm-4 col-sm-offset-6 col-xs-5 col-xs-offset-5">-->
+            <!--<input type="search" class="form-control" id="key" placeholder="请输入ip地址" ref="inp"/>-->
+          <!--</div>-->
+          <!--<div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">-->
+            <!--<input type="submit" class="btn btn-success" id="search" @click="sentip()" />-->
+          <!--</div>-->
+        <!--</div>-->
         <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" >
           <div class="alert alert-danger " id="tipscontent" style="display: none;">普通用户无操作权限！</div>
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
-            <th data-field="id">ID</th>
-            <th data-field="content">{{$t('message.Description')}}</th>
-            <th data-field="size">{{$t('message.Capacity')}}</th>
-            <th data-field="date">{{$t('message.Turnover-time')}}</th>
+            <th data-field="id">规则名称</th>
+            <th data-field="content">内容</th>
+            <!--<th data-field="size">{{$t('message.Capacity')}}</th>-->
+            <!--<th data-field="date">{{$t('message.Turnover-time')}}</th>-->
           </tr>
           </thead>
           <tbody>
@@ -29,10 +27,12 @@
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 contenttop" >
         <div id="y">
+          <p @click="addrule()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-list-alt verticalimg" title="新建规则" data-toggle="tooltip" data-placement="right"></span></p>
           <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit verticalimg" title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
           <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle verticalimg" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
         </div>
         <div style="width: 300px" id="h">
+          <p @click="addrule()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-list-alt verticalimg" title="新建规则" data-toggle="tooltip" data-placement="right"></span></p>
           <span @click="editlist()" data-toggle="editmodal"><span class="glyphicon glyphicon-edit infeed" title="编辑" data-toggle="tooltip" data-placement="right"></span></span>
           <span @click="deletelist()" ><span class="glyphicon glyphicon-remove-circle infeed" title="删除" data-toggle="tooltip" data-placement="right"></span></span>
         </div>
@@ -55,8 +55,32 @@
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
-      <tips ref="tips" :content=tipscontent :dotitle=title :docontent=dosome v-on:respond="res"></tips>
     </div>
+    <div class="modal fade" id="newrule" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" >添加新规则</h4>
+          </div>
+          <div class="modal-body">
+            <p>规则名称：</p><input type="text" class="form-control" id="rulename" ref="rulename"/>
+            <p>添加磁盘：</p>
+            <div class="checkbox">
+            <label v-for="p in pdisck">
+              <input type="checkbox" class="checkbox" :value=p.name name="checkbox"/><span style="margin-right: 1em">{{p.name}}</span>
+            </label>
+            </div>
+            <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+            <button type="button" class="btn btn-primary" @click="rulesend()">{{$t('message.Confirm')}}</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>
+    <tips ref="tips" :content=tipscontent :dotitle=title :docontent=dosome v-on:respond="res"></tips>
   </div>
 </template>
 
@@ -72,24 +96,70 @@
             tipscontent:'',
             title:'',
             respond:'',
-            dosome:''
+            dosome:'',
+            pdisck:[{name:'disk1',value:'disk1'},{name:'disk2',value:'disk2'},{name:'disk3',value:'disk3'}],
+            diskbox:[],
+            cross: ''
           }
       },
       methods:{
-          start(url){                         /*bootstrap-table初始化*/
+          start(){                         /*bootstrap-table初始化*/
             $('#table_id').bootstrapTable({
-              url:url
+              url:this.allurl+'manctl/client_list'
 
             })
             // console.log(this.urla)
           },
+        addrule(){
+          if (sessionStorage.getItem('islogin')==250){
+            $('#tipscontent').show().delay (2000).fadeOut()
+          }
+          else {
+            $('#newrule').modal('show')
+            var _this=this
+            this.$axios.get(this.allurl+'').then(function (res) {
+              _this.disc=res.data
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
+        },
+        rulesend(){
+            var rulename=this.$refs.rulename.value
+            var _this=this
+            _this.diskbox.splice(0)
+           _this.cross=''
+            var check=document.getElementsByName('checkbox');
+            for (let i=0;i<check.length;i++){
+              if (check[i].checked){
+                _this.diskbox.push(check[i].value)
+              }
+            }
+            if (_this.diskbox.length==0||rulename=='')
+              _this.cross='请完善全部内容'
+          else {
+              this.$axios.post(this.allurl + 'aaa', {rulename: rulename, disks: _this.diskbox}).then(function (res) {
+                if (res.data.status == 1) {
+                  _this.tipscontent = '操作成功'
+                  $('#tipscontent').show().delay(2000).fadeOut()
+                }
+                else {
+                  _this.tipscontent = res.data.status
+                  $('#tipscontent').show().delay(2000).fadeOut()
+                }
+              }).catch(function (error) {
+                console.log(error)
+              })
+              $('#newrule').modal('hide')
+            }
+        },
         editlist() {                       /*运维信息修改*/
           if (sessionStorage.getItem('islogin')==250){
             $('#tipscontent').show().delay (2000).fadeOut()
           }
           else {
             var ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
-              return row.snapid;
+              return row.id;
             });
             if (ids.length !== 1) {
               this.tipscontent = '请选择其中一个设备进行修改'
@@ -116,7 +186,7 @@
         },
         res(data){
           let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
-            return row.snapid;
+            return row.id;
           });
           this.respond = data
           if (this.respond == 'ok') {
@@ -133,7 +203,7 @@
           }
           else {
             let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
-              return row.snapid;
+              return row.id;
             });
             if (ids.length < 1) {
               this.tipscontent = '请选择删除项'
@@ -161,7 +231,7 @@
         }
       },
       mounted(){
-          // this.start()
+          this.start()
         $("[data-toggle='tooltip']").tooltip({html:true});
       }
     }
@@ -215,9 +285,9 @@
     color: white;
   }
   .contenttop{
-    margin-top: 15em;
+    margin-top: 10em;
   }
   .one{
-    margin-top: 2.9em;
+    margin-top: 3.7em;
   }
 </style>

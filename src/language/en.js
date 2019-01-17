@@ -180,6 +180,7 @@ module.exports = {
     "Tank":"Tank",
     "Block":"Block",
     "FS":"FS",
+    "rule":"Rule",
     "Object":"Object",
     "Add-a-disk":"Add a disk",
     "Lighting-position-lamp":"Lighting position lamp",

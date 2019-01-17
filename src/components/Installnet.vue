@@ -338,7 +338,7 @@
       mounted(){
           this.keyd()
         this.start()
-        $("[data-toggle]").tooltip()
+        $("[data-toogle='tooltip']").tooltip({html:true});
         // this.start()
       }
     }

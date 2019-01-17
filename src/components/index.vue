@@ -295,9 +295,6 @@
       this.ssfan='显卡温度：25°C，阵列卡温度：28°C'
       this.sscard=''
       this.$store.commit('sstatic',{cputem:this.staticall,funspeed:this.ssfan,cardtem:this.sscard})
-      // alert(this.fan)
-      // darw()
-      // $('.carousel').carousel('cycle')
 
     },
 
@@ -316,7 +313,7 @@
     methods: {
       initWebSocket(){
         // var _this=this
-        const wsurl="ws://192.168.2.64:8000/ws/intime_data";
+        const wsurl="ws://"+this.wsurl+"/ws/intime_data";
         // const wsurl='';
         this.websock=new WebSocket(wsurl);
         this.websock.onmessage=this.websocketonmessage;
@@ -332,13 +329,6 @@
         this.initWebSocket()
       },
       websocketonmessage(e){
-        // var a=e.data
-        // console.log(JSON.parse(a))
-        // var now=new Date()
-        // var h=now.getHours()
-        // var m=now.getMinutes()
-        // var s=now.getSeconds()
-        // var ntime=h.toString()+':'+m.toString()+':'+s.toString()
         const data=JSON.parse(e.data)
         // console.log(data.message.data.iops.ips)
         this.$store.commit('lindraw',{iwrite:data.message.data.iops[0],iread:data.message.data.iops[1],mwrite:data.message.data.mbps[0],mread:data.message.data.mbps[1],delaytime:data.message.data.delay,ti:data.message.data.time,health:data.message.data.health,ceph:data.message.data.ceph,rqlite_info:data.message.data.rqlite_info,redis:data.message.data.redis})

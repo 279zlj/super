@@ -146,6 +146,11 @@
             <select class="form-control" v-on:change="sel($event)" v-model="unitsele">
               <option v-for="m in unit" :value="m.name">{{m.name}}</option>
             </select>
+            <p>{{$t('message.rule')}}：</p>
+
+            <select @click="rulewhat" class="form-control" v-on:change="rulesel($event)" v-model="ruleselect">
+              <option v-for="r in rule" :value="r.name">{{r.name}}</option>
+            </select>
             <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
             <!--<div v-if="unitsele=='erasure'">-->
               <!--<p>k值：</p><input type="number" class="form-control" id="k" ref="kvalue"/>-->
@@ -221,6 +226,8 @@
               {name:'纠删码',value:'erasure'},
 
             ],
+            rule:[{name:'默认',value:'default'}],
+            ruleselect:'',
             tipscontent:'',
             title:'',
             respond:'',
@@ -279,8 +286,19 @@
 
           }
         },
+        rulewhat(){
+          var _this=this
+          this.$axios.get(this.url+'').then(function (res) {
+            _this.rule.push(res.data)
+          }).catch(function (error) {
+            console.log(error)
+          })
+        },
         sel(event){                     /*选择自建启动延时单位*/
           this.unitsele=event.target.value
+        },
+        rulesel(){
+          this.ruleselect=event.target.value
         },
         editlist() {                         /*pool设备的修改*/
           if (sessionStorage.getItem('islogin')==250){
@@ -427,7 +445,8 @@
             this.$axios.post(this.allurl + 'manager/tank/create_tank', {
               name: addname,
               // size: addsize,
-              type: this.unitsele
+              type: this.unitsele,
+              rule:this.ruleselect
             }).then(function (res) {
               if (res.data.status == 1) {
                 _this.tipscontent = '操作成功'

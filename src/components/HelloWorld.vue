@@ -337,14 +337,6 @@ export default {
       },5000)
 
     }
-    // looksome(){
-    //   $('#box').removeClass('box')
-    // },
-    // lookdo(){
-    //   $('#box').css({
-    //     "animation":"rotate 5s infinite linear"
-    //   })
-    // }
   },
 
   mounted(){
