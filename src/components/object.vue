@@ -3,57 +3,59 @@
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-11 col-xs-11">
          <ul id="tab" class="nav nav-tabs">
-           <li id="target"  v-for="i in list" @click="father(i.id,i.name,i.visit,i.Maxobj,i.Maxsize)"><a :href="['#'+i.id]" data-toggle="tab">{{i.name}}</a></li>
+           <li id="target"  v-for="i in list" @click="father(i)"><a :href="['#'+i.user_id]" data-toggle="tab">{{i.display_name}}</a></li>
          </ul>
           <div class="alert alert-danger " id="tipsc" style="display: none;">{{tipsc}}</div>
           <div id="myTabContent" class="tab-content">
 
-            <div class="tab-pane fade" :id="i.id"  v-for="i in list">
+            <div class="tab-pane fade" :id="i.user_id"  v-for="i in list">
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h3 class="panel-title">
-                    <i class="glyphicon glyphicon-user" style="margin: 0 .5em"></i>{{i.name}}
+                    <i class="glyphicon glyphicon-user" style="margin: 0 .5em"></i>{{i.display_name}}
                   </h3>
                 </div>
                 <div class="row panel-body">
                   <div class="row all">
                   <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe">ID：</div>
-                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{i.id}}</div>
+                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{i.user_id}}</div>
                   </div>
                   <div class="row all">
                   <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >显示名：</div>
-                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{i.name}}</div>
+                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{i.display_name}}</div>
                   </div>
-                  <div class="row all">
-                  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >类型：</div>
-                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{i.type}}</div>
-                  </div>
-                  <div class="row all">
-                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >访问级别：</div>
-                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{i.visit}}</div>
-                  </div>
+                  <!--<div class="row all">-->
+                  <!--<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >类型：</div>-->
+                  <!--<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{i.type}}</div>-->
+                  <!--</div>-->
+                  <!--<div class="row all">-->
+                    <!--<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >访问级别：</div>-->
+                    <!--<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{i.visit}}</div>-->
+                  <!--</div>-->
                   <div class="row all">
                   <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >管理权限：</div>
-                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{i.power}}</div>
+                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                    <p v-for="c in i.caps">类型：{{c.type}} / 权限：{{c.perm}}</p>
+                  </div>
                   </div>
                   <div class="row all">
                   <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe">用户状态：</div>
                   <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 " >
-                    <span>{{i.status}}</span>
-                    <span style="cursor: pointer" class="glyphicon glyphicon-stop sopr" title="停止" @click="stopuser()" data-toggle="tooltip" data-placement="top" v-show="i.status=='on'"></span>
-                    <span style="cursor: pointer" class="glyphicon glyphicon-off opr" title="启用" @click="startuser()" data-toggle="tooltip" data-placement="top" v-show="i.status=='off'"></span>
+                    <span>{{i.suspended}}</span>
+                    <span style="cursor: pointer" class="glyphicon glyphicon-stop sopr" title="停止" @click="stopuser()" data-toggle="tooltip" data-placement="top" v-show="i.suspended=='1'"></span>
+                    <span style="cursor: pointer" class="glyphicon glyphicon-off opr" title="启用" @click="startuser()" data-toggle="tooltip" data-placement="top" v-show="i.suspended=='0'"></span>
                   </div>
                   </div>
                   <div class="row all">
                   <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >配额参数：</div>
-                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">Max-objects：{{i.Maxobj}} / Max-size：{{i.Maxsize}}</div>
+                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">Max-objects：{{i.bucket_quota.max_objects}} / Max-size：{{i.bucket_quota.max_size}}</div>
                   </div>
                   <div class="row all">
                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >配额状态：</div>
                     <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 " >
-                      <span>{{i.quotastatus}}</span>
-                      <span style="cursor: pointer" class="glyphicon glyphicon-stop sopr" title="停止" @click="stopquota()" data-toggle="tooltip" data-placement="top" v-show="i.quotastatus=='on'"></span>
-                      <span style="cursor: pointer" class="glyphicon glyphicon-off opr" title="启用" @click="startquota()" data-toggle="tooltip" data-placement="top" v-show="i.quotastatus=='off'"></span>
+                      <span>{{i.bucket_quota.enabled}}</span>
+                      <span style="cursor: pointer" class="glyphicon glyphicon-stop sopr" title="停止" @click="stopquota()" data-toggle="tooltip" data-placement="top" v-show="i.bucket_quota.enabled==true"></span>
+                      <span style="cursor: pointer" class="glyphicon glyphicon-off opr" title="启用" @click="startquota()" data-toggle="tooltip" data-placement="top" v-show="i.bucket_quota.enabled==false"></span>
                     </div>
                   </div>
                   <div class="row all">
@@ -61,7 +63,7 @@
                       用户用量管理：
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 data">
-                      <span style="margin-left: .6em;font-size: 1.4em">{{i.dosage}}</span>
+                      <span style="margin-left: .6em;font-size: 1.4em" v-if="i.usage==0">{{i.usage.size_kb}}</span>
                     </div>
                   </div>
                 </div>
@@ -105,12 +107,12 @@
                   </div>
                   <div class="row all bg">
                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >访问级别：</div>
-                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{b.contorls}}</div>
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{b.permissions}}</div>
                   </div>
-                  <div class="row all bg">
-                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >状态：</div>
-                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{b.status}}</div>
-                  </div>
+                  <!--<div class="row all bg">-->
+                    <!--<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >状态：</div>-->
+                    <!--<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{b.status}}</div>-->
+                  <!--</div>-->
                 </div>
               </div>
             </div>
@@ -216,17 +218,16 @@
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               <h4 class="modal-title" id="look">查看用户信息</h4>
             </div>
-            <div class="modal-body">
-              <p>ID：<span>{{num}}</span></p>
-              <p>名称：<span>{{name}}</span></p>
-              <p>Max_bucket：<span></span></p>
-              <p>Keys：</p>
-              <p>Swift_keys：</p>
-              <p>Bucket_quota：</p>
-              <p>User_quota：</p>
-              <p>Op_mask：</p>
-              <p>Type：</p>
-              <p></p>
+            <div class="modal-body row">
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">ID：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{personal.user_id}}</div>
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">名称：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{personal.display_name}}</div>
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Max_bucket：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{personal.max_buckets}}</div>
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Keys：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><p v-for="k in personal.keys">User：{{k.user}}<br>Access_key：{{k.access_key}}<br>Secret_key：{{k.secret_key}}</p></div>
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Swift_keys：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><p v-for="s in personal.swift_keys">User：{{s.user}}<br>Secret_key：{{s.secret_key}}</p></div>
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Bucket_quota：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><p v-for="b in personal.bucket_quota">Enabled:{{b.enabled}} / Max_size{{b.max_size}} / Max_size_kb:{{b.max_size_kb}} / Max_objects:{{b.max_objects}}</p></div>
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">User_quota：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{personal.user_quota}}</div>
+
+
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
@@ -291,23 +292,7 @@
       components:{tips},
       data(){
           return{
-            list:[
-              {id:'one1',name:'one',type:'one',power:'r',quota:'',visit:'full',Maxobj:'-1',Maxsize:'-1',quotastatus:'off',status:'on',dosage:'278',subuser:[
-                  {origin:'1',id:'sub1',contorls:'full',status:'on'},
-                  {origin:'2',id:'sub3',contorls:'full',status:'on'}
-                ]},
-              {id:'two2',name:'two',type:'two',power:'r',quota:'',visit:'full',quotastatus:'on',status:'off',dosage:'1278',subuser:[
-                  {origin:'1',id:'sub1',contorls:'full',status:'on'},
-                  {origin:'2',id:'sub2',contorls:'full',status:'off'}
-                ]},
-              {id:'3',name:'three',type:'three',power:'w',quota:'',visit:'full',quotastatus:'off',status:'on',dosage:'324'},
-              {id:'4',name:'four',type:'four',power:'w',quota:'',visit:'full',quotastatus:'off',status:'on',dosage:'4654'},
-              {id:'5',name:'five',type:'five',power:'full',quota:'',visit:'full',quotastatus:'off',status:'on',dosage:'2134'},
-              {id:'6',name:'six',type:'six',power:'w',quota:'',visit:'full',quotastatus:'off',status:'on',dosage:'2238'},
-              {id:'7',name:'seven',type:'seven',power:'r',quota:'',visit:'full',quotastatus:'off',status:'on',dosage:'1238'},
-              {id:'8',name:'eight',type:'eight',power:'r',quota:'',visit:'full',quotastatus:'off',status:'on',dosage:'378'},
-
-            ],
+            list:[],
             one1:[
 
             ],
@@ -318,8 +303,7 @@
               {name:'Full',value:'full'},
             ],
             rankselect:'',
-            num:'',
-            name:'',
+            personal:[],
             cross:'',
             tipsc:'',
             tipscontent:'',
@@ -329,23 +313,24 @@
             subnow:'',
             subvisit:'',
             searchurl:'',
-            Mobject:null,
-            Msize:null,
+            num:'',
+            name:'',
             subtipsc:''
 
           }
       },
       methods:{
-        father(n,m,v,o,s){
-          this.num=n
-          this.name=m
-          this.visitold=v
-          this.Mobject=o
-          this.Msize=s
+        father(n){
+          this.personal=n
+          // this.num=n
+          // this.name=m
+          //
+          // this.Mobject=o
+          // this.Msize=s
           let i=0
           for ( i;i<this.list.length; i++){
             if (n==this.list[i].id){
-              this.one1=this.list[i].subuser
+              this.one1=this.list[i].subusers
             }
           }
         },
@@ -361,9 +346,31 @@
         selec(event){
           this.subvisit=event.target.value
         },
+        getsome(){
+          var _this=this
+          this.$axios.get(this.allurl+'gwobj/get_objusers').then(function (res) {
+            _this.list=res.data
+            _this.one1=_this.list[0].subusers
+            for(let i=0;i<_this.one1.length;i++){
+              _this.one1[i].id=_this.one1[i].id.replace(":","")
+
+            }
+            console.log(_this.one1)
+            _this.num=_this.list[0].user_id
+            _this.name=_this.list[0].display_name
+            // _this.visitold=_this.list[0].visit
+            _this.Msize=_this.list[0].user_quota.max_size
+            _this.Mobject=_this.list[0].user_quota.max_objects
+            // console.log(_this.list[0].subusers)
+          }).catch(function (error) {
+            console.log(error)
+          })
+        },
         start(){
+          this.getsome()
           $('#target:first-child').addClass('active')
-          // alert($('li:first'))
+          // div.setAttribute("class", "abc");
+          console.log($('#target li:first'))
           $('#two2:first').addClass('active')
           $('.tab-pane:first-child').addClass('active in')
           $('.tab-pane:first-child').addClass('in')
@@ -372,12 +379,8 @@
           $('.all:odd').css("background","#42345E");
           $('.bg:odd').css("background","#42345E");
           $("[data-toggle='tooltip']").tooltip({html:true});
-          this.one1=this.list[0].subuser
-          this.num=this.list[0].id
-          this.name=this.list[0].name
-          this.visitold=this.list[0].visit
-          this.Msize=this.list[0].Maxsize
-          this.Mobject=this.list[0].Maxobj
+          // this.one1=this.list[0].subusers
+
           $('#sear').bootstrapTable({
             url:this.allurl+this.searchurl
           })
@@ -403,7 +406,7 @@
             this.cross='请填写完整!'
           }
           else {
-            this.$axios.post(this.allurl+'object',{id:id,name:name}).then(function (res) {
+            this.$axios.post(this.allurl+'gwobj/create_objuser',{uid:id,display_name:name}).then(function (res) {
               if (res.data.status == 1) {
                 this.tipsc = '操作成功'
                 $('#tipsc').show().delay(2000).fadeOut()
@@ -671,7 +674,7 @@
     padding-left: 2em;
   }
   .all{
-    height: 2.8em;
+    /*height: 2.8em;*/
     width: 100%;
     margin-left: 0em;
     padding-top: .8em;
