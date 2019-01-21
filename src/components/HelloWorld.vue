@@ -419,7 +419,7 @@ export default {
     overflow: hidden;
   }
   thead{
-    background-color: #292431;
+    background-color: #172952;
 
   }
   .p th{
@@ -459,10 +459,7 @@ export default {
   table{
 
   }
-  .modal-content{
-    background-color:#3E324E ;
-    color: white;
-  }
+
   .close{
     color: white !important;
   }

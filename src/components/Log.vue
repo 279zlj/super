@@ -242,10 +242,7 @@
   thead{
     background-color: #372B51;
   }
-  .modal-content{
-    background-color:#3E324E ;
-    color: white;
-  }
+
 
   @media screen  and (max-width: 425px){
     .a{

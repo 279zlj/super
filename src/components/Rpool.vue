@@ -718,10 +718,7 @@
   .b{
     margin-top: 10em;
   }
-  .modal-content{
-    background-color:#3E324E ;
-    color: white;
-  }
+
   thead{
     background-color: #372B51;
   }

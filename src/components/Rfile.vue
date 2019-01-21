@@ -446,10 +446,7 @@
   td{
     color: #93BFDF;
   }
-    .modal-content{
-      background-color:#3E324E ;
-      color: white;
-    }
+
   .marktitle,th{
     color: #56b4dc;
     overflow: hidden;

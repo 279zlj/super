@@ -212,10 +212,7 @@
     background-color: #43355F !important;
     color: white !important;
   }
-  .modal-content{
-    background-color:#3E324E ;
-    color: white;
-  }
+
   #y{
     display: block;
   }

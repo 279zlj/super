@@ -3,42 +3,34 @@
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-11 col-xs-11">
          <ul id="tab" class="nav nav-tabs">
-           <li id="target"  v-for="i in list" @click="father(i)"><a :href="['#'+i.user_id]" data-toggle="tab">{{i.display_name}}</a></li>
+           <li id="target"  v-for="(i,index) in list" @click="father(i,i.user_id)" v-bind:class="{'active':index==0}"><a :href="['#'+i.user_id]" data-toggle="tab">{{i.user_id}}</a></li>
          </ul>
           <div class="alert alert-danger " id="tipsc" style="display: none;">{{tipsc}}</div>
           <div id="myTabContent" class="tab-content">
 
-            <div class="tab-pane fade" :id="i.user_id"  v-for="i in list">
+            <div class="tab-pane fade" :id="i.user_id"  v-for="(i,index) in list"  v-bind:class="{'active in':index==0}">
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h3 class="panel-title">
-                    <i class="glyphicon glyphicon-user" style="margin: 0 .5em"></i>{{i.display_name}}
+                    <i class="glyphicon glyphicon-user" style="margin: 0 .5em"></i>{{i.user_id}}
                   </h3>
                 </div>
-                <div class="row panel-body">
+                <div class="row panel-body" id="userbody">
                   <div class="row all">
                   <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe">ID：</div>
                   <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{i.user_id}}</div>
                   </div>
-                  <div class="row all">
+                  <div class="row all odd">
                   <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >显示名：</div>
                   <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{i.display_name}}</div>
                   </div>
-                  <!--<div class="row all">-->
-                  <!--<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >类型：</div>-->
-                  <!--<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{i.type}}</div>-->
-                  <!--</div>-->
-                  <!--<div class="row all">-->
-                    <!--<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >访问级别：</div>-->
-                    <!--<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{i.visit}}</div>-->
-                  <!--</div>-->
                   <div class="row all">
                   <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >管理权限：</div>
                   <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
                     <p v-for="c in i.caps">类型：{{c.type}} / 权限：{{c.perm}}</p>
                   </div>
                   </div>
-                  <div class="row all">
+                  <div class="row all odd">
                   <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe">用户状态：</div>
                   <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 " >
                     <span>{{i.suspended}}</span>
@@ -50,7 +42,7 @@
                   <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >配额参数：</div>
                   <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">Max-objects：{{i.bucket_quota.max_objects}} / Max-size：{{i.bucket_quota.max_size}}</div>
                   </div>
-                  <div class="row all">
+                  <div class="row all odd">
                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >配额状态：</div>
                     <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 " >
                       <span>{{i.bucket_quota.enabled}}</span>
@@ -60,7 +52,7 @@
                   </div>
                   <div class="row all">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 labe">
-                      用户用量管理：
+                      用户用量：
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 data">
                       <span style="margin-left: .6em;font-size: 1.4em" v-if="i.usage==0">{{i.usage.size_kb}}</span>
@@ -76,6 +68,8 @@
           <div id="fun" >
             <p @click="add()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-plus add" title="添加" data-toggle="tooltip" data-placement="right"></span></p>
             <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
+            <p @click="addauth()" data-toggle="" style="cursor: pointer"><img class="img-font" src="../../static/image/addauth.png" title="增加权限" data-toggle="tooltip" data-placement="right"></p>
+            <p @click="deleteauth()" data-toggle="" style="cursor: pointer"><img class="img-font" src="../../static/image/deleteauth.png" title="删除权限" data-toggle="tooltip" data-placement="right"></p>
             <p @click="look()" style="cursor: pointer"><span class="glyphicon glyphicon-eye-open look" title="查看" data-toggle="tooltip" data-placement="right"></span></p>
             <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
           </div>
@@ -85,11 +79,11 @@
           <div class="row subuser">
             <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11" >
           <ul id="tabt" class="nav nav-tabs">
-            <li id="two2" v-for="a in one1"><a :href="['#'+a.id]" data-toggle="tab" @click="thissub(a.id)">{{a.id}}</a></li>
+            <li id="two2" v-for="(a,index) in one1" v-bind:class="{'active':index==0}"><a :href="['#'+a.id]" data-toggle="tab" @click="thissub(a.id)">{{a.id}}</a></li>
           </ul>
           <div class="alert alert-danger " id="subtipsc" style="display: none;">{{subtipsc}}</div>
           <div id="myTab" class="tab-content">
-            <div class="tab-pane fade tab-pa" :id="b.id"  v-for="b in one1">
+            <div class="tab-pane fade tab-pa" :id="b.id"  v-for="(b,index) in one1" v-bind:class="{'active in':index==0}">
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h3 class="panel-title">
@@ -101,7 +95,7 @@
                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe">来源：</div>
                     <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{b.origin}}</div>
                   </div>
-                  <div class="row all bg">
+                  <div class="row all bg odd">
                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >ID：</div>
                     <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{b.id}}</div>
                   </div>
@@ -198,15 +192,42 @@
             <div class="modal-body">
               <p>ID：<span>{{num}}</span></p>
               <p>名称：</p><input type="text" class="form-control" id="name" :placeholder=name ref="name" required="required"/>
-              <p>访问级别：</p>
-              <select class="form-control" v-on:change="sele($event)" v-model="visitold">
-                <option v-for="m in rank" :value="m.name">{{m.name}}</option>
-              </select>
+              <!--<p>访问级别：</p>-->
+              <!--<select class="form-control" v-on:change="sele($event)" v-model="visitold">-->
+                <!--<option v-for="m in rank" :value="m.name">{{m.name}}</option>-->
+              <!--</select>-->
               <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
               <button type="button" class="btn btn-primary" @click="editsend()">{{$t('message.Confirm')}}</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+      </div>
+      <div class="modal fade" id="auth" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" >{{auth_title}}</h4>
+            </div>
+            <div class="modal-body">
+              <p>ID：<span>{{num}}</span></p>
+              <!--<p>名称：</p><input type="text" class="form-control" id="name" :placeholder=name ref="name" required="required"/>-->
+              <p>权限类型：</p>
+              <select class="form-control" v-on:change="sele($event)" v-model="authselect">
+              <option v-for="a in caps_type" :value="a.name">{{a.name}}</option>
+              </select>
+              <p>增加权限：</p>
+              <select class="form-control" v-on:change="asele($event)" v-model="capsselect">
+                <option v-for="c in caps" :value="c.name">{{c.name}}</option>
+              </select>
+              <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+              <button type="button" class="btn btn-primary" @click="authsend()">{{$t('message.Confirm')}}</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal -->
@@ -224,9 +245,9 @@
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Max_bucket：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{personal.max_buckets}}</div>
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Keys：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><p v-for="k in personal.keys">User：{{k.user}}<br>Access_key：{{k.access_key}}<br>Secret_key：{{k.secret_key}}</p></div>
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Swift_keys：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><p v-for="s in personal.swift_keys">User：{{s.user}}<br>Secret_key：{{s.secret_key}}</p></div>
-              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Bucket_quota：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><p v-for="b in personal.bucket_quota">Enabled:{{b.enabled}} / Max_size{{b.max_size}} / Max_size_kb:{{b.max_size_kb}} / Max_objects:{{b.max_objects}}</p></div>
-              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">User_quota：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{personal.user_quota}}</div>
-
+              <!--<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Bucket_quota：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" ><p v-show="personal.bucket_quota.enabled!=''">Enabled:{{personal.bucket_quota.enabled}} / Max_size{{personal.bucket_quota.max_size}} / Max_objects:{{personal.bucket_quota.max_objects}}</p></div>-->
+              <!--<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">User_quota：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><p v-show="personal.user_quota.enabled!=''">Enable：{{personal.user_quota.enabled}} / Max_size：{{personal.user_quota.max_size}} / Max_objects：{{personal.user_quota.max_objects}}</p></div>-->
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">用户权限：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><p v-for="c in personal.caps">类型：{{c.type}} / 权限：{{c.perm}}</p></div>
 
             </div>
             <div class="modal-footer">
@@ -280,7 +301,7 @@
           </div><!-- /.modal-content -->
         </div><!-- /.modal -->
       </div>
-      <tips ref="tips" :content=tipscontent :dotitle=title :docontent=dosome ></tips>
+      <tips ref="tips" :content=tipscontent :dotitle=title :docontent=dosome  v-on:respond="res"></tips>
     </div>
 </template>
 
@@ -293,14 +314,24 @@
       data(){
           return{
             list:[],
-            one1:[
-
-            ],
+            one1:[],
             rank:[
               {name:'只读',value:'read'},
               {name:'只写',value:'write'},
               {name:'读写',value:'readwrite'},
               {name:'Full',value:'full'},
+            ],
+            caps_type:[
+              {name:'bucket',value:'bucket'},
+              {name:'metadata',value:'metadata'},
+              {name:'usage',value:'usage'},
+              {name:'zone',value:'zone'}
+            ],
+            caps:[
+              {name:'write',value:'write'},
+              {name:'read',value:'read'},
+              {name:'write-read',value:'write-read'},
+              {name:'*',value:'*'}
             ],
             rankselect:'',
             personal:[],
@@ -315,23 +346,89 @@
             searchurl:'',
             num:'',
             name:'',
-            subtipsc:''
-
+            subtipsc:'',
+            onelist:[],
+            who:'',
+            authselect:'',
+            capsselect:'',
+            auth_title:''
           }
       },
       methods:{
-        father(n){
-          this.personal=n
-          // this.num=n
-          // this.name=m
-          //
-          // this.Mobject=o
-          // this.Msize=s
+        father(a,n){
+          this.personal=a
           let i=0
           for ( i;i<this.list.length; i++){
-            if (n==this.list[i].id){
-              this.one1=this.list[i].subusers
+            if (n==this.list[i].user_id){
+              this.onelist=this.list[i].subusers
+              if (this.onelist[0].origin===undefined){
+                for(let i=0;i<this.onelist.length;i++){
+                  this.onelist[i].origin=this.onelist[i].id.split(":")[0]
+                  this.onelist[i].id=this.onelist[i].id.split(":")[1]
+                }
+                this.one1=this.onelist
+              }
+              else {
+                this.onelist=this.list[i].subusers
+                this.one1=this.onelist
+              }
             }
+          }
+        },
+        res(data){
+          if(data=='ok'&&this.who=='stopuser'){
+            this.$axios.post(this.allurl+'gwobj/suspend_objuser',{uid:this.dosome,suspend:1}).then(function (res) {
+              if (res.status==200){
+
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
+          else if (data=='ok'&&this.who=='startuser'){
+            this.$axios.post(this.allurl+'gwobj/suspend_objuser',{uid:this.dosome,suspend:0}).then(function (res) {
+              if (res.status==200){
+
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
+          else if(data=='ok'&&this.who=='deleteuser'){
+            this.$axios.post(this.allurl+'gwobj/remove_objuser',{uid:this.dosome}).then(function (res) {
+              if (res.status==200){
+
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
+          else if(data=='ok'&&this.who=='stopquota'){
+            this.$axios.post(this.allurl+'gwobj/trunquo_objuser',{uid:this.dosome,enable:0}).then(function (res) {
+              if (res.status==200){
+
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
+          else if(data=='ok'&&this.who=='startquota'){
+            this.$axios.post(this.allurl+'gwobj/trunquo_objuser',{uid:this.dosome,enable:1}).then(function (res) {
+              if (res.status==200){
+
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
+          else if (data=='ok'&&this.who=='deletesub') {
+            this.$axios.post(this.allurl+'gwobj/remove_subuser',{uid:this.num,sub_name:this.dosome}).then(function (res) {
+              if (res.status==200){
+
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
           }
         },
         thissub(who){
@@ -346,16 +443,22 @@
         selec(event){
           this.subvisit=event.target.value
         },
+        asele(event){
+          this.capsselect=event.target.value
+        },
         getsome(){
           var _this=this
           this.$axios.get(this.allurl+'gwobj/get_objusers').then(function (res) {
             _this.list=res.data
             _this.one1=_this.list[0].subusers
             for(let i=0;i<_this.one1.length;i++){
-              _this.one1[i].id=_this.one1[i].id.replace(":","")
+              _this.one1[i].origin=_this.one1[i].id.split(":")[0]
+              _this.one1[i].id=_this.one1[i].id.split(":")[1]
+
+              // _this.one1[i].id=_this.one1[i].id.replace(":","")
 
             }
-            console.log(_this.one1)
+            // console.log(_this.one1)
             _this.num=_this.list[0].user_id
             _this.name=_this.list[0].display_name
             // _this.visitold=_this.list[0].visit
@@ -367,15 +470,10 @@
           })
         },
         start(){
+
           this.getsome()
-          $('#target:first-child').addClass('active')
-          // div.setAttribute("class", "abc");
-          console.log($('#target li:first'))
-          $('#two2:first').addClass('active')
-          $('.tab-pane:first-child').addClass('active in')
-          $('.tab-pane:first-child').addClass('in')
-          $('.tab-pa:first-child').addClass('active')
-          $('.tab-pa:first-child').addClass('in')
+
+          // this.father(this.list[0],this.list[0].user_id)
           $('.all:odd').css("background","#42345E");
           $('.bg:odd').css("background","#42345E");
           $("[data-toggle='tooltip']").tooltip({html:true});
@@ -397,6 +495,46 @@
           else {
             this.cross=''
             $('#addnew').modal('show')
+          }
+        },
+        addauth(){
+          if (sessionStorage.getItem('islogin')==250){
+            this.tipsc='普通用户无操作权限！'
+            $("#tipsc").show().delay (2000).fadeOut ();;
+          }
+          else {
+            this.cross=''
+            this.who='addauth'
+            this.auth_title="增加权限"
+            $('#auth').modal('show')
+          }
+        },
+        deleteauth(){
+          if (sessionStorage.getItem('islogin')==250){
+            this.tipsc='普通用户无操作权限！'
+            $("#tipsc").show().delay (2000).fadeOut ();;
+          }
+          else {
+            this.cross=''
+            this.who='deleteauth'
+            this.auth_title="删除权限"
+            $('#auth').modal('show')
+          }
+        },
+        authsend(){
+          if (this.who=='addauth'){
+            this.$axios.post(this.allurl+'gwobj/capsadd_objuser',{uid:this.num,caps_type:this.authselect,caps:this.capsselect}).then(function (res) {
+              if (res.status==200){}
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
+          else if (this.who=='deleteauth'){
+            this.$axios.post(this.allurl+'gwobj/capsrm_objuser',{uid:this.num,caps_type:this.authselect,caps:this.capsselect}).then(function (res) {
+              if (res.status==200){}
+            }).catch(function (error) {
+              console.log(error)
+            })
           }
         },
         addsend(){
@@ -438,7 +576,7 @@
           if (subname==''||this.rankselect=='') {
             this.cross='请填写完整!'
           }
-          this.$axios.post(this.allurl+'object/edit',{subname:subname,rankselect:this.rankselect}).then(function (res) {
+          this.$axios.post(this.allurl+'gwobj/create_subuser',{uid:this.num,sub_name:subname,access:this.rankselect}).then(function (res) {
             if (res.data.status == 1) {
               this.subtipsc = '操作成功'
               $('#subtipsc').show().delay(2000).fadeOut()
@@ -458,7 +596,7 @@
             this.cross='请填写完整!'
           }
           else {
-            this.$axios.post(this.allurl+'object/edit',{control:this.visitold,name:name}).then(function (res) {
+            this.$axios.post(this.allurl+'gwobj/rename_objuser',{display_name:name,uid:this.num}).then(function (res) {
               if (res.data.status == 1) {
                 this.tipsc = '操作成功'
                 $('#tipsc').show().delay(2000).fadeOut()
@@ -479,7 +617,7 @@
             this.cross='请填写完整!'
           }
           else {
-            this.$axios.post(this.allurl+'object/sub',{control:this.subvisit,name:sname}).then(function (res) {
+            this.$axios.post(this.allurl+'gwobj/create_subuser',{uid:this.num,access:this.subvisit,sub_name:sname}).then(function (res) {
               if (res.data.status == 1) {
                 this.subtipsc = '操作成功'
                 $('#subtipsc').show().delay(2000).fadeOut()
@@ -532,6 +670,7 @@
             $("#tipsc").show().delay (2000).fadeOut ();;
           }
           else {
+            this.who='deleteuser'
             this.title = '是否确认选择删除用户'
             this.dosome = this.num
             this.$refs.tips.dselect()
@@ -543,6 +682,7 @@
             $("#subtipsc").show().delay (2000).fadeOut ();
           }
           else {
+            this.who='deletesub'
             this.title = '是否确认选择删除子用户'
             this.dosome = this.subnow
             this.$refs.tips.dselect()
@@ -554,6 +694,7 @@
             $("#tipsc").show().delay (2000).fadeOut ();
           }
           else {
+            this.who='stopuser'
             this.title = '是否确认停用用户'
             this.dosome = this.num
             this.$refs.tips.dselect()
@@ -565,6 +706,7 @@
             $("#tipsc").show().delay (2000).fadeOut ();
           }
           else {
+            this.who='startuser'
             this.title = '是否确认启用用户'
             this.dosome = this.num
             this.$refs.tips.dselect()
@@ -576,6 +718,7 @@
             $("#tipsc").show().delay (2000).fadeOut ();
           }
           else {
+            this.who='stopquota'
             this.title = '是否确认停用配额'
             // this.dosome = this.num
             this.$refs.tips.dselect()
@@ -592,6 +735,7 @@
               $("#tipsc").show().delay (2000).fadeOut ();
             }
             else {
+              this.who='startquota'
               this.title = '是否确认启用配额'
               // this.dosome = this.num
               this.$refs.tips.dselect()
@@ -673,8 +817,12 @@
     text-align:left;
     padding-left: 2em;
   }
+  .odd{
+    background-color: #42345E;
+    height: 3em;
+  }
   .all{
-    /*height: 2.8em;*/
+    min-height: 3em;
     width: 100%;
     margin-left: 0em;
     padding-top: .8em;
@@ -685,6 +833,9 @@
     background-size: contain;
     height:8em;
     margin: 0 auto;
+  }
+  .img-font{
+    width: 1.5em;
   }
   #fun,#funa{
     margin-top: 8em;
@@ -707,10 +858,7 @@
       background-color: #C17F00;
 
     }
-    .modal-content{
-      background-color:#3E324E ;
-      color: white;
-    }
+
     .opr,.sopr{
       float: right;
       margin: 0 1em;

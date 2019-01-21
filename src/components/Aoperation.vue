@@ -280,10 +280,7 @@
     background-color: #43355F !important;
     color: white !important;
   }
-  .modal-content{
-    background-color:#3E324E ;
-    color: white;
-  }
+
   .contenttop{
     margin-top: 10em;
   }

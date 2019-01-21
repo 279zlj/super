@@ -229,10 +229,7 @@
     /*transform: translateX(-50%) translateY(-50%);*/
   /*}*/
   .o{
-    background-color: #292431;
+    background-color: #172952;
   }
-  .modal-content{
-    background-color:#3E324E ;
-    color: white;
-  }
+
 </style>

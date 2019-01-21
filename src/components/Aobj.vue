@@ -222,10 +222,7 @@
     margin-top: 3.8em;
     color:white !important;
   }
-  .modal-content{
-    background-color:#3E324E ;
-    color: white;
-  }
+
   thead{
     background-color: #372B51;
   }

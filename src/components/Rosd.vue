@@ -538,14 +538,8 @@
 #editm{
   color: white;
 }
-  .modal-content{
-    background-color:#3E324E ;
-    color: white;
-  }
-#editm input{
-  background-color: #43355F;
-  color: white;
-}
+
+
 .pie{
   height: 10em;
   margin: 0 auto;

@@ -95,5 +95,15 @@
 
   }
 
-
+  .modal-header,.modal-footer{
+    border:1px solid #566992;
+  }
+  .modal-content{
+    background-color:#47587E;
+    color: white;
+  }
+  .modal-content .form-control,.modal-content input{
+    background-color: #344367;
+    border:1px solid #344367;
+  }
 </style>
