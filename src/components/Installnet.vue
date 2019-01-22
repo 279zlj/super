@@ -214,6 +214,15 @@
               console.log(error)
             })
           }
+          else {
+            this.$axios.post(this.installurl+'post_net_conf',this.malist).then(function (res) {
+              if (res.status==200){
+                _this.$router.push('/Installone')
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
           // console.log(this.salist)
 
         },

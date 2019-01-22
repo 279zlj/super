@@ -450,6 +450,7 @@
           var _this=this
           this.$axios.get(this.allurl+'gwobj/get_objusers').then(function (res) {
             _this.list=res.data
+
             _this.one1=_this.list[0].subusers
             for(let i=0;i<_this.one1.length;i++){
               _this.one1[i].origin=_this.one1[i].id.split(":")[0]
@@ -458,6 +459,7 @@
               // _this.one1[i].id=_this.one1[i].id.replace(":","")
 
             }
+            _this.thissub(_this.one1[0].id)
             // console.log(_this.one1)
             _this.num=_this.list[0].user_id
             _this.name=_this.list[0].display_name
@@ -468,24 +470,14 @@
           }).catch(function (error) {
             console.log(error)
           })
+
         },
         start(){
-
           this.getsome()
-
-          // this.father(this.list[0],this.list[0].user_id)
-          $('.all:odd').css("background","#42345E");
-          $('.bg:odd').css("background","#42345E");
-          $("[data-toggle='tooltip']").tooltip({html:true});
-          // this.one1=this.list[0].subusers
 
           $('#sear').bootstrapTable({
             url:this.allurl+this.searchurl
           })
-
-          // $('#userstatus').bootstrapSwitch('state', false)
-          // $('#substatus').bootstrapSwitch('state', false)
-
         },
         add(){
           if (sessionStorage.getItem('islogin')==250){

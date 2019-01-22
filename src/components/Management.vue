@@ -5,10 +5,10 @@
 </template>
 
 <script>
-    import VTable from "vue-easytable/libs/v-table/src/table";
+    // import VTable from "vue-easytable/libs/v-table/src/table";
     export default {
         name: "Management",
-      components: {VTable}
+      // components: {VTable}
     }
 </script>
 

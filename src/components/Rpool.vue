@@ -24,7 +24,7 @@
 
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
         <div id="y" disabled="disabled">
-          <p @click="addnew()" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" class="img-responsive add" title="添加" data-toggle="tooltip" data-placement="right" /></p>
+          <p @click="addnew()" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" id="add" class="img-responsive add" title="添加" data-toggle="tooltip" data-placement="right" /></p>
           <p @click="dilatation()" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" class="img-responsive kr" title="扩容" data-toggle="tooltip" data-placement="right"/></p>
           <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
 

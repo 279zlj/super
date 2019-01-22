@@ -99,8 +99,8 @@
     border:1px solid #566992;
   }
   .modal-content{
-    background-color:#47587E;
-    color: white;
+    background-color:#47587E !important;
+    color: white !important;
   }
   .modal-content .form-control,.modal-content input{
     background-color: #344367;

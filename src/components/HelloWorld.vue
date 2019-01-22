@@ -26,22 +26,22 @@
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 one"  :class="issele==='HelloWorld'?'two':''">
         <div class="r-border" >
-          <router-link :to="{name:'HelloWorld'}" ><p class="font" @click="changenav('HelloWorld')" >{{$t('nav.Home')}}</p></router-link>
+          <router-link :to="{name:'HelloWorld'}" ><p class="font" @click="changenav('HelloWorld')" id="index">{{$t('nav.Home')}}</p></router-link>
         </div>
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 one"  :class="issele==='Resources'?'two':''">
         <div class="r-border" >
-          <router-link :to="{name:'Resources'}"><p class="font" @click="changenav('Resources')">{{$t('nav.Control')}}</p></router-link>
+          <router-link :to="{name:'Resources'}"><p class="font" @click="changenav('Resources')" id="resources">{{$t('nav.Control')}}</p></router-link>
         </div>
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 one"  :class="issele==='Allocation'?'two':''">
         <div class="r-border" >
-          <router-link :to="{name:'Allocation'}"><p class="font" @click="changenav('Allocation')">{{$t('nav.Allocation')}}</p></router-link>
+          <router-link :to="{name:'Allocation'}"><p class="font" @click="changenav('Allocation')" id="allocation">{{$t('nav.Allocation')}}</p></router-link>
         </div>
       </div>
       <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12" :class="issele==='Management'?'two':''" >
         <div class="r-border" >
-          <router-link :to="{name:'Management'}"><p class="font" @click="changenav('Management')">{{$t('nav.Risk')}}
+          <router-link :to="{name:'Management'}"><p class="font" @click="changenav('Management')" id="management">{{$t('nav.Risk')}}
 
             <span class=" label label-danger" style="vertical-align: super" title="警告事件：紧急"  data-toggle="tooltip" data-placement="bottom">{{$store.state.jj}}</span>
             <span class=" label label-warning" style="vertical-align: super" title="警告事件：重要" data-toggle="tooltip" data-placement="bottom">{{$store.state.zy}}</span>

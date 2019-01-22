@@ -17,7 +17,7 @@
           <label class="l">密码：</label>
           <input type="password" class="form-control" placeholder="输入密码" ref="pwd" id="pwd" required="required"/>
             <div id="tips" style="color: red;margin-top: .5em;font-weight: 700;">{{tips}}</div>
-          <input type="button" class="btn btn-info b" value="登录" @click="loginuser()" @keydown.enter="loginuser()"/>
+          <input type="button" class="btn btn-info b" value="登录" id="loginbtn" @click="loginuser()" @keydown.enter="loginuser()"/>
           </div>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6">

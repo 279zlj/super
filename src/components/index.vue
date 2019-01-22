@@ -3,7 +3,7 @@
     <div class="row " id="one">
       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 container-fluid">
         <div class="row blockone">
-          <p style="margin: 1em 0 0.5em 1em;">{{$t('message.Netstat')}}</p>
+          <p style="margin: 1em 0 0.5em 1em;" id="title">{{$t('message.Netstat')}}</p>
           <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 right">
             <!--<div id="liquidFill" class="grid"></div>-->
             <!--<p style="margin-top: 1em">网速：<span class="numtwo">{{pool_use}}</span>mb/s</p>-->

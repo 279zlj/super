@@ -446,7 +446,9 @@
   td{
     color: #93BFDF;
   }
-
+  i{
+    color: white !important;
+  }
   .marktitle,th{
     color: #56b4dc;
     overflow: hidden;
