@@ -107,7 +107,7 @@
             <div class="datapstyle"><span v-for="w in $store.state.netcard"><img src="../../static/image/four.png" class="img-responsive im" :id="w.dname"  @click="net(w.dname)"  :title="w.dname" data-toggle="tooltip" data-placement="bottom"></span></div>
           <span class="ff">{{$store.state.content.iscsi}}</span><span class="glyphicon glyphicon-edit e" style="cursor: pointer"  data-toggle="editmodal" @click="edit()" id="edit"></span>
           <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.Interior')}} {{$t('message.Network')}}</span></p>
-          <span class="ff">{{$store.state.content.netw}}</span>
+          <span class="ff" id="net">{{$store.state.content.netw}}</span>
           </div>
         </div>
     </div>

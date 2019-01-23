@@ -70,6 +70,7 @@
             <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
             <p @click="addauth()" data-toggle="" style="cursor: pointer"><img class="img-font" src="../../static/image/addauth.png" title="增加权限" data-toggle="tooltip" data-placement="right"></p>
             <p @click="deleteauth()" data-toggle="" style="cursor: pointer"><img class="img-font" src="../../static/image/deleteauth.png" title="删除权限" data-toggle="tooltip" data-placement="right"></p>
+            <p @click="quotaset()" data-toggle="" style="cursor: pointer"><img class="img-font" src="../../static/image/quota.png" title="配额设置" data-toggle="tooltip" data-placement="right"></p>
             <p @click="look()" style="cursor: pointer"><span class="glyphicon glyphicon-eye-open look" title="查看" data-toggle="tooltip" data-placement="right"></span></p>
             <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
           </div>
@@ -192,15 +193,31 @@
             <div class="modal-body">
               <p>ID：<span>{{num}}</span></p>
               <p>名称：</p><input type="text" class="form-control" id="name" :placeholder=name ref="name" required="required"/>
-              <!--<p>访问级别：</p>-->
-              <!--<select class="form-control" v-on:change="sele($event)" v-model="visitold">-->
-                <!--<option v-for="m in rank" :value="m.name">{{m.name}}</option>-->
-              <!--</select>-->
               <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
               <button type="button" class="btn btn-primary" @click="editsend()">{{$t('message.Confirm')}}</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+      </div>
+      <div class="modal fade" id="quotaset" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="quotatitle">修改用户信息</h4>
+            </div>
+            <div class="modal-body">
+              <p>ID：<span>{{num}}</span></p>
+              <p>最大对象数：</p><input type="text" class="form-control" id="max-object"  ref="max-object" required="required"/>
+              <p>最大存储空间：</p><input type="text" class="form-control" id="max-size"  ref="max-size" required="required"/>
+              <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+              <button type="button" class="btn btn-primary" @click="quotasend()">{{$t('message.Confirm')}}</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal -->
@@ -499,6 +516,40 @@
             this.who='addauth'
             this.auth_title="增加权限"
             $('#auth').modal('show')
+          }
+        },
+        quotaset(){
+          if (sessionStorage.getItem('islogin')==250){
+            this.tipsc='普通用户无操作权限！'
+            $("#tipsc").show().delay (2000).fadeOut ();;
+          }
+          else {
+            this.cross=''
+            $('#quotaset').modal('show')
+          }
+        },
+        quotasend(){
+          var object=this.$refs.max-object.value
+          var size=this.$refs.max-size.value
+          if (object==''||size==''){
+            this.cross='请填写完整!'
+          }
+          else {
+            this.$axios.post(this.allurl+'gwobj/setquo_objuser',{uid:this.num,quota:object,size:size}).then(function (res) {
+              if (res.data.status == 1) {
+                this.tipsc = '操作成功'
+                $('#tipsc').show().delay(2000).fadeOut()
+
+              }
+              else {
+                this.tipsc = res.data.status
+                $('#tipsc').show().delay(2000).fadeOut()
+
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
+
           }
         },
         deleteauth(){

@@ -143,12 +143,12 @@
             <!--<p>{{$t('message.Storage-pool-capacity')}}：</p><input type="number" class="form-control" id="addsize" ref="addsize"/>-->
             <p>{{$t('message.Storage-pool-type')}}：</p>
 
-            <select class="form-control" v-on:change="sel($event)" v-model="unitsele">
+            <select class="form-control" id="pooltype" v-on:change="sel($event)" v-model="unitsele">
               <option v-for="m in unit" :value="m.name">{{m.name}}</option>
             </select>
             <p>{{$t('message.rule')}}：</p>
 
-            <select @click="rulewhat" class="form-control" v-on:change="rulesel($event)" v-model="ruleselect">
+            <select @click="rulewhat" id="poolrule" class="form-control" v-on:change="rulesel($event)" v-model="ruleselect">
               <option v-for="r in rule" :value="r.name">{{r.name}}</option>
             </select>
             <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>

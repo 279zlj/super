@@ -52,28 +52,28 @@
       </div>
 
       <div class="col-lg-1 col-lg-offset-1 col-md-1 col-sm-2 col-xs-12 dropdown">
-      <a class="dropdown-toggle glyphicon glyphicon-user white" data-toggle="dropdown" style="cursor: pointer"><span class="j2">{{user}}</span></a>
+      <a class="dropdown-toggle glyphicon glyphicon-user white" data-toggle="dropdown" style="cursor: pointer"><span class="j2" id="useropt">{{user}}</span></a>
         <ul class="dropdown-menu">
-          <li @click="us()"><router-link :to="{name:'User'}">{{$t('message.User-control')}}</router-link></li>
-          <li><a style="cursor: pointer"><span @click="outlog">{{$t('message.Log-out')}}</span></a></li>
+          <li @click="us()"><router-link :to="{name:'User'}" id="usermanager">{{$t('message.User-control')}}</router-link></li>
+          <li><a style="cursor: pointer"><span @click="outlog" id="outlogin">{{$t('message.Log-out')}}</span></a></li>
           <!--<li><a style="cursor: pointer"><span  v-on:click="changeone()" style="color: black;">简约风格</span></a></li>-->
           <!--<li><a style="cursor: pointer"><span  v-on:click="changetwo()" style="color: black;">原始主题</span></a></li>-->
         </ul>
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 dropdown">
-      <a class="dropdown-toggle glyphicon glyphicon-cog white" data-toggle="dropdown" style="cursor: pointer"><span class="j2">{{$t('nav.Management')}}</span></a>
+      <a class="dropdown-toggle glyphicon glyphicon-cog white" data-toggle="dropdown" style="cursor: pointer"><span class="j2" id="manager">{{$t('nav.Management')}}</span></a>
         <ul class="dropdown-menu">
-          <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#bb" @click="bbm()">{{$t('message.Versioning')}}</span></a></li>
-          <li><a ><span style="cursor: pointer" data-toggle="modal" data-target="#lisense" @click="lis()">{{$t('message.Lisense-management')}}</span></a></li>
-          <li @click="us()"><router-link :to="{name:'Log'}">{{$t('message.Log-management')}}</router-link></li>
-          <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#notice" @click="addnotice()">{{$t('message.Add-warning-notice')}}</span></a></li>
+          <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#bb" @click="bbm()" id="version">{{$t('message.Versioning')}}</span></a></li>
+          <li><a ><span style="cursor: pointer" data-toggle="modal" data-target="#lisense" @click="lis()" id="lisenseopt">{{$t('message.Lisense-management')}}</span></a></li>
+          <li @click="us()"><router-link :to="{name:'Log'}" id="logmanager">{{$t('message.Log-management')}}</router-link></li>
+          <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#notice" @click="addnotice()" id="addwarn">{{$t('message.Add-warning-notice')}}</span></a></li>
         </ul>
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 dropdown" id="lang">
-        <a data-toggle="dropdown" style="cursor: pointer" class="glyphicon glyphicon-font white"><span class="j2">{{$t('nav.Language')}}</span></a>
+        <a data-toggle="dropdown" style="cursor: pointer" class="glyphicon glyphicon-font white"><span class="j2" id="langue">{{$t('nav.Language')}}</span></a>
         <ul class="dropdown-menu">
-          <li ><a style="cursor: pointer" @click="changelanguage('zh')">{{$t('message.Chinese')}}</a></li>
-          <li><a style="cursor: pointer" @click="changelanguage('en')">{{$t('message.English')}}</a></li>
+          <li ><a style="cursor: pointer" @click="changelanguage('zh')" id="chinese">{{$t('message.Chinese')}}</a></li>
+          <li><a style="cursor: pointer" @click="changelanguage('en')" id="english">{{$t('message.English')}}</a></li>
         </ul>
       </div>
     </div>

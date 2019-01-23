@@ -64,7 +64,7 @@
               </p>
             </div>
             <div class="col-lg-3 col-lg-offset-4 col-md-6 col-md-6 col-xs-6">
-              <button  class="btn btn-default btn-sm bi" @click="cputop()">{{$t('message.View-All')}}</button>
+              <button  class="btn btn-default btn-sm bi" @click="cputop()" id="cpuview">{{$t('message.View-All')}}</button>
               <!--<input type="button" class="btn btn-default btn-sm bi" value="查看全部" @click="cputop()"/>-->
             </div>
           </div>
@@ -91,7 +91,7 @@
               </p>
             </div>
             <div class="col-lg-3 col-lg-offset-4 col-md-6 col-md-6 col-xs-6">
-              <button  class="btn btn-default btn-sm bi" @click="iopstop()">{{$t('message.View-All')}}</button>
+              <button  class="btn btn-default btn-sm bi" @click="iopstop()" id="iopsview">{{$t('message.View-All')}}</button>
               <!--<input type="button" class="btn btn-default btn-sm bi" value="查看全部" @click="iopstop()"/>-->
             </div>
           </div>
@@ -117,7 +117,7 @@
               </p>
             </div>
             <div class="col-lg-3 col-lg-offset-4      col-md-6 col-md-6 col-xs-6">
-      <button  class="btn btn-default btn-sm bi" @click="mbpstop()">{{$t('message.View-All')}}</button>
+      <button  class="btn btn-default btn-sm bi" @click="mbpstop()" id="mbpsview">{{$t('message.View-All')}}</button>
       <!--<input type="button" class="btn btn-default btn-sm bi" value="查看全部" @click="mbpstop()"/>-->
     </div>
   </div>
