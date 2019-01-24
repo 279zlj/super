@@ -3,7 +3,7 @@
 
   <div class="row" v-if="$store.state.osdlist!=null">
 
-  <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12 container allo">
+  <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12 container allo" id="content">
     <button  class="btn btn-default b" @click="open()" id="open">{{$t('message.Unfold')}}</button>
     <button  class="btn btn-default b" @click="clos()" id="closed">{{$t('message.Minimalism')}}</button>
     <!--<input type="button" class="btn btn-default b" value="展开" id="open" @click="open()"/>-->

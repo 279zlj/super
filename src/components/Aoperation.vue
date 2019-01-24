@@ -10,7 +10,7 @@
             <!--<input type="submit" class="btn btn-success" id="search" @click="sentip()" />-->
           <!--</div>-->
         <!--</div>-->
-        <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-toggle="table"  data-classes="table-no-bordered" >
+        <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-toggle="table" data-click-to-select="true" data-classes="table-no-bordered" >
           <div class="alert alert-danger " id="tipscontent" style="display: none;">普通用户无操作权限！</div>
           <thead>
           <tr>
@@ -27,9 +27,9 @@
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 contenttop" >
         <div id="y">
-          <p @click="addrule()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-list-alt verticalimg" title="新建规则" data-toggle="tooltip" data-placement="right"></span></p>
-          <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit verticalimg" title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
-          <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle verticalimg" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="addrule()" id="addrule" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-list-alt verticalimg" title="新建规则" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="editlist()" id="editlist" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit verticalimg" title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="deletelist()" id="deletelist" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle verticalimg" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
         </div>
         <div style="width: 300px" id="h">
           <p @click="addrule()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-list-alt verticalimg" title="新建规则" data-toggle="tooltip" data-placement="right"></span></p>

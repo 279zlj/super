@@ -31,10 +31,10 @@
       </ul>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
         <div id="y">
-          <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit verticalimg"  title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
-          <p data-toggle="back" @click="goback()" style="cursor: pointer"><span class="glyphicon glyphicon-backward verticalimg" title="回滚" data-toggle="tooltip" data-placement="right"></span></p>
-          <p data-toggle="snclone" @click="snclone()" style="cursor: pointer"><span class="glyphicon glyphicon-th-large verticalimg" title="克隆" data-toggle="tooltip" data-placement="right"></span></p>
-          <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle verticalimg-l" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="editlist()"id="edit" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit verticalimg"  title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
+          <p data-toggle="back" id="back" @click="goback()" style="cursor: pointer"><span class="glyphicon glyphicon-backward verticalimg" title="回滚" data-toggle="tooltip" data-placement="right"></span></p>
+          <p data-toggle="snclone" id="clone" @click="snclone()" style="cursor: pointer"><span class="glyphicon glyphicon-th-large verticalimg" title="克隆" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="deletelist()" id="delete" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle verticalimg-l" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
         </div>
         <div id="h">
           <span @click="editlist()" data-toggle="editmodal"><span class="glyphicon glyphicon-edit infeed" title="编辑" data-toggle="tooltip" data-placement="right"></span></span>

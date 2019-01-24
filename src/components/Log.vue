@@ -37,7 +37,7 @@
             <div class="row">
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">收集类型：</div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <select class="form-control" v-on:change="seltype($event)" v-model="typesele">
+                <select class="form-control" id="type" v-on:change="seltype($event)" v-model="typesele">
                   <option v-for="t in type" :value="t.name">{{t.name}}</option>
                 </select>
               </div>
@@ -46,7 +46,7 @@
             <div class="row" style="margin-top: 1em">
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">收集时间：</div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <select class="form-control" v-on:change="selday($event)" v-model="daysele">
+                <select class="form-control" id="time" v-on:change="selday($event)" v-model="daysele">
                   <option v-for="m in day" :value="m.name">{{m.name}}</option>
                 </select>
               </div>

@@ -219,6 +219,8 @@
         // this.pictorialBar();              /*块设备的状态*/
 
         var _this=this
+        _this.iopstop()
+        _this.mbpstop()
         // _this.allstatus()
         // console.log(_this.$store.state.gpool_use,_this.$store.state.gosd_use,'what')
         _this.pictorialBar();
@@ -238,14 +240,10 @@
         },
         gcim(){
           return this.$store.state.mbps,this.$store.state.log,this.$store.state.warn,this.$store.state.iops,this.$store.state.cpu
-        }
+        },
+
       },
-      // updated(){
-      //   this.liquidFill(this.$store.state.gpool_use);
-      //   this.pie(this.$store.state.gosd_use);
-      //   this.pictorialBar();
-      //
-      // },
+
       methods:{
         liquidFill(use){
           var Rliquid = this.$echarts.init(document.getElementById('RliquidFill'));
@@ -352,29 +350,6 @@
 
         allstatus(){
           var _this=this
-          // this.$axios.get(this.allurl+'overview').then(function (res) {
-          //   _this.osd_use=res.data.osd_use
-          //   _this.collect=res.data.collect
-          //   _this.pool_use=res.data.pool_user
-          //   // console.log(res.data)
-          //   _this.pictorialBar();              /*块设备的状态*/
-          //   _this.liquidFill();                 /*osd使用率占比状态饼状图*/
-          //   _this.pie();                       /*pool水球描绘*/
-          //   // console.log(_this.collect.osd_detail.osize)
-          // }).catch(function (error) {
-          //   console.log(error)
-          // })
-          // this.$axios.get(this.allurl+'list_data').then(function (res) {
-          //   _this.mbps=res.data.mbps
-          //   _this.log=res.data.log
-          //   _this.warn=res.data.warn
-          //   _this.iops=res.data.iops
-          //   _this.cpu=res.data.cpu
-          //   // _this.count()                    /*警告事件的分类统计*/
-          //
-          // }).catch(function (error) {
-          //   console.log(error)
-          // })
           this.$axios.get(this.allurl+'overview').then(function (res) {
             // const data=JSON.parse(res.data)
             _this.$store.commit('gnode',{osd_use:res.data.osd_use,collect:res.data.collect,pool_use:res.data.pool_user})

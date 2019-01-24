@@ -3,8 +3,8 @@
       <div class="row container-fluid">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
           <div id="y">
-          <p @click="editlist()"  style="cursor: pointer" ><span class="glyphicon glyphicon-edit edit" title="编辑"  data-toggle="tooltip" data-placement="right"></span></p>
-          <p @click="deletelist()"  style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="editlist()" id="edit" style="cursor: pointer" ><span class="glyphicon glyphicon-edit edit" title="编辑"  data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="deletelist()" id="delete" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
           </div>
           <div id="h" style="width: 300px">
             <span @click="editlist()" ><span class="glyphicon glyphicon-edit edith"  title="编辑" data-toggle="tooltip" data-placement="right" ></span></span>
@@ -177,6 +177,8 @@
       mounted(){
         this.start()
         $("[data-toggle='tooltip']").tooltip({html:true});
+        // this.$refs.tips.usetips()
+        this.deletelist()
       }
     }
 </script>
@@ -207,10 +209,6 @@
   }
   #editm{
     color: black;
-  }
-  #editm input{
-    background-color: #43355F !important;
-    color: white !important;
   }
 
   #y{

@@ -66,13 +66,13 @@
 
         <div class="col-lg-1 col-md-1 col-sm-1 col-sm-1">
           <div id="fun" >
-            <p @click="add()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-plus add" title="添加" data-toggle="tooltip" data-placement="right"></span></p>
-            <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
-            <p @click="addauth()" data-toggle="" style="cursor: pointer"><img class="img-font" src="../../static/image/addauth.png" title="增加权限" data-toggle="tooltip" data-placement="right"></p>
-            <p @click="deleteauth()" data-toggle="" style="cursor: pointer"><img class="img-font" src="../../static/image/deleteauth.png" title="删除权限" data-toggle="tooltip" data-placement="right"></p>
-            <p @click="quotaset()" data-toggle="" style="cursor: pointer"><img class="img-font" src="../../static/image/quota.png" title="配额设置" data-toggle="tooltip" data-placement="right"></p>
-            <p @click="look()" style="cursor: pointer"><span class="glyphicon glyphicon-eye-open look" title="查看" data-toggle="tooltip" data-placement="right"></span></p>
-            <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
+            <p @click="add()" id="add" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-plus add" title="添加" data-toggle="tooltip" data-placement="right"></span></p>
+            <p @click="editlist()" id="editlist" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
+            <p @click="addauth()" id="addauth" data-toggle="" style="cursor: pointer"><img class="img-font" src="../../static/image/addauth.png" title="增加权限" data-toggle="tooltip" data-placement="right"></p>
+            <p @click="deleteauth()" id="deleteauth" data-toggle="" style="cursor: pointer"><img class="img-font" src="../../static/image/deleteauth.png" title="删除权限" data-toggle="tooltip" data-placement="right"></p>
+            <p @click="quotaset()" id="quota" data-toggle="" style="cursor: pointer"><img class="img-font" src="../../static/image/quota.png" title="配额设置" data-toggle="tooltip" data-placement="right"></p>
+            <p @click="look()" style="cursor: pointer" id="view"><span class="glyphicon glyphicon-eye-open look" title="查看" data-toggle="tooltip" data-placement="right"></span></p>
+            <p @click="deletelist()" style="cursor: pointer" id="delete"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
           </div>
 
         </div>
@@ -115,9 +115,9 @@
             </div>
             <div col-lg-1 col-md-1 col-sm-1 col-sm-1>
               <div id="funa" >
-                <p @click="subadd()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-plus add" title="添加" data-toggle="tooltip" data-placement="right"></span></p>
-                <p @click="subedit()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
-                <p @click="subdelete()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
+                <p @click="subadd()" id="subadd" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-plus add" title="添加" data-toggle="tooltip" data-placement="right"></span></p>
+                <p @click="subedit()" id="sedit" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
+                <p @click="subdelete()" id="subdelete" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
               </div>
             </div>
           </div>

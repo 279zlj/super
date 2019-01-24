@@ -79,6 +79,7 @@
 <style scoped>
   #Afile{
     margin-top: 3em;
+    color: white !important;
   }
   #tool{
     margin-top: 8em;

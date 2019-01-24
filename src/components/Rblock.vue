@@ -20,11 +20,11 @@
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
         <div id="y">
-          <p @click="addnew()" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" class="img-responsive add" title="添加" data-toggle="tooltip" data-placement="right"/></p>
-          <p @click="bdilata()" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" class="img-responsive kr" title="扩容" data-toggle="tooltip" data-placement="right"/></p>
-          <p @click="addsn()" data-toggle="addsnap" style="cursor: pointer"><span class="glyphicon glyphicon-camera create" title="创建快照" data-toggle="tooltip" data-placement="right"></span></p>
-          <p @click="independent()" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/combine.png" class="img-responsive kr" title="块设备独立" data-toggle="tooltip" data-placement="right"/></p>
-          <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="addnew()" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" id="add" class="img-responsive add" title="添加" data-toggle="tooltip" data-placement="right"/></p>
+          <p @click="bdilata()" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" id="kr" class="img-responsive kr" title="扩容" data-toggle="tooltip" data-placement="right"/></p>
+          <p @click="addsn()" data-toggle="addsnap" style="cursor: pointer"><span class="glyphicon glyphicon-camera create" id="snap" title="创建快照" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="independent()" style="cursor: pointer"><img src="../../static/image/combine.png" id="depend" class="img-responsive kr" title="块设备独立" data-toggle="tooltip" data-placement="right"/></p>
+          <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" id="delete" data-toggle="tooltip" data-placement="right"></span></p>
         </div>
         <div style="width: 300px" id="h">
           <div @click="addnew()" data-toggle="addnew" style="float: left"><img src="../../static/image/add.svg" class="img-responsive addh" title="添加" data-toggle="tooltip" data-placement="right"/></div>
@@ -56,10 +56,10 @@
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 b" >
         <div id="y">
-          <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
-          <p @click="changetime()"  style="cursor: pointer"><span class="glyphicon glyphicon-backward verticalimg edit" title="回滚" data-toggle="tooltip" data-placement="right"></span></p>
-          <p @click="clonesnap()" data-toggle="clonesn" style="cursor: pointer" ><span class="glyphicon glyphicon glyphicon-th-list clone" title="克隆快照" data-toggle="tooltip" data-placement="right"></span></p>
-          <p @click="deletel()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" id="edit" title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="changetime()"  style="cursor: pointer"><span class="glyphicon glyphicon-backward verticalimg edit" id="black" title="回滚" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="clonesnap()" data-toggle="clonesn" style="cursor: pointer" ><span class="glyphicon glyphicon glyphicon-th-list clone" id="clone" title="克隆快照" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="deletel()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" id="deletel" data-toggle="tooltip" data-placement="right"></span></p>
         </div>
         <div id="h" style="width: 300px">
           <span @click="editlist()" data-toggle="editmodal" ><span class="glyphicon glyphicon-edit edith" title="编辑" data-toggle="tooltip" data-placement="right"></span></span>

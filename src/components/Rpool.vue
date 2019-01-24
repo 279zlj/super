@@ -25,16 +25,14 @@
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 a" >
         <div id="y" disabled="disabled">
           <p @click="addnew()" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" id="add" class="img-responsive add" title="添加" data-toggle="tooltip" data-placement="right" /></p>
-          <p @click="dilatation()" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" class="img-responsive kr" title="扩容" data-toggle="tooltip" data-placement="right"/></p>
-          <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
-
-          <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="dilatation()" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" id="kr" class="img-responsive kr" title="扩容" data-toggle="tooltip" data-placement="right"/></p>
+          <p @click="editlist()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit edit" id="edit" title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" id="delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
         </div>
         <div style="width: 300px" id="h">
           <div @click="addnew()" data-toggle="addnew" style="float: left"><img src="../../static/image/add.svg" class="img-responsive addh" title="添加" data-toggle="tooltip" data-placement="right"/></div>
           <div @click="dilatation()" style="float: left" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive krh" title="扩容" data-toggle="tooltip" data-placement="right"/></div>
           <div @click="editlist()" data-toggle="editmodal" style="float: left"><span class="glyphicon glyphicon-edit edith" title="编辑" data-toggle="tooltip" data-placement="right"></span></div>
-
           <div @click="deletelist()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></div>
         </div>
       </div>
@@ -59,10 +57,10 @@
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 b" >
         <div id="y">
-          <p @click="addclient()"  data-toggle="clientmodal" style="cursor: pointer"><img src="../../static/image/user.png" class="img-responsive adduser" title="新增客户端" data-toggle="tooltip" data-placement="right"/></p>
-          <p id="get" @click="empower()" style="cursor: pointer"><img src="../../static/image/get.png" class="img-responsive getpower" title="分配lun" data-toggle="tooltip" data-placement="right"/></p>
-          <p  id="nget" @click="noempower()" style="cursor: pointer"><img src="../../static/image/nget.png" class="img-responsive getpower" title="删除lun" data-toggle="tooltip" data-placement="right"/></p>
-          <p @click="deletel()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="addclient()"  data-toggle="clientmodal" style="cursor: pointer"><img src="../../static/image/user.png" id="addclient" class="img-responsive adduser" title="新增客户端" data-toggle="tooltip" data-placement="right"/></p>
+          <p id="get" @click="empower()" style="cursor: pointer"><img src="../../static/image/get.png" class="img-responsive getpower" id="addlun" title="分配lun" data-toggle="tooltip" data-placement="right"/></p>
+          <p  id="nget" @click="noempower()" style="cursor: pointer"><img src="../../static/image/nget.png" class="img-responsive getpower" id="deletelun" title="删除lun" data-toggle="tooltip" data-placement="right"/></p>
+          <p @click="deletel()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" id="deletel" data-toggle="tooltip" data-placement="right"></span></p>
         </div>
         <div style="width: 300px" id="h">
           <div @click="addclient()"   style="float: left" data-toggle="clientmodal"><img src="../../static/image/user.png" class="img-responsive adduserh" style="" title="新增客户端" data-toggle="tooltip" data-placement="right"/></div>
@@ -173,7 +171,7 @@
           </div>
           <div class="modal-body">
             <p>块设备列表：</p>
-            <select class="form-control" v-on:change="bsel($event)" v-model="bsele">
+            <select class="form-control" id="lunselect" v-on:change="bsel($event)" v-model="bsele">
               <option v-for="m in blocklist" :value="m">{{m}}</option>
             </select>
             <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
@@ -731,10 +729,6 @@
   }
   tr .selected{
     background-color: #473D59 !important;
-  }
-  #editm input{
-    background-color: #43355F !important;
-    color: white !important;
   }
   #editm{
     color: black;
