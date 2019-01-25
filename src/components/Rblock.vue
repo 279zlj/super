@@ -176,13 +176,13 @@
                 <input type="number" class="form-control" id="addsize" ref="addsize" required="required"/>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <select class="form-control" v-on:change="addselect($event)" v-model="aselectsize">
+                <select class="form-control" id="sizeunit" v-on:change="addselect($event)" v-model="aselectsize">
                   <option v-for="a in units" :value="a.name">{{a.name}}</option>
                 </select>
               </div>
             </div>
             <p>{{$t('message.Pool')}}：</p>
-            <select @click="selec()" v-on:change="bindexsel($event)" v-model="bsele" class="form-control">
+            <select @click="selec()" id="selectpool" v-on:change="bindexsel($event)" v-model="bsele" class="form-control">
               <option v-for="i in poollist" :value="i.name" >{{i.name}}</option>
             </select>
             <div id="tips" style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>

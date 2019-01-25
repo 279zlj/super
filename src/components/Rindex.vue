@@ -1,6 +1,6 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" id="Rindex">
-    <div class="row " v-if="$store.state.gcollect.osd_detail!=null && $store.state.gcollect.pool!=null && $store.state.gcollect.block_detail!=null">
+    <div class="row " >
       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
       <div class="row container-fluid">
         <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12 bgone" >
@@ -219,8 +219,8 @@
         // this.pictorialBar();              /*块设备的状态*/
 
         var _this=this
-        _this.iopstop()
-        _this.mbpstop()
+        // _this.iopstop()
+        // _this.mbpstop()
         // _this.allstatus()
         // console.log(_this.$store.state.gpool_use,_this.$store.state.gosd_use,'what')
         _this.pictorialBar();
@@ -390,6 +390,7 @@
           _this.timertip=setInterval(function () {
             _this.allstatus();
           },30000)
+
         }
       },
       destroyed(){

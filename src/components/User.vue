@@ -37,7 +37,7 @@
               <h4 class="modal-title" id="myModalLabel">{{$t('message.Modify-user-information')}}</h4>
             </div>
             <div class="modal-body">
-              <p>{{$t('message.Password')}}：</p><input type="text" class="form-control" id="name" ref="user"/>
+              <p>{{$t('message.Password')}}：</p><input type="password" class="form-control" id="name" ref="user"/>
               <p>{{$t('message.User-role')}}：</p><input type="text" class="form-control" id="content" ref="role" :placeholder=rolerank />
             </div>
             <div class="modal-footer">

@@ -207,12 +207,12 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="quotatitle">修改用户信息</h4>
+              <h4 class="modal-title" id="quotatitle">配额设置</h4>
             </div>
             <div class="modal-body">
               <p>ID：<span>{{num}}</span></p>
-              <p>最大对象数：</p><input type="text" class="form-control" id="max-object"  ref="max-object" required="required"/>
-              <p>最大存储空间：</p><input type="text" class="form-control" id="max-size"  ref="max-size" required="required"/>
+              <p>最大对象数：</p><input type="number" class="form-control" id="max-object"  ref="max-object" required="required"/>
+              <p>最大存储空间：</p><input type="number" class="form-control" id="max-size"  ref="max-size" required="required"/>
               <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
             </div>
             <div class="modal-footer">
@@ -233,11 +233,11 @@
               <p>ID：<span>{{num}}</span></p>
               <!--<p>名称：</p><input type="text" class="form-control" id="name" :placeholder=name ref="name" required="required"/>-->
               <p>权限类型：</p>
-              <select class="form-control" v-on:change="sele($event)" v-model="authselect">
+              <select class="form-control" id="authtype" v-on:change="sele($event)" v-model="authselect">
               <option v-for="a in caps_type" :value="a.name">{{a.name}}</option>
               </select>
-              <p>增加权限：</p>
-              <select class="form-control" v-on:change="asele($event)" v-model="capsselect">
+              <p>{{auth_title}}：</p>
+              <select class="form-control" id="whatauth" v-on:change="asele($event)" v-model="capsselect">
                 <option v-for="c in caps" :value="c.name">{{c.name}}</option>
               </select>
               <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
@@ -284,7 +284,7 @@
             <div class="modal-body">
               <p>名称：</p><input type="text" class="form-control" id="subname" ref="addid" required="required"/>
               <p>访问级别：</p>
-              <select class="form-control" v-on:change="sel($event)" v-model="rankselect">
+              <select class="form-control" id="tank" v-on:change="sel($event)" v-model="rankselect">
               <option v-for="m in rank" :value="m.name">{{m.name}}</option>
               </select>
               <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
@@ -306,7 +306,7 @@
             <div class="modal-body">
               <p>ID：</p><input type="text" class="form-control" id="subn" :placeholder=subnow ref="sname" required="required"/>
               <p>访问级别：</p>
-              <select class="form-control" v-on:change="selec($event)" v-model="subvisit">
+              <select class="form-control" id="modifyrank" v-on:change="selec($event)" v-model="subvisit">
                 <option v-for="m in rank" :value="m.name">{{m.name}}</option>
               </select>
               <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>

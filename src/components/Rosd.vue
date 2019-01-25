@@ -74,7 +74,7 @@
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.The-machine-information')}}</span></p>
             <p class="ff"><span class="titlecolor">{{$t('message.Model')}}：</span><span >{{$store.state.content&& $store.state.content.sname}}</span></p>
             <p class="ff"><span class="titlecolor">{{$t('message.Status')}}：</span><span :class="{'o':$store.state.content.status==='ok','wa':$store.state.content.status==='warning','err':$store.state.content.status==='error'}">{{$store.state.content&& $store.state.content.status}}</span></p>
-            <p class="ff"><sapn class="titlecolor">{{$t('message.OS')}}：</sapn><span>{{$store.state.content.opsys}}</span></p>
+            <p class="ff"><span class="titlecolor">{{$t('message.OS')}}：</span><span>{{$store.state.content.opsys}}</span></p>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
