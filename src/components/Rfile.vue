@@ -16,11 +16,11 @@
             <thead>
             <tr>
               <th data-field="rank">等级</th>
-              <th data-field="status">状态</th>
-              <th data-field="process">进程</th>
-              <th data-field="speed">速度</th>
-              <th data-field="cache">缓存目录</th>
-              <th data-field="index">索引节点</th>
+              <th data-field="state">状态</th>
+              <th data-field="name">进程</th>
+              <th data-field="req">速度</th>
+              <th data-field="Dentries">缓存目录</th>
+              <th data-field="inodes">索引节点</th>
             </tr>
             </thead>
             <tbody>
@@ -33,20 +33,33 @@
     <div class="container-fluid row" id="plist">
       <p class="mdstitle">资源池</p>
       <div class="container-fluid tcolor">
-      <table class="table table-responsive text-nowrap" id="table"  data-height="150" data-toggle="table"  data-classes="table-no-bordered" >
-        <div class="alert alert-danger " id="tipsc" style="display: none;">{{tipsc}}</div>
-        <thead>
-        <tr>
-          <th data-field="pool">资源池</th>
-          <th data-field="type">类型</th>
-          <th data-field="usage">已用</th>
-          <th data-field="aviliable">总容量</th>
-          <th data-field="percetage">使用占比</th>
-        </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+        <table class="table table-responsive table-condensed">
+          <thead>
+            <tr>
+              <th>资源池</th>
+              <th>类型</th>
+              <th>已用</th>
+              <th>总容量</th>
+              <th>使用占比</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="p in $store.state.data_pool">
+              <td>{{p.name}}</td>
+              <td>{{p.pool_type}}</td>
+              <td>{{p.used}}</td>
+              <td>{{p.all}}</td>
+              <td>{{p.percent_used}}%</td>
+            </tr>
+            <tr v-for="p in $store.state.metadate_pool">
+              <td>{{p.name}}</td>
+              <td>{{p.pool_type}}</td>
+              <td>{{p.used}}</td>
+              <td>{{p.all}}</td>
+              <td>{{p.percent_used}}%</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
       </div>
@@ -54,7 +67,9 @@
         <div class="container-fluid row" id="fslist">
           <div class="row mdstitle" style="margin-bottom: .5em">
           <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">共享文件系统</div>
-            <div class="col-lg-1 col-lg-offset-7 col-md-1 col-md-offset-7 col-xs-1 col-sm-1"><img class="img-font" id="set" src="../../static/image/quota.png" title="配额设置" @click="quota()" data-toggle="tooltip" data-placement="bottom" /></div>
+            <div class="col-lg-1 col-lg-offset-5 col-md-1 col-md-offset-5 col-xs-1 col-sm-1"><img class="img-font" id="adduser" src="../../static/image/adduser.png" title="新增用户" @click="adduser()" data-toggle="tooltip" data-placement="bottom" /></div>
+            <div class="col-lg-1 col-md-1 col-xs-1 col-sm-1"><img class="img-font" id="deleteuser" src="../../static/image/deleteuser.png" title="删除用户" @click="deleteuser()" data-toggle="tooltip" data-placement="bottom" /></div>
+            <div class="col-lg-1 col-md-1 col-xs-1 col-sm-1"><img class="img-font" id="set" src="../../static/image/quota.png" title="配额设置" @click="quota()" data-toggle="tooltip" data-placement="bottom" /></div>
             <div class="col-lg-1 col-md-1 col-xs-1 col-sm-1"><img class="img-font" id="add" src="../../static/image/addfile.png" title="新增文件系统" @click="addfile()" data-toggle="tooltip" data-placement="bottom" /></div>
             <div class="col-lg-1 col-md-1 col-xs-1 col-sm-1"><img class="img-font" id="delete" src="../../static/image/deletefile.png" title="删除文件系统" @click="deletefile()" data-toggle="tooltip" data-placement="bottom" /></div>
 
@@ -73,10 +88,10 @@
                   <thead>
                   <tr>
                     <th data-field="state" data-checkbox="true" ></th>
-                    <th data-field="fileuser">用户</th>
+                    <th data-field="username">用户</th>
                     <th data-field="quota">配额</th>
-                    <th data-field="IP">IP</th>
-                    <th data-field="status">状态</th>
+                    <th data-field="ip">IP</th>
+                    <th data-field="stat">状态</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -106,6 +121,26 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
             <button type="button" class="btn btn-primary" @click="quotasend()" >{{$t('message.Confirm')}}</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>
+    <div class="modal fade" id="user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" >新增用户</h4>
+          </div>
+          <div class="modal-body">
+            <p>用户名：</p><input type="text" class="form-control" id="username" ref="username"/>
+            <p>密码：</p><input type="password" class="form-control" id="passwd" ref="passwd" />
+            <p>确认密码：</p><input type="password" class="form-control" id="apasswd" ref="apasswd" />
+            <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+            <button type="button" class="btn btn-primary" @click="usersend()" >{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
@@ -180,20 +215,29 @@
             metapool:'',
             datapool:'',
             who:'',
-            respond:''
+            respond:'',
+            filewho:'',
+            // pools:[]
           }
       },
       methods:{
         start(){
           $('#table_id').bootstrapTable({
-            url:this.allurl+"manager/tank/list_tank"
+            url:this.allurl+"fs/mds_dump"
           })
-          $('#table').bootstrapTable({
-            url:this.allurl+"manctl/client_list"
-          })
+          // $('#table').bootstrapTable({
+          //   url:this.allurl+"fs/fs_pools"
+          // })
           $('#fstable').bootstrapTable({
-            url:this.allurl+"manctl/client_list"
+            url:this.allurl+"fs/fs_users"
           })
+          var _this=this
+          this.$axios.get(this.allurl+'fs/fs_pools').then(function (res) {
+            _this.$store.commit('filepool',{data_pool:res.data.data_pool,metadate_pool:res.data.metadate_pool})
+          }).catch(function (error) {
+            console.log(error)
+          })
+          // console.log(_this.$store.state.data_pool,)
         },
         quota(){
           if (sessionStorage.getItem('islogin')==250){
@@ -202,8 +246,9 @@
           }
           else {
             let ids = $.map($('#fstable').bootstrapTable('getSelections'), function (row) {
-              return row.fileuser;
+              return row.username;
             });
+            this.filewho=ids
             if (ids.length !== 1) {
               this.tipscontent = '请选择其中一个文件系统'
               this.$refs.tips.usetips()
@@ -222,7 +267,7 @@
             this.cross='请填写完整'
           }
           else {
-            this.$axios.post(this.allurl+'',{size:size,number:number}).then(function (res) {
+            this.$axios.post(this.allurl+'fs/fs_quotaset',{username:this.filewho,var:['max_file_num','max_file_size'],val:[number,size]}).then(function (res) {
               if (res.status==200){
                 $('#quotasetting').modal('hide')
               }
@@ -241,13 +286,43 @@
             $('#newfile').modal('show')
           }
         },
+        adduser(){
+          if (sessionStorage.getItem('islogin')==250){
+            this.tipsa='普通用户无操作权限！'
+            $('#tipsa').show().delay (2000).fadeOut()
+          }
+          else {
+            this.cross=''
+            $('#user').modal('show')
+          }
+        },
+        usersend(){
+          var user=this.$refs.username.value
+          var passwd=this.$refs.passwd.value
+          var apasswd=this.$refs.apasswd.value
+          if (user==''||passwd==''||apasswd==''){
+            this.cross='请填写完整！'
+          }
+          else if (passwd!=apasswd){
+            this.cross='两次输入不匹配，请重新输入'
+          }
+          else {
+            this.$axios.post(this.allurl+'fs/fs_useradd',{username:user,passwd:passwd}).then(function (res) {
+              if (res.status==200){
+
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
+        },
         filesend(){
           var name=this.$refs.name.value
           if (name==''){
             this.cross='请填写完整!'
           }
           else {
-            this.$axios.post(this.allurl+'',{name:name,meta:this.metapool,data:this.datapool}).then(function (res) {
+            this.$axios.post(this.allurl+'fs/fs_add',{fs_name:name,metadata_pool:this.metapool,data_pool:this.datapool}).then(function (res) {
               if (res.status==200){
                 $('#newfile').modal('hide')
               }
@@ -263,7 +338,7 @@
           }
           else {
             let ids = $.map($('#fstable').bootstrapTable('getSelections'), function (row) {
-              return row.fileuser;
+              return row.username;
             });
             if (ids.length !== 1) {
               this.tipscontent = '请选择其中一个文件系统'
@@ -279,6 +354,29 @@
             }
           }
         },
+        deleteuser(){
+          if (sessionStorage.getItem('islogin')==250){
+            this.tipsa='普通用户无操作权限！'
+            $('#tipsa').show().delay (2000).fadeOut()
+          }
+          else {
+            let ids = $.map($('#fstable').bootstrapTable('getSelections'), function (row) {
+              return row.username;
+            });
+            if (ids.length !== 1) {
+              this.tipscontent = '请选择其中一个用户'
+              this.$refs.tips.usetips()
+              // alert('请选择其中一个设备进行快照')
+            }
+            else if (ids.length === 1) {
+              this.who = 'deleteuser'
+              this.title = '是否确认选择该用户'
+              this.dosome = ids
+              this.$refs.tips.dselect()
+            }
+          }
+        },
+
         mdsset(){
           if (sessionStorage.getItem('islogin')==250){
             this.tipscontent='普通用户无操作权限！'
@@ -297,7 +395,7 @@
             this.cross='请填写完整'
           }
           else {
-            this.$axios.post(this.allurl + '', {active: active, or: val, spare: spare}).then(function (res) {
+            this.$axios.post(this.allurl + 'fs/mds_set', {var:['max_mds','standby_count_wanted','allow_multimds'],val:[active,spare,val]}).then(function (res) {
               if (res.status == 200) {
                 $('#mdsset').modal('hide')
               }
@@ -343,17 +441,38 @@
         res(data) {
           if (this.who == 'deletefile') {
             let ids = $.map($('#fstable').bootstrapTable('getSelections'), function (row) {
-              return row.fileuser;
+              return row.username;
             });
             this.respond = data
             // console.log(data,this.respond)
             if (this.respond == 'ok') {
-              this.$axios.post(this.allurl + '', {ids: ids}).then(function (res) {
+              this.$axios.post(this.allurl + 'fs/fs_remove', {fs_name: ids}).then(function (res) {
                 // console.log(res,'post ok')
 
                 if (res.data = 'ok') {
                   $('#fstable').bootstrapTable('remove', {
-                    field: 'fileuser',
+                    field: 'username',
+                    values: ids
+                  });
+                }
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+          }
+          else if (this.who == 'deleteuser') {
+            let ids = $.map($('#fstable').bootstrapTable('getSelections'), function (row) {
+              return row.username;
+            });
+            this.respond = data
+            // console.log(data,this.respond)
+            if (this.respond == 'ok') {
+              this.$axios.post(this.allurl + 'fs/fs_userrm', {fs_name: ids}).then(function (res) {
+                // console.log(res,'post ok')
+
+                if (res.data = 'ok') {
+                  $('#fstable').bootstrapTable('remove', {
+                    field: 'username',
                     values: ids
                   });
                 }
@@ -376,10 +495,6 @@
       margin-top: 4em;
       color: white !important;
       /*margin-left: 1em;*/
-    }
-
-    th{
-      text-align: center;
     }
     #mdslist,#plist{
       margin-top: 1em;
@@ -426,9 +541,7 @@
     a{
       color: white !important;
     }
-  td{
-    color: #93BFDF;
-  }
+
   i{
     color: white !important;
   }
@@ -439,4 +552,5 @@
   table{
     color: white !important;
   }
+
 </style>

@@ -401,44 +401,17 @@
             piec.setOption(option)
           }
         },
-        // start(){
-        //     var _this=this
-        //     this.$axios.get(this.allurl+'manager/ioagent/list_ioagent').then(function (res) {
-        //       _this.osdlist=res.data
-        //       // console.log(res.data)
-        //       _this.change(0,_this.osdlist[0].osdid)
-        //       _this.piechart()
-        //     }).catch(function (error) {
-        //       console.log(error)
-        //     })
-        //
-        //     // console.log(_this.osdlist)
-        // },
         start(){
           var _this=this
           this.$axios.get(this.allurl+'manager/ioagent/list_ioagent').then(function (res) {
             _this.$store.commit('gosd',res.data)
             // console.log(_this.$store.state.osdlist[0].osdid)
             _this.change(0,_this.$store.state.osdlist[0].osdid)
-            // console.log(res.data)
-            // _this.change(0,_this.osdlist[0].osdid)
-            // _this.piechart()
           }).catch(function (error) {
             console.log(error)
           })
 
         },
-        // start2(){
-        //   var _this=this
-        //   this.$axios.get(this.allurl+'manager/ioagent/list_ioagent').then(function (res) {
-        //     _this.osdlist=res.data
-        //     _this.change(0,_this.osdlist[0].osdid)
-        //   }).catch(function (error) {
-        //     console.log(error)
-        //   })
-        //
-        //   // console.log(_this.osdlist)
-        // },
         timer(){
           var _this=this
           _this.timertip=setInterval(function () {

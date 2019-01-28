@@ -41,6 +41,8 @@ import Vuex from 'vuex'
   let jqid=[]
   let mdsid=[]
   let rgwid=[]
+  let data_pool=[]
+  let metadate_pool=[]
 try {
   if (localStorage.gosd_use)
     guse=JSON.parse(localStorage.gosd_use)
@@ -120,6 +122,10 @@ try {
     mdsid=JSON.parse(localStorage.mdsid)
   if (localStorage.rgwid)
     rgwid=JSON.parse(localStorage.rgwid)
+  if (localStorage.data_pool)
+    data_pool=JSON.parse(localStorage.data_pool)
+  if (localStorage.metadate_pool)
+    metadate_pool=JSON.parse(localStorage.metadate_pool)
 }
 catch (e) {
   
@@ -179,7 +185,9 @@ const store =new Vuex.Store({
     jkid:jkid,
     jqid:jqid,
     mdsid:mdsid,
-    rgwid:rgwid
+    rgwid:rgwid,
+    data_pool:data_pool,
+    metadate_pool:metadate_pool
     // language:''
   },
   mutations:{
@@ -294,6 +302,12 @@ const store =new Vuex.Store({
       localStorage.jqid=JSON.stringify(msg.jqid)
       localStorage.mdsid=JSON.stringify(msg.mdsid)
       localStorage.rgwid=JSON.stringify(msg.rgwid)
+    },
+    filepool(state,msg){
+     state.data_pool=msg.data_pool
+     state.metadate_pool=msg.metadate_pool
+     localStorage.data_pool=JSON.stringify(msg.data_pool)
+      localStorage.metadate_pool=JSON.stringify(msg.metadate_pool)
     }
   }
 })
