@@ -126,7 +126,7 @@
               </div>
               <div class="row">
                 <p style="margin-left: 1em;margin-top: .5em;">CPU {{$t('message.Utilization')}}/TOP3</p>
-                <div class="container-fluid" style="width: 90%">
+                <div class="container-fluid" style="width: 90%;">
                   <table class="table-condensed table-responsive table size">
                     <tbody style="text-align: center;">
                     <tr style="font-size: smaller" class="titlecolor"><td>HOST</td>
