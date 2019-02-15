@@ -67,8 +67,8 @@
     <!--<input type="button" class="btn btn-default all" value="添加磁盘" style="margin-bottom: 1em;float: right" @click="adddisk()"/>-->
     <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12 bgdown " v-if="$store.state.content!=null">
       <div class="row">
-        <div class="alert alert-danger " id="tipscontent" style="display: none;">普通用户无操作权限！</div>
-        <div class="alert alert-danger " id="tipsc" style="display: none;">操作成功！</div>
+        <div class="alert alert-danger " id="tipscontent" style="display: none;">{{tipscontent}}</div>
+        <!--<div class="alert alert-danger " id="tipsc" style="display: none;">操作成功！</div>-->
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
           <div class=" bor container-fluid">
             <p><span class="glyphicon glyphicon-record cricle"></span><span class="dfont">{{$t('message.The-machine-information')}}</span></p>
@@ -259,6 +259,7 @@
           // netcarddefalut:'',
           // content:[],
           timertip:null,
+          tipscontent:'',
           cross:''
         }
 
@@ -300,19 +301,23 @@
         editsend(){                      /*发送修改后iSCSI的ip*/
 
             let ip=this.$refs.modifyip.value
+          var reg=/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
           if (ip==''){
             this.cross='请填写完整'
+          }
+          else if(!reg.test(ip)){
+            this.cross='ip格式不对，请重新输入'
           }
           else {
             var _this=this
             this.$axios.post(this.allurl + 'manager/ioagent/iscsi_change', {ip: ip}).then(function (res) {
-              // console.log(res)
-              if (res.data.status == 1) {
+              // console.log(res.status)
+              if (res.status == 200) {
                 _this.tipscontent = '操作成功'
                 $('#tipscontent').show().delay(2000).fadeOut()
               }
               else {
-                _this.tipscontent = res.data.status
+                _this.tipscontent = '操作失败'
                 $('#tipscontent').show().delay(2000).fadeOut()
               }
             }).catch(function (error) {

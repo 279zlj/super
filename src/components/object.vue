@@ -373,6 +373,7 @@
       },
       methods:{
         father(a,n){
+          // console.log(a)
           this.personal=a
           let i=0
           for ( i;i<this.list.length; i++){
@@ -483,6 +484,7 @@
             // _this.visitold=_this.list[0].visit
             _this.Msize=_this.list[0].user_quota.max_size
             _this.Mobject=_this.list[0].user_quota.max_objects
+            _this.father(_this.list[0],_this.list[0].user_id)
             // console.log(_this.list[0].subusers)
           }).catch(function (error) {
             console.log(error)
@@ -802,6 +804,7 @@
       mounted(){
 
         this.start()
+
         $('.form_date').datetimepicker({
           language:  'zh-CN',
           weekStart: 1,
