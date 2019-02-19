@@ -5,8 +5,14 @@
         <div class="container-fluid row" id="mdslist">
           <div class="row mdstitle" style="margin-bottom: .5em">
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">MDS</div>
-            <div class="col-lg-1 col-lg-offset-9 col-md-1 col-md-offset-9 col-xs-1  col-sm-1">
-              <i style="float: right;margin-top: .2em;cursor: pointer" title="设置" id="mds" data-toggle="tooltip" data-placement="bottom" class="glyphicon glyphicon-cog" @click="mdsset()"></i>
+            <div class="col-lg-1 col-lg-offset-7 col-md-1 col-md-offset-7 col-xs-1  col-sm-1">
+            <i style="float: right;margin-top: .2em;cursor: pointer" title="设置活跃数" id="active_num" data-toggle="tooltip" data-placement="bottom" class="glyphicon glyphicon-cog" @click="mdsset('active')"></i>
+          </div>
+            <div class="col-lg-1 col-md-1 col-xs-1  col-sm-1">
+              <i style="float: right;margin-top: .2em;cursor: pointer" title="设置备用mds" id="spare_mds" data-toggle="tooltip" data-placement="bottom" class="glyphicon glyphicon-cog" @click="mdsset('spare')"></i>
+            </div>
+            <div class="col-lg-1 col-md-1 col-xs-1  col-sm-1">
+              <i style="float: right;margin-top: .2em;cursor: pointer" title="设置同时活跃" id="active_radio" data-toggle="tooltip" data-placement="bottom" class="glyphicon glyphicon-cog" @click="mdsset('same')"></i>
             </div>
           </div>
 
@@ -15,12 +21,12 @@
             <div class="alert alert-danger " id="tipscontent" style="display: none;">{{tipscontent}}</div>
             <thead>
             <tr>
-              <th data-field="rank">等级</th>
-              <th data-field="state">状态</th>
-              <th data-field="name">进程</th>
-              <th data-field="req">速度</th>
-              <th data-field="Dentries">缓存目录</th>
-              <th data-field="inodes">索引节点</th>
+              <th data-field="rank">{{$t('message.Grade')}}</th>
+              <th data-field="state">{{$t('message.Status')}}</th>
+              <th data-field="name">{{$t('message.Process')}}</th>
+              <th data-field="req">{{$t('message.Speed')}}</th>
+              <th data-field="Dentries">{{$t('message.Cache-directory')}}</th>
+              <th data-field="inodes">{{$t('message.The-index-node')}}</th>
             </tr>
             </thead>
             <tbody>
@@ -31,16 +37,16 @@
       </div>
       <div class="row">
     <div class="container-fluid row" id="plist">
-      <p class="mdstitle">资源池</p>
+      <p class="mdstitle">{{$t('message.Resource-Pools')}}</p>
       <div class="container-fluid tcolor">
         <table class="table table-responsive table-condensed">
           <thead>
             <tr>
-              <th>资源池</th>
-              <th>类型</th>
-              <th>已用</th>
-              <th>总容量</th>
-              <th>使用占比</th>
+              <th>{{$t('message.Resource-Pools')}}</th>
+              <th>{{$t('message.Type')}}</th>
+              <th>{{$t('message.Used-capacity')}}</th>
+              <th>{{$t('message.Capacity')}}</th>
+              <th>{{$t('message.Capacity-usage-ratio')}}</th>
             </tr>
           </thead>
           <tbody>
@@ -66,12 +72,12 @@
       <div class="row">
         <div class="container-fluid row" id="fslist">
           <div class="row mdstitle" style="margin-bottom: .5em">
-          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">共享文件系统</div>
-            <div class="col-lg-1 col-lg-offset-5 col-md-1 col-md-offset-5 col-xs-1 col-sm-1"><img class="img-font" id="adduser" src="../../static/image/adduser.png" title="新增用户" @click="adduser()" data-toggle="tooltip" data-placement="bottom" /></div>
+          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{$t('message.Shared-file-system')}}</div>
+            <div class="col-lg-1 col-lg-offset-7 col-md-1 col-md-offset-7 col-xs-1 col-sm-1"><img class="img-font" id="adduser" src="../../static/image/adduser.png" title="新增用户" @click="adduser()" data-toggle="tooltip" data-placement="bottom" /></div>
             <div class="col-lg-1 col-md-1 col-xs-1 col-sm-1"><img class="img-font" id="deleteuser" src="../../static/image/deleteuser.png" title="删除用户" @click="deleteuser()" data-toggle="tooltip" data-placement="bottom" /></div>
             <div class="col-lg-1 col-md-1 col-xs-1 col-sm-1"><img class="img-font" id="set" src="../../static/image/quota.png" title="配额设置" @click="quota()" data-toggle="tooltip" data-placement="bottom" /></div>
-            <div class="col-lg-1 col-md-1 col-xs-1 col-sm-1"><img class="img-font" id="add" src="../../static/image/addfile.png" title="新增文件系统" @click="addfile()" data-toggle="tooltip" data-placement="bottom" /></div>
-            <div class="col-lg-1 col-md-1 col-xs-1 col-sm-1"><img class="img-font" id="delete" src="../../static/image/deletefile.png" title="删除文件系统" @click="deletefile()" data-toggle="tooltip" data-placement="bottom" /></div>
+            <!--<div class="col-lg-1 col-md-1 col-xs-1 col-sm-1"><img class="img-font" id="add" src="../../static/image/addfile.png" title="新增文件系统" @click="addfile()" data-toggle="tooltip" data-placement="bottom" /></div>-->
+            <!--<div class="col-lg-1 col-md-1 col-xs-1 col-sm-1"><img class="img-font" id="delete" src="../../static/image/deletefile.png" title="删除文件系统" @click="deletefile()" data-toggle="tooltip" data-placement="bottom" /></div>-->
 
           </div>
           <div class="container-fluid">
@@ -88,10 +94,10 @@
                   <thead>
                   <tr>
                     <th data-field="state" data-checkbox="true" ></th>
-                    <th data-field="username">用户</th>
-                    <th data-field="quota">配额</th>
+                    <th data-field="username">{{$t('message.User')}}</th>
+                    <th data-field="quota">{{$t('message.Quota')}}</th>
                     <th data-field="ip">IP</th>
-                    <th data-field="stat">状态</th>
+                    <th data-field="stat">{{$t('message.Status')}}</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -111,11 +117,11 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">配额设置</h4>
+            <h4 class="modal-title" id="myModalLabel">{{$t('message.Quota-setting')}}</h4>
           </div>
           <div class="modal-body">
-            <p>容量大小：</p><input type="number" class="form-control" id="size" ref="size"/>
-            <p>文件数量：</p><input type="number" class="form-control" id="number" ref="number" />
+            <p>{{$t('message.Capacity')}}：</p><input type="number" class="form-control" id="size" ref="size"/>
+            <!--<p>文件数量：</p><input type="number" class="form-control" id="number" ref="number" />-->
             <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
           </div>
           <div class="modal-footer">
@@ -130,12 +136,12 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" >新增用户</h4>
+            <h4 class="modal-title" >{{$t('message.New-users')}}</h4>
           </div>
           <div class="modal-body">
-            <p>用户名：</p><input type="text" class="form-control" id="username" ref="username"/>
-            <p>密码：</p><input type="password" class="form-control" id="passwd" ref="passwd" />
-            <p>确认密码：</p><input type="password" class="form-control" id="apasswd" ref="apasswd" />
+            <p>{{$t('message.User-name')}}：</p><input type="text" class="form-control" id="username" ref="username"/>
+            <p>{{$t('message.Password')}}：</p><input type="password" class="form-control" id="passwd" ref="passwd" />
+            <p>{{$t('message.Confirm-Password')}}：</p><input type="password" class="form-control" id="apasswd" ref="apasswd" />
             <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
           </div>
           <div class="modal-footer">
@@ -150,47 +156,47 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" >MDS设置</h4>
+            <h4 class="modal-title" >MDS {{$t('message.Setting')}}</h4>
           </div>
           <div class="modal-body">
-            <p>最大活跃数：</p><input type="number" class="form-control" id="active" ref="active"/>
-            <p>备用mds数量：</p><input type="number" class="form-control" id="spare" ref="spare" style="margin-bottom: .5em"/>
-            <p>是否允许多个mds同时活跃：<input type="radio" value="yes" name="radio"/><span style="margin: 0 1em">是</span><input type="radio" value="no" name="radio"/><span style="margin: 0 .5em">否</span></p>
+            <div v-if="who_set=='active'"><p>{{$t('message.Maximum-active-number')}}：</p><input type="number" class="form-control" id="active" ref="active"/></div>
+            <div v-if="who_set=='spare'"><p>{{$t('message.Number-of-standby-MDS')}}：</p><input type="number" class="form-control" id="spare" ref="spare" style="margin-bottom: .5em"/></div>
+            <div v-if="who_set=='same'"><p>{{$t('message.or-not')}}：<input type="radio" value="yes" name="radio"/><span style="margin: 0 1em">{{$t('message.yes')}}</span><input type="radio" value="no" name="radio"/><span style="margin: 0 .5em">{{$t('message.no')}}</span></p></div>
             <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
-            <button type="button" class="btn btn-primary" @click="mdssend()" >{{$t('message.Confirm')}}</button>
+            <button type="button" class="btn btn-primary" @click="mdssend(who_set)" >{{$t('message.Confirm')}}</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
     </div>
-    <div class="modal fade" id="newfile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" >创建文件系统</h4>
-          </div>
-          <div class="modal-body">
-            <p>名称：</p><input type="text" class="form-control" id="name" ref="name"/>
-            <p>元数据池：</p>
-            <select class="form-control" id="metapool" v-on:change="metap($event)" v-model="metapool" @click="metaall()">
-              <option v-for="m in metalist" :value="m">{{m}}</option>
-            </select>
-            <p>数据池：</p>
-            <select class="form-control" id="datapool" v-on:change="datap($event)" v-model="datapool" @click="dataall()">
-              <option v-for="d in datalist" :value="d">{{d}}</option>
-            </select>
-            <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
-            <button type="button" class="btn btn-primary" @click="filesend()" >{{$t('message.Confirm')}}</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal -->
-    </div>
+    <!--<div class="modal fade" id="newfile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+      <!--<div class="modal-dialog">-->
+        <!--<div class="modal-content">-->
+          <!--<div class="modal-header">-->
+            <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+            <!--<h4 class="modal-title" >创建文件系统</h4>-->
+          <!--</div>-->
+          <!--<div class="modal-body">-->
+            <!--<p>名称：</p><input type="text" class="form-control" id="name" ref="name"/>-->
+            <!--<p>元数据池：</p>-->
+            <!--<select class="form-control" id="metapool" v-on:change="metap($event)" v-model="metapool" @click="metaall()">-->
+              <!--<option v-for="m in metalist" :value="m">{{m}}</option>-->
+            <!--</select>-->
+            <!--<p>数据池：</p>-->
+            <!--<select class="form-control" id="datapool" v-on:change="datap($event)" v-model="datapool" @click="dataall()">-->
+              <!--<option v-for="d in datalist" :value="d">{{d}}</option>-->
+            <!--</select>-->
+            <!--<div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>-->
+          <!--</div>-->
+          <!--<div class="modal-footer">-->
+            <!--<button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>-->
+            <!--<button type="button" class="btn btn-primary" @click="filesend()" >{{$t('message.Confirm')}}</button>-->
+          <!--</div>-->
+        <!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+      <!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+    <!--</div>-->
     <tips ref="tips" :content=tipscontent :dotitle=title :docontent=dosome v-on:respond="res"></tips>
   </div>
 </template>
@@ -217,6 +223,7 @@
             who:'',
             respond:'',
             filewho:'',
+            who_set:''
             // pools:[]
           }
       },
@@ -250,7 +257,7 @@
             });
             this.filewho=ids
             if (ids.length !== 1) {
-              this.tipscontent = '请选择其中一个文件系统'
+              this.tipscontent = '请选择其中一个用户'
               this.$refs.tips.usetips()
               // alert('请选择其中一个设备进行快照')
             }
@@ -262,12 +269,12 @@
         },
         quotasend(){
           var size=this.$refs.size.value
-          var number=this.$refs.number.value
+          // var number=this.$refs.number.value
           if (size==''||number==''){
             this.cross='请填写完整'
           }
           else {
-            this.$axios.post(this.allurl+'fs/fs_quotaset',{username:this.filewho,var:['max_file_num','max_file_size'],val:[number,size]}).then(function (res) {
+            this.$axios.post(this.allurl+'fs/fs_quotaset',{username:this.filewho,var:['max_file_size'],val:[size]}).then(function (res) {
               if (res.status==200){
                 $('#quotasetting').modal('hide')
               }
@@ -276,16 +283,16 @@
             })
           }
         },
-        addfile(){
-          if (sessionStorage.getItem('islogin')==250){
-            this.tipsa='普通用户无操作权限！'
-            $('#tipsa').show().delay (2000).fadeOut()
-          }
-          else {
-            this.cross=''
-            $('#newfile').modal('show')
-          }
-        },
+        // addfile(){
+        //   if (sessionStorage.getItem('islogin')==250){
+        //     this.tipsa='普通用户无操作权限！'
+        //     $('#tipsa').show().delay (2000).fadeOut()
+        //   }
+        //   else {
+        //     this.cross=''
+        //     $('#newfile').modal('show')
+        //   }
+        // },
         adduser(){
           if (sessionStorage.getItem('islogin')==250){
             this.tipsa='普通用户无操作权限！'
@@ -331,29 +338,29 @@
             })
           }
         },
-        deletefile(){
-          if (sessionStorage.getItem('islogin')==250){
-            this.tipsa='普通用户无操作权限！'
-            $('#tipsa').show().delay (2000).fadeOut()
-          }
-          else {
-            let ids = $.map($('#fstable').bootstrapTable('getSelections'), function (row) {
-              return row.username;
-            });
-            if (ids.length !== 1) {
-              this.tipscontent = '请选择其中一个文件系统'
-              this.$refs.tips.usetips()
-              // alert('请选择其中一个设备进行快照')
-            }
-            else if (ids.length === 1) {
-              this.who='deletefile'
-              this.title = '是否确认选择该文件系统'
-              this.dosome = ids
-              this.$refs.tips.dselect()
-
-            }
-          }
-        },
+        // deletefile(){
+        //   if (sessionStorage.getItem('islogin')==250){
+        //     this.tipsa='普通用户无操作权限！'
+        //     $('#tipsa').show().delay (2000).fadeOut()
+        //   }
+        //   else {
+        //     let ids = $.map($('#fstable').bootstrapTable('getSelections'), function (row) {
+        //       return row.username;
+        //     });
+        //     if (ids.length !== 1) {
+        //       this.tipscontent = '请选择其中一个文件系统'
+        //       this.$refs.tips.usetips()
+        //       // alert('请选择其中一个设备进行快照')
+        //     }
+        //     else if (ids.length === 1) {
+        //       this.who='deletefile'
+        //       this.title = '是否确认选择该文件系统'
+        //       this.dosome = ids
+        //       this.$refs.tips.dselect()
+        //
+        //     }
+        //   }
+        // },
         deleteuser(){
           if (sessionStorage.getItem('islogin')==250){
             this.tipsa='普通用户无操作权限！'
@@ -377,32 +384,74 @@
           }
         },
 
-        mdsset(){
+        mdsset(n){
           if (sessionStorage.getItem('islogin')==250){
             this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay (2000).fadeOut()
           }
           else {
             this.cross=''
+            // this.who_set=''
+            if (n=='active')
+              this.who_set='active'
+            else if (n=='spare')
+              this.who_set='spare'
+            else if (n=='same')
+              this.who_set='same'
+            console.log(this.who_set)
             $('#mdsset').modal('show')
           }
         },
-        mdssend(){
-          var val = $('input[name="radio"]:checked').val();
-          var active=this.$refs.active.value
-          var spare=this.$refs.spare.value
-          if (val == '' || active ==''||spare==''){
-            this.cross='请填写完整'
+        mdssend(n){
+          if (n=='active') {
+            var active = this.$refs.active.value
+            if (active == '') {
+              this.cross = '请填写完整'
+            }
+            else {
+              this.$axios.post(this.allurl + 'fs/mds_set', {var:['max_mds'],val:[active]}).then(function (res) {
+                if (res.status == 200) {
+                  $('#mdsset').modal('hide')
+                }
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
           }
-          else {
-            this.$axios.post(this.allurl + 'fs/mds_set', {var:['max_mds','standby_count_wanted','allow_multimds'],val:[active,spare,val]}).then(function (res) {
-              if (res.status == 200) {
-                $('#mdsset').modal('hide')
-              }
-            }).catch(function (error) {
-              console.log(error)
-            })
+          if (n=='spare') {
+            var spare = this.$refs.spare.value
+            if (spare == '') {
+              this.cross = '请填写完整'
+            }
+            else {
+              this.$axios.post(this.allurl + 'fs/mds_set', {var:['standby_count_wanted'],val:[spare]}).then(function (res) {
+                if (res.status == 200) {
+                  $('#mdsset').modal('hide')
+                }
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
           }
+          if (n=='same') {
+            var val = $('input[name="radio"]:checked').val();
+            if (val == '') {
+              this.cross = '请选择'
+            }
+            else {
+              this.$axios.post(this.allurl + 'fs/mds_set', {
+                var: ['allow_multimds'],
+                val: [ val]
+              }).then(function (res) {
+                if (res.status == 200) {
+                  $('#mdsset').modal('hide')
+                }
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+          }
+
         },
         metaall(){
           var _this=this
@@ -519,6 +568,7 @@
       border-radius: .5em;
       height: 20em;
       overflow-y: scroll;
+     margin-bottom: 2em;
     }
 
   .mdstitle{

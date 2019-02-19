@@ -15,8 +15,8 @@
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
-            <th data-field="id">规则名称</th>
-            <th data-field="content">内容</th>
+            <th data-field="id">{{$t('message.Rule-name')}}</th>
+            <th data-field="content">{{$t('message.content')}}</th>
             <!--<th data-field="size">{{$t('message.Capacity')}}</th>-->
             <!--<th data-field="date">{{$t('message.Turnover-time')}}</th>-->
           </tr>
@@ -61,11 +61,11 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" >添加新规则</h4>
+            <h4 class="modal-title" >{{$t('message.Add-new-rules')}}</h4>
           </div>
           <div class="modal-body">
-            <p>规则名称：</p><input type="text" class="form-control" id="rulename" ref="rulename"/>
-            <p>添加磁盘：</p>
+            <p>{{$t('message.Rule-name')}}：</p><input type="text" class="form-control" id="rulename" ref="rulename"/>
+            <p>{{$t('message.To-add-a-disk')}}：</p>
             <div class="checkbox">
             <label v-for="p in pdisck">
               <input type="checkbox" class="checkbox" :value=p.name name="checkbox"/><span style="margin-right: 1em">{{p.name}}</span>
@@ -139,14 +139,10 @@
               _this.cross='请完善全部内容'
           else {
               this.$axios.post(this.allurl + 'aaa', {rulename: rulename, disks: _this.diskbox}).then(function (res) {
-                if (res.data.status == 1) {
-                  _this.tipscontent = '操作成功'
-                  $('#tipscontent').show().delay(2000).fadeOut()
-                }
-                else {
+
                   _this.tipscontent = res.data.status
                   $('#tipscontent').show().delay(2000).fadeOut()
-                }
+
               }).catch(function (error) {
                 console.log(error)
               })
@@ -218,17 +214,17 @@
             }
           }
         },
-        sentip(){                                  /*发送查找的ip*/
-            var _this=this
-          this.$axios.post(_this.allurl+'manctl/ip_search',{ip:this.$refs.inp.value}).then(function (res) {
-            // console.log(res.data.status)
-            _this.urla=_this.allurl+res.data.status
-            _this.start(_this.urla)
-            // console.log(_this.urla)
-          }).catch(function (error) {
-            console.log(error)
-          })
-        }
+        // sentip(){                                  /*发送查找的ip*/
+        //     var _this=this
+        //   this.$axios.post(_this.allurl+'manctl/ip_search',{ip:this.$refs.inp.value}).then(function (res) {
+        //     // console.log(res.data.status)
+        //     _this.urla=_this.allurl+res.data.status
+        //     _this.start(_this.urla)
+        //     // console.log(_this.urla)
+        //   }).catch(function (error) {
+        //     console.log(error)
+        //   })
+        // }
       },
       mounted(){
           this.start()

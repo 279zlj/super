@@ -14,8 +14,8 @@
           <div class="box" id="box">
             <div class="first img-responsive"></div>
             <div class="second img-responsive"></div>
-            <div class="three img-responsive"><img src="../../static/image/logo.png" class="img-responsive"/></div>
-            <div class="four img-responsive"><img src="../../static/image/wuzhou.png" class="img-responsive"/></div>
+            <div class="three img-responsive"><img src="../../static/image/logo.png" class="img-responsive imgg"/></div>
+            <div class="four img-responsive"><img src="../../static/image/wuzhou.png" class="img-responsive imgg"/></div>
 
           </div>
         </a>
@@ -24,8 +24,8 @@
       <div class="col-lg-2 col-md-2 col-sm-1 col-xs-0">
 
       </div>
-      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 one"  :class="issele==='HelloWorld'?'two':''">
-        <div class="r-border" >
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 one":class="issele==='HelloWorld'?'two':''">
+        <div class="r-border"  >
           <router-link :to="{name:'HelloWorld'}" ><p class="font" @click="changenav('HelloWorld')" id="index">{{$t('nav.Home')}}</p></router-link>
         </div>
       </div>
@@ -52,7 +52,7 @@
       </div>
 
       <div class="col-lg-1 col-lg-offset-1 col-md-1 col-sm-2 col-xs-12 dropdown">
-      <a class="dropdown-toggle glyphicon glyphicon-user white" data-toggle="dropdown" style="cursor: pointer"><span class="j2" id="useropt">{{user}}</span></a>
+      <a class="dropdown-toggle glyphicon glyphicon-user white" data-toggle="dropdown" data-hover="dropdown"  data-close-others="false"  style="cursor: pointer"><span class="j2" id="useropt">{{user}}</span></a>
         <ul class="dropdown-menu">
           <li @click="us()"><router-link :to="{name:'User'}" id="usermanager">{{$t('message.User-control')}}</router-link></li>
           <li><a style="cursor: pointer"><span @click="outlog" id="outlogin">{{$t('message.Log-out')}}</span></a></li>
@@ -61,7 +61,7 @@
         </ul>
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 dropdown">
-      <a class="dropdown-toggle glyphicon glyphicon-cog white" data-toggle="dropdown" style="cursor: pointer"><span class="j2" id="manager">{{$t('nav.Management')}}</span></a>
+      <a class="dropdown-toggle glyphicon glyphicon-cog white" data-toggle="dropdown" data-hover="dropdown"  data-close-others="false" style="cursor: pointer"><span class="j2" id="manager">{{$t('nav.Management')}}</span></a>
         <ul class="dropdown-menu">
           <li><a><span style="cursor: pointer" data-toggle="modal" data-target="#bb" @click="bbm()" id="version">{{$t('message.Versioning')}}</span></a></li>
           <li><a ><span style="cursor: pointer" data-toggle="modal" data-target="#lisense" @click="lis()" id="lisenseopt">{{$t('message.Lisense-management')}}</span></a></li>
@@ -70,7 +70,7 @@
         </ul>
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 dropdown" id="lang">
-        <a data-toggle="dropdown" style="cursor: pointer" class="glyphicon glyphicon-font white"><span class="j2" id="langue">{{$t('nav.Language')}}</span></a>
+        <a data-toggle="dropdown" data-hover="dropdown"  data-close-others="false"  style="cursor: pointer" class="glyphicon glyphicon-font white"><span class="j2" id="langue">{{$t('nav.Language')}}</span></a>
         <ul class="dropdown-menu">
           <li ><a style="cursor: pointer" @click="changelanguage('zh')" id="chinese">{{$t('message.Chinese')}}</a></li>
           <li><a style="cursor: pointer" @click="changelanguage('en')" id="english">{{$t('message.English')}}</a></li>
@@ -389,12 +389,7 @@ export default {
   a{
     text-decoration: none;
   }
-  .imgg{
-    padding: .7rem .5rem .8rem 1.8rem;
-    margin-left: .2em;
-    width: 75%;
 
-  }
   .two{
     background-color: #3F3456 !important;
     z-index: 999;
@@ -589,11 +584,7 @@ export default {
     width: 100%;
   }
   @media screen and (max-width: 425px) {
-    .imgg{
-      padding: .7rem .5rem .8rem .5rem;
-      width: 4em;
-      height: 100%;
-    }
+
     .nav-color{
       margin-top: 0;
     }
@@ -609,8 +600,7 @@ export default {
   }
   @media screen and (min-width: 426px) and (max-width: 768px) {
     .imgg{
-      padding: 1rem .5rem .8rem .5rem;
-      width: 100%;
+     margin-top: .5em;
     }
 
     .warnstatus{
@@ -620,8 +610,7 @@ export default {
   }
   @media screen and (min-width: 769px) and (max-width: 1024px) {
     .imgg{
-      padding: .8rem .5rem .8rem .8rem;
-      width: 90%;
+      margin-top: .5em;
     }
     .jl{
       padding-left: .2rem;
@@ -634,8 +623,7 @@ export default {
   }
   @media screen and (min-width: 1025px) and (max-width: 1199px) {
     .imgg{
-      padding: .8rem .5rem .8rem .8rem;
-      width: 90%;
+      margin-top: .5em;
     }
     .jl{
       padding-left: .2rem;
@@ -649,8 +637,7 @@ export default {
   @media screen and (min-width: 1200px) and (max-width: 1439px) {
 
     .imgg{
-      padding: .8rem .5rem .8rem .8rem;
-      width: 90%;
+      margin-top: .5em;
     }
     .jl{
       padding-left: .2rem;

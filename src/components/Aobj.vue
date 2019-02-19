@@ -154,16 +154,11 @@
             else {
               // if (this.unitsele=='fb') {
               this.$axios.post(this.allurl + 'objectkey', {keys: this.keysele}).then(function (res) {
-                if (res.data.status == 1) {
-                  _this.tipscontent = '操作成功'
-                  $('#tipscontent').show().delay(2000).fadeOut()
-                  $('#table_id').bootstrapTable('refresh')
-                }
-                else {
+
                   _this.tipscontent = res.data.status
                   $('#tipscontent').show().delay(2000).fadeOut()
                   $('#table_id').bootstrapTable('refresh')
-                }
+
               }).catch(function (error) {
                 console.log(error)
               })

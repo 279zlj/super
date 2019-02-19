@@ -12,7 +12,7 @@
     </div>
     <div class="one" :class="ind==='FS客户端'?'two':''" @click="changenav('FS客户端')">
       <div>
-        <router-link :to="{name:'Afile'}"><p >FS客户端</p></router-link>
+        <router-link :to="{name:'Afile'}"><p >FS{{$t('message.Client')}}</p></router-link>
       </div>
     </div>
     <div class="one" :class="ind==='参数修改'?'two':''" @click="changenav('参数修改')">

@@ -4,50 +4,53 @@
       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
       <div class="row container-fluid">
         <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12 bgone" >
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
-            <h4 class="h">{{$t('message.io-agent')}} 容量使用占比</h4>
+          <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 container-fluid">
+            <div id="piechart" class="grid"></div>
+          </div>
+          <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6" style="margin-left: -15px">
+            <h4 class="h">{{$t('message.io-agent')}} {{$t('message.Capacity-usage-ratio')}}</h4>
             <div id="iocontent" class="content">
               <p><span class="titlecolor">{{$t('message.Total-Size')}}：</span><span v-if="$store.state.gcollect.osd_detail.osize" class="keynote">{{$store.state.gcollect.osd_detail.osize}}</span></p>
               <p><span class="titlecolor">{{$t('message.Used')}}：</span><span class="keynote">{{$store.state.gcollect.osd_detail.ouse}}</span></p>
               <p><span class="titlecolor">{{$t('message.Percent-used')}}：</span><span class="keynote">{{$store.state.gcollect.osd_detail.usepct}}%</span></p>
             </div>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 container-fluid">
-            <div id="piechart" class="grid"></div>
-          </div>
+
         </div>
       </div>
       </div>
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
           <div class="row container-fluid">
             <div class="col-lg-11 col-md-11 col-sm-12 col-sm-offset-0 col-xs-12 bgone">
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
-                <h4 class="h">{{$t('message.Tank')}} 存储使用占比</h4>
+              <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6">
+                <div id="RliquidFill" class="grid"></div>
+              </div>
+              <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6" style="margin-left: -15px">
+                <h4 class="h">{{$t('message.Tank')}} {{$t('message.Storage-usage-ratios')}}</h4>
                 <div id="tankcontent" class="content">
 
                   <p><span class="titlecolor">{{$t('message.Used')}}：</span><span class="keynote">{{$store.state.gcollect.pool.puse}}</span></p>
                   <p><span class="titlecolor">{{$t('message.Percent-used')}}：</span><span class="keynote">{{$store.state.gcollect.pool.usepct}}%</span></p>
                 </div>
               </div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <div id="RliquidFill" class="grid"></div>
-              </div>
+
             </div>
           </div>
         </div>
       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <div class="row container-fluid">
           <div class="col-lg-11 col-md-11 col-sm-12 col-sm-offset-0 col-xs-12 bgone">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: -15px">
+            <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6">
+              <div id="pictorialBar" class="grid"></div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6" style="margin-left: -15px">
               <h4 class="ho"><span style="font-size: 2.2em">{{$store.state.gcollect.block_detail.block}}</span>个{{$t('message.Block')}}</h4>
               <div id="rbdcontent" class="content">
                 <p><span class="titlecolor">{{$t('message.Total-Size')}}：</span><span class="keynote">{{$store.state.gcollect.block_detail.bsize}}</span></p>
                 <p><span class="titlecolor">{{$t('message.Client-Connections')}}：</span><span class="keynote">{{$store.state.gcollect.block_detail.server_num}}</span></p>
               </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-              <div id="pictorialBar" class="grid"></div>
-            </div>
+
           </div>
         </div>
       </div>
@@ -457,7 +460,7 @@
   }
   .grid{
     width: 100%;height:10em;
-    margin: 1em 0 1em 2em;
+    margin: 1em 0 1em 0;
   }
   @media screen and (min-width: 426px) and (max-width: 768px) {
     .bgone{

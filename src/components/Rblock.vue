@@ -295,16 +295,11 @@
               content: content,
               id: this.edit
             }).then(function (res) {
-              if (res.data.status == 1) {
-                _this.tipscontent = '操作成功'
-                $('#tipsc').show().delay(2000).fadeOut()
-                $('#table').bootstrapTable('refresh')
-              }
-              else {
+
                 _this.tipscontent = res.data.status
                 $('#tipsc').show().delay(2000).fadeOut()
                 $('#table').bootstrapTable('refresh')
-              }
+
               // console.log(res)
             }).catch(function (error) {
               console.log(error)
@@ -329,6 +324,7 @@
                     values: ids
                   });
                 }
+                $('#table_id').bootstrapTable('refresh')
               }).catch(function (error) {
                 console.log(error)
               })
@@ -349,6 +345,7 @@
                     values: ips
                   });
                 }
+                $('#table').bootstrapTable('refresh')
               }).catch(function (error) {
                 console.log(error)
               })
@@ -364,16 +361,11 @@
             if (this.respond == 'ok') {
               this.$axios.post(this.allurl + 'manager/client/block/roll_snap', {id: ips}).then(function (res) {
                 // console.log(res,'post ok')
-                if(res.data.status==1){
-                  _this.tipscontent = '操作成功'
-                  $('#tipsc').show().delay (2000).fadeOut()
-                  $('#table').bootstrapTable('refresh')
-                }
-                else {
+
                   _this.tipscontent =res.data.status
                   $('#tipsc').show().delay (2000).fadeOut()
                   $('#table').bootstrapTable('refresh')
-                }
+
               }).catch(function (error) {
                 console.log(error)
               })
@@ -386,16 +378,11 @@
               this.$axios.post(this.allurl + 'manager/client/block/snap/flatten', {name: this.snapi, pool: this.spool}).then(function (res) {
                 // this.tipscontent = res.data
                 // this.$refs.tips.usetips()
-                if(res.data.status==1){
-                  _this.tipscontent = '操作成功'
-                  $('#tipscontent').show().delay (2000).fadeOut()
-                  $('#table_id').bootstrapTable('refresh')
-                }
-                else {
+
                   _this.tipscontent =res.data.status
                   $('#tipscontent').show().delay (2000).fadeOut()
                   $('#table_id').bootstrapTable('refresh')
-                }
+
               }).catch(function (error) {
                 console.log(error)
               })
@@ -490,16 +477,11 @@
               selectuint:this.bselectsize
             }).then(function (res) {
               // console.log(res)
-              if (res.data.status == 1) {
-                _this.tipscontent = '操作成功'
-                $('#tipscontent').show().delay(2000).fadeOut()
-                $('#table_id').bootstrapTable('refresh')
-              }
-              else {
+
                 _this.tipscontent = res.data.status
                 $('#tipscontent').show().delay(2000).fadeOut()
                 $('#table_id').bootstrapTable('refresh')
-              }
+
             }).catch(function (error) {
               console.log(error)
             })
@@ -547,16 +529,11 @@
               pool: this.spool
             }).then(function (res) {
               // console.log(res)
-              if (res.data.status == 1) {
-                _this.tipscontent = '操作成功'
-                $('#tipscontent').show().delay(2000).fadeOut()
-                $('#table_id').bootstrapTable('refresh')
-              }
-              else {
+
                 _this.tipscontent = res.data.status
                 $('#tipscontent').show().delay(2000).fadeOut()
                 $('#table_id').bootstrapTable('refresh')
-              }
+
             }).catch(function (error) {
               console.log(error)
             })
@@ -649,16 +626,11 @@
               pool: this.bsele
             }).then(function (res) {
               // console.log(res.data.status)
-              if (res.data.status == 1) {
-                _this.tipscontent = '操作成功'
-                $('#tipscontent').show().delay(2000).fadeOut()
-                $('#table_id').bootstrapTable('refresh')
-              }
-              else {
+
                 _this.tipscontent = res.data.status
                 $('#tipscontent').show().delay(2000).fadeOut()
                 $('#table_id').bootstrapTable('refresh')
-              }
+
             }).catch(function (error) {
               console.log(error)
             })
@@ -677,16 +649,11 @@
               cloneid: this.clone
             }).then(function (res) {
               // console.log(res)
-              if (res.data.status == 1) {
-                _this.tipsc = '操作成功'
-                $('#tipscontent').show().delay(2000).fadeOut()
-                $('#table').bootstrapTable('refresh')
-              }
-              else {
+
                 _this.tipsc = res.data.status
                 $('#tipsc').show().delay(2000).fadeOut()
                 $('#table').bootstrapTable('refresh')
-              }
+
             }).catch(function (error) {
               console.log(error)
             })

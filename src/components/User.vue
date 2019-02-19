@@ -38,6 +38,7 @@
             </div>
             <div class="modal-body">
               <p>{{$t('message.Password')}}：</p><input type="password" class="form-control" id="name" ref="user"/>
+              <p>{{$t('message.Confirm-Password')}}：</p><input type="password" class="form-control" id="passwd" ref="passwd" />
               <p>{{$t('message.User-role')}}：</p><input type="text" class="form-control" id="content" ref="role" :placeholder=rolerank />
             </div>
             <div class="modal-footer">
@@ -108,9 +109,13 @@
         },
         editsend(){                      /*发送用户修改信息*/
           let userpwd=this.$refs.user.value
+          let pwd=this.$refs.passwd.value
           let role=this.$refs.role.value
-          if (userpwd==''||role==''){
+          if (userpwd==''||role==''||pwd==''){
             this.cross='请填写完整'
+          }
+          else if(userpwd!=pwd){
+            this.cross='两次输入密码不匹配'
           }
           else {
             var _this=this
@@ -120,17 +125,9 @@
               id: this.edit
             }).then(function (res) {
               // console.log(res)
-              if (res.data.status == 1) {
-                _this.tipscontent = '操作成功'
-                $('#tipscontent').show().delay(2000).fadeOut()
-                $('#table_id').bootstrapTable('refresh')
-              }
-              else {
                 _this.tipscontent = res.data.status
                 $('#tipscontent').show().delay(2000).fadeOut()
                 $('#table_id').bootstrapTable('refresh')
-              }
-              $('#table_id').bootstrapTable('refresh')
             }).catch(function (error) {
               console.log(error)
             })
@@ -144,6 +141,9 @@
           if(this.respond=='ok'){
             this.$axios.post(this.allurl + 'manctl/user_delete', {ids: ids}).then(function (res) {
               // console.log('post ok')
+              _this.tipscontent = res.data.status
+              $('#tipscontent').show().delay(2000).fadeOut()
+              $('#table_id').bootstrapTable('refresh')
             }).catch(function (error) {
               console.log(error)
             })

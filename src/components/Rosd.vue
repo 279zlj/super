@@ -201,7 +201,7 @@
             <h4 class="modal-title" id="myModalLabel">修改iSCSI信息</h4>
           </div>
           <div class="modal-body">
-            <p>{{$t('message.Modify')}} ip：</p><input type="text" class="form-control" id="ip" ref="modifyip" required="required" />
+            <p>{{$t('message.Modify')}} ip：</p><input type="text" class="form-control" id="ip" ref="modifyip" required="required" value="x.x.x.x" />
             <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
           </div>
           <div class="modal-footer">
@@ -312,14 +312,10 @@
             var _this=this
             this.$axios.post(this.allurl + 'manager/ioagent/iscsi_change', {ip: ip}).then(function (res) {
               // console.log(res.status)
-              if (res.status == 200) {
-                _this.tipscontent = '操作成功'
+
+                _this.tipscontent =  res.data.status
                 $('#tipscontent').show().delay(2000).fadeOut()
-              }
-              else {
-                _this.tipscontent = '操作失败'
-                $('#tipscontent').show().delay(2000).fadeOut()
-              }
+
             }).catch(function (error) {
               console.log(error)
             })

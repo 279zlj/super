@@ -192,16 +192,11 @@
             if (this.respond == 'ok') {
               this.$axios.post(this.allurl + 'manager/client/block/roll_snap', {ids: ids}).then(function (res) {
                 // console.log(res)
-                if (res.data.status == 1) {
-                  _this.tipscontent = '操作成功'
-                  $('#tipscontent').show().delay(2000).fadeOut()
-                  $('#table_id').bootstrapTable('refresh')
-                }
-                else {
+
                   _this.tipscontent = res.data.status
                   $('#tipscontent').show().delay(2000).fadeOut()
                   $('#table_id').bootstrapTable('refresh')
-                }
+
               }).catch(function (error) {
                 console.log(error)
               })
@@ -271,16 +266,11 @@
               id: this.edit
             }).then(function (res) {
               // console.log(res)
-              if (res.data.status == 1) {
-                _this.tipscontent = '操作成功'
-                $('#tipscontent').show().delay(2000).fadeOut()
-                $('#table_id').bootstrapTable('refresh')
-              }
-              else {
+
                 _this.tipscontent = res.data.status
                 $('#tipscontent').show().delay(2000).fadeOut()
                 $('#table_id').bootstrapTable('refresh')
-              }
+
             }).catch(function (error) {
               console.log(error)
             })
@@ -322,16 +312,11 @@
               pool: this.sele
             }).then(function (res) {
               // console.log(res)
-              if (res.data.status == 1) {
-                _this.tipscontent = '操作成功'
-                $('#tipscontent').show().delay(2000).fadeOut()
-                $('#table_id').bootstrapTable('refresh')
-              }
-              else {
+
                 _this.tipscontent = res.data.status
                 $('#tipscontent').show().delay(2000).fadeOut()
                 $('#table_id').bootstrapTable('refresh')
-              }
+
             }).catch(function (error) {
               console.log(error)
             })

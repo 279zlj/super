@@ -21,17 +21,17 @@
                   <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{i.user_id}}</div>
                   </div>
                   <div class="row all odd">
-                  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >显示名：</div>
+                  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >{{$t('message.display_name')}}：</div>
                   <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{i.display_name}}</div>
                   </div>
                   <div class="row all">
-                  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >管理权限：</div>
+                  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >{{$t('message.administration-authority')}}：</div>
                   <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                    <p v-for="c in i.caps">类型：{{c.type}} / 权限：{{c.perm}}</p>
+                    <p v-for="c in i.caps">{{$t('message.Type')}}：{{c.type}} / {{$t('message.jurisdiction')}}：{{c.perm}}</p>
                   </div>
                   </div>
                   <div class="row all odd">
-                  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe">用户状态：</div>
+                  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe">{{$t('message.user-mode')}}：</div>
                   <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 " >
                     <span>{{i.suspended}}</span>
                     <span style="cursor: pointer" class="glyphicon glyphicon-stop sopr" title="停止" @click="stopuser()" data-toggle="tooltip" data-placement="top" v-show="i.suspended=='1'"></span>
@@ -39,11 +39,11 @@
                   </div>
                   </div>
                   <div class="row all">
-                  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >配额参数：</div>
+                  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >{{$t('message.The-quota-parameter')}}：</div>
                   <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">Max-objects：{{i.bucket_quota.max_objects}} / Max-size：{{i.bucket_quota.max_size}}</div>
                   </div>
                   <div class="row all odd">
-                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >配额状态：</div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >{{$t('message.The-quota-status')}}：</div>
                     <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 " >
                       <span>{{i.bucket_quota.enabled}}</span>
                       <span style="cursor: pointer" class="glyphicon glyphicon-stop sopr" title="停止" @click="stopquota()" data-toggle="tooltip" data-placement="top" v-show="i.bucket_quota.enabled==true"></span>
@@ -52,7 +52,7 @@
                   </div>
                   <div class="row all">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 labe">
-                      用户用量：
+                      {{$t('message.User-dosage')}}：
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 data">
                       <span style="margin-left: .6em;font-size: 1.4em" v-if="i.usage==0">{{i.usage.size_kb}}</span>
@@ -93,7 +93,7 @@
                 </div>
                 <div class="row panel-body">
                   <div class="row all bg" >
-                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe">来源：</div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe">{{$t('message.source')}}：</div>
                     <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{b.origin}}</div>
                   </div>
                   <div class="row all bg odd">
@@ -101,7 +101,7 @@
                     <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{b.id}}</div>
                   </div>
                   <div class="row all bg">
-                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >访问级别：</div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >{{$t('message.access-level')}}：</div>
                     <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{b.permissions}}</div>
                   </div>
                   <!--<div class="row all bg">-->
@@ -126,7 +126,7 @@
             <form action="" class="form-horizontal"  role="form">
 
                 <div class="row form-group">
-                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 control-label"><label for="dtp_input2" >日期</label></div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 control-label"><label for="dtp_input2" >{{$t('message.Date')}}</label></div>
                   <div class="input-group date form_date col-lg-4 col-md-4 col-sm-4 col-xs-4" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
                     <input class="form-control" size="13" ref="startdate" style="color: black" type="text" value="" readonly>
                     <!--<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>-->
@@ -169,11 +169,11 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="diskdata">添加用户</h4>
+              <h4 class="modal-title" id="diskdata">{{$t('message.Add-users')}}</h4>
             </div>
             <div class="modal-body">
               <p>ID：</p><input type="text" class="form-control" id="addid" ref="addid" required="required"/>
-              <p>名称：</p><input type="text" class="form-control" id="addname" ref="addname" required="required"/>
+              <p>{{$t('message.Name')}}：</p><input type="text" class="form-control" id="addname" ref="addname" required="required"/>
               <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
             </div>
             <div class="modal-footer">
@@ -188,11 +188,11 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="edituser">修改用户信息</h4>
+              <h4 class="modal-title" id="edituser">{{$t('message.Modify-user-information')}}</h4>
             </div>
             <div class="modal-body">
               <p>ID：<span>{{num}}</span></p>
-              <p>名称：</p><input type="text" class="form-control" id="name" :placeholder=name ref="name" required="required"/>
+              <p>{{$t('message.Name')}}：</p><input type="text" class="form-control" id="name" :placeholder=name ref="name" required="required"/>
               <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
             </div>
             <div class="modal-footer">
@@ -207,12 +207,12 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="quotatitle">配额设置</h4>
+              <h4 class="modal-title" id="quotatitle">{{$t('message.Quota-setting')}}</h4>
             </div>
             <div class="modal-body">
               <p>ID：<span>{{num}}</span></p>
-              <p>最大对象数：</p><input type="number" class="form-control" id="max-object"  ref="max-object" required="required"/>
-              <p>最大存储空间：</p><input type="number" class="form-control" id="max-size"  ref="max-size" required="required"/>
+              <p>{{$t('message.Maximum-number-of-objects')}}：</p><input type="number" class="form-control" id="max-object"  ref="max-object" required="required"/>
+              <p>{{$t('message.Maximum-storage-space')}}：</p><input type="number" class="form-control" id="max-size"  ref="max-size" required="required"/>
               <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
             </div>
             <div class="modal-footer">
@@ -232,7 +232,7 @@
             <div class="modal-body">
               <p>ID：<span>{{num}}</span></p>
               <!--<p>名称：</p><input type="text" class="form-control" id="name" :placeholder=name ref="name" required="required"/>-->
-              <p>权限类型：</p>
+              <p>{{$t('message.Permission-types')}}：</p>
               <select class="form-control" id="authtype" v-on:change="sele($event)" v-model="authselect">
               <option v-for="a in caps_type" :value="a.name">{{a.name}}</option>
               </select>
@@ -254,17 +254,17 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="look">查看用户信息</h4>
+              <h4 class="modal-title" id="look">{{$t('message.View-user-information')}}</h4>
             </div>
             <div class="modal-body row">
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">ID：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{personal.user_id}}</div>
-              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">名称：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{personal.display_name}}</div>
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{$t('message.Name')}}：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{personal.display_name}}</div>
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Max_bucket：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{personal.max_buckets}}</div>
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Keys：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><p v-for="k in personal.keys">User：{{k.user}}<br>Access_key：{{k.access_key}}<br>Secret_key：{{k.secret_key}}</p></div>
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Swift_keys：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><p v-for="s in personal.swift_keys">User：{{s.user}}<br>Secret_key：{{s.secret_key}}</p></div>
               <!--<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Bucket_quota：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" ><p v-show="personal.bucket_quota.enabled!=''">Enabled:{{personal.bucket_quota.enabled}} / Max_size{{personal.bucket_quota.max_size}} / Max_objects:{{personal.bucket_quota.max_objects}}</p></div>-->
               <!--<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">User_quota：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><p v-show="personal.user_quota.enabled!=''">Enable：{{personal.user_quota.enabled}} / Max_size：{{personal.user_quota.max_size}} / Max_objects：{{personal.user_quota.max_objects}}</p></div>-->
-              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">用户权限：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><p v-for="c in personal.caps">类型：{{c.type}} / 权限：{{c.perm}}</p></div>
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{$t('message.user-permission')}}：</div><div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><p v-for="c in personal.caps">{{$t('message.Type')}}：{{c.type}} / {{$t('message.jurisdiction')}}：{{c.perm}}</p></div>
 
             </div>
             <div class="modal-footer">
@@ -279,11 +279,11 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="subuser">添加子用户</h4>
+              <h4 class="modal-title" id="subuser">{{$t('message.Add-child-user')}}</h4>
             </div>
             <div class="modal-body">
-              <p>名称：</p><input type="text" class="form-control" id="subname" ref="addid" required="required"/>
-              <p>访问级别：</p>
+              <p>{{$t('message.Name')}}：</p><input type="text" class="form-control" id="subname" ref="addid" required="required"/>
+              <p>{{$t('message.access-level')}}：</p>
               <select class="form-control" id="tank" v-on:change="sel($event)" v-model="rankselect">
               <option v-for="m in rank" :value="m.name">{{m.name}}</option>
               </select>
@@ -301,11 +301,11 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="editsub">修改子用户信息</h4>
+              <h4 class="modal-title" id="editsub">{{$t('message.Modify-child-user-information')}}</h4>
             </div>
             <div class="modal-body">
               <p>ID：</p><input type="text" class="form-control" id="subn" :placeholder=subnow ref="sname" required="required"/>
-              <p>访问级别：</p>
+              <p>{{$t('message.access-level')}}：</p>
               <select class="form-control" id="modifyrank" v-on:change="selec($event)" v-model="subvisit">
                 <option v-for="m in rank" :value="m.name">{{m.name}}</option>
               </select>
@@ -396,54 +396,48 @@
         res(data){
           if(data=='ok'&&this.who=='stopuser'){
             this.$axios.post(this.allurl+'gwobj/suspend_objuser',{uid:this.dosome,suspend:1}).then(function (res) {
-              if (res.status==200){
-
-              }
+              this.tipsc = res.data.status
+              $('#tipsc').show().delay(2000).fadeOut()
             }).catch(function (error) {
               console.log(error)
             })
           }
           else if (data=='ok'&&this.who=='startuser'){
             this.$axios.post(this.allurl+'gwobj/suspend_objuser',{uid:this.dosome,suspend:0}).then(function (res) {
-              if (res.status==200){
-
-              }
+              this.tipsc = res.data.status
+              $('#tipsc').show().delay(2000).fadeOut()
             }).catch(function (error) {
               console.log(error)
             })
           }
           else if(data=='ok'&&this.who=='deleteuser'){
             this.$axios.post(this.allurl+'gwobj/remove_objuser',{uid:this.dosome}).then(function (res) {
-              if (res.status==200){
-
-              }
+              this.tipsc = res.data.status
+              $('#tipsc').show().delay(2000).fadeOut()
             }).catch(function (error) {
               console.log(error)
             })
           }
           else if(data=='ok'&&this.who=='stopquota'){
             this.$axios.post(this.allurl+'gwobj/trunquo_objuser',{uid:this.dosome,enable:0}).then(function (res) {
-              if (res.status==200){
-
-              }
+              this.tipsc = res.data.status
+              $('#tipsc').show().delay(2000).fadeOut()
             }).catch(function (error) {
               console.log(error)
             })
           }
           else if(data=='ok'&&this.who=='startquota'){
             this.$axios.post(this.allurl+'gwobj/trunquo_objuser',{uid:this.dosome,enable:1}).then(function (res) {
-              if (res.status==200){
-
-              }
+              this.tipsc = res.data.status
+              $('#tipsc').show().delay(2000).fadeOut()
             }).catch(function (error) {
               console.log(error)
             })
           }
           else if (data=='ok'&&this.who=='deletesub') {
             this.$axios.post(this.allurl+'gwobj/remove_subuser',{uid:this.num,sub_name:this.dosome}).then(function (res) {
-              if (res.status==200){
-
-              }
+              this.subtipsc = res.data.status
+              $('#subtipsc').show().delay(2000).fadeOut()
             }).catch(function (error) {
               console.log(error)
             })
@@ -538,16 +532,11 @@
           }
           else {
             this.$axios.post(this.allurl+'gwobj/setquo_objuser',{uid:this.num,quota:object,size:size}).then(function (res) {
-              if (res.data.status == 1) {
-                this.tipsc = '操作成功'
-                $('#tipsc').show().delay(2000).fadeOut()
 
-              }
-              else {
                 this.tipsc = res.data.status
                 $('#tipsc').show().delay(2000).fadeOut()
 
-              }
+
             }).catch(function (error) {
               console.log(error)
             })
@@ -569,14 +558,16 @@
         authsend(){
           if (this.who=='addauth'){
             this.$axios.post(this.allurl+'gwobj/capsadd_objuser',{uid:this.num,caps_type:this.authselect,caps:this.capsselect}).then(function (res) {
-              if (res.status==200){}
+              this.tipsc = res.data.status
+              $('#tipsc').show().delay(2000).fadeOut()
             }).catch(function (error) {
               console.log(error)
             })
           }
           else if (this.who=='deleteauth'){
             this.$axios.post(this.allurl+'gwobj/capsrm_objuser',{uid:this.num,caps_type:this.authselect,caps:this.capsselect}).then(function (res) {
-              if (res.status==200){}
+              this.tipsc = res.data.status
+              $('#tipsc').show().delay(2000).fadeOut()
             }).catch(function (error) {
               console.log(error)
             })
@@ -590,16 +581,9 @@
           }
           else {
             this.$axios.post(this.allurl+'gwobj/create_objuser',{uid:id,display_name:name}).then(function (res) {
-              if (res.data.status == 1) {
-                this.tipsc = '操作成功'
-                $('#tipsc').show().delay(2000).fadeOut()
-
-              }
-              else {
                 this.tipsc = res.data.status
                 $('#tipsc').show().delay(2000).fadeOut()
 
-              }
             }).catch(function (error) {
               console.log(error)
             })
@@ -622,14 +606,10 @@
             this.cross='请填写完整!'
           }
           this.$axios.post(this.allurl+'gwobj/create_subuser',{uid:this.num,sub_name:subname,access:this.rankselect}).then(function (res) {
-            if (res.data.status == 1) {
-              this.subtipsc = '操作成功'
-              $('#subtipsc').show().delay(2000).fadeOut()
-            }
-            else {
+
               this.subtipsc = res.data.status
               $('#subtipsc').show().delay(2000).fadeOut()
-            }
+
           }).catch(function (error) {
             console.log(error)
           })
@@ -642,14 +622,10 @@
           }
           else {
             this.$axios.post(this.allurl+'gwobj/rename_objuser',{display_name:name,uid:this.num}).then(function (res) {
-              if (res.data.status == 1) {
-                this.tipsc = '操作成功'
-                $('#tipsc').show().delay(2000).fadeOut()
-              }
-              else {
+
                 this.tipsc = res.data.status
                 $('#tipsc').show().delay(2000).fadeOut()
-              }
+
             }).catch(function (error) {
               console.log(error)
             })
@@ -663,16 +639,11 @@
           }
           else {
             this.$axios.post(this.allurl+'gwobj/create_subuser',{uid:this.num,access:this.subvisit,sub_name:sname}).then(function (res) {
-              if (res.data.status == 1) {
-                this.subtipsc = '操作成功'
-                $('#subtipsc').show().delay(2000).fadeOut()
 
-              }
-              else {
                 this.tipscontent = res.data.status
                 $('#subtipsc').show().delay(2000).fadeOut()
 
-              }
+
             }).catch(function (error) {
               console.log(error)
             })

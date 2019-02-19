@@ -4,7 +4,7 @@
       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 container-fluid">
         <div class="row blockone">
           <p style="margin: 1em 0 0.5em 1em;" id="title">{{$t('message.Netstat')}}</p>
-          <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 right">
+          <div class="col-lg-7 col-md-12 col-sm-7 col-xs-7 right">
             <!--<div id="liquidFill" class="grid"></div>-->
             <!--<p style="margin-top: 1em">网速：<span class="numtwo">{{pool_use}}</span>mb/s</p>-->
             <!--<p style="text-align: center;line-height:1em">健康状态</p>-->
@@ -34,67 +34,80 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 ">
-            <div class="fontone "><span class="titlecolor">{{$t('message.Question-card')}}：</span><a style="font-size: 2em;padding: .5em;color: white;cursor: pointer"  class="dropdown-toggle" data-toggle="dropdown">{{$store.state.net.error}}</a>个
+          <div class="col-lg-5 col-md-12 col-sm-5 col-xs-5 ">
+          <div class="row">
+            <div class="fontone col-lg-12 col-md-6 col-sm-12 col-xs-12"><span class="titlecolor">{{$t('message.Question-card')}}：</span><a style="font-size: 2em;padding: .5em;color: white;cursor: pointer"  class="dropdown-toggle" data-toggle="dropdown">{{$store.state.net.error}}</a>个
               <ul class="dropdown-menu">
                 <li><router-link :to="{name:''}"></router-link></li>
               </ul>
             </div>
             <div style="margin-left: -1px">
-              <p class="fonttwo "><span class="titlecolor">{{$t('message.link-number')}}：</span>{{$store.state.net.net_socket_link_nall}}</p>
-              <p class="fonttwo "><span class="titlecolor">{{$t('message.Receive-Discard-Packets')}}：</span>{{$store.state.net.net_drop_in_all}}</p>
-              <p class="fonttwo "><span class="titlecolor">{{$t('message.Send-Discard-Packets')}}：</span>{{$store.state.net.net_drop_out_all}}</p>
-              <p class="fonttwo "><span class="titlecolor">{{$t('message.Bandwidth')}}：</span>{{$store.state.net.bandwidth}}Mbps/s</p>
-              <p class="fonttwo "><span class="titlecolor">{{$t('message.Best-Match')}}：</span>{{$store.state.mode}}</p>
+              <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                <p class="fonttwo "><span class="titlecolor">{{$t('message.link-number')}}：</span>{{$store.state.net.net_socket_link_nall}}</p>
+              </div>
+              <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                <p class="fonttwo "><span class="titlecolor">{{$t('message.Receive-Discard-Packets')}}：</span>{{$store.state.net.net_drop_in_all}}</p>
+              </div>
+              <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                <p class="fonttwo "><span class="titlecolor">{{$t('message.Send-Discard-Packets')}}：</span>{{$store.state.net.net_drop_out_all}}</p>
+              </div>
+              <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                <p class="fonttwo "><span class="titlecolor">{{$t('message.Best-Match')}}：</span>{{$store.state.mode}}</p>
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <p class="fonttwo "><span class="titlecolor">{{$t('message.Bandwidth')}}：</span>{{$store.state.net.bandwidth}}Mbps/s</p>
+              </div>
+
             </div>
+          </div>
           </div>
         </div>
         <div class="row blockthree">
-          <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 blocktwo">
-            <div class="blockbottom">
+          <div class="col-lg-5 col-md-12 col-sm-5 col-xs-12 blocktwo">
+            <div class="blockbottom " >
               <p style="line-height: 2em;margin-top: .8em">{{$t('message.Disk-summary')}}</p>
               <div class="row" >
-                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 diskfont" >{{$t('message.Writing-rate')}}：</div>
-                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 num" title="写速度">{{$store.state.diskips}}</div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 diskfont" >{{$t('message.Writing-rate')}}：</div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 num" title="写速度">{{$store.state.diskips}}</div>
               </div>
               <div class="row">
-                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 diskfont">{{$t('message.Total-of-read')}}：</div>
-                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 numa" title="总读量">{{$store.state.idisk.read_all}}</div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 diskfont">{{$t('message.Total-of-read')}}：</div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 numa" title="总读量">{{$store.state.idisk.read_all}}</div>
               </div>
               <div class="row">
-                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 diskfont">{{$t('message.Total-of-write')}}：</div>
-                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 numa" title="总写量">{{$store.state.idisk.write_all}}</div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 diskfont">{{$t('message.Total-of-write')}}：</div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 numa" title="总写量">{{$store.state.idisk.write_all}}</div>
               </div>
               <div class="row" >
-                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 diskfont">{{$t('message.Total-read-time')}}：</div>
-                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 numa" title="总读耗时">{{read_time}}</div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 diskfont">{{$t('message.Total-read-time')}}：</div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 numa" title="总读耗时">{{read_time}}</div>
               </div>
               <div class="row" >
-                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 diskfont">{{$t('message.Total-write-time')}}：</div>
-                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 numa" title="总写耗时">{{$store.state.wtime}}</div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 diskfont">{{$t('message.Total-write-time')}}：</div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 numa" title="总写耗时">{{$store.state.wtime}}</div>
               </div>
               <div class="row" >
-                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 diskfont">{{$t('message.Busy-time')}}：</div>
-                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 numa" title="等待时间">{{$store.state.btime}}</div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 diskfont">{{$t('message.Busy-time')}}：</div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 numa" title="等待时间">{{$store.state.btime}}</div>
               </div>
               <div class="row" >
-                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 diskfont">{{$t('message.Reading-rate')}}：</div>
-                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 num" title="读速度">{{$store.state.diskops}}</div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 diskfont">{{$t('message.Reading-rate')}}：</div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 num" title="读速度">{{$store.state.diskops}}</div>
               </div>
             </div>
-            <div>
+            <div class="c">
               <h5 style="line-height: 2.5em;font-size: 1.1em;color: #FFFFFF;margin-top: .8em">Swap IO</h5>
-              <div class="row" style="text-align: center">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 diskfont" ><p class="titlecolor">{{$t('message.Writing-rate')}}：</p></div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 num" title="写速度">{{$store.state.swap_io.ips}}</div>
+              <div class="row" >
+                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 diskfont" ><p class="titlecolor">{{$t('message.Writing-rate')}}：</p></div>
+                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 num" title="写速度">{{$store.state.swap_io.ips}}</div>
               </div>
-              <div class="row" style="text-align: center">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 diskfont" ><p class="titlecolor">{{$t('message.Reading-rate')}}：</p></div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 num" title="读速度">{{$store.state.swap_io.ops}}</div>
+              <div class="row" >
+                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 diskfont" ><p class="titlecolor">{{$t('message.Reading-rate')}}：</p></div>
+                <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 num" title="读速度">{{$store.state.swap_io.ops}}</div>
               </div>
             </div>
           </div>
-          <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 ">
+          <div class="col-lg-7 col-md-11 col-sm-7 col-xs-12 " id="yl">
             <div class="row blockfour">
               <p style="line-height: 2em;">{{$t('message.Memory')}}<span style="margin-left: 1em;"><span class="titlecolor">{{$t('message.Total-memory')}}：</span>{{$store.state.memory.total}}</span></p>
               <div class="row">
@@ -115,7 +128,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 ">
+          <div class="col-lg-7 col-md-11 col-sm-7 col-xs-12 " >
             <div class="row blockfive">
               <div class="blockbottom">
                 <p style="line-height: 2em;">CPU</p>
@@ -144,33 +157,56 @@
         </div>
 
       </div>
-      <div id="myCarousel" class="col-lg-8 col-md-8 col-sm-12 col-xs-12 carousel slide" data-ride="carousel" data-interval="15000">
-        <ol class="carousel-indicators">
-          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-          <li data-target="#myCarousel" data-slide-to="1"></li>
-        </ol>
+      <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12" >
+        <div id="myCarousel" class="row carousel slide" data-ride="carousel" data-interval="15000">
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+          </ol>
 
-      <div class="font bg carousel-inner">
-        <div class="item active" >
-          <div class="row">
-            <div id="mychart" class="chartfirst" ></div>
+        <div class="font bg carousel-inner">
+          <div class="item active" >
+            <div class="row">
+              <div id="mychart" class="chartfirst" ></div>
+            </div>
+            <div class="row">
+              <div id="mchart" class="chartsecond" ></div>
+            </div>
+            <div class="row">
+              <div id="ychart" class="chartthird" ></div>
+            </div>
           </div>
-          <div class="row">
-            <div id="mchart" class="chartsecond" ></div>
+          <div class="item" id="gl" style="width: 100%;height: 100%;">
+            <!--<canvas id="webgl"></canvas>-->
+            <server></server>
           </div>
-          <div class="row">
-            <div id="ychart" class="chartthird" ></div>
+          <div style="text-align: right">
+          <input type="button" class="btn-xs btn-info pause-slide" @click="startcar()" value="Start" >
+          <input type="button" class="btn-xs btn-danger pause-slide" @click="pausecar()" value="Pause" >
           </div>
-        </div>
-        <div class="item" id="gl" style="width: 100%;height: 100%;">
-          <!--<canvas id="webgl"></canvas>-->
-          <server></server>
-        </div>
-        <div style="text-align: right">
-        <input type="button" class="btn-xs btn-info pause-slide" @click="startcar()" value="Start" >
-        <input type="button" class="btn-xs btn-danger pause-slide" @click="pausecar()" value="Pause" >
-        </div>
       </div>
+        </div>
+        <div class="col-lg-7 col-md-12 col-sm-7 col-xs-12 " style="margin-top: 6em" id="ejz">
+          <div class="row blockfour">
+            <p style="line-height: 2em;">{{$t('message.Memory')}}<span style="margin-left: 1em;"><span class="titlecolor">{{$t('message.Total-memory')}}：</span>{{$store.state.memory.total}}</span></p>
+            <div class="row">
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 memory">
+                <div><p class="titlecolor">{{$t('message.Shared-memory')}}：</p><p>{{$store.state.memory.share}}</p></div>
+                <div><p class="titlecolor">cache：</p><p>{{$store.state.memory.cache}}</p></div>
+
+              </div>
+              <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 ">
+                <div id="liquidFill" class="grid"></div>
+                <p style="text-align: center;">{{$t('message.Usage-state')}}</p>
+              </div>
+              <!--<p>已用：<span class="numtwo">{{memory}}</span>%</p>-->
+            </div>
+            <div class="row memory">
+              <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6" ><p class="titlecolor">{{$t('message.Swap-memory')}}：</p><p>{{$store.state.memory.totalSwap}}</p></div>
+              <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6" ><p class="titlecolor">{{$t('message.Swap-used')}}：</p><p>{{$store.state.memory.usedSwap}}</p></div>
+            </div>
+          </div>
+        </div>
 
 
       </div>
@@ -190,10 +226,10 @@
               <p style="margin: 0em 0 0 1em" class="titlecolor">{{$t('message.Resource-pool-state')}}</p>
               <div v-for="p in $store.state.ceph.pools">
 
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="titlecolor">{{$t('message.Name')}}：</span>{{p.name}}</div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="titlecolor">{{$t('message.Status')}}：</span><span :class="{'wanning':p.stats=='warn','ok':p.stats=='ok','error':p.stats=='error'}">{{p.stats}}</span></div>
-                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5"><span class="titlecolor">{{$t('message.Percent-used')}}：</span>{{p.percent_used}}%</div>
-                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7" style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis"><span class="titlecolor">{{$t('message.Max-available')}}：</span>{{p.max_avail}}</div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><span class="titlecolor">{{$t('message.Name')}}：</span>{{p.name}}</div>
+                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12"><span class="titlecolor">{{$t('message.Status')}}：</span><span :class="{'wanning':p.stats=='warn','ok':p.stats=='ok','error':p.stats=='error'}">{{p.stats}}</span></div>
+                <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12"><span class="titlecolor">{{$t('message.Percent-used')}}：</span>{{p.percent_used}}%</div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis"><span class="titlecolor">{{$t('message.Max-available')}}：</span>{{p.max_avail}}</div>
               </div>
             </div>
 
@@ -1194,6 +1230,13 @@
       width: 100%;height:15em;margin-top: 7em;
     }
   }
+  #yl{display: block}
+  #ejz{display: none}
+  @media screen and (min-width: 1000px) and (max-width: 1200px){
+    #yl{display: none}
+    #ejz{display: block}
+  }
+
   @media screen and (min-width:1600px ) {
     #index{
       width: 100%;

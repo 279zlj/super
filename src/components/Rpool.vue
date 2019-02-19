@@ -167,10 +167,10 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="lunname">分配lun</h4>
+            <h4 class="modal-title" id="lunname">{{$t('message.Allocation')}} lun</h4>
           </div>
           <div class="modal-body">
-            <p>块设备列表：</p>
+            <p>{{$t('message.Block-device-list')}}：</p>
             <select class="form-control" id="lunselect" v-on:change="bsel($event)" v-model="bsele">
               <option v-for="m in blocklist" :value="m">{{m}}</option>
             </select>
@@ -188,10 +188,10 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" >删除lun</h4>
+            <h4 class="modal-title" >{{$t('message.Remove')}} lun</h4>
           </div>
           <div class="modal-body">
-            <p>Lun列表：</p>
+            <p>Lun {{$t('message.List')}}：</p>
             <select class="form-control" v-on:change="lsel($event)" v-model="lsele">
               <option v-for="l in luns" :value="l">{{l}}</option>
             </select>
@@ -359,16 +359,11 @@
               poolsize: poolsize
             }).then(function (res) {
               // console.log(res)
-              if (res.data.status == 1) {
-                _this.tipscontent = '操作成功'
-                $('#tipscontent').show().delay(2000).fadeOut()
-                $('#table_id').bootstrapTable('refresh')
-              }
-              else {
+
                 _this.tipscontent = res.data.status
                 $('#tipscontent').show().delay(2000).fadeOut()
                 $('#table_id').bootstrapTable('refresh')
-              }
+
             }).catch(function (error) {
               console.log(error)
             })
@@ -388,16 +383,10 @@
               size:this.blockall[this.bselenum].bsize
             }).then(function (res) {
               // console.log(res)
-              if (res.data.status == 1) {
-                _this.tipscontent = '操作成功'
-                $('#tipsc').show().delay(2000).fadeOut()
-                $('#table_id').bootstrapTable('refresh')
-              }
-              else {
                 _this.tipscontent = res.data.status
                 $('#tipsc').show().delay(2000).fadeOut()
                 $('#table_id').bootstrapTable('refresh')
-              }
+
             }).catch(function (error) {
               console.log(error)
             })
@@ -415,16 +404,11 @@
               lun:this.lsele
             }).then(function (res) {
               // console.log(res)
-              if (res.data.status == 1) {
-                _this.tipscontent = '操作成功'
-                $('#tipsc').show().delay(2000).fadeOut()
-                $('#table_id').bootstrapTable('refresh')
-              }
-              else {
+
                 _this.tipscontent = res.data.status
                 $('#tipsc').show().delay(2000).fadeOut()
                 $('#table_id').bootstrapTable('refresh')
-              }
+
             }).catch(function (error) {
               console.log(error)
             })
@@ -446,16 +430,11 @@
               type: this.unitsele,
               rule:this.ruleselect
             }).then(function (res) {
-              if (res.data.status == 1) {
-                _this.tipscontent = '操作成功'
-                $('#tipscontent').show().delay(2000).fadeOut()
-                $('#table_id').bootstrapTable('refresh')
-              }
-              else {
+
                 _this.tipscontent = res.data.status
                 $('#tipscontent').show().delay(2000).fadeOut()
                 $('#table_id').bootstrapTable('refresh')
-              }
+
             }).catch(function (error) {
               console.log(error)
             })
@@ -488,6 +467,7 @@
                     values: ids
                   });
                 }
+                $('#table_id').bootstrapTable('refresh')
               }).catch(function (error) {
                 console.log(error)
               })
@@ -507,6 +487,7 @@
                     field: 'pname',
                     values: ids
                   });
+                  $('#table').bootstrapTable('refresh')
                 }
               }).catch(function (error) {
                 console.log(error)
@@ -584,23 +565,17 @@
               tank_id: this.edit,}
             ).then(function (res) {
               // console.log(res)
-              if (res.data.status == 1) {
-                _this.tipscontent = '操作成功'
-                $('#tipscontent').show().delay(2000).fadeOut()
-                $('#table_id').bootstrapTable('refresh')
-              }
-              else {
                 _this.tipscontent = res.data.status
                 $('#tipscontent').show().delay(2000).fadeOut()
                 $('#table_id').bootstrapTable('refresh')
-              }
+
             }).catch(function (error) {
               console.log(error)
             })
             $('#editm').modal('hide')
           }
         },
-        clientsend(){                       /*发送添加的iscsi信息*/
+        clientsend(){
           let client=this.$refs.addclient.value
           var reg=/^[0-9a-zA-Z]{1,7}$/
           var _this=this
@@ -613,16 +588,10 @@
           else {
             this.$axios.post(this.allurl + 'manctl/client_add', {iqn: "iqn.2018-12.com.wz:"+client}).then(function (res) {
               // console.log(res)
-              if (res.data.status == 1) {
-                _this.tipscontent = '操作成功'
-                $('#tipscontent').show().delay(2000).fadeOut()
-                $('#table_id').bootstrapTable('refresh')
-              }
-              else {
                 _this.tipscontent = res.data.status
-                $('#tipscontent').show().delay(2000).fadeOut()
+                $('#tipsc').show().delay(2000).fadeOut()
                 $('#table_id').bootstrapTable('refresh')
-              }
+
             }).catch(function (error) {
               console.log(error)
             })
