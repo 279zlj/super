@@ -126,17 +126,26 @@
 
 /* the same color with .active */
 .fixed-table-container tbody .selected td {
-
+  background: #8475A2 ;
 }
 
 .fixed-table-container .bs-checkbox {
     text-align: center;
+
+
 }
 
 .fixed-table-container input[type="radio"],
 .fixed-table-container input[type="checkbox"] {
     margin: 0 auto !important;
+    width: 16px;
+    height: 16px;
+    padding: 1em;
+    border-radius: 1em;
+
 }
+
+
 
 .fixed-table-container .no-records-found {
     text-align: center;
@@ -229,6 +238,7 @@
 /* support bootstrap 2 */
 .fixed-table-body thead th .th-inner {
     box-sizing: border-box;
+
 }
 
 .table th, .table td {

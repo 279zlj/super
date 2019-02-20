@@ -150,7 +150,7 @@
             }
           }
         },
-        download (data) {
+        download (data) {               //文件的下载
           if (!data) {
             return
           }
@@ -164,7 +164,7 @@
           document.body.appendChild(link)
           link.click()
         },
-        collect(){
+        collect(){               //日志收集
 
           if (sessionStorage.getItem('islogin') == 250) {
             this.tipscontent='普通用户无操作权限！'
@@ -184,7 +184,7 @@
             }
           }
         },
-        collectsend(){
+        collectsend(){         //发送收集选项
           var _this=this
           if (this.typesele==''||this.daysele==''){
             _this.cross='请填写完整'

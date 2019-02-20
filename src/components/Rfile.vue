@@ -96,6 +96,7 @@
                     <th data-field="state" data-checkbox="true" ></th>
                     <th data-field="username">{{$t('message.User')}}</th>
                     <th data-field="quota">{{$t('message.Quota')}}</th>
+                    <th data-field="useage">{{$t('message.Usage-ratio')}}</th>
                     <th data-field="ip">IP</th>
                     <th data-field="stat">{{$t('message.Status')}}</th>
                   </tr>
@@ -544,6 +545,9 @@
       margin-top: 4em;
       color: white !important;
       /*margin-left: 1em;*/
+    }
+    .fixed-table-container tbody .selected td{
+      background: #FFFFFF !important;
     }
     #mdslist,#plist{
       margin-top: 1em;

@@ -43,7 +43,7 @@
           }
       },
       methods:{
-          gprocess(){
+          gprocess(){             //读取安装中的信息
             var _this=this
             if (this.installnum!=100) {
               this.$axios.get(this.installurl + 'get_process').then(function (res) {
@@ -76,7 +76,7 @@
             }, 3000)
 
         },
-        gologin(){
+        gologin(){           //跳转到登录页面
             var _this=this
             this.$axios.post(this.installurl+'post_login_sys',{login:'yes'}).then(function (res) {
               if (res.status==200)

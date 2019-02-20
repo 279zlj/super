@@ -23,6 +23,7 @@ module.exports={
     "Mainframe":"主机",
     "Question-card":"问题网卡",
     "link-number":"连接数",
+    "Usage-ratio":"使用占比",
     "Capacity-usage-ratio":"容量使用占比",
     "Shared-file-system":"共享文件系统",
     "Storage-usage-ratios":"存储使用占比",

@@ -17,7 +17,7 @@
             <!--<p>阵列卡温度：</p>-->
           <!--</div>-->
         </div>
-        <model-gltf :backgroundAlpha="bgAlpha"  :rotation="rotation"  @on-load="onLoad" :spritefun="safun" :spritetext="sastatic" :tonealgin="tonealgin"  :ttwoalgin="ttwoalgin" :tcolor="tcolor"  :position="where" :backgroundColor="bgColor" src="../../static/server/server2801.gltf" :cameraPosition="camera" :width="wid" :height="hei"></model-gltf>
+        <model-gltf v-if="isrefresh" :backgroundAlpha="bgAlpha"  :rotation="rotation"  @on-load="onLoad" :spritefun="safun" :spritetext="sastatic" :tonealgin="tonealgin"  :ttwoalgin="ttwoalgin" :tcolor="tcolor"  :position="where" :backgroundColor="bgColor" src="../../static/server/server2801.gltf" :cameraPosition="camera" :width="wid" :height="hei"></model-gltf>
         <!--<div ref="server3d"></div>-->
       </div>
     </div>
@@ -60,9 +60,9 @@
             tcontent: '',
             ttitle: '',
             dosome: '',
-            sastatic:this.$store.state.cputem,
-            safun: this.$store.state.funspeed,
-            sacard: this.$store.state.cardtem,
+            sastatic:this.$store.state.cputem[0],
+            safun: this.$store.state.funspeed[0],
+            sacard: '',
             tonealgin:'bottomLeft',
             ttwoalgin:'bottomRight',
             tcolor:'#FFFFFF',
@@ -77,6 +77,7 @@
               {name: 'node2', osd: ['ada', 'adb', 'adv'], static: ['ok', 'ok', 'ok'], row: 6, cloumn: 3},
               {name: 'node3', osd: ['ada', 'adb', 'adv'], static: ['ok', 'ok', 'ok'], row: 6, cloumn: 3}
             ],
+            isrefresh:true
           }
       },
       created(){
@@ -88,6 +89,7 @@
       mounted(){
         this.init()
         this.drawserver(this.server)
+
         // this.onLoad()
         $("[data-toggle='tooltip']").tooltip({html:true});
         // alert(this.sacard)
@@ -106,6 +108,11 @@
         onLoad () {
           this.rotate();
         },
+        reload () {             //重新加载
+          this.isrefresh = false
+          this.$nextTick(() => (this.isrefresh = true))
+        },
+
         rotate () {
           // for (let i=0;i<10;i++)
           // this.rotation.x+= 0.01;
@@ -120,6 +127,7 @@
         panelhide(){
           $('.content').css('display','none')
         },
+
         drawserver(server) {
           for (let a=0;a<server.length;a++){
             if (a==(server.cloumn-1)){
@@ -128,7 +136,7 @@
             $('#staticser').append("" +
               "<div class=\"col-lg-6 col-md-8 col-sm-6 col-xs-6\" style='width:40%;height: 5.5em;margin-left:2.5em;margin-bottom:1em;'>" +
               "<img src='../../static/image/left.png' style='left: 0;width: 18px;margin-top:1em;position: absolute' class='img-responsive'/>" +
-              "<div id='" +server[a].name + "'" + " style=\"background-color: #232323;position: absolute;width:90%;height: 4.5em\" class='serpanle' ></div>" +
+              "<div id='" +server[a].name + "'" + " style=\"background-color: #232323;position: absolute;cursor:pointer;width:90%;height: 4.5em\"  class='serpanle' ></div>" +
               "<img src='../../static/image/right.png' style='position:absolute;right:.5em;width: 18px;margin-top: 1em' class='img-responsive' />" +
               "</div>")
             for (let i=0;i<server[a].osd.length;i++) {
@@ -138,7 +146,24 @@
                 $('#'+server[a].name).append('<img src="../../static/image/cipanerror.png" class="img-responsive"  data-toggle="tooltip" title="Name：'+server[a].osd[i]+'<br>Static：'+server[a].static[i]+'" data-placement="bottom" style="width: 14%;margin:.1em 0em 0em .5em;display: inline-block;cursor: pointer" />')
             }
           }
+          var _this=this
+          $(document).on('click','.serpanle',function () {
+            let fileId=$(this).attr("id")
+            // alert(server.length)
+            for (let i=0;i<server.length;i++){
+
+              if (server[i].name==fileId){
+                _this.sastatic=_this.$store.state.cputem[i]
+                _this.safun=_this.$store.state.funspeed[i]
+                _this.sacard=_this.$store.state.cardtem[i]
+
+                _this.reload()
+              }
+            }
+
+          })
         },
+
 
       }
     }

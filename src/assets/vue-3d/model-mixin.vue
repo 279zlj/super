@@ -114,11 +114,11 @@ export default {
         },
       spritetext:{
           type:String,
-        default: '[]'
+        default: ''
       },
       spritefun:{
         type:String,
-        default: '[]'
+        default: ''
       },
       tonealgin:{
         type:String,

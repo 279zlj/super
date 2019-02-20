@@ -375,16 +375,16 @@
         },
 
         cputop(){
-          this.transmiturl=this.allurl+''
+          // this.transmiturl=this.allurl+''
           this.$refs.tips.cpuall()
         },
         iopstop(){
-          this.transmiturl=this.allurl+''
+          this.transmiturl='iops'
           this.transmittitle='节点IOPS信息'
           this.$refs.tips.iopsmbpsall()
         },
         mbpstop(){
-          this.transmiturl=this.allurl+''
+          this.transmiturl='mbps'
           this.transmittitle='节点MBPS信息'
           this.$refs.tips.iopsmbpsall()
         },

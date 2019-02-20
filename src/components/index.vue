@@ -327,9 +327,9 @@
       this.initWebSocket()
       this.getall()
       this.timer()
-      this.staticall='CPU温度：30°C，风扇转速：300转'
-      this.ssfan='显卡温度：25°C，阵列卡温度：28°C'
-      this.sscard=''
+      this.staticall=['CPU温度：30°C，风扇转速：300转','CPU温度：23°C，风扇转速：500转','CPU温度：17°C，风扇转速：1000转']
+      this.ssfan=['显卡温度：25°C，阵列卡温度：28°C','显卡温度：20°C，阵列卡温度：18°C','显卡温度：15°C，阵列卡温度：25°C']
+      this.sscard=['']
       this.$store.commit('sstatic',{cputem:this.staticall,funspeed:this.ssfan,cardtem:this.sscard})
 
     },
@@ -422,7 +422,7 @@
           console.log(error)
         })
       },
-      bytesToSize(limit) {
+      bytesToSize(limit) {            //单位的转换
         // if (bytes === 0) return '0 B';
         // var k = 1024, // or 1024
         //   sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
@@ -450,7 +450,7 @@
         return sizestr;
 
       },
-      timeTosize(time){
+      timeTosize(time){           //时间单位的转换
 
         if (time<(1000*60)) {
           return time / (1000).toFixed(0) + ' s'

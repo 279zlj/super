@@ -124,7 +124,7 @@
             })
           }
         },
-        rulesend(){
+        rulesend(){                //发送新建规则
             var rulename=this.$refs.rulename.value
             var _this=this
             _this.diskbox.splice(0)
@@ -149,7 +149,7 @@
               $('#newrule').modal('hide')
             }
         },
-        editlist() {                       /*运维信息修改*/
+        editlist() {                       /*规则修改*/
           if (sessionStorage.getItem('islogin')==250){
             $('#tipscontent').show().delay (2000).fadeOut()
           }
@@ -180,7 +180,7 @@
              console.log(error)
            })
         },
-        res(data){
+        res(data){           //返回结果
           let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
             return row.id;
           });
@@ -193,7 +193,7 @@
             })
           }
         },
-        deletelist(){                 /*删除设置  */
+        deletelist(){                 /*删除规则  */
           if (sessionStorage.getItem('islogin')==250){
             $('#tipscontent').show().delay (2000).fadeOut()
           }
@@ -207,7 +207,7 @@
               // alert('请选择删除项')
             }
             else if (ids.length >= 1) {
-              this.title = '是否确认选择删除存储池'
+              this.title = '是否确认选择删除规则'
               this.dosome = ids
               this.$refs.tips.dselect()
               // console.log('delete')

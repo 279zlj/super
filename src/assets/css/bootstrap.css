@@ -3689,6 +3689,8 @@ tbody.collapse.in {
 }
 .btn-group > .btn:first-child {
   margin-left: 0;
+  background-color: #5BC0DE;
+  color: white;
 }
 .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
   border-top-right-radius: 0;

@@ -307,7 +307,7 @@
             $('#editm').modal('hide')
           }
         },
-        res(data){
+        res(data){             //子组件信息返回
           if (this.who=='block') {
             let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
               return row.blockname;
@@ -677,7 +677,7 @@
             console.log(error)
           })
         },
-        independent(){
+        independent(){               //分离操作
           if (sessionStorage.getItem('islogin')==250){
             this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay (2000).fadeOut()

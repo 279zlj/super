@@ -157,13 +157,13 @@
           })
           $("[data-toggle='tooltip']").tooltip({html:true});
         },
-        timer(){
+        timer(){             //定时器
           var _this=this
           _this.timertip=setInterval(function () {
             _this.strat()
           },30000)
         },
-        res(data){
+        res(data){          //子组件返回结果
           if(this.data=='snap'){
             let ids = $.map( $('#table_id').bootstrapTable('getSelections'), function (row) {
               return row.snapid;

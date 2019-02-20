@@ -333,7 +333,7 @@
           }
 
         },
-        selectwhat(){
+        selectwhat(){                     //发送选择的信息
           // alert(this.jklist)
           // alert(this.jqlist)
           var clustername=this.$refs.clustername.value
@@ -348,20 +348,6 @@
           })
         }
 
-
-        // drag(ev){
-        //
-        //     ev.dataTransfer.setData("Text",ev.target.id);
-        //
-        // },
-        // allowDrop(ev){
-        //   ev.preventDefault()
-        // },
-        // drop(ev){
-        //   ev.preventDefault();
-        //   var data=ev.dataTransfer.getData("Text");
-        //   ev.target.appendChild(document.getElementById(data))
-        // }
       },
 
       mounted(){

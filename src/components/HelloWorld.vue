@@ -303,13 +303,13 @@ export default {
       this.$store.commit('countwarn',{one:this.jj,two:this.zy,three:this.cy})
       return this.jj,this.zy,this.cy
     },
-    lis(){
+    lis(){               //license初始化
       // console.log('lis',document.getElementById('lisenset'))
       $('#lisenset').bootstrapTable({
         url:this.allurl+"manctl/licen_list"
       })
     },
-    bbm(){
+    bbm(){                    //版本管理初始化
       // console.log('bbm')
       if (sessionStorage.getItem('islogin')==250) {
         $('#upload').addClass('disabled')
@@ -325,7 +325,7 @@ export default {
       if (sessionStorage.getItem('islogin')==250)
         $('#addno').addClass('disabled')
     },
-    roate(){
+    roate(){             //logo动画
       setInterval(function () {
         $('#three').fadeIn('slow')
         $('#four').slideDown(5000)

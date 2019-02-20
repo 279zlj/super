@@ -8,6 +8,7 @@
           </div>
           <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
             <p class="font">The web address could not be found.</p>
+            <p class="font">Please enter the correct address.</p>
           </div>
         </div>
       </div>

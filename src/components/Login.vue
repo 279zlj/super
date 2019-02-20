@@ -107,7 +107,7 @@
             })
           }
         },
-        change(index,id) {
+        change(index,id) {              //节点界面选择第一个节点
           var _this=this
           this.ind=index
           this.$axios.post(this.allurl+'manager/ioagent/ioagent_de',{id:id}).then(function (res) {
@@ -116,7 +116,7 @@
             console.log(error)
           })
         },
-        general(){
+        general(){                 //获取资源控制的概览信息和节点列表
           var _this=this
           this.$axios.get(this.allurl+'overview').then(function (res) {
             _this.$store.commit('gnode',{osd_use:res.data.osd_use,collect:res.data.collect,pool_use:res.data.pool_user})

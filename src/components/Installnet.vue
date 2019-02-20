@@ -76,55 +76,7 @@
         name: "Installnet",
       data(){
           return{
-            netlist:[
-
-              // {
-              //   "id":"000000000000000000000025908A6EEC",
-              //   "name": "node3",
-              //   "f": 1,
-              //   "netcard": [
-              //     {
-              //       "name":"eno1",
-              //       "m": "y: 1000",
-              //     "a": "192.168.9.43"},
-              //     {
-              //       "name":"eno2",
-              //       "m": "n: 1000-",
-              //     "a": "192.168.8.43"}
-              //   ]
-              // },
-              // {
-              //   "id":"00000000000000000000002590e479f2",
-              //   "name": "node2",
-              //   "f": 1,
-              //   "netcard":[{
-              //     "name":"enp5s0",
-              //     "m": "n: 1000-",
-              //     "a": "192.168.9.42"
-              //   },
-              //     {
-              //       "name":"enp6s0",
-              //       "m": "y: 1000",
-              //       "a": "192.168.8.42"
-              //     }
-              //   ],
-              // },
-              // {
-              //   "id":"b3a2b8ad2110e211a174001e673ba424",
-              //   "name": "node1",
-              //   "f": 1,
-              //   "netcard": [{
-              //     "name":"enp5s0",
-              //     "m": "y: 1000",
-              //     "a": "192.168.9.41"
-              //   },
-              //   {
-              //     "name":"enp6s0",
-              //     "m": "n: 1000-",
-              //     "a": "192.168.8.41"
-              //   }]
-              // }
-            ],
+            netlist:[],
             slist:[],
             mlist:[],
             sid:[],
@@ -155,7 +107,7 @@
           }
 
         },
-        start(){
+        start(){               //获取信息
           var _this=this
           this.$axios.get(this.installurl+'get_net').then(function (res) {
             _this.netlist=res.data
@@ -164,7 +116,7 @@
             console.log(error)
           })
         },
-        netselect(){
+        netselect(){           //网络的选择
           this.salist.splice(0)
           if(this.slist.length>0) {
             for (let i = 0; i < this.slist.length; i++) {

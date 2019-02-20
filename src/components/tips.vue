@@ -43,10 +43,12 @@
             </div>
             <div class="modal-body">
               <p>{{dotitle}}:{{docontent}}</p>
+              <div class="row"><div class="col-lg-3">请输入验证码：</div><div id="yzm" class="col-lg-2">{{identify}}</div><input type="text" id="sr" ref="sr" class="col-lg-6 col-lg-offset-1 form-control"/></div>
+              <span style="color:red">{{cross}}</span>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
-              <button type="button" class="btn btn-info" data-dismiss="modal" @click="dsure()">{{$t('message.Confirm')}}</button>
+              <button type="button" class="btn btn-info" @click="dsure()">{{$t('message.Confirm')}}</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal -->
@@ -60,16 +62,22 @@
               <h4 class="modal-title" id="cputop">节点CPU使用率</h4>
             </div>
             <div class="modal-body">
-              <table class="table table-responsive table-condensed" id="cputable" data-toggle="table" data-url=content  data-toolbar="#toolbar" data-classes="table-no-bordered">
+              <table class="table-condensed table-responsive table">
                 <thead class="o">
-                <tr>
-                  <th data-field="ip" >ip</th>
-                  <th data-field="use" >使用率</th>
-                  <th data-field="status" >状态</th>
-                  <th data-field="time" >时间</th>
-                </tr>
+                  <tr>
+                    <th>ip</th>
+                    <th>使用率</th>
+                    <th>状态</th>
+                    <th>时间</th>
+                  </tr>
                 </thead>
                 <tbody>
+                <tr v-for="i in $store.state.cpu">
+                  <td>{{i.ip}}</td>
+                  <td>{{i.network}}</td>
+                  <td :class="{'successa':i.status==='正常','fail':i.status==='不健康'}">{{i.status}}</td>
+                  <td>{{i.time}}</td>
+                </tr>
                 </tbody>
               </table>
             </div>
@@ -89,16 +97,30 @@
               <h4 class="modal-title" id="title">{{title}}</h4>
             </div>
             <div class="modal-body">
-              <table class="table table-responsive table-condensed" id="ibtable" data-toggle="table" data-url=content  data-toolbar="#toolbar" data-classes="table-no-bordered">
+              <table class="table-condensed table-responsive table">
                 <thead class="o">
                 <tr>
-                  <th data-field="ip" >ip</th>
-                  <th data-field="rw" >读/写</th>
-                  <th data-field="status" >状态</th>
-                  <th data-field="time" >时间</th>
+                  <th >ip</th>
+                  <th >读/写</th>
+                  <th >状态</th>
+                  <th >时间</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody v-if="content=='iops'">
+                <tr v-for="i in $store.state.iops">
+                  <td>{{i.ip}}</td>
+                  <td>{{i.network[0]}}/{{i.network[1]}}</td>
+                  <td :class="{'successa':i.status==='正常','fail':i.status==='不健康'}">{{i.status}}</td>
+                  <td>{{i.time}}</td>
+                </tr>
+                </tbody>
+                <tbody v-if="content=='mbps'">
+                <tr v-for="i in $store.state.mbps">
+                  <td>{{i.ip}}</td>
+                  <td>{{i.network[0]}}/{{i.network[1]}}</td>
+                  <td :class="{'successa':i.status==='正常','fail':i.status==='不健康'}">{{i.status}}</td>
+                  <td>{{i.time}}</td>
+                </tr>
                 </tbody>
               </table>
             </div>
@@ -156,7 +178,11 @@
       props:['content','title','out','docontent','dotitle'],
       data(){
           return{
-
+            identify:'',
+            paraone:'',
+            mark:'',
+            paratwo:'',
+            cross:''
           }
       },
       watch:{
@@ -190,33 +216,65 @@
         },
         cpuall(){
           $('#cput').modal("show")
-          $('#cputable').bootstrapTable({
 
-          })
         },
         iopsmbpsall(){
           $('#iopsmbps').modal("show")
-          $('#ibtable').bootstrapTable({
 
-          })
         },
         fsmount(){
           $('#fsmountdetail').modal("show")
-          $('#fstable').bootstrapTable({
 
-          })
         },
         dselect(){
+          this.cross=''
+          this.code()
           $('#deletesure').modal("show")
+
         },
         dsure(){
-          this.$emit("respond","ok")
+          var codesure=this.$refs.sr.value
+          var sum=this.paraone+this.paratwo
+          var cut=this.paraone-this.paratwo
+          if (this.mark=='+'){
+            if (codesure==sum){
+              this.$emit("respond","ok")
+              $('#deletesure').modal('hide')
+            }
+            else {
+              this.cross='输入验证码错误'
+            }
+          }
+          else if (this.mark=='-'){
+            if (codesure==cut){
+              this.$emit("respond","ok")
+              $('#deletesure').modal('hide')
+            }
+            else {
+              this.cross='输入验证码错误'
+            }
+          }
         },
         osure(){
           this.$emit("log","logout")
+        },
+        code(){                     //简单生成验证码
+          var a=Math.floor(Math.random()*(100-0+1)+0);
+          var b=Math.floor(Math.random()*(100-0+1)+0);
+          var c=new Array('-','+')
+          var d=Math.floor(Math.random()*2)
+          var e=c[d]
+          var f=a+e+b
+          this.paraone=a
+          this.mark=e
+          this.paratwo=b
+          this.identify=f
+          console.log(this.identify)
         }
       },
-
+      mounted(){
+        this.code()
+      }
 
     }
 </script>
@@ -231,5 +289,14 @@
   .o{
     background-color: #172952;
   }
+  #yzm{
+    background: linear-gradient(to top right, #0F3F6B, #2E6CA4, #609CD2);
+    color: #7FAAD2;
+    font-style: italic;
+    font-size: 1.5em;
+  }
+  #sr{
+    width: 40%;
 
+  }
 </style>

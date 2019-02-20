@@ -40,6 +40,7 @@
               <p>{{$t('message.Password')}}：</p><input type="password" class="form-control" id="name" ref="user"/>
               <p>{{$t('message.Confirm-Password')}}：</p><input type="password" class="form-control" id="passwd" ref="passwd" />
               <p>{{$t('message.User-role')}}：</p><input type="text" class="form-control" id="content" ref="role" :placeholder=rolerank />
+              <span style="color:red">{{cross}}</span>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
@@ -67,7 +68,8 @@
           tipscontent:'',
           title:'',
           respond:'',
-          dosome:''
+          dosome:'',
+          cross:''
         }
       },
       methods:{
@@ -108,19 +110,21 @@
           }
         },
         editsend(){                      /*发送用户修改信息*/
-          let userpwd=this.$refs.user.value
+
           let pwd=this.$refs.passwd.value
           let role=this.$refs.role.value
-          if (userpwd==''||role==''||pwd==''){
+          let passwd=this.$refs.user.value
+          console.log(passwd,pwd,role)
+          if (role==''||pwd==''||passwd==''){
             this.cross='请填写完整'
           }
-          else if(userpwd!=pwd){
+          else if(passwd!=pwd){
             this.cross='两次输入密码不匹配'
           }
           else {
             var _this=this
             this.$axios.post(this.allurl + 'manctl/user_edit', {
-              user: userpwd,
+              user: pwd,
               role: role,
               id: this.edit
             }).then(function (res) {

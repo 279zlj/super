@@ -282,7 +282,7 @@
               <h4 class="modal-title" id="subuser">{{$t('message.Add-child-user')}}</h4>
             </div>
             <div class="modal-body">
-              <p>{{$t('message.Name')}}：</p><input type="text" class="form-control" id="subname" ref="addid" required="required"/>
+              <p>{{$t('message.Name')}}：</p><input type="text" class="form-control" id="subname" ref="subname" required="required"/>
               <p>{{$t('message.access-level')}}：</p>
               <select class="form-control" id="tank" v-on:change="sel($event)" v-model="rankselect">
               <option v-for="m in rank" :value="m.name">{{m.name}}</option>
@@ -372,28 +372,34 @@
           }
       },
       methods:{
-        father(a,n){
+        father(a,n){                   //用户的切换
           // console.log(a)
           this.personal=a
           let i=0
           for ( i;i<this.list.length; i++){
             if (n==this.list[i].user_id){
               this.onelist=this.list[i].subusers
+              this.num=this.list[i].user_id
+              this.name=this.list[i].display_name
               if (this.onelist[0].origin===undefined){
                 for(let i=0;i<this.onelist.length;i++){
                   this.onelist[i].origin=this.onelist[i].id.split(":")[0]
                   this.onelist[i].id=this.onelist[i].id.split(":")[1]
+                  this.thissub(this.onelist[0].id)
                 }
+
                 this.one1=this.onelist
               }
               else {
                 this.onelist=this.list[i].subusers
+
                 this.one1=this.onelist
               }
+
             }
           }
         },
-        res(data){
+        res(data){           //子组件的返回
           if(data=='ok'&&this.who=='stopuser'){
             this.$axios.post(this.allurl+'gwobj/suspend_objuser',{uid:this.dosome,suspend:1}).then(function (res) {
               this.tipsc = res.data.status
@@ -443,8 +449,9 @@
             })
           }
         },
-        thissub(who){
+        thissub(who){          //所选的子用户
           this.subnow=who
+          // alert(this.subnow)
         },
         sel(event){
           this.rankselect=event.target.value
@@ -458,7 +465,7 @@
         asele(event){
           this.capsselect=event.target.value
         },
-        getsome(){
+        getsome(){           //获取用户信息
           var _this=this
           this.$axios.get(this.allurl+'gwobj/get_objusers').then(function (res) {
             _this.list=res.data
@@ -492,7 +499,7 @@
             url:this.allurl+this.searchurl
           })
         },
-        add(){
+        add(){          //增加用户
           if (sessionStorage.getItem('islogin')==250){
             this.tipsc='普通用户无操作权限！'
             $("#tipsc").show().delay (2000).fadeOut ();;
@@ -502,7 +509,7 @@
             $('#addnew').modal('show')
           }
         },
-        addauth(){
+        addauth(){         //增加权限
           if (sessionStorage.getItem('islogin')==250){
             this.tipsc='普通用户无操作权限！'
             $("#tipsc").show().delay (2000).fadeOut ();;
@@ -514,7 +521,7 @@
             $('#auth').modal('show')
           }
         },
-        quotaset(){
+        quotaset(){            //配额设置
           if (sessionStorage.getItem('islogin')==250){
             this.tipsc='普通用户无操作权限！'
             $("#tipsc").show().delay (2000).fadeOut ();;
@@ -524,7 +531,7 @@
             $('#quotaset').modal('show')
           }
         },
-        quotasend(){
+        quotasend(){       //配额信息发送
           var object=this.$refs.max-object.value
           var size=this.$refs.max-size.value
           if (object==''||size==''){
@@ -543,7 +550,7 @@
 
           }
         },
-        deleteauth(){
+        deleteauth(){        //删除用户
           if (sessionStorage.getItem('islogin')==250){
             this.tipsc='普通用户无操作权限！'
             $("#tipsc").show().delay (2000).fadeOut ();;
@@ -574,8 +581,9 @@
           }
         },
         addsend(){
-          var id=this.$refs.addid.value
-          var name=this.$refs.addname.value
+          let id=this.$refs.addid.value
+          let name=this.$refs.addname.value
+
           if (id==''||name==''){
             this.cross='请填写完整!'
           }
@@ -615,7 +623,7 @@
           })
           $('#addsub').modal('hide')
         },
-        editsend(){
+        editsend(){        //修改发送
           var name=this.$refs.name.value
           if (this.visitold==''||name==''){
             this.cross='请填写完整!'
@@ -632,7 +640,7 @@
             $('#edit').modal('hide')
           }
         },
-        subeditsend(){
+        subeditsend(){         //子用户修改
           var sname=this.$refs.sname.value
           if (this.subvisit==''||name==''){
             this.cross='请填写完整!'
@@ -670,7 +678,7 @@
             $('#subedit').modal('show')
           }
         },
-        look(){
+        look(){           //查看信息
           if (sessionStorage.getItem('islogin')==250){
             this.tipsc='普通用户无操作权限！'
             $("#tipsc").show().delay (2000).fadeOut ();;
