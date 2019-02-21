@@ -90,7 +90,7 @@
             <div class="col-lg-11 col-md-11 col-sm-10 col-sm-10 tcolor tab-content" id="myTabContent" >
               <div class="tab-pane fade in active" id="home">
                 <table class="table table-responsive text-nowrap" id="fstable"  data-height="200" data-click-to-select="true" data-toggle="table"  data-classes="table-no-bordered" >
-                  <div class="alert alert-danger " id="tipsa" style="display: none;">{{tipsa}}</div>
+                  <div class="alert alert-danger " id="tipsc" style="display: none">{{tipsa}}</div>
                   <thead>
                   <tr>
                     <th data-field="state" data-checkbox="true" ></th>
@@ -121,7 +121,12 @@
             <h4 class="modal-title" id="myModalLabel">{{$t('message.Quota-setting')}}</h4>
           </div>
           <div class="modal-body">
-            <p>{{$t('message.Capacity')}}：</p><input type="number" class="form-control" id="size" ref="size"/>
+            <div class="row"><div class="col-lg-3">{{$t('message.Capacity')}}：</div><div class="col-lg-5"><input type="number" class="form-control" id="size" ref="size"/></div>
+              <div class="col-lg-4">
+                <select class="form-control" id="uintselect" v-on:change="sel($event)" v-model="unitselect">
+                  <option v-for="m in uint" :value="m.name">{{m.name}}</option>
+                </select>
+              </div></div>
             <!--<p>文件数量：</p><input type="number" class="form-control" id="number" ref="number" />-->
             <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
           </div>
@@ -172,32 +177,7 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
     </div>
-    <!--<div class="modal fade" id="newfile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
-      <!--<div class="modal-dialog">-->
-        <!--<div class="modal-content">-->
-          <!--<div class="modal-header">-->
-            <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
-            <!--<h4 class="modal-title" >创建文件系统</h4>-->
-          <!--</div>-->
-          <!--<div class="modal-body">-->
-            <!--<p>名称：</p><input type="text" class="form-control" id="name" ref="name"/>-->
-            <!--<p>元数据池：</p>-->
-            <!--<select class="form-control" id="metapool" v-on:change="metap($event)" v-model="metapool" @click="metaall()">-->
-              <!--<option v-for="m in metalist" :value="m">{{m}}</option>-->
-            <!--</select>-->
-            <!--<p>数据池：</p>-->
-            <!--<select class="form-control" id="datapool" v-on:change="datap($event)" v-model="datapool" @click="dataall()">-->
-              <!--<option v-for="d in datalist" :value="d">{{d}}</option>-->
-            <!--</select>-->
-            <!--<div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>-->
-          <!--</div>-->
-          <!--<div class="modal-footer">-->
-            <!--<button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>-->
-            <!--<button type="button" class="btn btn-primary" @click="filesend()" >{{$t('message.Confirm')}}</button>-->
-          <!--</div>-->
-        <!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
-      <!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
-    <!--</div>-->
+
     <tips ref="tips" :content=tipscontent :dotitle=title :docontent=dosome v-on:respond="res"></tips>
   </div>
 </template>
@@ -224,7 +204,13 @@
             who:'',
             respond:'',
             filewho:'',
-            who_set:''
+            who_set:'',
+            unitselect:"",
+            uint:[
+              {name:'MB',value:'mb'},
+              {name:'GB',value:'GB'},
+              {name:'TB',value:'TB'}
+            ]
             // pools:[]
           }
       },
@@ -247,10 +233,13 @@
           })
           // console.log(_this.$store.state.data_pool,)
         },
+        sel($event){
+          this.unitselect=event.target.value
+        },
         quota(){
           if (sessionStorage.getItem('islogin')==250){
             this.tipsa='普通用户无操作权限！'
-            $('#tipsa').show().delay (2000).fadeOut()
+            $('#tipsc').show().delay (2000).fadeOut()
           }
           else {
             let ids = $.map($('#fstable').bootstrapTable('getSelections'), function (row) {
@@ -271,11 +260,11 @@
         quotasend(){
           var size=this.$refs.size.value
           // var number=this.$refs.number.value
-          if (size==''||number==''){
+          if (size==''||this.unitselect==''){
             this.cross='请填写完整'
           }
           else {
-            this.$axios.post(this.allurl+'fs/fs_quotaset',{username:this.filewho,var:['max_file_size'],val:[size]}).then(function (res) {
+            this.$axios.post(this.allurl+'fs/fs_quotaset',{username:this.filewho,var:['max_file_size','uint'],val:[size,this.unitselect]}).then(function (res) {
               if (res.status==200){
                 $('#quotasetting').modal('hide')
               }
@@ -297,7 +286,7 @@
         adduser(){
           if (sessionStorage.getItem('islogin')==250){
             this.tipsa='普通用户无操作权限！'
-            $('#tipsa').show().delay (2000).fadeOut()
+            $('#tipsc').show().delay (2000).fadeOut()
           }
           else {
             this.cross=''
@@ -365,7 +354,7 @@
         deleteuser(){
           if (sessionStorage.getItem('islogin')==250){
             this.tipsa='普通用户无操作权限！'
-            $('#tipsa').show().delay (2000).fadeOut()
+            $('#tipsc').show().delay (2000).fadeOut()
           }
           else {
             let ids = $.map($('#fstable').bootstrapTable('getSelections'), function (row) {

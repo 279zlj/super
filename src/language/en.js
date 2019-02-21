@@ -58,6 +58,7 @@ module.exports = {
     "Add-new-rules":"Add new rules",
     "Client":"Client",
     "Usage-ratio":"Usage ratio",
+    "Use":"Use",
     "To-add-a-disk":"To add a disk",
     "content":"Content",
     "Modify-child-user-information":"Modify child user information",

@@ -5,7 +5,7 @@
 
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive">
         <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-toggle="table" data-height="500"  data-click-to-select="true" data-classes="table-no-bordered" data-pagination="true" data-page-number="1"  data-page-size="10" data-search="true" data-show-refresh="true">
-          <div class="alert alert-danger " id="tipscontent" style="display: none;">{{cross}}</div>
+          <div class="alert alert-danger " id="tipscontent" style="display: none;">{{tipscontent}}</div>
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>

@@ -34,8 +34,8 @@
                   <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe">{{$t('message.user-mode')}}：</div>
                   <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 " >
                     <span>{{i.suspended}}</span>
-                    <span style="cursor: pointer" class="glyphicon glyphicon-stop sopr" title="停止" @click="stopuser()" data-toggle="tooltip" data-placement="top" v-show="i.suspended=='1'"></span>
-                    <span style="cursor: pointer" class="glyphicon glyphicon-off opr" title="启用" @click="startuser()" data-toggle="tooltip" data-placement="top" v-show="i.suspended=='0'"></span>
+                    <span style="cursor: pointer" class="glyphicon glyphicon-stop sopr" title="停止" @click="stopuser()" data-toggle="tooltip" data-placement="top" v-show="i.suspended=='0'"></span>
+                    <span style="cursor: pointer" class="glyphicon glyphicon-off opr" title="启用" @click="startuser()" data-toggle="tooltip" data-placement="top" v-show="i.suspended=='1'"></span>
                   </div>
                   </div>
                   <div class="row all">
@@ -82,7 +82,7 @@
           <ul id="tabt" class="nav nav-tabs">
             <li id="two2" v-for="(a,index) in one1" v-bind:class="{'active':index==0}"><a :href="['#'+a.id]" data-toggle="tab" @click="thissub(a.id)">{{a.id}}</a></li>
           </ul>
-          <div class="alert alert-danger " id="subtipsc" style="display: none;">{{subtipsc}}</div>
+          <div class="alert alert-danger " id="tipscontent" style="display: none;">{{subtipsc}}</div>
           <div id="myTab" class="tab-content">
             <div class="tab-pane fade tab-pa" :id="b.id"  v-for="(b,index) in one1" v-bind:class="{'active in':index==0}">
               <div class="panel panel-default">
@@ -443,7 +443,7 @@
           else if (data=='ok'&&this.who=='deletesub') {
             this.$axios.post(this.allurl+'gwobj/remove_subuser',{uid:this.num,sub_name:this.dosome}).then(function (res) {
               this.subtipsc = res.data.status
-              $('#subtipsc').show().delay(2000).fadeOut()
+              $('#tipscontent').show().delay(2000).fadeOut()
             }).catch(function (error) {
               console.log(error)
             })
@@ -601,7 +601,7 @@
         subadd(){
           if (sessionStorage.getItem('islogin')==250){
             this.subtipsc='普通用户无操作权限！'
-            $("#subtipsc").show().delay (2000).fadeOut ();;
+            $("#tipscontent").show().delay (2000).fadeOut ();;
           }
           else {
             this.cross=''
@@ -616,14 +616,14 @@
           this.$axios.post(this.allurl+'gwobj/create_subuser',{uid:this.num,sub_name:subname,access:this.rankselect}).then(function (res) {
 
               this.subtipsc = res.data.status
-              $('#subtipsc').show().delay(2000).fadeOut()
+              $('#tipscontent').show().delay(2000).fadeOut()
 
           }).catch(function (error) {
             console.log(error)
           })
           $('#addsub').modal('hide')
         },
-        editsend(){        //修改发送
+        editsend(){
           var name=this.$refs.name.value
           if (this.visitold==''||name==''){
             this.cross='请填写完整!'
@@ -649,7 +649,7 @@
             this.$axios.post(this.allurl+'gwobj/create_subuser',{uid:this.num,access:this.subvisit,sub_name:sname}).then(function (res) {
 
                 this.tipscontent = res.data.status
-                $('#subtipsc').show().delay(2000).fadeOut()
+                $('#tipscontent').show().delay(2000).fadeOut()
 
 
             }).catch(function (error) {
@@ -671,7 +671,7 @@
         subedit(){
           if (sessionStorage.getItem('islogin')==250){
             this.subtipsc='普通用户无操作权限！'
-            $("#subtipsc").show().delay (2000).fadeOut ();;
+            $("#tipscontent").show().delay (2000).fadeOut ();;
           }
           else {
             this.cross=''
@@ -703,7 +703,7 @@
         subdelete(){
           if (sessionStorage.getItem('islogin')==250){
             this.subtipsc='普通用户无操作权限！'
-            $("#subtipsc").show().delay (2000).fadeOut ();
+            $("#tipscontent").show().delay (2000).fadeOut ();
           }
           else {
             this.who='deletesub'

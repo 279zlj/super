@@ -124,8 +124,8 @@
         },
         subadd(){
           if (sessionStorage.getItem('islogin')==250){
-            this.tipscontent='普通用户无操作权限！'
-            $("#tipscontent").show().delay (2000).fadeOut ();;
+            this.tipsco='普通用户无操作权限！'
+            $("#tipsc").show().delay (2000).fadeOut ();;
           }
           else {
             var ids = $.map($('#subtable').bootstrapTable('getSelections'), function (row) {
@@ -187,8 +187,8 @@
         },
         subdelete(){
           if (sessionStorage.getItem('islogin')==250){
-            this.tipscontent='普通用户无操作权限！'
-            $('#tipscontent').show().delay(2000).fadeOut()
+            this.tipsc='普通用户无操作权限！'
+            $('#tipsc').show().delay(2000).fadeOut()
           }
           else {
             this.who = 'subdele'

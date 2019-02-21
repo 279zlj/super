@@ -11,6 +11,7 @@
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
             <th data-field="poolname">{{$t('message.Pool-name')}}</th>
+            <th data-field="app">{{$t('message.Use')}}</th>
             <th data-field="strategy">{{$t('message.Strategy')}}</th>
             <th data-field="iops">IOPS</th>
             <th data-field="thtuput">{{$t('message.Throughput')}}</th>
@@ -149,6 +150,11 @@
             <select @click="rulewhat" id="poolrule" class="form-control" v-on:change="rulesel($event)" v-model="ruleselect">
               <option v-for="r in rule" :value="r.name">{{r.name}}</option>
             </select>
+            <p>{{$t('message.Use')}}：</p>
+
+            <select id="usedo" class="form-control" v-on:change="usesel($event)" v-model="useelect">
+              <option v-for="u in usesome" :value="u.name">{{u.name}}</option>
+            </select>
             <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
             <!--<div v-if="unitsele=='erasure'">-->
               <!--<p>k值：</p><input type="number" class="form-control" id="k" ref="kvalue"/>-->
@@ -242,7 +248,13 @@
             luns:[],
             lsele:'',
             lunsele:'',
-            lselenum:''
+            lselenum:'',
+            useelect:"",
+            usesome:[
+              {name:'块存储',value:'块存储'},
+              {name:'对象存储',value:'对象存储'},
+              {name:'文件存储',value:'文件存储'}
+            ]
           }
       },
       methods:{
@@ -295,8 +307,11 @@
         sel(event){                     /*选择自建启动延时单位*/
           this.unitsele=event.target.value
         },
-        rulesel(){
+        rulesel(event){
           this.ruleselect=event.target.value
+        },
+        usesel(event){
+          this.useelect=event.target.value
         },
         editlist() {                         /*pool设备的修改*/
           if (sessionStorage.getItem('islogin')==250){
@@ -428,7 +443,8 @@
               name: addname,
               // size: addsize,
               type: this.unitsele,
-              rule:this.ruleselect
+              rule:this.ruleselect,
+              use:this.useelect
             }).then(function (res) {
 
                 _this.tipscontent = res.data.status
@@ -617,6 +633,7 @@
               // alert('请选择其中一个进行授权')
             }
             else {
+              this.cross=''
               $('#getlun').modal('show')
 
             }
@@ -642,6 +659,7 @@
               // alert('请选择其中一个取消授权')
             }
             else {
+              this.cross=''
               $('#nolun').modal('show')
             }
           }

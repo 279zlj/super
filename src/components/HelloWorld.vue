@@ -157,10 +157,11 @@
           <div class="modal-body">
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <input type="text" class="form-control" placeholder="手机号码" autofocus="autofocus"/>
+                <input type="text" ref="phone" class="form-control" id="phone" placeholder="手机号码" autofocus="autofocus"/>
+                <span style="color:red">{{cross}}</span>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <button class="btn btn-info" type="button" id="addno">添加</button>
+                <button class="btn btn-info" type="button" id="addno" @click="warnphone()">添加</button>
               </div>
             </div>
 
@@ -207,7 +208,8 @@ export default {
       respond:'',
       language:'',
       user:'',
-      timertip:null
+      timertip:null,
+      cross:''
 
     }
   },
@@ -252,6 +254,21 @@ export default {
         // this.title=ids
         this.$refs.tips.logout()
 
+    },
+    warnphone(){
+      var phoner='/^1([38]\d|5[0-35-9]|7[3678])\d{8}$/'
+      var phone=this.$refs.phone.value
+      this.cross=''
+      if (phoner.test(phone)){
+        this.$axios.post(this.allurl+'',{'phone':phone}).then(function () {
+
+        }).catch(function (error) {
+          console.log(error)
+        })
+      }
+      else {
+        this.cross='输入手机号码格式不对'
+      }
     },
     changelanguage(lang){
       this.$i18n.locale = lang
