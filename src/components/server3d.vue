@@ -17,7 +17,9 @@
             <!--<p>阵列卡温度：</p>-->
           <!--</div>-->
         </div>
+
         <model-gltf v-if="isrefresh" :backgroundAlpha="bgAlpha"  :rotation="rotation"  @on-load="onLoad" :spritefun="safun" :spritetext="sastatic" :tonealgin="tonealgin"  :ttwoalgin="ttwoalgin" :tcolor="tcolor"  :position="where" :backgroundColor="bgColor" src="../../static/server/server2801.gltf" :cameraPosition="camera" :width="wid" :height="hei"></model-gltf>
+
         <!--<div ref="server3d"></div>-->
       </div>
     </div>
@@ -60,8 +62,8 @@
             tcontent: '',
             ttitle: '',
             dosome: '',
-            sastatic:this.$store.state.cputem[0],
-            safun: this.$store.state.funspeed[0],
+            sastatic:JSON.stringify(this.$store.state.cputem[0]),
+            safun: JSON.stringify(this.$store.state.funspeed[0]),
             sacard: '',
             tonealgin:'bottomLeft',
             ttwoalgin:'bottomRight',
@@ -72,15 +74,17 @@
               z: 0
             },
             where: {x: 0, y: 0, z: -20},
-            server: [
-              {name: 'node1', osd: ['ada', 'adb', 'adv'], static: ['ok', 'error', 'ok'], row: 6, cloumn: 3},
-              {name: 'node2', osd: ['ada', 'adb', 'adv'], static: ['ok', 'ok', 'ok'], row: 6, cloumn: 3},
-              {name: 'node3', osd: ['ada', 'adb', 'adv'], static: ['ok', 'ok', 'ok'], row: 6, cloumn: 3}
-            ],
+            /*server: [
+       {name: 'node1', osd: ['ada', 'adb', 'adv'], static: ['ok', 'error', 'ok'], row: 6, cloumn: 3},
+       {name: 'node2', osd: ['ada', 'adb', 'adv'], static: ['ok', 'ok', 'ok'], row: 6, cloumn: 3},
+       {name: 'node3', osd: ['ada', 'adb', 'adv'], static: ['ok', 'ok', 'ok'], row: 6, cloumn: 3}
+     ],*/
+            server:this.$store.state.disks,
             isrefresh:true
           }
       },
       created(){
+
           this.$nextTick(()=>{
             this.init()
           })
@@ -129,6 +133,9 @@
         },
 
         drawserver(server) {
+          // this.sastatic=JSON.stringify   (this.$store.state.cputem[0])
+          // this.safun=JSON.stringify(this.$store.state.funspeed[0])
+          // console.log(this.sastatic,'111111111111111111111111111111',this.safun,'2222222222222222222222222222222222')
           for (let a=0;a<server.length;a++){
             if (a==(server.cloumn-1)){
               return '<br>'
@@ -136,14 +143,14 @@
             $('#staticser').append("" +
               "<div class=\"col-lg-6 col-md-8 col-sm-6 col-xs-6\" style='width:40%;height: 5.5em;margin-left:2.5em;margin-bottom:1em;'>" +
               "<img src='../../static/image/left.png' style='left: 0;width: 18px;margin-top:1em;position: absolute' class='img-responsive'/>" +
-              "<div id='" +server[a].name + "'" + " style=\"background-color: #232323;position: absolute;cursor:pointer;width:90%;height: 4.5em\"  class='serpanle' ></div>" +
+              "<div id='" +server[a].host_name + "'" + " style=\"background-color: #232323;position: absolute;cursor:pointer;width:90%;height: 4.5em\" class='serpanle'  ></div>" +
               "<img src='../../static/image/right.png' style='position:absolute;right:.5em;width: 18px;margin-top: 1em' class='img-responsive' />" +
               "</div>")
-            for (let i=0;i<server[a].osd.length;i++) {
-              if (server[a].static[i]=='ok')
-                $('#'+server[a].name).append('<img src="../../static/image/cipan.png" class="img-responsive"  data-toggle="tooltip" title="Name：'+server[a].osd[i]+'<br>Static：'+server[a].static[i]+'" data-placement="bottom" style="width: 14%;margin:.1em 0em 0em .5em;display: inline-block;cursor: pointer" />')
+            for (let i=0;i<server[a].disks.length;i++) {
+              if (server[a].disks[i].stats=='ok')
+                $('#'+server[a].host_name).append('<img src="../../static/image/cipan.png" class="img-responsive"  data-toggle="tooltip" title="Name：'+server[a].disks[i].name+'<br>Static：'+server[a].disks[i].stats+'<br>Host_ip：'+server[a].host_ip+'"" data-placement="bottom" style="width: 14%;margin:.1em 0em 0em .5em;display: inline-block;cursor: pointer" />')
               else
-                $('#'+server[a].name).append('<img src="../../static/image/cipanerror.png" class="img-responsive"  data-toggle="tooltip" title="Name：'+server[a].osd[i]+'<br>Static：'+server[a].static[i]+'" data-placement="bottom" style="width: 14%;margin:.1em 0em 0em .5em;display: inline-block;cursor: pointer" />')
+                $('#'+server[a].host_name).append('<img src="../../static/image/cipanerror.png" class="img-responsive"  data-toggle="tooltip" title="Name：'+server[a].disks[i].name+'<br>Static：'+server[a].disks[i].stats+'<br>Host_ip：'+server[a].host_ip+'"" data-placement="bottom" style="width: 14%;margin:.1em 0em 0em .5em;display: inline-block;cursor: pointer" />')
             }
           }
           var _this=this
@@ -152,7 +159,7 @@
             // alert(server.length)
             for (let i=0;i<server.length;i++){
 
-              if (server[i].name==fileId){
+              if (server[i].host_name==fileId){
                 _this.sastatic=_this.$store.state.cputem[i]
                 _this.safun=_this.$store.state.funspeed[i]
                 _this.sacard=_this.$store.state.cardtem[i]

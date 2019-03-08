@@ -48,6 +48,7 @@
             <th data-field="state" data-checkbox="true" ></th>
             <th data-field="name">{{$t('message.Initiator-name')}}</th>
             <th data-field="created">{{$t('message.Authorized')}}</th>
+            <th data-field="ip">IP</th>
             <th data-field="luns">Luns</th>
             <th data-field="link">{{$t('message.Connection')}}</th>
           </tr>
@@ -58,16 +59,16 @@
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 b" >
         <div id="y">
-          <p @click="addclient()"  data-toggle="clientmodal" style="cursor: pointer"><img src="../../static/image/user.png" id="addclient" class="img-responsive adduser" title="新增客户端" data-toggle="tooltip" data-placement="right"/></p>
+          <p @click="addclient()"  data-toggle="clientmodal" style="cursor: pointer"><img src="../../static/image/user.png" id="addclient" class="img-responsive adduser" title="客户端授权" data-toggle="tooltip" data-placement="right"/></p>
           <p id="get" @click="empower()" style="cursor: pointer"><img src="../../static/image/get.png" class="img-responsive getpower" id="addlun" title="分配lun" data-toggle="tooltip" data-placement="right"/></p>
           <p  id="nget" @click="noempower()" style="cursor: pointer"><img src="../../static/image/nget.png" class="img-responsive getpower" id="deletelun" title="删除lun" data-toggle="tooltip" data-placement="right"/></p>
-          <p @click="deletel()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" id="deletel" data-toggle="tooltip" data-placement="right"></span></p>
+          <p @click="deletel()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="取消客户端授权" id="deletel" data-toggle="tooltip" data-placement="right"></span></p>
         </div>
         <div style="width: 300px" id="h">
-          <div @click="addclient()"   style="float: left" data-toggle="clientmodal"><img src="../../static/image/user.png" class="img-responsive adduserh" style="" title="新增客户端" data-toggle="tooltip" data-placement="right"/></div>
+          <div @click="addclient()"   style="float: left" data-toggle="clientmodal"><img src="../../static/image/user.png" class="img-responsive adduserh" style="" title="客户端授权" data-toggle="tooltip" data-placement="right"/></div>
           <div @click="empower()" id="gett" style="float: left" ><img src="../../static/image/get.png" class="img-responsive getpower" title="分配lun" data-toggle="tooltip" data-placement="right"/></div>
           <div @click="noempower()" id="ngett" style="float: left" ><img src="../../static/image/nget.png" class="img-responsive getpower" title="删除lun" data-toggle="tooltip" data-placement="right"/></div>
-          <div @click="deletel()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></div>
+          <div @click="deletel()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="取消客户端授权" data-toggle="tooltip" data-placement="right"></span></div>
         </div>
       </div>
     </div>
@@ -89,29 +90,29 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
     </div>
-    <div class="modal fade" id="clientmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="client">{{$t('message.Add-iSCSI-client')}}</h4>
-          </div>
-          <div class="modal-body">
-            <p>{{$t('message.Add-iSCSI-client')}}：</p>
-            <div class="input-group input-group-sm">
-              <span class="input-group-addon">iqn.2018-12.com.wz:</span>
-              <input type="text" class="form-control" id="clientname" ref="addclient" required="required"/>
-            </div>
+    <!--<div class="modal fade" id="clientmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+      <!--<div class="modal-dialog">-->
+        <!--<div class="modal-content">-->
+          <!--<div class="modal-header">-->
+            <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+            <!--<h4 class="modal-title" id="client">{{$t('message.Add-iSCSI-client')}}</h4>-->
+          <!--</div>-->
+          <!--<div class="modal-body">-->
+            <!--<p>{{$t('message.Add-iSCSI-client')}}：</p>-->
+            <!--<div class="input-group input-group-sm">-->
+              <!--<span class="input-group-addon">iqn.2018-12.com.wz:</span>-->
+              <!--<input type="text" class="form-control" id="clientname" ref="addclient" required="required"/>-->
+            <!--</div>-->
 
-            <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
-            <button type="button" class="btn btn-primary" @click="clientsend()" >{{$t('message.Confirm')}}</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal -->
-    </div>
+            <!--<div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>-->
+          <!--</div>-->
+          <!--<div class="modal-footer">-->
+            <!--<button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>-->
+            <!--<button type="button" class="btn btn-primary" @click="clientsend()" >{{$t('message.Confirm')}}</button>-->
+          <!--</div>-->
+        <!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+      <!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+    <!--</div>-->
     <div class="modal fade" id="dilatation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -463,8 +464,26 @@
             $('#tipsc').show().delay(2000).fadeOut()
           }
           else {
-            this.cross=''
-            $('#clientmodal').modal("show")
+            let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
+              return row.name;
+            });
+            if (ids.length < 1) {
+              this.tipscontent = '请选择一个客户端授权'
+              this.$refs.tips.usetips()
+              // alert('请选择删除项')
+            }
+            else if (ids.length >= 1) {
+              this.title = '是否确认授权客户端'
+              this.dosome = ids
+              this.$refs.tips.dselect()
+              this.who='clientpower'
+
+            }
+            else {
+              return
+            }
+            // this.cross=''
+            // $('#clientmodal').modal("show")
 
           }},
         res(data){
@@ -499,12 +518,25 @@
               this.$axios.post(this.allurl + 'manctl/client_rm', {ids: ids}).then(function (res) {
                 // console.log(res,'post ok')
                 if (res.data = 'ok') {
-                  $('#table').bootstrapTable('remove', {
-                    field: 'pname',
-                    values: ids
-                  });
                   $('#table').bootstrapTable('refresh')
                 }
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+          }
+          else if (this.who=='clientpower'){
+            let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
+              return row.name;
+            });
+            this.respond = data
+            // console.log(data,this.respond)
+            if (this.respond == 'ok') {
+              this.$axios.post(this.allurl + 'manctl/client_add', {iqn_content: ids}).then(function (res) {
+                // console.log(res,'post ok')
+                this.tipsc = res.data.status
+                $('#tipsc').show().delay(2000).fadeOut()
+                $('#table').bootstrapTable('refresh')
               }).catch(function (error) {
                 console.log(error)
               })
@@ -591,31 +623,31 @@
             $('#editm').modal('hide')
           }
         },
-        clientsend(){
-          let client=this.$refs.addclient.value
-          var reg=/^[0-9a-zA-Z]{1,7}$/
-          var _this=this
-          if(client==''){
-            _this.cross='请填写完整'
-          }
-          else if(!reg.test(client)){
-            _this.cross='请输入只有数字和字母且长度不超过7'
-          }
-          else {
-            this.$axios.post(this.allurl + 'manctl/client_add', {iqn: "iqn.2018-12.com.wz:"+client}).then(function (res) {
-              // console.log(res)
-                _this.tipscontent = res.data.status
-                $('#tipsc').show().delay(2000).fadeOut()
-                $('#table_id').bootstrapTable('refresh')
-
-            }).catch(function (error) {
-              console.log(error)
-            })
-            $('#clientmodal').modal('hide')
-            _this.cross=''
-          }
-
-        },
+        // clientsend(){
+        //   let client=this.$refs.addclient.value
+        //   var reg=/^[0-9a-zA-Z]{1,7}$/
+        //   var _this=this
+        //   if(client==''){
+        //     _this.cross='请填写完整'
+        //   }
+        //   else if(!reg.test(client)){
+        //     _this.cross='请输入只有数字和字母且长度不超过7'
+        //   }
+        //   else {
+        //     this.$axios.post(this.allurl + 'manctl/client_add', {iqn: "iqn.2018-12.com.wz:"+client}).then(function (res) {
+        //       // console.log(res)
+        //         _this.tipscontent = res.data.status
+        //         $('#tipsc').show().delay(2000).fadeOut()
+        //         $('#table_id').bootstrapTable('refresh')
+        //
+        //     }).catch(function (error) {
+        //       console.log(error)
+        //     })
+        //     $('#clientmodal').modal('hide')
+        //     _this.cross=''
+        //   }
+        //
+        // },
         empower(){                      /*确认授权*/
           if (sessionStorage.getItem('islogin')==250){
             this.tipsc='普通用户无操作权限！'

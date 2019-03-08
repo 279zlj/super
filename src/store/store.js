@@ -43,6 +43,9 @@ import Vuex from 'vuex'
   let rgwid=[]
   let data_pool=[]
   let metadate_pool=[]
+  let disks = []
+  // let cpu_fans=[]
+  // let cpu_temp=[]
 try {
   if (localStorage.gosd_use)
     guse=JSON.parse(localStorage.gosd_use)
@@ -126,9 +129,15 @@ try {
     data_pool=JSON.parse(localStorage.data_pool)
   if (localStorage.metadate_pool)
     metadate_pool=JSON.parse(localStorage.metadate_pool)
+  if (localStorage.disks)
+    disks=JSON.parse(localStorage.disks)
+  // if (localStorage.cpu_fans)
+  //   cpu_fans=JSON.parse(localStorage.cpu_fans)
+  // if (localStorage.cpu_temp)
+  //   cpu_temp=JSON.parse(localStorage.cpu_temp)
 }
 catch (e) {
-  
+
 }
 const store =new Vuex.Store({
   state:{
@@ -146,6 +155,7 @@ const store =new Vuex.Store({
     ceph:{},
     rqlite_info:[],
     redis:{},
+    // disks:[],
 
     gosd_use:guse,
     gcollect:gcoll,
@@ -187,7 +197,10 @@ const store =new Vuex.Store({
     mdsid:mdsid,
     rgwid:rgwid,
     data_pool:data_pool,
-    metadate_pool:metadate_pool
+    metadate_pool:metadate_pool,
+    disks:disks,
+    // cpu_temp:cpu_temp,
+    // cpu_fans:cpu_fans
     // language:''
   },
   mutations:{
@@ -213,7 +226,15 @@ const store =new Vuex.Store({
       state.ceph=linemessages.ceph
       state.rqlite_info=linemessages.rqlite_info
       state.redis=linemessages.redis
+      state.disks=linemessages.disks
+      localStorage.disks=JSON.stringify(linemessages.disks)
     },
+    // threemodels(state,msg){
+    //   state.cpu_temp=msg.temp
+    //   state.cpu_fans=msg.fans
+    //   localStorage.cpu_temp=JSON.stringify(msg.cpu_temp)
+    //   localStorage.cpu_fans=JSON.stringify(msg.cpu_fans)
+    // },
     gnode(state,msg){
       state.gosd_use=msg.osd_use
       state.gcollect=msg.collect

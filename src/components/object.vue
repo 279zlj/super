@@ -80,7 +80,7 @@
           <div class="row subuser">
             <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11" >
           <ul id="tabt" class="nav nav-tabs">
-            <li id="two2" v-for="(a,index) in one1" v-bind:class="{'active':index==0}"><a :href="['#'+a.id]" data-toggle="tab" @click="thissub(a.id)">{{a.id}}</a></li>
+            <li id="two2" v-for="(a,index) in one1" v-bind:class="{'active':index==0}"><a :href="['#'+a.id]" data-toggle="tab" @click="thissub(a.id,a.origin)">{{a.id}}</a></li>
           </ul>
           <div class="alert alert-danger " id="tipscontent" style="display: none;">{{subtipsc}}</div>
           <div id="myTab" class="tab-content">
@@ -211,8 +211,18 @@
             </div>
             <div class="modal-body">
               <p>ID：<span>{{num}}</span></p>
-              <p>{{$t('message.Maximum-number-of-objects')}}：</p><input type="number" class="form-control" id="max-object"  ref="max-object" required="required"/>
-              <p>{{$t('message.Maximum-storage-space')}}：</p><input type="number" class="form-control" id="max-size"  ref="max-size" required="required"/>
+              <select class="form-control" id="quotawhat" v-on:change="selectone($event)" v-model="quotawho">
+                <option v-for="w in quotaselect" :value="w.name">{{w.name}}</option>
+              </select>
+              <div v-if="quotawho=='Max_objects'"><p>{{$t('message.Maximum-number-of-objects')}}：</p><input type="number" class="form-control" id="maxobject"  ref="maxobject" required="required"/></div>
+              <div class="row" v-if="quotawho=='Max-size'">
+                <p style="margin-left: 1em">{{$t('message.Maximum-storage-space')}}：</p>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><input type="number" class="form-control" id="maxsize"  ref="maxsize" required="required"/></div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><select class="form-control" id="max_size" v-on:change="selectu($event)" v-model="selectsize">
+                  <option v-for="s in sizeuint" :value="s.name">{{s.name}}</option>
+                </select>
+                </div>
+              </div>
               <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
             </div>
             <div class="modal-footer">
@@ -304,7 +314,7 @@
               <h4 class="modal-title" id="editsub">{{$t('message.Modify-child-user-information')}}</h4>
             </div>
             <div class="modal-body">
-              <p>ID：</p><input type="text" class="form-control" id="subn" :placeholder=subnow ref="sname" required="required"/>
+              <p>ID：{{subnow}}</p>
               <p>{{$t('message.access-level')}}：</p>
               <select class="form-control" id="modifyrank" v-on:change="selec($event)" v-model="subvisit">
                 <option v-for="m in rank" :value="m.name">{{m.name}}</option>
@@ -339,7 +349,8 @@
               {name:'Full',value:'full'},
             ],
             caps_type:[
-              {name:'bucket',value:'bucket'},
+              {name:'users',value:'users'},
+              {name:'buckets',value:'bucket'},
               {name:'metadata',value:'metadata'},
               {name:'usage',value:'usage'},
               {name:'zone',value:'zone'}
@@ -347,7 +358,7 @@
             caps:[
               {name:'write',value:'write'},
               {name:'read',value:'read'},
-              {name:'write-read',value:'write-read'},
+              {name:'write,read',value:'write,read'},
               {name:'*',value:'*'}
             ],
             rankselect:'',
@@ -368,7 +379,20 @@
             who:'',
             authselect:'',
             capsselect:'',
-            auth_title:''
+            auth_title:'',
+            quotaselect:[
+              {name:'Max_objects',value:'max_objects'},
+              {name:'Max-size',value:'max-size'},
+            ],
+            quotawho:'',
+            sizeuint:[
+              {name:'KB',value:'KB'},
+              {name:'MB',value:'MB'},
+              {name:'GB',value:'GB'},
+              {name:'TB',value:'TB'}
+            ],
+            selectsize:'',
+            ori:''
           }
       },
       methods:{
@@ -385,7 +409,7 @@
                 for(let i=0;i<this.onelist.length;i++){
                   this.onelist[i].origin=this.onelist[i].id.split(":")[0]
                   this.onelist[i].id=this.onelist[i].id.split(":")[1]
-                  this.thissub(this.onelist[0].id)
+                  this.thissub(this.onelist[0].id,this.onelist[0].origin)
                 }
 
                 this.one1=this.onelist
@@ -449,8 +473,10 @@
             })
           }
         },
-        thissub(who){          //所选的子用户
+        thissub(who,origin){          //所选的子用户
           this.subnow=who
+          this.ori=origin
+          console.log(this.ori)
           // alert(this.subnow)
         },
         sel(event){
@@ -465,6 +491,12 @@
         asele(event){
           this.capsselect=event.target.value
         },
+        selectone(event){
+          this.quotawho=event.target.value
+        },
+        selectu(event){
+          this.selectuint=event.target.value
+        },
         getsome(){           //获取用户信息
           var _this=this
           this.$axios.get(this.allurl+'gwobj/get_objusers').then(function (res) {
@@ -478,7 +510,7 @@
               // _this.one1[i].id=_this.one1[i].id.replace(":","")
 
             }
-            _this.thissub(_this.one1[0].id)
+            _this.thissub(_this.one1[0].id,_this.one1[0].origin)
             // console.log(_this.one1)
             _this.num=_this.list[0].user_id
             _this.name=_this.list[0].display_name
@@ -532,23 +564,45 @@
           }
         },
         quotasend(){       //配额信息发送
-          var object=this.$refs.max-object.value
-          var size=this.$refs.max-size.value
-          if (object==''||size==''){
-            this.cross='请填写完整!'
-          }
-          else {
-            this.$axios.post(this.allurl+'gwobj/setquo_objuser',{uid:this.num,quota:object,size:size}).then(function (res) {
+          var who=this.quotawho
+          if(who=='Max_objects'){
+            var object=this.$refs.maxobject.value
+            if (object==''){
+              this.cross='请填写完整!'
+            }
+            else {
+              this.$axios.post(this.allurl+'gwobj/setquo_objuser',{uid:this.num,quota:who,size:object}).then(function (res) {
 
                 this.tipsc = res.data.status
                 $('#tipsc').show().delay(2000).fadeOut()
 
 
-            }).catch(function (error) {
-              console.log(error)
-            })
-
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+            $('#quotaset').modal('hide')
           }
+          else if(who=='Max_size'){
+            var size=this.$refs.maxsize.value
+            var uint=this.selectsize
+            if (uint==''||size==''){
+              this.cross='请填写完整!'
+            }
+            else {
+              this.$axios.post(this.allurl+'gwobj/setquo_objuser',{uid:this.num,quota:who,size:size,uint:uint}).then(function (res) {
+
+                this.tipsc = res.data.status
+                $('#tipsc').show().delay(2000).fadeOut()
+
+
+              }).catch(function (error) {
+                console.log(error)
+              })
+            }
+            $('#quotaset').modal('hide')
+          }
+
         },
         deleteauth(){        //删除用户
           if (sessionStorage.getItem('islogin')==250){
@@ -625,7 +679,7 @@
         },
         editsend(){
           var name=this.$refs.name.value
-          if (this.visitold==''||name==''){
+          if (name==''){
             this.cross='请填写完整!'
           }
           else {
@@ -641,12 +695,12 @@
           }
         },
         subeditsend(){         //子用户修改
-          var sname=this.$refs.sname.value
-          if (this.subvisit==''||name==''){
+          // var sname=this.$refs.sname.value
+          if (this.subvisit==''){
             this.cross='请填写完整!'
           }
           else {
-            this.$axios.post(this.allurl+'gwobj/create_subuser',{uid:this.num,access:this.subvisit,sub_name:sname}).then(function (res) {
+            this.$axios.post(this.allurl+'gwobj/create_subuser',{uid:this.num,access:this.subvisit,sub_name:this.subnow}).then(function (res) {
 
                 this.tipscontent = res.data.status
                 $('#tipscontent').show().delay(2000).fadeOut()

@@ -7,9 +7,9 @@
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
-            <th data-field="user">用户</th>
-            <th data-field="access">Access_key</th>
-            <th data-field="secret">Secret_key</th>
+            <th data-field="user_id">用户</th>
+            <th data-field="keys.access_key">Access_key</th>
+            <th data-field="secret_key">Secret_key</th>
             <th data-field="keytype">密钥类型</th>
           </tr>
           </thead>
@@ -83,6 +83,7 @@
           tcontent:'',
           title:'',
           dosome:'',
+          list:[],
           keys:[
             {name:'access ',value:'access '},
             {name:'secret ',value:'secret '}
@@ -93,12 +94,17 @@
       methods: {
           start(){
             $('#objtable').bootstrapTable({
-              url:this.allurl+"obj"
+              url:this.allurl+"gwobj/get_objusers"
             })
             $('#subtable').bootstrapTable({
               url:this.allurl+"obj"
             })
+            // var _this=this
+            // this.$axios.get(this.url+'gwobj/get_objusers').then(function (res) {
+            //   _this.list=res.data
+            // })
             $("[data-toggle='tooltip']").tooltip({html:true});
+
           },
         add(){
           if (sessionStorage.getItem('islogin')==250){

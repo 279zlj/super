@@ -201,7 +201,7 @@
             <h4 class="modal-title" id="myModalLabel">修改iSCSI信息</h4>
           </div>
           <div class="modal-body">
-            <p>{{$t('message.Modify')}} ip：</p><input type="text" class="form-control" id="ip" ref="modifyip" required="required" value="x.x.x.x" />
+            <p>{{$t('message.Modify')}} ip：</p><input type="text" class="form-control" id="ip" ref="modifyip" required="required" :placeholder="$store.state.content.iscsi" />
             <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
           </div>
           <div class="modal-footer">

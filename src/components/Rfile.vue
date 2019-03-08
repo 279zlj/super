@@ -165,9 +165,9 @@
             <h4 class="modal-title" >MDS {{$t('message.Setting')}}</h4>
           </div>
           <div class="modal-body">
-            <div v-if="who_set=='active'"><p>{{$t('message.Maximum-active-number')}}：</p><input type="number" class="form-control" id="active" ref="active"/></div>
-            <div v-if="who_set=='spare'"><p>{{$t('message.Number-of-standby-MDS')}}：</p><input type="number" class="form-control" id="spare" ref="spare" style="margin-bottom: .5em"/></div>
-            <div v-if="who_set=='same'"><p>{{$t('message.or-not')}}：<input type="radio" value="yes" name="radio"/><span style="margin: 0 1em">{{$t('message.yes')}}</span><input type="radio" value="no" name="radio"/><span style="margin: 0 .5em">{{$t('message.no')}}</span></p></div>
+            <div v-if="who_set=='active'"><p>当前 mds活跃数 ：<span>{{mds_activate_num}}</span></p><p>当前允许最大活跃 mds 数量：<span>{{max_mds}}</span></p><p>{{$t('message.Maximum-active-number')}}：</p><input type="number" class="form-control" id="active" ref="active" :placeholder="max_mds"/></div>
+            <div v-if="who_set=='spare'"><p>当前 当前备用 mds 数量 ：<span>{{mds_standby}}</span><p>{{$t('message.Number-of-standby-MDS')}}：</p><input type="number" class="form-control" id="spare" ref="spare" :placeholder="mds_standby" style="margin-bottom: .5em"/></div>
+            <div v-if="who_set=='same'"><p>当前是否允许多个 mds 同时活跃：<span>{{is_mult}}</span></p><p>{{$t('message.or-not')}}：<input type="radio" value="yes" name="radio"/><span style="margin: 0 1em">{{$t('message.yes')}}</span><input type="radio" value="no" name="radio"/><span style="margin: 0 .5em">{{$t('message.no')}}</span></p></div>
             <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
           </div>
           <div class="modal-footer">
@@ -210,7 +210,11 @@
               {name:'MB',value:'mb'},
               {name:'GB',value:'GB'},
               {name:'TB',value:'TB'}
-            ]
+            ],
+            mds_activate_num:'',
+            mds_standby:'',
+            max_mds:'',
+            is_mult:''
             // pools:[]
           }
       },
@@ -228,6 +232,14 @@
           var _this=this
           this.$axios.get(this.allurl+'fs/fs_pools').then(function (res) {
             _this.$store.commit('filepool',{data_pool:res.data.data_pool,metadate_pool:res.data.metadate_pool})
+          }).catch(function (error) {
+            console.log(error)
+          })
+          this.$axios.get(this.allurl+'fs/mds_cfg').then(function (res) {
+            _this.mds_activate_num=res.data.mds_activate_num
+            _this.mds_standby=res.data.mds_standby
+            _this.max_mds=res.data.max_mds
+            _this.is_mult=res.data.is_mult
           }).catch(function (error) {
             console.log(error)
           })
