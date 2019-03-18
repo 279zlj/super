@@ -18,7 +18,8 @@
           <!--</div>-->
         </div>
 
-        <model-gltf v-if="isrefresh" :backgroundAlpha="bgAlpha"  :rotation="rotation"  @on-load="onLoad" :spritefun="safun" :spritetext="sastatic" :tonealgin="tonealgin"  :ttwoalgin="ttwoalgin" :tcolor="tcolor"  :position="where" :backgroundColor="bgColor" src="../../static/server/server2801.gltf" :cameraPosition="camera" :width="wid" :height="hei"></model-gltf>
+        <!--<model-gltf v-if="isrefresh" :backgroundAlpha="bgAlpha"  :rotation="rotation"  @on-load="onLoad" :spritefun="safun" :spritetext="sastatic" :tonealgin="tonealgin"  :ttwoalgin="ttwoalgin" :tcolor="tcolor"  :position="where" :backgroundColor="bgColor" src="../../static/server/server2801.gltf" :cameraPosition="camera" :width="wid" :height="hei"></model-gltf>-->
+        <model-gltf v-if="isrefresh" :backgroundAlpha="bgAlpha"  :spritefun="safun" :spritetext="sastatic" :tonealgin="tonealgin"  :ttwoalgin="ttwoalgin" :tcolor="tcolor"  :position="where" :backgroundColor="bgColor" src="../../static/server/server2801.gltf" :cameraPosition="camera" :width="wid" :height="hei"></model-gltf>
 
         <!--<div ref="server3d"></div>-->
       </div>
@@ -54,7 +55,7 @@
     },
       data(){
           return {
-            camera: {x: 0, y: 70, z: -280},
+            camera: {x: 0, y: 70, z: -250},
             bgAlpha: .3,
             bgColor: '#2E2245',
             wid: 950,
@@ -117,14 +118,14 @@
           this.$nextTick(() => (this.isrefresh = true))
         },
 
-        rotate () {
-          // for (let i=0;i<10;i++)
-          // this.rotation.x+= 0.01;
-            this.rotation.y += 0.0003;
-          // for (let p=0;p<10;p++)
-          //   this.rotation.y -= 0.05;
-          requestAnimationFrame( this.rotate );
-        },
+        // rotate () {
+        //   // for (let i=0;i<10;i++)
+        //   // this.rotation.x+= 0.01;
+        //     this.rotation.y += 0.0003;
+        //   // for (let p=0;p<10;p++)
+        //   //   this.rotation.y -= 0.05;
+        //   requestAnimationFrame( this.rotate );
+        // },
         panelshow(){
           $('.content').css('display','block')
         },

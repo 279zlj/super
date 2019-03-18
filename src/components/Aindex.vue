@@ -13,7 +13,7 @@
             <th data-field="snapname">{{$t('message.Snap-name')}}</th>
             <th data-field="content">{{$t('message.Description')}}</th>
             <th data-field="date">{{$t('message.Date-created')}}</th>
-            <th data-field="size">{{$t('message.Size')}}</th>
+            <!--<th data-field="size">{{$t('message.Size')}}</th>-->
             <th data-field="status">{{$t('message.Status')}}</th>
           </tr>
           </thead>

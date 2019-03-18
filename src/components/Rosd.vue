@@ -344,8 +344,10 @@
               $('#tipscontent').show().delay (2000).fadeOut()
             }
             else {
-              this.cross=''
-              $('#editm').modal("show")
+              // this.cross=''
+              // $('#editm').modal("show")
+              this.tipscontent='暂不提供此功能！'
+              $('#tipscontent').show().delay (2000).fadeOut()
             }
         },
         piechart() {                        /*cpu使用率饼状图*/

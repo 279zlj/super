@@ -5,16 +5,16 @@
         <router-link :to="{name:'Aindex'}" ><p >{{$t('message.Snapshot-Settings')}}</p></router-link>
       </div>
     </div>
-    <div class="one" :class="ind==='对象参数设置'?'two':''" @click="changenav('对象参数设置')">
+    <div class="one" :class="ind==='对象存储秘钥'?'two':''" @click="changenav('对象存储秘钥')">
       <div>
         <router-link :to="{name:'Aobj'}"><p >{{$t('message.object-Setting')}}</p></router-link>
       </div>
     </div>
-    <div class="one" :class="ind==='FS客户端'?'two':''" @click="changenav('FS客户端')">
-      <div>
-        <router-link :to="{name:'Afile'}"><p >FS{{$t('message.Client')}}</p></router-link>
-      </div>
-    </div>
+    <!--<div class="one" :class="ind==='FS客户端'?'two':''" @click="changenav('FS客户端')">-->
+      <!--<div>-->
+        <!--<router-link :to="{name:'Afile'}"><p >FS{{$t('message.Client')}}</p></router-link>-->
+      <!--</div>-->
+    <!--</div>-->
     <div class="one" :class="ind==='参数修改'?'two':''" @click="changenav('参数修改')">
       <div>
         <router-link  :to="{name:'Rpara'}"><p >{{$t('message.Parameters')}}</p></router-link>

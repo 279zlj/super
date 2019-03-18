@@ -23,7 +23,7 @@
             <tr>
               <th data-field="rank">{{$t('message.Grade')}}</th>
               <th data-field="state">{{$t('message.Status')}}</th>
-              <th data-field="name">{{$t('message.Process')}}</th>
+              <th data-field="name">{{$t('message.Name')}}</th>
               <th data-field="req">{{$t('message.Speed')}}</th>
               <th data-field="Dentries">{{$t('message.Cache-directory')}}</th>
               <th data-field="inodes">{{$t('message.The-index-node')}}</th>
@@ -72,7 +72,7 @@
       <div class="row">
         <div class="container-fluid row" id="fslist">
           <div class="row mdstitle" style="margin-bottom: .5em">
-          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{$t('message.Shared-file-system')}}</div>
+          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{$t('message.User-control')}}</div>
             <div class="col-lg-1 col-lg-offset-7 col-md-1 col-md-offset-7 col-xs-1 col-sm-1"><img class="img-font" id="adduser" src="../../static/image/adduser.png" title="新增用户" @click="adduser()" data-toggle="tooltip" data-placement="bottom" /></div>
             <div class="col-lg-1 col-md-1 col-xs-1 col-sm-1"><img class="img-font" id="deleteuser" src="../../static/image/deleteuser.png" title="删除用户" @click="deleteuser()" data-toggle="tooltip" data-placement="bottom" /></div>
             <div class="col-lg-1 col-md-1 col-xs-1 col-sm-1"><img class="img-font" id="set" src="../../static/image/quota.png" title="配额设置" @click="quota()" data-toggle="tooltip" data-placement="bottom" /></div>
@@ -441,7 +441,7 @@
               this.cross = '请选择'
             }
             else {
-              this.$axios.post(this.allurl + 'fs/mds_set', {
+              this.$axios.post(this.allurl + 'fs/mds_multi', {
                 var: ['allow_multimds'],
                 val: [ val]
               }).then(function (res) {

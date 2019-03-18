@@ -34,28 +34,40 @@
                   <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe">{{$t('message.user-mode')}}：</div>
                   <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 " >
                     <span>{{i.suspended}}</span>
-                    <span style="cursor: pointer" class="glyphicon glyphicon-stop sopr" title="停止" @click="stopuser()" data-toggle="tooltip" data-placement="top" v-show="i.suspended=='0'"></span>
-                    <span style="cursor: pointer" class="glyphicon glyphicon-off opr" title="启用" @click="startuser()" data-toggle="tooltip" data-placement="top" v-show="i.suspended=='1'"></span>
+                    <span style="cursor: pointer" class="glyphicon glyphicon-stop sopr" title="停止" @click="stopuser()" data-toggle="tooltip" data-placement="top" v-show="i.suspended=='使用中'"></span>
+                    <span style="cursor: pointer" class="glyphicon glyphicon-off opr" title="启用" @click="startuser()" data-toggle="tooltip" data-placement="top" v-show="i.suspended=='已暂停'"></span>
                   </div>
                   </div>
                   <div class="row all">
-                  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >{{$t('message.The-quota-parameter')}}：</div>
-                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">Max-objects：{{i.bucket_quota.max_objects}} / Max-size：{{i.bucket_quota.max_size}}</div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >{{$t('message.The-quota-parameter')}}：</div>
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                      <span v-if="i.user_quota.max_objects > 0">{{$t('message.max-objects')}}：{{i.user_quota.max_objects}}</span>
+                      <span v-if="i.user_quota.max_objects < 0">{{$t('message.max-objects')}}：未配额</span>
+                      <span v-if="i.user_quota.max_size > 0"> / {{$t('message.max-size')}}：{{i.user_quota.max_size}}</span>
+                      <span v-if="i.user_quota.max_size < 0"> / {{$t('message.max-size')}}：未配额</span>
+                    </div>
                   </div>
                   <div class="row all odd">
                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labe" >{{$t('message.The-quota-status')}}：</div>
                     <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 " >
-                      <span>{{i.bucket_quota.enabled}}</span>
-                      <span style="cursor: pointer" class="glyphicon glyphicon-stop sopr" title="停止" @click="stopquota()" data-toggle="tooltip" data-placement="top" v-show="i.bucket_quota.enabled==true"></span>
-                      <span style="cursor: pointer" class="glyphicon glyphicon-off opr" title="启用" @click="startquota()" data-toggle="tooltip" data-placement="top" v-show="i.bucket_quota.enabled==false"></span>
+                      <span>{{i.user_quota.enabled}}</span>
+                      <span style="cursor: pointer" class="glyphicon glyphicon-stop sopr" title="停止" @click="stopquota()" data-toggle="tooltip" data-placement="top" v-show="i.user_quota.enabled=='已启用'"></span>
+                      <span style="cursor: pointer" class="glyphicon glyphicon-off opr" title="启用" @click="startquota()" data-toggle="tooltip" data-placement="top" v-show="i.user_quota.enabled=='未启用'"></span>
                     </div>
                   </div>
                   <div class="row all">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 labe">
-                      {{$t('message.User-dosage')}}：
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 labe">
+                      已使用空间：
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 data">
-                      <span style="margin-left: .6em;font-size: 1.4em" v-if="i.usage==0">{{i.usage.size_kb}}</span>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 data">
+                      <p style="font-size: 1.4em" >{{i.usage.size}}</p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 labe">
+                      已使用对象数：
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 data">
+                      <p style="font-size: 1.4em" >{{i.usage.num_objects}}</p>
                     </div>
                   </div>
                 </div>
@@ -399,6 +411,18 @@
         father(a,n){                   //用户的切换
           // console.log(a)
           this.personal=a
+          if(this.personal.suspended==0){
+            this.personal.suspended=='已开启'
+          }
+          else {
+            this.personal.suspended=='已停用'
+          }
+          if (this.personal.user_quota.enabled==true) {
+            this.personal.user_quota.enabled='已启用'
+          }
+          else {
+            this.personal.user_quota.enabled='未启用'
+          }
           let i=0
           for ( i;i<this.list.length; i++){
             if (n==this.list[i].user_id){
@@ -476,7 +500,7 @@
         thissub(who,origin){          //所选的子用户
           this.subnow=who
           this.ori=origin
-          console.log(this.ori)
+          // console.log(this.ori)
           // alert(this.subnow)
         },
         sel(event){
@@ -501,7 +525,23 @@
           var _this=this
           this.$axios.get(this.allurl+'gwobj/get_objusers').then(function (res) {
             _this.list=res.data
+            for(let a=0;a<_this.list.length;a++){
+              if (_this.list[a].suspended==0) {
+                _this.list[a].suspended='使用中'
+                // console.log(_this.list[a].suspended)
+              }
+              else {
+                _this.list[a].suspended='已暂停'
+              }
+              if (_this.list[a].user_quota.enabled==true) {
+                _this.list[a].user_quota.enabled='已启用'
+              }
+              else {
+                _this.list[a].user_quota.enabled='未启用'
+              }
+            }
 
+            if (_this.list[0].subusers!=''){
             _this.one1=_this.list[0].subusers
             for(let i=0;i<_this.one1.length;i++){
               _this.one1[i].origin=_this.one1[i].id.split(":")[0]
@@ -510,9 +550,14 @@
               // _this.one1[i].id=_this.one1[i].id.replace(":","")
 
             }
+              _this.num=_this.list[0].user_id
+            }
+            else {
+              _this.num=_this.list[0].user_id
+            }
             _this.thissub(_this.one1[0].id,_this.one1[0].origin)
             // console.log(_this.one1)
-            _this.num=_this.list[0].user_id
+
             _this.name=_this.list[0].display_name
             // _this.visitold=_this.list[0].visit
             _this.Msize=_this.list[0].user_quota.max_size
@@ -621,6 +666,7 @@
             this.$axios.post(this.allurl+'gwobj/capsadd_objuser',{uid:this.num,caps_type:this.authselect,caps:this.capsselect}).then(function (res) {
               this.tipsc = res.data.status
               $('#tipsc').show().delay(2000).fadeOut()
+
             }).catch(function (error) {
               console.log(error)
             })
@@ -633,6 +679,7 @@
               console.log(error)
             })
           }
+          $('#auth').modal('hide')
         },
         addsend(){
           let id=this.$refs.addid.value
@@ -700,7 +747,7 @@
             this.cross='请填写完整!'
           }
           else {
-            this.$axios.post(this.allurl+'gwobj/create_subuser',{uid:this.num,access:this.subvisit,sub_name:this.subnow}).then(function (res) {
+            this.$axios.post(this.allurl+'gwobj/setcap_subuser',{uid:this.num,access:this.subvisit,sub_name:this.subnow}).then(function (res) {
 
                 this.tipscontent = res.data.status
                 $('#tipscontent').show().delay(2000).fadeOut()

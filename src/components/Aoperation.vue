@@ -1,7 +1,7 @@
 <template>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 container-fluid" id="Aoperation">
     <div class="row">
-      <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 table-responsive one">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive one">
         <!--<div class="row">-->
           <!--<div class="col-lg-3 col-lg-offset-8 col-md-3 col-md-offset-7 col-sm-4 col-sm-offset-6 col-xs-5 col-xs-offset-5">-->
             <!--<input type="search" class="form-control" id="key" placeholder="请输入ip地址" ref="inp"/>-->
@@ -11,32 +11,33 @@
           <!--</div>-->
         <!--</div>-->
         <table class="table table-responsive text-nowrap" id="table_id" data-toolbar="#toolbar" data-height="350" data-toggle="table" data-click-to-select="true" data-classes="table-no-bordered" >
-          <div class="alert alert-danger " id="tipscontent" style="display: none;">普通用户无操作权限！</div>
+          <div class="alert alert-danger " id="tipscontent" style="display: none;">{{tipscontent}}</div>
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true" ></th>
             <th data-field="id">{{$t('message.Rule-name')}}</th>
-            <th data-field="content">{{$t('message.content')}}</th>
-            <!--<th data-field="size">{{$t('message.Capacity')}}</th>-->
-            <!--<th data-field="date">{{$t('message.Turnover-time')}}</th>-->
+            <th data-field="name">{{$t('message.Rule-id')}}</th>
+            <th data-field="content">{{$t('message.Rule-content')}}</th>
+            <th data-field="type">{{$t('message.type')}}</th>
+            <th data-field="disks">{{$t('message.disks')}}</th>
           </tr>
           </thead>
           <tbody>
           </tbody>
         </table>
       </div>
-      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 contenttop" >
-        <div id="y">
-          <p @click="addrule()" id="addrule" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-list-alt verticalimg" title="新建规则" data-toggle="tooltip" data-placement="right"></span></p>
-          <p @click="editlist()" id="editlist" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit verticalimg" title="编辑" data-toggle="tooltip" data-placement="right"></span></p>
-          <p @click="deletelist()" id="deletelist" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle verticalimg" title="删除" data-toggle="tooltip" data-placement="right"></span></p>
-        </div>
-        <div style="width: 300px" id="h">
-          <p @click="addrule()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-list-alt verticalimg" title="新建规则" data-toggle="tooltip" data-placement="right"></span></p>
-          <span @click="editlist()" data-toggle="editmodal"><span class="glyphicon glyphicon-edit infeed" title="编辑" data-toggle="tooltip" data-placement="right"></span></span>
-          <span @click="deletelist()" ><span class="glyphicon glyphicon-remove-circle infeed" title="删除" data-toggle="tooltip" data-placement="right"></span></span>
-        </div>
-      </div>
+      <!--<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 contenttop" >-->
+        <!--<div id="y">-->
+          <!--<p @click="addrule()" id="addrule" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-list-alt verticalimg" title="新建规则" data-toggle="tooltip" data-placement="right"></span></p>-->
+          <!--<p @click="editlist()" id="editlist" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-edit verticalimg" title="编辑" data-toggle="tooltip" data-placement="right"></span></p>-->
+          <!--<p @click="deletelist()" id="deletelist" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle verticalimg" title="删除" data-toggle="tooltip" data-placement="right"></span></p>-->
+        <!--</div>-->
+        <!--<div style="width: 300px" id="h">-->
+          <!--<p @click="addrule()" data-toggle="editmodal" style="cursor: pointer"><span class="glyphicon glyphicon-list-alt verticalimg" title="新建规则" data-toggle="tooltip" data-placement="right"></span></p>-->
+          <!--<span @click="editlist()" data-toggle="editmodal"><span class="glyphicon glyphicon-edit infeed" title="编辑" data-toggle="tooltip" data-placement="right"></span></span>-->
+          <!--<span @click="deletelist()" ><span class="glyphicon glyphicon-remove-circle infeed" title="删除" data-toggle="tooltip" data-placement="right"></span></span>-->
+        <!--</div>-->
+      <!--</div>-->
     </div>
     <div class="modal fade" id="editm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -105,23 +106,26 @@
       methods:{
           start(){                         /*bootstrap-table初始化*/
             $('#table_id').bootstrapTable({
-              url:this.allurl+'manctl/client_list'
+              url:this.allurl+'manctl/re_source/rules'
 
             })
             // console.log(this.urla)
           },
         addrule(){
           if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay (2000).fadeOut()
           }
           else {
-            $('#newrule').modal('show')
-            var _this=this
-            this.$axios.get(this.allurl+'').then(function (res) {
-              _this.disc=res.data
-            }).catch(function (error) {
-              console.log(error)
-            })
+            // $('#newrule').modal('show')
+            // var _this=this
+            // this.$axios.get(this.allurl+'').then(function (res) {
+            //   _this.disc=res.data
+            // }).catch(function (error) {
+            //   console.log(error)
+            // })
+            this.tipscontent='暂不提供此功能'
+            $("#tipscontent").show().delay (2000).fadeOut ();
           }
         },
         rulesend(){                //发送新建规则
@@ -151,24 +155,27 @@
         },
         editlist() {                       /*规则修改*/
           if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay (2000).fadeOut()
           }
           else {
-            var ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
-              return row.id;
-            });
-            if (ids.length !== 1) {
-              this.tipscontent = '请选择其中一个设备进行修改'
-              this.$refs.tips.usetips()
-              // alert('请选择其中一个设备进行修改');
-              return;
-            }
-            else if (ids.length === 1) {
-              this.edit = ids;
-
-              $('#editm').modal("show")
-
-            }
+            // var ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+            //   return row.id;
+            // });
+            // if (ids.length !== 1) {
+            //   this.tipscontent = '请选择其中一个设备进行修改'
+            //   this.$refs.tips.usetips()
+            //   // alert('请选择其中一个设备进行修改');
+            //   return;
+            // }
+            // else if (ids.length === 1) {
+            //   this.edit = ids;
+            //
+            //   $('#editm').modal("show")
+            //
+            // }
+            this.tipscontent='暂不提供此功能'
+            $("#tipscontent").show().delay (2000).fadeOut ();
           }
         },
         editsend(){                      /*发送修改运维设置*/
@@ -195,23 +202,26 @@
         },
         deletelist(){                 /*删除规则  */
           if (sessionStorage.getItem('islogin')==250){
+            this.tipscontent='普通用户无操作权限！'
             $('#tipscontent').show().delay (2000).fadeOut()
           }
           else {
-            let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
-              return row.id;
-            });
-            if (ids.length < 1) {
-              this.tipscontent = '请选择删除项'
-              this.$refs.tips.usetips()
-              // alert('请选择删除项')
-            }
-            else if (ids.length >= 1) {
-              this.title = '是否确认选择删除规则'
-              this.dosome = ids
-              this.$refs.tips.dselect()
-              // console.log('delete')
-            }
+            // let ids = $.map($('#table_id').bootstrapTable('getSelections'), function (row) {
+            //   return row.id;
+            // });
+            // if (ids.length < 1) {
+            //   this.tipscontent = '请选择删除项'
+            //   this.$refs.tips.usetips()
+            //   // alert('请选择删除项')
+            // }
+            // else if (ids.length >= 1) {
+            //   this.title = '是否确认选择删除规则'
+            //   this.dosome = ids
+            //   this.$refs.tips.dselect()
+            //   // console.log('delete')
+            // }
+            this.tipscontent='暂不提供此功能'
+            $("#tipscontent").show().delay (2000).fadeOut ();
           }
         },
         // sentip(){                                  /*发送查找的ip*/

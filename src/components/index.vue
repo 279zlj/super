@@ -105,15 +105,15 @@
               </div>
             </div>
             <div class="c">
-              <h5 style="line-height: 2.5em;font-size: 1.1em;color: #FFFFFF;margin-top: .8em">Swap IO</h5>
+              <h5 style="line-height: 2.5em;font-size: 1.1em;color: #FFFFFF;margin-top: .8em">{{$t('message.Swap_io')}}</h5>
               <div class="row">
                 <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 diskfont"><p class="titlecolor">
-                  {{$t('message.Writing-rate')}}：</p></div>
+                  {{$t('message.output')}}：</p></div>
                 <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 num" title="写速度">{{$store.state.swap_io.ips}}</div>
               </div>
               <div class="row">
                 <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 diskfont"><p class="titlecolor">
-                  {{$t('message.Reading-rate')}}：</p></div>
+                  {{$t('message.input')}}：</p></div>
                 <div class="col-lg-6 col-md-12 col-sm-6 col-xs-6 num" title="读速度">{{$store.state.swap_io.ops}}</div>
               </div>
             </div>
@@ -277,7 +277,7 @@
             <div class="row">
               <p style="margin: 0em 0 0 1em" class="titlecolor">{{$t('message.Clock-consistency')}}：</p>
               <p class="col-lg-12"><span v-for="s in $store.state.ceph.clock">{{s}} </span>
-                <span v-if="$store.state.ceph.clock!=0">{{$t('message.Clock-inconsistency')}}</span></p>
+                <span v-if="$store.state.ceph.clock!='正常'">{{$t('message.Clock-inconsistency')}}</span></p>
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 print">

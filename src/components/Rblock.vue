@@ -23,14 +23,14 @@
           <p @click="addnew()" data-toggle="addnew" style="cursor: pointer"><img src="../../static/image/add.svg" id="add" class="img-responsive add" title="添加" data-toggle="tooltip" data-placement="right"/></p>
           <p @click="bdilata()" data-toggle="dilatation" style="cursor: pointer"><img src="../../static/image/data.png" id="kr" class="img-responsive kr" title="扩容" data-toggle="tooltip" data-placement="right"/></p>
           <p @click="addsn()" data-toggle="addsnap" style="cursor: pointer"><span class="glyphicon glyphicon-camera create" id="snap" title="创建快照" data-toggle="tooltip" data-placement="right"></span></p>
-          <p @click="independent()" style="cursor: pointer"><img src="../../static/image/combine.png" id="depend" class="img-responsive kr" title="块设备独立" data-toggle="tooltip" data-placement="right"/></p>
+          <p @click="independent()" style="cursor: pointer"><img src="../../static/image/combine.png" id="depend" class="img-responsive kr" title="克隆快照独立" data-toggle="tooltip" data-placement="right"/></p>
           <p @click="deletelist()" style="cursor: pointer"><span class="glyphicon glyphicon-remove-circle delete" title="删除" id="delete" data-toggle="tooltip" data-placement="right"></span></p>
         </div>
         <div style="width: 300px" id="h">
           <div @click="addnew()" data-toggle="addnew" style="float: left"><img src="../../static/image/add.svg" class="img-responsive addh" title="添加" data-toggle="tooltip" data-placement="right"/></div>
           <div @click="bdilata()" style="float: left" data-toggle="dilatation"><img src="../../static/image/data.png" class="img-responsive kr" title="扩容" data-toggle="tooltip" data-placement="right"/></div>
           <div @click="addsn()" style="float: left" data-toggle="addsnap"><span class="glyphicon glyphicon-camera createh" title="创建快照" data-toggle="tooltip" data-placement="right"></span></div>
-          <div @click="independent()" style="float: left" data-toggle="dilatation"><img src="../../static/image/combine.png" class="img-responsive kr" title="块设备独立" data-toggle="tooltip" data-placement="right"/></div>
+          <div @click="independent()" style="float: left" data-toggle="dilatation"><img src="../../static/image/combine.png" class="img-responsive kr" title="克隆快照独立" data-toggle="tooltip" data-placement="right"/></div>
           <div @click="deletelist()" style="float: left"><span class="glyphicon glyphicon-remove-circle delete" title="删除" data-toggle="tooltip" data-placement="right"></span></div>
         </div>
       </div>

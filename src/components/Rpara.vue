@@ -15,7 +15,7 @@
               </thead>
               <tbody>
               <tr>
-                <td>io-agent对象</td>
+                <td>节点对象</td>
                 <td>
                   <select class="form-control" @click="iosele()" v-on:change="ioindexsel($event)" v-model="iosele">
                     <option v-for="i in iolist" :value="i.val" >{{i.name}}</option>
@@ -84,7 +84,7 @@
             </thead>
             <tbody>
             <tr>
-              <td>tank对象</td>
+              <td>存储池对象</td>
               <td>
                 <select class="form-control">
                   <select class="form-control" @click="psele()" v-on:change="pindexsel($event)" v-model="psele">
@@ -156,7 +156,7 @@
               </thead>
               <tbody>
               <tr>
-                <td>block对象</td>
+                <td>存储单元对象</td>
                 <td>
                   <select class="form-control">
                     <select class="form-control" @click="bsele()" v-on:change="bindexsel($event)" v-model="bsele">

@@ -121,7 +121,18 @@
             <h4 class="modal-title" id="dila">{{$t('message.Memory-pool-expansion')}}</h4>
           </div>
           <div class="modal-body">
-            <p>{{$t('message.Memory-pool-size-modification')}}：</p><input type="number" class="form-control" id="poolsize" ref="poolsize" required="required"/>
+            <p>{{$t('message.Memory-pool-size-modification')}}：</p>
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <input type="number" class="form-control" id="poolsize" ref="poolsize" required="required"/>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <select class="form-control" v-on:change="pselect($event)" v-model="pooluint">
+                  <option v-for="b in units" :value="b.name">{{b.name}}</option>
+                </select>
+              </div>
+            </div>
+
             <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
           </div>
           <div class="modal-footer">
@@ -226,10 +237,16 @@
             ips:'',
             dilata:'',
             unitsele:'',
+            pooluint:'',
             unit:[
               {name:'副本策略',value:'replicated'},
               {name:'纠删码',value:'erasure'},
 
+            ],
+            units:[
+              {name:'MB',value:'mb'},
+              {name:'GB',value:'GB'},
+              {name:'TB',value:'TB'}
             ],
             rule:[{name:'默认',value:'default'}],
             ruleselect:'',
@@ -284,6 +301,10 @@
         },
         lsel(event){//下拉框选择
           this.lsele=event.target.value
+        },
+        pselect(event){//下拉框选择
+          this.pooluint=event.target.value
+
         },
         addnew(){
           // console.log(this.$store.state.islogin)
@@ -372,7 +393,8 @@
           else {
             this.$axios.post(this.allurl + 'manager/tank/tank_dilatate', {
               name: this.dilata,
-              poolsize: poolsize
+              poolsize: poolsize,
+              unit:this.pooluint
             }).then(function (res) {
               // console.log(res)
 
@@ -502,7 +524,7 @@
                     values: ids
                   });
                 }
-                $('#table_id').bootstrapTable('refresh')
+                $('#table').bootstrapTable('refresh')
               }).catch(function (error) {
                 console.log(error)
               })
