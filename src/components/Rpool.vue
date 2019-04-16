@@ -48,9 +48,9 @@
             <th data-field="state" data-checkbox="true" ></th>
             <th data-field="name">{{$t('message.Initiator-name')}}</th>
             <th data-field="created">{{$t('message.Authorized')}}</th>
-            <th data-field="ip">IP</th>
+            <!--<th data-field="ip">IP</th>-->
             <th data-field="luns">Luns</th>
-            <th data-field="link">{{$t('message.Connection')}}</th>
+            <!--<th data-field="link">{{$t('message.Connection')}}</th>-->
           </tr>
           </thead>
           <tbody>
@@ -90,29 +90,29 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal -->
     </div>
-    <!--<div class="modal fade" id="clientmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
-      <!--<div class="modal-dialog">-->
-        <!--<div class="modal-content">-->
-          <!--<div class="modal-header">-->
-            <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
-            <!--<h4 class="modal-title" id="client">{{$t('message.Add-iSCSI-client')}}</h4>-->
-          <!--</div>-->
-          <!--<div class="modal-body">-->
-            <!--<p>{{$t('message.Add-iSCSI-client')}}：</p>-->
-            <!--<div class="input-group input-group-sm">-->
-              <!--<span class="input-group-addon">iqn.2018-12.com.wz:</span>-->
-              <!--<input type="text" class="form-control" id="clientname" ref="addclient" required="required"/>-->
-            <!--</div>-->
+    <div class="modal fade" id="clientmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="client">{{$t('message.Add-iSCSI-client')}}</h4>
+          </div>
+          <div class="modal-body">
+            <p>{{$t('message.Add-iSCSI-client')}}：</p>
+            <div class="input-group input-group-sm">
+              <span class="input-group-addon">iqn.2018-12.com.wz:</span>
+              <input type="text" class="form-control" id="clientname" ref="addclient" required="required"/>
+            </div>
 
-            <!--<div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>-->
-          <!--</div>-->
-          <!--<div class="modal-footer">-->
-            <!--<button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>-->
-            <!--<button type="button" class="btn btn-primary" @click="clientsend()" >{{$t('message.Confirm')}}</button>-->
-          <!--</div>-->
-        <!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
-      <!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
-    <!--</div>-->
+            <div style="color: red;margin-top: .5em;font-weight: 700;">{{cross}}</div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('message.Cancel')}}</button>
+            <button type="button" class="btn btn-primary" @click="clientsend()" >{{$t('message.Confirm')}}</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>
     <div class="modal fade" id="dilatation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -248,7 +248,7 @@
               {name:'GB',value:'GB'},
               {name:'TB',value:'TB'}
             ],
-            rule:[{name:'默认',value:'default'}],
+            rule:[],
             ruleselect:'',
             tipscontent:'',
             title:'',
@@ -320,8 +320,15 @@
         },
         rulewhat(){
           var _this=this
-          this.$axios.get(this.url+'').then(function (res) {
-            _this.rule.push(res.data)
+          _this.rule.splice(0)
+          this.$axios.get(this.allurl+'manctl/re_source/get_rule_list').then(function (res) {
+            if (res.data.length>0) {
+              for (let i=0;i<res.data.length;i++)
+                _this.rule.push(res.data[i])
+            }
+            else
+            _this.rule.push({name:'默认'})
+
           }).catch(function (error) {
             console.log(error)
           })
@@ -486,26 +493,26 @@
             $('#tipsc').show().delay(2000).fadeOut()
           }
           else {
-            let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
-              return row.name;
-            });
-            if (ids.length < 1) {
-              this.tipscontent = '请选择一个客户端授权'
-              this.$refs.tips.usetips()
-              // alert('请选择删除项')
-            }
-            else if (ids.length >= 1) {
-              this.title = '是否确认授权客户端'
-              this.dosome = ids
-              this.$refs.tips.dselect()
-              this.who='clientpower'
-
-            }
-            else {
-              return
-            }
-            // this.cross=''
-            // $('#clientmodal').modal("show")
+            // let ids = $.map($('#table').bootstrapTable('getSelections'), function (row) {
+            //   return row.name;
+            // });
+            // if (ids.length < 1) {
+            //   this.tipscontent = '请选择一个客户端授权'
+            //   this.$refs.tips.usetips()
+            //   // alert('请选择删除项')
+            // }
+            // else if (ids.length >= 1) {
+            //   this.title = '是否确认授权客户端'
+            //   this.dosome = ids
+            //   this.$refs.tips.dselect()
+            //   this.who='clientpower'
+            //
+            // }
+            // else {
+            //   return
+            // }
+            this.cross=''
+            $('#clientmodal').modal("show")
 
           }},
         res(data){
@@ -645,31 +652,31 @@
             $('#editm').modal('hide')
           }
         },
-        // clientsend(){
-        //   let client=this.$refs.addclient.value
-        //   var reg=/^[0-9a-zA-Z]{1,7}$/
-        //   var _this=this
-        //   if(client==''){
-        //     _this.cross='请填写完整'
-        //   }
-        //   else if(!reg.test(client)){
-        //     _this.cross='请输入只有数字和字母且长度不超过7'
-        //   }
-        //   else {
-        //     this.$axios.post(this.allurl + 'manctl/client_add', {iqn: "iqn.2018-12.com.wz:"+client}).then(function (res) {
-        //       // console.log(res)
-        //         _this.tipscontent = res.data.status
-        //         $('#tipsc').show().delay(2000).fadeOut()
-        //         $('#table_id').bootstrapTable('refresh')
-        //
-        //     }).catch(function (error) {
-        //       console.log(error)
-        //     })
-        //     $('#clientmodal').modal('hide')
-        //     _this.cross=''
-        //   }
-        //
-        // },
+        clientsend(){
+          let client=this.$refs.addclient.value
+          var reg=/^[0-9a-zA-Z]{1,7}$/
+          var _this=this
+          if(client==''){
+            _this.cross='请填写完整'
+          }
+          else if(!reg.test(client)){
+            _this.cross='请输入只有数字和字母且长度不超过7'
+          }
+          else {
+            this.$axios.post(this.allurl + 'manctl/client_add', {iqn: "iqn.2018-12.com.wz:"+client}).then(function (res) {
+              // console.log(res)
+                _this.tipscontent = res.data.status
+                $('#tipsc').show().delay(2000).fadeOut()
+                $('#table_id').bootstrapTable('refresh')
+
+            }).catch(function (error) {
+              console.log(error)
+            })
+            $('#clientmodal').modal('hide')
+            _this.cross=''
+          }
+
+        },
         empower(){                      /*确认授权*/
           if (sessionStorage.getItem('islogin')==250){
             this.tipsc='普通用户无操作权限！'

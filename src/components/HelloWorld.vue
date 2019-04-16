@@ -24,7 +24,7 @@
       <div class="col-lg-2 col-md-2 col-sm-1 col-xs-0">
 
       </div>
-      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 one":class="issele==='HelloWorld'?'two':''">
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 one" :class="issele==='HelloWorld'?'two':''">
         <div class="r-border"  >
           <router-link :to="{name:'HelloWorld'}" ><p class="font" @click="changenav('HelloWorld')" id="index">{{$t('nav.Home')}}</p></router-link>
         </div>
