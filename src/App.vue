@@ -1,109 +1,110 @@
 <template>
-  <div id="app" :class="patha==='/Installone'||patha==='/Installtwo'||patha==='/Installthree'?'container-fluid':'container'">
-    <router-view/>
-    <router-view name="right"></router-view>
-    <router-view name="bottom"></router-view>
-
-
+  <div id="app">
+      <keep-alive>
+        <router-view/>
+        <a-layout class='index'>
+          <a-layout-header>
+              <Topbar></Topbar>
+          </a-layout-header>
+          <a-layout>
+              <a-layout-sider>
+                  <Menubar></Menubar>
+              </a-layout-sider>
+              <a-layout-content>
+                  <router-view name='content'></router-view>
+              </a-layout-content>
+          </a-layout>
+        </a-layout>
+      </keep-alive>
   </div>
 </template>
-
 <script>
-  export default {
-    name: 'App',
-
-    data(){
-      return{
-        patha:'',
-
-      }
-    },
-    methods:{
-      // gbo(){              /*判断目前url的位置来更改背景颜色，单纯用这个会造成跳转渲染迟缓，用户体验差*/
-      //   this.patha=this.$route.path
-      //   if (this.patha==='/Installone'||this.patha==='/Installtwo'||this.patha==='/Installthree'){
-      //     $('body').css('background-color','white')
-      //   }
-      //   else if(this.patha==='/Login'){
-      //     $('body').css('background-color','#242424')
-      //   }
-      //   else {
-      //     $('body').css('background-color','#2E2245')
-      //   }
-      // }
-
-    },
-
-    // created(){
-    //   this.gbo()
-    // }
-  }
+import Menubar from './components/common/Menubar'
+import Topbar from './components/common/Topbar'
+export default {
+  name:'App',
+  components:{Menubar,Topbar}
+}
 </script>
-
-<style>
-  body{
+<style lang="less">
+html,body{
+  margin: 0;
+  padding: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+#app{
+  margin: 0;
+  padding:0;
+  width: 100%;
+  height: 100%;
+}
+.tabstyle{
+  height:21em;
+}
+.tabsmall{
+  height: 16em;
+}
+.bigtab{
+  height: 40em;
+}
+.block{
+    display:block !important;
+}
+.mytitle{
+  background-color:white;height:3rem;line-height:3rem;font-size:1rem;padding-left:1rem;box-shadow:0px 2px 8px grey
+}
+.tabs-top{
+  margin-top:16px
+}
+.ant-card-body{
+  padding:14px !important
+}
+p{
+  margin-bottom:.5em !important;
+}
+.ant-layout-header{
+    padding: 0 !important;
+    height:3.5rem !important;
+}
+.index{
     height: 100%;
-    margin: 0;
-    padding: 0;
-    color: white;
-    background-color: #2E2245;
-  }
-  #app{
-    background-color: #2E2245;
-  }
-  a{
-    text-decoration: none !important;
-  }
-  @media screen and (min-width:1600px ) {
-    #app{
-      width: 80%;
-    }
-  }
-  /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
-  ::-webkit-scrollbar
-  {
-    width: 7px;
-    height: 7px;
-    background-color: #56466D;
-  }
-
-  /*定义滚动条轨道 内阴影+圆角*/
-  ::-webkit-scrollbar-track
-  {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    border-radius: 10px;
-    background-color: #56466D;
-  }
-
-  /*定义滑块 内阴影+圆角*/
-  ::-webkit-scrollbar-thumb
-  {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-    background-color: #241A35;
-  }
-  ::-moz-scrolled-content{
-    background-color: #56466D;
-  }
-
-  #tipscontent,#tipsc,#fromtips{
-    position: absolute;
-    z-index: 999;
-    margin: 0 auto;
-    width: 100%;
-    text-align: center;
-
-  }
-
-  .modal-header,.modal-footer{
-    border:1px solid #566992;
-  }
-  .modal-content{
-    background-color:#47587E !important;
-    color: white !important;
-  }
-  .modal-content .form-control,.modal-content input{
-    background-color: #344367;
-    border:1px solid #344367;
-  }
+    background-color: #F1F6FA
+}
+.dcontent{
+    line-height: 2em;
+    margin: 0 0 .2rem 0;
+}
+.uheader{
+    background-color: #E6F4FF;
+}
+.ubody{
+    background-color: #F1F8FF
+}
+.val{
+  color: #0885FC
+}
+    /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar
+{
+    width: 6px;
+    height: 10rpx;
+    background-color: #F5F5F5;
+}
+ 
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 3px gray;
+    background-color: #D6D6D6;
+}
+ 
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb
+{
+    -webkit-box-shadow: inset 0 0 6px gray;
+    background-color: #65B3FE;
+}
 </style>
